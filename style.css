@@ -1,0 +1,155 @@
+@import url("https://fronts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap");
+
+:root {
+  --color-main: #1a202e;
+}
+* {
+  font-family: "Poppins", sans-serif;
+  box-sizing: border-box;
+  text-decoration: none;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+.sidebar {
+  width: 280px;
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100%;
+  padding: 24px;
+  background: rgb(133, 78, 138);
+  color: #fff;
+}
+.sidebar-brand {
+  height: 100px;
+}
+.brand-flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.brand-icon span {
+  font-size: 1.5rem;
+  margin-left: 0.5rem;
+}
+.sidebar-user {
+  margin: 1rem 0rem;
+  text-align: center;
+}
+.sidebar-user img {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  border-left: 2px solid #efefef;
+  border-right: 2px solid #efefef;
+  border-bottom: 2px solid #efefef;
+  border-top: 2px solid transparent;
+}
+.sidebar-user h3 {
+  font-size: 1rem;
+}
+.sidebar-user span {
+  font-size: 0.85rem;
+}
+.sidebar-menu {
+  margin-top: 2rem;
+}
+.menu-head {
+  text-transform: uppercase;
+  color: #8da2fb;
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+.sidebar-menu ul {
+  margin-bottom: 1.5rem;
+}
+.sidebar-menu li {
+  margin-bottom: 0.9rem;
+}
+.sidebar-menu li a {
+  margin-bottom: 0.9rem;
+  color: #efefef;
+  display: flex;
+  align-items: center;
+}
+.sidebar-menu li a span {
+  font-size: 1.5rem;
+  display: inline-block;
+  margin-right: 0.8rem;
+}
+.main-content {
+  margin-left: 280px;
+}
+header {
+  height: 100px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #efefef;
+  padding: 1rem 1.5rem;
+}
+.menu-toggle label {
+  height: 60px;
+  width: 60px;
+  display: grid;
+  place-items: center;
+  font-size: 1.5rem;
+  border-radius: 50%;
+}
+.header-icons span {
+  display: inline-block;
+  margin-left: 0.8rem;
+  font-size: 1.4rem;
+}
+.menu-toggle label :hover {
+  background: #efefef;
+}
+main {
+  padding: 1.5rem;
+  background: #efefef;
+  min-height: calc(100vh - 70px);
+}
+.page-header {
+  display: flex;
+  justify-content: space-between;
+}
+.header-action button {
+  outline: none;
+  background: transparent;
+  border: 2px solid #ccc;
+  padding: 0.6rem 1rem;
+  margin-left: 1rem;
+  border-radius: 3px;
+}
+.cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3rem;
+  margin-top: 2rem;
+}
+
+.card-single {
+  background-color: #fff;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.card-flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card-chart {
+  font-size: 2rem;
+}
+
+.card-head span {
+  display: block;
+  text-transform: uppercase;
+  color: #555;
+  font-size: 0.9rem;
+}
