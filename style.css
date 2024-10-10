@@ -1,8 +1,14 @@
-@import url("https://fronts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap");
 
 :root {
   --color-main: #1a202e;
+  --color-light: #f5f5f5;
+  --color-dark: #1a1a1a;
+  --color-accent: #8da2fb;
+  --color-sidebar-bg: rgb(133, 78, 138);
+  --color-sidebar-text: #efefef;
 }
+
 * {
   font-family: "Poppins", sans-serif;
   box-sizing: border-box;
@@ -11,6 +17,8 @@
   margin: 0;
   padding: 0;
 }
+
+/* Sidebar styles */
 .sidebar {
   width: 280px;
   position: fixed;
@@ -18,70 +26,96 @@
   top: 0;
   height: 100%;
   padding: 24px;
-  background: rgb(133, 78, 138);
-  color: #fff;
+  background: var(--color-sidebar-bg);
+  color: var(--color-sidebar-text);
+  overflow-y: auto; /* Ensure sidebar text is scrollable if it overflows */
 }
+
 .sidebar-brand {
   height: 100px;
 }
+
 .brand-flex {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
+
 .brand-icon span {
   font-size: 1.5rem;
   margin-left: 0.5rem;
+  color: var(--color-sidebar-text);
 }
+
 .sidebar-user {
   margin: 1rem 0rem;
   text-align: center;
 }
+
 .sidebar-user img {
   width: 110px;
   height: 110px;
   border-radius: 50%;
-  border-left: 2px solid #efefef;
-  border-right: 2px solid #efefef;
-  border-bottom: 2px solid #efefef;
-  border-top: 2px solid transparent;
+  border: 2px solid var(--color-sidebar-text);
 }
+
 .sidebar-user h3 {
-  font-size: 1rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0.5rem 0;
 }
+
 .sidebar-user span {
   font-size: 0.85rem;
+  color: #ddd;
 }
+
 .sidebar-menu {
   margin-top: 2rem;
 }
+
 .menu-head {
   text-transform: uppercase;
-  color: #8da2fb;
-  font-size: 0.8rem;
+  color: var(--color-accent);
+  font-size: 0.9rem;
   font-weight: 600;
-  margin-bottom: 0.5rem;
+  margin-bottom: 1rem;
 }
+
 .sidebar-menu ul {
   margin-bottom: 1.5rem;
 }
+
 .sidebar-menu li {
-  margin-bottom: 0.9rem;
+  margin-bottom: 1rem;
 }
+
 .sidebar-menu li a {
-  margin-bottom: 0.9rem;
-  color: #efefef;
+  color: var(--color-sidebar-text);
   display: flex;
   align-items: center;
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+  transition: background-color 0.3s ease;
+  border-radius: 6px;
 }
+
 .sidebar-menu li a span {
   font-size: 1.5rem;
-  display: inline-block;
   margin-right: 0.8rem;
 }
+
+.sidebar-menu li a:hover {
+  background-color: var(--color-accent);
+  color: #fff;
+}
+
+/* Main content styles */
 .main-content {
   margin-left: 280px;
+  padding: 1.5rem;
 }
+
 header {
   height: 100px;
   display: flex;
@@ -90,39 +124,11 @@ header {
   background: #efefef;
   padding: 1rem 1.5rem;
 }
-.menu-toggle label {
-  height: 60px;
-  width: 60px;
-  display: grid;
-  place-items: center;
-  font-size: 1.5rem;
-  border-radius: 50%;
-}
+
 .header-icons span {
-  display: inline-block;
-  margin-left: 0.8rem;
   font-size: 1.4rem;
 }
-.menu-toggle label :hover {
-  background: #efefef;
-}
-main {
-  padding: 1.5rem;
-  background: #efefef;
-  min-height: calc(100vh - 70px);
-}
-.page-header {
-  display: flex;
-  justify-content: space-between;
-}
-.header-action button {
-  outline: none;
-  background: transparent;
-  border: 2px solid #ccc;
-  padding: 0.6rem 1rem;
-  margin-left: 1rem;
-  border-radius: 3px;
-}
+
 .cards {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -143,13 +149,76 @@ main {
   align-items: center;
 }
 
-.card-chart {
-  font-size: 2rem;
-}
-
 .card-head span {
   display: block;
   text-transform: uppercase;
   color: #555;
   font-size: 0.9rem;
+}
+
+.card-info h2 {
+  font-size: 2rem;
+  color: var(--color-main);
+  margin: 0.5rem 0;
+}
+
+/* Media Query for smaller screens (tablets and phones) */
+@media (max-width: 1024px) {
+  .sidebar {
+    width: 220px;
+  }
+
+  .main-content {
+    margin-left: 220px;
+  }
+
+  .cards {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
+
+  header {
+    padding: 1rem;
+  }
+}
+
+/* Media Query for mobile screens */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 100px;
+    padding: 12px;
+  }
+
+  .main-content {
+    margin-left: 100px;
+  }
+
+  .cards {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  header {
+    padding: 0.5rem;
+  }
+
+  .card-single {
+    padding: 0.8rem;
+  }
+
+  .card-info h2 {
+    font-size: 1.5rem;
+  }
+}
+
+/* Mobile Styles */
+@media screen and (max-width: 768px) {
+  .sidebar {
+    width: 280px;
+    background-color: var(--color-dark);
+  }
+
+  .main-content {
+    margin-left: 280px;
+  }
 }
