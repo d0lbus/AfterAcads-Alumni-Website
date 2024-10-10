@@ -21,7 +21,7 @@
         />
         <h2>Sign Up</h2>
         <p>Log in with your SLU email</p>
-        <form id="signupForm" action="#">
+        <form action="../config/login.php" method="post" id="signupForm" >
           <label for="email">SLU Email</label>
           <input
             type="email"
@@ -40,7 +40,7 @@
             required
           />
 
-          <button type="submit">Log in with SLU Email</button>
+          <button type="submit" value="Sign In" name="signIn">Log in with SLU Email</button>
         </form>
       </div>
     </div>
