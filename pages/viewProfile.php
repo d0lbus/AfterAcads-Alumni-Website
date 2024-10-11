@@ -23,7 +23,7 @@ include("../config/connection.php");
                     <span></span>
                 </div>
                 <h2 class="User"></h2>
-                <p>TITE TITE</p>
+                <p>pogi si daddy dolby</p>
 
                 <ul class="about">
                     <li><span>Joined October 10, 2024</span></li>
@@ -31,7 +31,7 @@ include("../config/connection.php");
                 </ul>
 
                 <div class="description">
-                    <p>**write bio here** titetitetitetitetitetite</p>
+                    <p>**write bio here** </p>
 
                     <ul>
                         <li><i class="fab fa-twitter"></i></li>

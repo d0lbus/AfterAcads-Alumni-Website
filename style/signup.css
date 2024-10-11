@@ -182,7 +182,6 @@ body {
   align-items: center; 
 }
 
-/* Responsive Design */
 @media (max-width: 768px) {
   .signup-box {
     padding: 30px 20px;
