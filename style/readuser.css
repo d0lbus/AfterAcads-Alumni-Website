@@ -18,7 +18,7 @@
   padding: 0;
 }
 
-.logocircle {
+.logo-circle {
   width: 50px;
   height: 50px;
   border-radius: 50%;
@@ -26,7 +26,7 @@
 }
 
 /* Sidebar styles */
-.sidebar {
+.sidebar-container {
   width: 280px;
   position: fixed;
   left: 0;
@@ -54,25 +54,25 @@
   color: var(--color-sidebar-text);
 }
 
-.sidebar-user {
+.sidebar-user-info {
   margin: 1rem 0rem;
   text-align: center;
 }
 
-.sidebar-user img {
+.sidebar-user-info img {
   width: 110px;
   height: 110px;
   border-radius: 50%;
   border: 2px solid var(--color-sidebar-text);
 }
 
-.sidebar-user h3 {
+.sidebar-user-info h3 {
   font-size: 1.1rem;
   font-weight: 600;
   margin: 0.5rem 0;
 }
 
-.sidebar-user span {
+.sidebar-user-info span {
   font-size: 0.85rem;
   color: #000000;
 }
@@ -136,42 +136,53 @@ header {
   font-size: 1.4rem;
 }
 
-.cards {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 3rem;
+.user-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
   margin-top: 2rem;
 }
 
-.card-single {
-  background-color: #fff;
-  padding: 1rem;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.card-flex {
+.user-card {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  padding: 10px;
+  background-color: #f8f8f8;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background-color: #d1b4c6;
 }
 
-.card-head span {
-  display: block;
-  text-transform: uppercase;
-  color: #555;
-  font-size: 0.9rem;
+.profile-pic {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-right: 10px;
 }
 
-.card-info h2 {
-  font-size: 2rem;
-  color: var(--color-main);
-  margin: 0.5rem 0;
+.user-details {
+  flex-grow: 1;
+}
+
+.status.active {
+  color: green;
+}
+
+.status.offline {
+  color: red;
+}
+
+.employment.employed {
+  color: blue;
+}
+
+.employment.unemployed {
+  color: orange;
 }
 
 /* Media Query for smaller screens (tablets and phones) */
 @media (max-width: 1024px) {
-  .sidebar {
+  .sidebar-container {
     width: 220px;
   }
 
@@ -179,7 +190,8 @@ header {
     margin-left: 220px;
   }
 
-  .cards {
+  .user-cards {
+    display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 2rem;
   }
@@ -191,7 +203,7 @@ header {
 
 /* Media Query for mobile screens */
 @media (max-width: 768px) {
-  .sidebar {
+  .sidebar-container {
     width: 100px;
     padding: 12px;
   }
@@ -200,7 +212,7 @@ header {
     margin-left: 100px;
   }
 
-  .cards {
+  .user-cards {
     grid-template-columns: 1fr;
     gap: 1.5rem;
   }
@@ -209,18 +221,22 @@ header {
     padding: 0.5rem;
   }
 
-  .card-single {
+  .user-card {
     padding: 0.8rem;
   }
 
-  .card-info h2 {
-    font-size: 1.5rem;
+  .user-details h3 {
+    font-size: 1.2rem;
+  }
+
+  .user-details p {
+    font-size: 0.85rem;
   }
 }
 
 /* Mobile Styles */
 @media screen and (max-width: 768px) {
-  .sidebar {
+  .sidebar-container {
     width: 280px;
     background-color: var(--color-dark);
   }

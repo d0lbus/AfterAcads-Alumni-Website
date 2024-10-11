@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Read Users Dashboard</title>
+    <link
+      rel="stylesheet"
+      href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css"
+    />
+    <link rel="stylesheet" href="../style/readuser.css" />
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <div class="sidebar-container">
+      <div class="sidebar-brand">
+        <div class="brand-flex">
+          <img
+            class="logo-circle"
+            src="../assets/alumnilogo.png"
+            width="30px"
+            alt=""
+          />
+
+          <div class="brand-icon">
+            <span class="las la-bell"></span>
+            <span class="las la-user-circle"></span>
+          </div>
+        </div>
+      </div>
+      <div class="sidebar-main">
+        <div class="sidebar-user-info">
+          <img src="../assets/profile.jpg" alt="" />
+          <div>
+            <h3>Mark Arvin Dela Cruz</h3>
+            <span>markarvin@gmail.com</span>
+          </div>
+        </div>
+        <div class="sidebar-menu">
+          <div class="menu-head">
+            <span>Dashboard</span>
+          </div>
+          <ul>
+            <li>
+              <a href="">
+                <span class="las la-calendar"></span>
+                Calendar
+              </a>
+            </li>
+            <li>
+              <a href="">
+                <span class="las la-phone"></span>
+                Contact
+              </a>
+            </li>
+            <li>
+              <a href="">
+                <span class="las la-sign"></span>
+                Events
+              </a>
+            </li>
+            <li>
+              <a href="">
+                <span class="las la-image"></span>
+                Share
+              </a>
+            </li>
+            <li>
+              <a href="">
+                <span class="las la-tools"></span>
+                Settings
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="main-content">
+      <header>
+        <span class="las la-bars"></span>
+        <div class="header-icons">
+          <span class="las la-search"></span>
+        </div>
+      </header>
+      <main>
+        <div class="page-header">
+          <div>
+            <h1>Users</h1>
+            <small>All users:</small>
+          </div>
+          <div class="header-actions"></div>
+        </div>
+        <div class="user-cards">
+          <div class="user-card">
+            <img src="../assets/makoy1.avif" alt="Makoy" class="profile-pic" />
+            <div class="user-details">
+              <h3>Makoy Dela Cruz</h3>
+              <p>Status: <span class="status active">Active</span></p>
+              <p>
+                Employment Status:
+                <span class="employment employed">Employed</span>
+              </p>
+            </div>
+          </div>
+          <div class="user-card">
+            <img src="../assets/dolby1.webp" alt="Dolby" class="profile-pic" />
+            <div class="user-details">
+              <h3>Daddy Dolby</h3>
+              <p>Status: <span class="status offline">Offline</span></p>
+              <p>
+                Employment Status:
+                <span class="employment unemployed">Unemployed</span>
+              </p>
+            </div>
+          </div>
+          <div class="user-card">
+            <img src="../assets/Jelai1.avif" alt="jelai" class="profile-pic" />
+            <div class="user-details">
+              <h3>Jelai</h3>
+              <p>Status: <span class="status active">Active</span></p>
+              <p>
+                Employment Status:
+                <span class="employment employed">Employed</span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>
