@@ -1,0 +1,111 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+  }
+  
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    padding: 0 20px;
+  }
+  .body-color2{
+    background-color: #b0a4c5
+  }
+  
+  .login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  }
+  .login-container-color1{
+    background-color: #efe1e1
+  }
+  .login-box {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 80px 90px;
+    border-radius: 12px;
+    text-align: center;
+    color: #efe1e1;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    max-width: 650px;
+    width: 100%;
+  }
+  
+  .login-box h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  
+  .login-box p {
+    margin-bottom: 25px;
+    font-size: 1.1rem;
+    color: #000000;
+  }
+  .logocircle {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 2px solid var(--color-sidebar-text);
+  }
+  
+  .login-box form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .login-box label {
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+    text-align: left;
+  }
+  
+  .login-box input {
+    padding: 12px;
+    margin-bottom: 15px;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    width: 100%;
+  }
+  
+  .login-box input[type="email"],
+  .login-box input[type="password"] {
+    background-color: rgba(255, 255, 255, 0.15);
+    color: #000000;
+  }
+  
+  .login-box input[type="email"]::placeholder,
+  .login-box input[type="password"]::placeholder {
+    color: rgba(0, 0, 0, 0.7);
+  }
+  
+  .login-box button {
+    background-color: #e0c1c6;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .login-box button:hover {
+    background-color: #efe1e1;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .login-box {
+      padding: 30px 20px;
+    }
+  }
+  
