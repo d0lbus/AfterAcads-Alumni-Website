@@ -1,0 +1,275 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap");
+
+:root {
+  --color-main: #1a202e;
+  --color-light: #f5f5f5;
+  --color-dark: #1a1a1a;
+  --color-accent: #8da2fb;
+  --color-sidebar-bg: #d1b4c6;
+  --color-sidebar-text: #000000;
+}
+
+* {
+  font-family: "Poppins", sans-serif;
+  box-sizing: border-box;
+  text-decoration: none;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.logocircle {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 2px solid var(--color-sidebar-text);
+}
+
+/* Sidebar styles */
+.sidebar {
+  width: 280px;
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100%;
+  padding: 24px;
+  background: var(--color-sidebar-bg);
+  color: var(--color-sidebar-text);
+  overflow-y: auto; /* Ensure sidebar text is scrollable if it overflows */
+}
+
+.sidebar-brand {
+  height: 100px;
+}
+
+.brand-flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.brand-icon span {
+  font-size: 1.5rem;
+  margin-left: 0.5rem;
+  color: var(--color-sidebar-text);
+}
+
+.sidebar-user {
+  margin: 1rem 0rem;
+  text-align: center;
+}
+
+.sidebar-user img {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  border: 2px solid var(--color-sidebar-text);
+}
+
+.sidebar-user h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0.5rem 0;
+}
+
+.sidebar-user span {
+  font-size: 0.85rem;
+  color: #000000;
+}
+
+.sidebar-menu {
+  margin-top: 2rem;
+}
+
+.menu-head {
+  text-transform: uppercase;
+  color: var(--color-accent);
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.sidebar-menu ul {
+  margin-bottom: 1.5rem;
+}
+
+.sidebar-menu li {
+  margin-bottom: 1rem;
+}
+
+.sidebar-menu li a {
+  color: var(--color-sidebar-text);
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+  transition: background-color 0.3s ease;
+  border-radius: 6px;
+}
+
+.sidebar-menu li a span {
+  font-size: 1.5rem;
+  margin-right: 0.8rem;
+}
+
+.sidebar-menu li a:hover {
+  background-color: var(--color-accent);
+  color: #fff;
+}
+
+/* Main content styles */
+.main-content {
+  margin-left: 280px;
+  padding: 1.5rem;
+}
+
+header {
+  height: 100px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #efefef;
+  padding: 1rem 1.5rem;
+}
+
+h1 {
+    margin-bottom: 8px;
+}
+
+small {
+    display: block;
+    margin-bottom: 24px;
+}
+.header-icons span {
+  font-size: 1.4rem;
+}
+
+/* Media Query for smaller screens (tablets and phones) */
+@media (max-width: 1024px) {
+  .sidebar {
+    width: 220px;
+  }
+
+  .main-content {
+    margin-left: 220px;
+  }
+
+  .cards {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
+
+  header {
+    padding: 1rem;
+  }
+}
+
+/* Media Query for mobile screens */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 100px;
+    padding: 12px;
+  }
+
+  .main-content {
+    margin-left: 100px;
+  }
+
+  .cards {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  header {
+    padding: 0.5rem;
+  }
+
+  .card-single {
+    padding: 0.8rem;
+  }
+
+  .card-info h2 {
+    font-size: 1.5rem;
+  }
+}
+
+/* Card Layout */
+
+.card-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 4px 8px 0 rgba (0,0,0,0.2);
+    padding: 16px;
+    border-radius: 60px;
+    background-color: #cabbcb;
+}
+
+.card img {
+    max-width: 150px;
+    margin-right: 16px;
+    border-radius: 60px;
+}
+.container {
+    flex-grow: 1;
+}
+
+.button-container {
+    display: flex;
+    flex-direction: column;
+}
+.card p {
+    margin-bottom: 8px;
+}
+.button-container .button {
+    display: block;
+    padding: 8px;
+    background-color: #f0d2da;
+    text-decoration: none;
+    border-radius: 60px;
+    margin-top: 8px;
+    color: #000000;
+    text-align: center;
+}
+
+.button-container .button:first-child {
+    margin-top: 0;
+}
+
+/* Mobile Styles */
+@media screen and (max-width: 768px) {
+  .sidebar {
+    width: 280px;
+    background-color: var(--color-dark);
+  }
+
+  .main-content {
+    margin-left: 280px;
+  }
+
+  .card {
+    flex-direction: column; /* Stack elements vertically */
+    align-items: flex-start; /* Align elements to the left */
+}
+
+.card img {
+    max-width: 100%; /* Ensure the image takes the full width */
+    margin-right: 0; /* Remove right margin */
+    margin-bottom: 16px; /* Add some space below the image */
+}
+
+.button-container {
+    align-self: stretch; /* Make buttons take the full width */
+}
+
+.button-container .button {
+    width: 100%; /* Make each button take up full width */
+    margin-top: 8px;
+}
+}
