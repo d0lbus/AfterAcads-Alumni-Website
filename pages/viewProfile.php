@@ -11,6 +11,7 @@ include("../config/connection.php");
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>View Profile</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="../style/view-profile.css" />
 </head>
 <body>
@@ -34,9 +35,9 @@ include("../config/connection.php");
                     <p>**write bio here** </p>
 
                     <ul>
-                        <li><i class="fab fa-twitter"></i></li>
-                        <li><i class="fab fa-facebook"></i></li>
-                        <li><i class="fab fa-instagram"></i></li>
+                        <li><i class="fa fa-twitter"></i></li>
+                        <li><i class="fa fa-facebook"></i></li>
+                        <li><i class="fa fa-instagram"></i></li>
                     </ul>
                 </div>
             </div>
@@ -52,9 +53,10 @@ include("../config/connection.php");
                 </nav>
 
                 <div class="photos">
-                    <img src="" alt="" />
-                    <img src="" alt="" />
-                    <img src="" alt="" />
+                    <img src="/assets/samcis-logo.jpg" alt="" />
+                    <img src="/assets/slu-bakakeng.jpg" alt="" />
+                    <img src="/assets/slu-lobby.jpg" alt="" />
+                    <img src="/assets/profile.jpg" alt="" />
                 </div>
             </div>
         </div>
