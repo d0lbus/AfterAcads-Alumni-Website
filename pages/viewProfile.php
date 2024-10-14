@@ -3,7 +3,6 @@ session_start();
 include("../config/connection.php");
 ?>
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,7 +15,7 @@ include("../config/connection.php");
 </head>
 <body>
     <div class="header-wrapper">
-        <header></header>
+        <div class="header"></div> 
         <div class="cols-container">
             <div class="left-col">
                 <div class="img-container">
