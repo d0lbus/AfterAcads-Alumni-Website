@@ -31,8 +31,8 @@ include("../config/connection.php");
                     <li><span>Lives in Baguio City</span></li>
                 </ul>
 
-                <div class="description">
-                    <p>**write bio here** </p>
+                <div class="content">
+                    <p>Sana mabawasan mga gawain T__T </p>
 
                     <ul>
                         <li><i class="fa fa-twitter"></i></li>
