@@ -23,7 +23,7 @@ include("../config/connection.php");
                     <img src="/assets/display-photo.png" alt="Display Photo" />
                     <span></span>
                 </div>
-                <h2 class="User"></h2>
+                <h2>Boldy Achino</h2>
                 <p>pogi si daddy dolby</p>
 
                 <ul class="about">
