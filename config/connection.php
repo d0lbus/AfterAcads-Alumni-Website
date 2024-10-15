@@ -2,7 +2,7 @@
 $host="localhost";
 $user="root";
 $pass="";
-$db="logintest";
+$db="afteracads";
 $conn=new mysqli($host,$user,$pass,$db);
 
 
