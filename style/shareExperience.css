@@ -303,6 +303,117 @@ header {
   }
 }
 
+/* Post styling */
+.post {
+  background-color: #f9f9f9; /* Light background for the post */
+  border-radius: 12px; /* Rounded corners */
+  padding: 16px; /* Padding for the post content */
+  margin-top: 20px; /* Space between posts */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+.post-user {
+  display: flex;
+  align-items: center;
+  font-weight: 600; /* Bold the name */
+  font-size: 1.1rem; /* Slightly larger font size */
+  margin-bottom: 8px; /* Space between name and content */
+}
+
+.post-user img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.post-content {
+  font-size: 1rem;
+  color: #333; /* Darker text for content */
+  margin-bottom: 10px; /* Space between content and timestamp */
+}
+
+.post-date {
+  font-size: 0.9rem;
+  color: #999; /* Lighter color for timestamp */
+  text-align: right;
+}
+
+/* Styling the Post Input Section */
+.addPost {
+  background-color: #f3e4e4; /* Light pink background */
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.addPost-header {
+  display: flex;
+  align-items: center;
+}
+
+.profile-pic {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.post-input {
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  padding: 10px;
+  font-size: 1rem;
+  margin-right: 10px;
+}
+
+.post-button {
+  background-color: #8da2fb;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+  margin-top: 10px;
+}
+
+.post-button:hover {
+  background-color: #6d88f7;
+}
+
+.post-option {
+  background-color: transparent;
+  border: 1px solid #8da2fb;
+  color: #8da2fb;
+  padding: 8px 12px;
+  border-radius: 12px;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.post-option:hover {
+  background-color: rgba(141, 162, 251, 0.2);
+}
+
+@media (max-width: 768px) {
+  .post-input {
+      margin-bottom: 10px;
+  }
+
+  .addPost-header {
+      flex-direction: column;
+  }
+}
+
+
 /* Mobile Styles */
 @media screen and (max-width: 768px) {
   .sidebar {

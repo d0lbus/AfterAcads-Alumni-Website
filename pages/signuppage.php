@@ -22,41 +22,26 @@
         <h2 style="color: black">Sign Up</h2>
         <p>Log in with your SLU email</p>
 
-        <label for="firstName">firstName</label>
-        <input
-          type="firstName"
-          id="firstName"
-          name="firstName"
-          placeholder="First name"
-          required
-        />
-
-        <label for="lastName">lastName</label>
-        <input
-          type="lastName"
-          id="lastName"
-          name="lastName"
-          placeholder="Last name"
-          required
-        />
-
-        <label for="email">SLU Email</label>
-        <input
-          type="email"
-          id="email"
-          name="email"
-          placeholder="yourname@slu.edu.ph"
-          required
-        />
-
-        <label for="password">Password</label>
-        <input
-          type="password"
-          id="password"
-          name="password"
-          placeholder="Enter your password"
-          required
-        />
+        <form action="../config/signup.php" method="POST">
+          <label for="firstName">First Name</label>
+          <input type="text" id="firstName" name="firstName" placeholder="First name" required />
+      
+          <label for="lastName">Last Name</label>
+          <input type="text" id="lastName" name="lastName" placeholder="Last name" required />
+      
+          <label for="email">SLU Email</label>
+          <input type="email" id="email" name="email" placeholder="yourname@slu.edu.ph" required />
+      
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" placeholder="Enter your password" required />
+      
+          <div class="agreement-section">
+              <input type="checkbox" id="agree-terms" name="agree-terms" required />
+              <label for="agree-terms">I agree to the <a href="#">Terms of Use</a> and <a href="#">Privacy Policy</a>.</label>
+          </div>
+          <button class="buttonsize" type="submit">Sign Up</button>
+      </form>
+      
 
         <!-- Agreement Section with Checkboxes -->
         <div class="agreement-section">
