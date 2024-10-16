@@ -6,7 +6,7 @@ if (!isset($_SESSION['email'])) {
     exit();
 }
 
-include '../config/connection.php'; 
+include '../config/connection.php';
 
 // Fetch user data based on the session email
 $email = $_SESSION['email'];
@@ -26,6 +26,7 @@ if ($result->num_rows > 0) {
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -34,9 +35,10 @@ if ($result->num_rows > 0) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="../style/view-profile.css" />
 </head>
+
 <body>
     <div class="header-wrapper">
-        <div class="header"></div> 
+        <div class="header"></div>
         <div class="cols-container">
             <div class="left-col">
                 <div class="img-container">
@@ -66,20 +68,26 @@ if ($result->num_rows > 0) {
             <div class="right-col">
                 <nav>
                     <ul>
-                        <li><a href="#">Posts</a></li>
-                        <li><a href="#">Photos</a></li>
-                        <li><a href="#">Groups</a></li>
-                        <li><a href="#">About</a></li>
+                        <li><a href="#posts">Posts</a></li>
+                        <li><a href="#photos">Photos</a></li>
+                        <li><a href="#about">About</a></li>
                     </ul>
-                    <button>Follow</button>
                 </nav>
 
+                <div class="posts" id="posts">
+                    <p>sample post</p>
+                </div>
+
+                <div class="line"></div>
+
                 <!-- TO DO: Display user's uploaded photos DYNAMICALLY  -->
-                <div class="photos">
-                    <img src="/assets/samcis-logo.jpg" alt="" />
-                    <img src="/assets/slu-bakakeng.jpg" alt="" />
-                    <img src="/assets/slu-lobby.jpg" alt="" />
-                    <img src="/assets/profile.jpg" alt="" />
+                <div class="photos" id="photos">
+                    <img src="" alt="image" />
+                    <img src="" alt="image" />
+                    <img src="" alt="image" />
+                    <img src="" alt="image" />
+                    <img src="" alt="image" />
+                    <img src="" alt="image" />
                 </div>
             </div>
         </div>
