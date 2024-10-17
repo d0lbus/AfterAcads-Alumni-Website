@@ -8,7 +8,7 @@
       rel="stylesheet"
       href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css"
     />
-    <link rel="stylesheet" href="../style/events.css" />
+    <link rel="stylesheet" href="../style/view-events.css" />
     <script src="{SCRIPT_PATH}" defer></script>
   </head>
   <body>
@@ -49,7 +49,7 @@
               </a>
             </li>
             <li>
-              <a href="{EVENTS_LINK}">
+              <a href="../pages/events.html">
                 <span class="las la-sign"></span>
                 Events
               </a>
@@ -73,34 +73,50 @@
   </body>
 </html>
 
-    <div class="main-content">
-      <header>
-        <span class="las la-bars"></span>
-        <div class="header-icons">
-          <span class="las la-search"></span>
-        </div>
-      </header>
-      <main>
-        <div class="page-header">
-          <div>
-            <h1>Events</h1>
-            <small>See upcoming events and mark those you are interested in</small>
-            <div class="card-container">
-                <div class="card">
-                    <img src="{EVENT_IMAGE_PATH}" alt="{EVENT_ALT_TEXT}">
-                    <div class="container">
-                        <h2><b>{EVENT_TITLE_1}</b></h2>
-                        <p>{EVENT_DESCRIPTION_1}</p>
-                    </div>
-                    <div class="button-container">
-                        <a href="../pages/viewEvents.html" class="button">VIEW</a>
-                        <a href="{INTERESTED_LINK_1}" class="button">INTERESTED</a>
-                    </div>
-                </div>
-            </div>
+<div class="main-content">
+    <header>
+      <span class="las la-bars"></span>
+      <div class="header-icons">
+        <span class="las la-search"></span>
+      </div>
+    </header>
+    <main>
+      <div class="page-header">
+        <div class="content-container">
+          <div class="event-details">
+            <h1>{EVENT}</h1>
+            <p>
+              Held by: {HOST} <br />
+              When: {DATE}<br />
+              Where: {LOCATION} <br />
+              Time: {TIME}
+            </p>
           </div>
-      </main>
-    </div>
+          <div class="button-container">
+            <a href="" class="button">INTERESTED</a>
+            <a href="" class="button">GOING</a>
+          </div>
+        </div>
+        <div class="background-image">
+          <img src="{EVENT_IMAGE}" alt="{EVENT_ALT_TEXT}" />
+        </div>
+      </div>
+      <div class="friends-interested">
+        <div class="profile-pictures">
+            <img src="{FRIEND_1_ICON}" alt="Friend 1" />
+            <img src="{FRIEND_2_ICON}" alt="Friend 2" />
+            <img src="{FRIEND_3_ICON}" alt="Friend 3" />
+        </div>
+        <span>Julianne and 30+ others are interested</span>
+    </div>  
+    <div class="event-description">
+        <p>
+            {EVENT DESCRIPTION}
+        </p>
+        <img src="{EVENT_IMAGE}" alt="Event Image" />
+    </div>  
+    </main>
+  </div>  
   </body>
 </html>
 
