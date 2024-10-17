@@ -273,3 +273,27 @@ small {
     margin-top: 8px;
 }
 }
+
+.pagination {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.pagination .button {
+  display: inline-block;
+  padding: 10px 20px;
+  margin: 0 5px;
+  background-color: #8da2fb;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+}
+
+.pagination .button:hover {
+  background-color: #6d88f7;
+}
+
+.pagination .active {
+  background-color: #6d88f7;
+  pointer-events: none;
+}
