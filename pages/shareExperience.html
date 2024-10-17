@@ -90,6 +90,18 @@ if ($result->num_rows > 0) {
                     <img src="../assets/profile.jpg" alt="Profile" class="profile-pic" />
                     <input type="text" id="postContent" placeholder="What's on your mind, <?php echo htmlspecialchars($user['first_name']); ?>?" class="post-input" />
                 </div>
+
+                <div class="tag-dropdown">
+                    <label for="tags" class="tag-label">Select a Tag:</label>
+                    <select id="tags" class="tag-select">
+                        <option value="">Select a Tag:</option>
+                        <option value="SAMCIS">SAMCIS</option>
+                        <option value="SOHNABS">SOHNABS</option>
+                        <option value="STELA">STELA</option>
+                        <option value="SEA">SEA</option>
+                    </select>
+                </div>
+
                 <div class="addPost-option">
                     <button id="addPhotoVideoButton" class="post-option">
                         <span class="las la-image"></span> Photo/Video
@@ -102,19 +114,33 @@ if ($result->num_rows > 0) {
 
             <div class="modal" id="postModal">
                 <div class="modal-content">
-                    <h2>Create Post</h2>
+                    <span class="close-modal">&times;</span>
+                    <h2 class="modal-title">Create Post</h2>
+                    <div class="line"></div>
                     <div class="modal-header">
                         <img src="../assets/profile.jpg" alt="Profile" class="profile-pic" />
                         <span><?php echo htmlspecialchars($user['first_name'] . ' ' . $user['last_name']); ?></span>
+                        <input type="text" placeholder="What's on your mind?" class="post-input" />
                     </div>
-                    <input type="text" placeholder="What's on your mind again?" class="post-input" />
+                    <div class="modal-divider"></div>
+
+                    <div class="tag-dropdown">
+                        <label for="modal-tags" class="tag-label">Select a Tag:</label>
+                        <select id="modal-tags" class="tag-select">
+                            <option value="">Select a Tag:</option>
+                            <option value="SAMCIS">SAMCIS</option>
+                            <option value="SOHNABS">SOHNABS</option>
+                            <option value="STELA">STELA</option>
+                            <option value="SEA">SEA</option>
+                        </select>
+                    </div>
+
                     <div class="modal-add-option">
                         <button class="post-option">
                             <span class="las la-image"></span> Add Photo/Video
                         </button>
                     </div>
                     <button class="post-button">Post</button>
-                    <span class="close-modal">&times;</span>
                 </div>
             </div>
         </main>
