@@ -23,6 +23,12 @@ if ($result->num_rows > 0) {
     exit();
 }
 
+$sql_posts = "SELECT content, created_at FROM posts WHERE user_id = ?";
+$stmt_posts = $conn->prepare($sql_posts);
+$stmt_posts->bind_param("i", $user['id']);
+$stmt_posts->execute();
+$result_posts = $stmt_posts->get_result();
+
 ?>
 
 <!DOCTYPE html>
@@ -117,7 +123,16 @@ if ($result->num_rows > 0) {
                     </nav>
 
                     <div class="posts" id="posts">
-                        <p>sample post</p>
+                    <?php if ($result_posts->num_rows > 0): ?>
+        <?php while ($post = $result_posts->fetch_assoc()): ?>
+            <div class="post">
+                <p><?php echo htmlspecialchars($post['content']); ?></p>
+                <small><?php echo date('F d, Y H:i', strtotime($post['created_at'])); ?></small>
+            </div>
+        <?php endwhile; ?>
+    <?php else: ?>
+        <p>No posts yet.</p>
+    <?php endif; ?>
                     </div>
 
                     <div class="line"></div>
