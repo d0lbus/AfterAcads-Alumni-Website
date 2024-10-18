@@ -18,6 +18,13 @@
   padding: 0;
 }
 
+.logocircle {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 2px solid var(--color-sidebar-text);
+}
+
 /* Sidebar styles */
 .sidebar {
   width: 280px;
@@ -39,6 +46,11 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.brand-icon a {
+  display: inline-block;
+  text-decoration: none;
 }
 
 .brand-icon span {
@@ -68,6 +80,23 @@
 .sidebar-user span {
   font-size: 0.85rem;
   color: #000000;
+}
+
+.sidebar-user a {
+  display: inline-block; 
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.sidebar-user a img {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  transition: transform 0.3s ease; 
+}
+
+.sidebar-user a:hover img {
+  transform: scale(1.05);
 }
 
 .sidebar-menu {
@@ -111,22 +140,26 @@
 }
 
 /* Main content styles */
-.main-content {
-  margin-left: 280px;
-  padding: 1.5rem;
-}
-
 header {
-  height: 100px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: #efefef;
-  padding: 1rem 1.5rem;
+  position: relative;
 }
 
-.header-icons span {
-  font-size: 1.4rem;
+.header-search-bar {
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  background-color: #fff;
+  border-radius: 20px;
+  width: 20%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: absolute;
+  right: 0;
+  top: 0;
+  margin-top: 20px; 
+}
+
+.main-content header {
+  padding-bottom: 70px; 
 }
 
 /* Page Layout */
@@ -135,7 +168,7 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  padding: 2rem;
+  padding: 4rem 2rem; 
   background: rgba(255, 255, 255, 0.8);
 }
 

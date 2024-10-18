@@ -23,41 +23,41 @@ if ($result->num_rows > 0) {
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title><?php echo htmlspecialchars($event['title']); ?></title>
-    <link
-      rel="stylesheet"
-      href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css"
-    />
+    <title>View Events</title>
+    <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css" />
     <link rel="stylesheet" href="../style/view-events.css" />
 </head>
 <body>
-    <!-- Sidebar Section -->
     <div class="sidebar">
         <div class="sidebar-brand">
             <div class="brand-flex">
-                <img class="logocircle" src="../assets/alumnilogo.png" width="30px" alt="Alumni Logo" />
+                <img class="logocircle" src="../assets/alumnilogo.png" width="30px" alt="" />
                 <div class="brand-icon">
-                    <span class="las la-bell"></span>
-                    <span class="las la-user-circle"></span>
+                    <a href="your-link-here.html">
+                        <span class="las la-bars"></span>
+                    </a>
                 </div>
             </div>
         </div>
         <div class="sidebar-main">
             <div class="sidebar-user">
-                <img src="../assets/display-photo.png" alt="Profile Photo" />
+                <a href="../pages/viewProfile.php">
+                    <img src="../assets/profile.jpg" alt="Profile Picture" />
+                </a>
                 <div>
-                    <h3>User Name</h3>
-                    <span>user@example.com</span>
+                    <h3><?php echo htmlspecialchars($user['first_name'] . ' ' . $user['last_name']); ?></h3>
+                    <span><?php echo htmlspecialchars($user['email']); ?></span>
                 </div>
             </div>
             <div class="sidebar-menu">
-                <div class="menu-head"><span>DASHBOARD</span></div>
+                <div class="menu-head">
+                    <span>Dashboard</span>
+                </div>
                 <ul>
-                    <li><a href="#"><span class="las la-calendar"></span> Calendar</a></li>
-                    <li><a href="#"><span class="las la-phone"></span> Contact</a></li>
-                    <li><a href="../pages/events.php"><span class="las la-sign"></span> Events</a></li>
-                    <li><a href="../pages/shareExperience.php"><span class="las la-image"></span> Share</a></li>
-                    <li><a href="../pages/settings.php"><span class="las la-tools"></span> Settings</a></li>
+                    <li><a href="../pages/shareExperience.php"><span class="las la-home"></span>Home</a></li>
+                    <li><a href="../pages/events.php"><span class="las la-sign"></span>Events</a></li>
+                    <li><a href="../pages/settings.php"><span class="las la-tools"></span>Settings</a></li>
+                    <li><a href="../pages/loginpage.php"><span class="las la-sign-out-alt"></span>Logout</a></li>
                 </ul>
             </div>
         </div>
@@ -65,9 +65,11 @@ if ($result->num_rows > 0) {
 
     <div class="main-content">
         <header>
-            <span class="las la-bars"></span>
-            <div class="header-icons">
-                <span class="las la-search"></span>
+            <div class="header-search-bar">
+                <input type="text" class="search-input" placeholder="Search..." />
+                <button class="search-button" aria-label="Search">
+                    <span class="las la-search"></span>
+                </button>
             </div>
         </header>
         <main>
