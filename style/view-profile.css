@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap");
+
 :root {
   --color-main: #1a202e;
   --color-light: #f5f5f5;
@@ -21,16 +23,8 @@
   height: 40px;
   border-radius: 50%;
   border: 2px solid var(--color-sidebar-text);
-  margin-left: 400%;
+  margin-left: 230%;
 }
-
-/* body {
-    width: 100%;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    min-height: 100vh;
-} */
 
 .social-logo {
     list-style-type: none;
@@ -206,7 +200,7 @@ a {
 /* Main content styles */
 .main-content {
   margin-left: 280px;
-  padding-left: 50px;
+  padding-left: 20px;
   padding-right: 10px;
   transition: margin-left 0.3s ease;
 }
@@ -228,13 +222,6 @@ a {
 .left-col {
   margin-left: 60px;
 }
-
-
-/* .header-wrapper header {
-    width: 100%;
-    background: url("/assets/header-pic.png") no-repeat 50% 20% / cover;
-    min-height: calc(100px + 15vw);
-} */
 
 .header-wrapper .cols-container .left-col {
     padding: 25px 20px;
