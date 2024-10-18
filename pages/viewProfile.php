@@ -45,7 +45,7 @@ if ($result->num_rows > 0) {
                 
                 <div class="brand-icon">
                     <a href="javascript:void(0)" id="sidebarToggle">
-                        <span class="fa fa-bars"></span>
+                        <span class="las la-bars"></span>
                     </a>
                 </div>
 
