@@ -91,7 +91,7 @@ if ($result->num_rows > 0) {
             <div class="addPost">
                 <div class="addPost-header">
                     <img src="../assets/profile.jpg" alt="Profile" class="profile-pic" />
-                    <input type="text" id="postContent" placeholder="What's on your mind, <?php echo htmlspecialchars($user['first_name']); ?>?" class="post-input" />
+                    <textarea id="postContent" placeholder="What's on your mind, <?php echo htmlspecialchars($user['first_name']); ?>?" class="post-input" rows="1"></textarea>
                 </div>
 
                 <div class="tag-dropdown">
@@ -123,8 +123,9 @@ if ($result->num_rows > 0) {
                     <div class="modal-header">
                         <img src="../assets/profile.jpg" alt="Profile" class="profile-pic" />
                         <span><?php echo htmlspecialchars($user['first_name'] . ' ' . $user['last_name']); ?></span>
-                        <input type="text" placeholder="What's on your mind?" class="post-input" />
+                        <textarea id="postContent" placeholder="What's on your mind?" class="post-input" rows="3"></textarea>
                     </div>
+
                     <div class="modal-divider"></div>
 
                     <div class="tag-dropdown">

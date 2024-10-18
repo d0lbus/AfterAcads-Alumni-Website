@@ -231,17 +231,19 @@ header {
 }
 
 .post-input {
-    flex: 1;
-    border: 1px solid #ccc;
-    border-radius: 20px;
-    padding: 10px;
-    font-size: 1rem;
-    outline: none;
-    transition: border 0.3s;
+  flex: 1;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  padding: 10px;
+  font-size: 1rem;
+  outline: none;
+  transition: border 0.3s;
+  resize: vertical; 
+  min-height: 50px;
 }
 
 .post-input:focus {
-    border-color: var(--color-accent);
+  border-color: var(--color-accent);
 }
 
 .addPost-option {
@@ -335,7 +337,7 @@ header {
 .modal-header {
     display: flex;
     align-items: center;
-    margin-bottom: 10px;
+    overflow: hidden;
 }
 
 .modal-header .profile-pic {
