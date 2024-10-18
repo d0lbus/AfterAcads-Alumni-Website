@@ -19,11 +19,11 @@
 }
 
 .logocircle {
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   border: 2px solid var(--color-sidebar-text);
-  margin-left: 190%;
+  margin-left: 400%;
 }
 
 /* Sidebar styles */
@@ -62,18 +62,15 @@
   align-items: center;
 }
 
-.brand-icon .minimize-button {
-  border: none;
-  background: transparent; 
-  cursor: pointer; 
-  outline: none; 
-  padding: 4px; 
-  margin-left: 8px; 
-  font-size: 1.4em; 
+.brand-icon a {
+  margin-left: 7px;
+  display: inline-block;
+  text-decoration: none;
 }
 
-.brand-icon .minimize-button:hover {
-  color: #007bff; 
+.brand-icon span {
+  font-size: 1.8rem;
+  color: var(--color-sidebar-text);
 }
 
 /* Hide sidebar content when minimized */

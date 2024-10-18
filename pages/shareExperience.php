@@ -41,7 +41,7 @@ if ($result->num_rows > 0) {
                 <div class="brand-icon">
                     <a href="javascript:void(0)" id="sidebarToggle">
                         <span class="las la-bars"></span>
-                    </button>
+                    
                 </div>
                 <img class="logocircle" src="../assets/alumnilogo.png" width="30px" alt="" />
             </div>
