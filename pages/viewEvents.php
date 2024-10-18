@@ -1,23 +1,3 @@
-<?php
-include '../config/connection.php';
-
-$event_id = isset($_GET['event_id']) ? intval($_GET['event_id']) : 0;
-
-// Fetch the event details from the database
-$sql = "SELECT * FROM events WHERE id = ?";
-$stmt = $conn->prepare($sql);
-$stmt->bind_param('i', $event_id);
-$stmt->execute();
-$result = $stmt->get_result();
-
-if ($result->num_rows > 0) {
-    $event = $result->fetch_assoc();
-} else {
-    echo "Event not found.";
-    exit();
-}
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -72,6 +52,8 @@ if ($result->num_rows > 0) {
                 </button>
             </div>
         </header>
+        
+        <!-- The rest of the content appears below the search bar -->
         <main>
             <div class="page-header">
                 <div class="content-container">

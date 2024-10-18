@@ -25,7 +25,6 @@ $stmt = $conn->prepare($sql);
 $stmt->bind_param('ii', $events_per_page, $offset);
 $stmt->execute();
 $result = $stmt->get_result();
-
 ?>
 
 <!DOCTYPE html>
@@ -87,6 +86,8 @@ $result = $stmt->get_result();
                 <div>
                     <h1>Events</h1>
                     <small>See upcoming events and mark those you are interested in</small>
+
+                    <!-- Dropdown Filter -->
                     <div class="dropdown-container">
                         <select id="filter-events" name="filter-events">
                             <option value="" disabled selected>Filter Events</option>
@@ -95,6 +96,7 @@ $result = $stmt->get_result();
                             <option value="filter3">Placeholder Filter 3</option>
                         </select>
                     </div>                    
+
                     <div class="card-container">
                         <?php while ($event = $result->fetch_assoc()): ?>
                             <div class="card">
@@ -110,7 +112,7 @@ $result = $stmt->get_result();
                             </div>
                         <?php endwhile; ?>
                     </div>
-                    
+
                     <!-- Pagination Section -->
                     <div class="pagination">
                         <?php if ($page > 1): ?>
