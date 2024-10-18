@@ -122,21 +122,21 @@ $result_posts = $stmt_posts->get_result();
                         </ul>
                     </nav>
 
-                    <div class="posts" id="posts">
+                <div class="posts" id="posts">
                     <?php if ($result_posts->num_rows > 0): ?>
-        <?php while ($post = $result_posts->fetch_assoc()): ?>
-            <div class="post">
-                <p><?php echo htmlspecialchars($post['content']); ?></p>
-                <small><?php echo date('F d, Y H:i', strtotime($post['created_at'])); ?></small>
-            </div>
-        <?php endwhile; ?>
-    <?php else: ?>
-        <p>No posts yet.</p>
-    <?php endif; ?>
-                    </div>
+                        <?php while ($post = $result_posts->fetch_assoc()): ?>
+                            <div class="post">
+                                <p><?php echo htmlspecialchars($post['content']); ?></p>
+                                <small><?php echo date('F d, Y H:i', strtotime($post['created_at'])); ?></small>
+                            </div>
 
-                    <div class="line"></div>
+                        <?php endwhile; ?>
+                    <?php else: ?>
+                        <p>No posts yet.</p>
+                    <?php endif; ?>
+                </div>
 
+                <div class="line"></div>
                     <!-- TO DO: Display user's uploaded photos DYNAMICALLY  -->
                     <div class="photos" id="photos">
                         <img src="" alt="image" />
