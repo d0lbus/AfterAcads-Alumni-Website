@@ -39,9 +39,9 @@ if ($result->num_rows > 0) {
             <div class="brand-flex">
                 <img class="logocircle" src="../assets/alumnilogo.png" width="30px" alt="" />
                 <div class="brand-icon">
-                    <a href="your-link-here.html">
+                    <button class="minimize-button" aria-label="Minimize">
                         <span class="las la-bars"></span>
-                    </a>
+                    </button>
                 </div>
             </div>
         </div>
