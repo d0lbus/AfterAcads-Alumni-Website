@@ -1,13 +1,38 @@
-body {
+:root {
+  --color-main: #1a202e;
+  --color-light: #f5f5f5;
+  --color-dark: #1a1a1a;
+  --color-accent: #8da2fb;
+  --color-sidebar-bg: #d1b4c6;
+  --color-sidebar-text: #000000;
+}
+
+* {
+  font-family: "Poppins", sans-serif;
+  box-sizing: border-box;
+  text-decoration: none;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.logocircle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid var(--color-sidebar-text);
+  margin-left: 400%;
+}
+
+/* body {
     width: 100%;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     min-height: 100vh;
-    font-family: 'Courier New', Courier, monospace;
-}
+} */
 
-ul {
+.social-logo {
     list-style-type: none;
     margin: 0;
     padding: 0;
@@ -26,24 +51,26 @@ a {
 }
 
 /* Sidebar styles */
+
 .sidebar {
   width: 280px;
   position: fixed;
   left: 0;
   top: 0;
   height: 100%;
-  background: #333;
-  color: #fff;
-  overflow-y: auto;
-  overflow-x: hidden;
-  transition: width 0.3s ease, padding 0.3s ease;
+  padding: 24px;
+  background: var(--color-sidebar-bg);
+  color: var(--color-sidebar-text);
+  overflow-y: auto; /* Ensure sidebar text is scrollable if it overflows */
+  overflow-x: hidden; /* Prevent horizontal scrolling */
+  transition: width 0.3s ease, padding 0.3s ease; /* Slide effect */
   z-index: 100;
 }
 
 .sidebar.minimized {
-  width: 60px;
-  padding-left: 0.5rem;
-  overflow-y: hidden;
+  width: 60px; /* Minimized width */
+  padding-left: 0.5rem; /* Reduce padding when minimized */
+  overflow-y: hidden; /* Prevent vertical scrolling when minimized */
 }
 
 .sidebar-brand {
@@ -51,7 +78,6 @@ a {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 1rem;
 }
 
 .brand-flex {
@@ -61,28 +87,81 @@ a {
 }
 
 .brand-icon a {
+  margin-left: 7px;
   display: inline-block;
   text-decoration: none;
 }
 
 .brand-icon span {
   font-size: 1.8rem;
-  color: #fff;
+  color: var(--color-sidebar-text);
 }
 
+/* Hide sidebar content when minimized */
 .sidebar-content {
   display: block;
 }
 
+.sidebar-user {
+  margin: 1rem 0rem;
+  text-align: center;
+  /* display: none; Hide user profile when minimized */
+}
+
+
 .sidebar.minimized .sidebar-content {
-  display: none;
+  display: none; /* Hide content when minimized */
+}
+
+.sidebar-user img {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  border: 2px solid var(--color-sidebar-text);
+}
+
+.sidebar-user h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0.5rem 0;
+}
+
+.sidebar-user span {
+  font-size: 0.85rem;
+  color: #000000;
+}
+
+.sidebar-user a {
+  display: inline-block; 
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.sidebar-user a img {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  transition: transform 0.3s ease; 
+}
+
+.sidebar-user a:hover img {
+  transform: scale(1.05);
 }
 
 .sidebar-menu {
   margin-top: 2rem;
 }
 
+.menu-head {
+  text-transform: uppercase;
+  color: var(--color-accent);
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
 .sidebar-menu ul {
+  margin-bottom: 1.5rem;
   padding-left: 0;
 }
 
@@ -91,7 +170,7 @@ a {
 }
 
 .sidebar-menu li a {
-  color: #fff;
+  color: var(--color-sidebar-text);
   display: flex;
   align-items: center;
   font-size: 1rem;
@@ -106,23 +185,29 @@ a {
 }
 
 .sidebar-menu li a:hover {
-  background-color: #555;
+  background-color: var(--color-accent);
   color: #fff;
 }
 
 .sidebar.minimized .sidebar-menu li a {
-  justify-content: center;
+  justify-content: center; /* Center the icons */
   padding: 0.5rem 0;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
 }
 
 .sidebar.minimized .sidebar-menu li a span {
-  margin-right: 0;
+  margin-right: 0; /* Remove margin when minimized */
+}
+
+.sidebar {
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* Add a shadow to separate sidebar from content */
 }
 
 /* Main content styles */
 .main-content {
   margin-left: 280px;
+  padding-left: 50px;
+  padding-right: 10px;
   transition: margin-left 0.3s ease;
 }
 

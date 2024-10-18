@@ -40,25 +40,41 @@ if ($result->num_rows > 0) {
 <div class="sidebar">
         <div class="sidebar-brand">
             <div class="brand-flex">
-                <img class="logocircle" src="../assets/alumnilogo.png" width="30px" alt="" />
+                
                 <div class="brand-icon">
                     <a href="javascript:void(0)" id="sidebarToggle">
                         <span class="fa fa-bars"></span>
                     </a>
                 </div>
+
+                <img class="logocircle" src="../assets/alumnilogo.png" width="30px" alt="" />
             </div>
         </div>
         <div class="sidebar-content">
-            <div class="sidebar-menu">
+            <div class="sidebar-user">
+            <a href="../pages/viewProfile.php">
+                    <img src="../assets/profile.jpg" alt="Profile Picture" />
+                </a>
+                <div>
+                    <h3><?php echo htmlspecialchars($user['first_name'] . ' ' . $user['last_name']); ?></h3>
+                    <span><?php echo htmlspecialchars($user['email']); ?></span>
+                </div>
+                </div>
+                
+                <div class="sidebar-menu">
+                <div class="menu-head">
+                    <span>Dashboard</span>
+                </div>
                 <ul>
-                    <li><a href="#"><span class="fa fa-home"></span>Home</a></li>
-                    <li><a href="#"><span class="fa fa-sign"></span>Events</a></li>
-                    <li><a href="#"><span class="fa fa-tools"></span>Settings</a></li>
-                    <li><a href="#"><span class="fa fa-sign-out-alt"></span>Logout</a></li>
+                    <li><a href="../pages/shareExperience.php"><span class="las la-home"></span>Home</a></li>
+                    <li><a href="../pages/events.php"><span class="las la-sign"></span>Events</a></li>
+                    <li><a href="../pages/settings.php"><span class="las la-tools"></span>Settings</a></li>
+                    <li><a href="../pages/loginpage.php"><span class="las la-sign-out-alt"></span>Logout</a></li>
                 </ul>
             </div>
+            </div>
         </div>
-    </div>
+    
 
 <div class="main-content">
     <div class="header-wrapper">
@@ -82,7 +98,7 @@ if ($result->num_rows > 0) {
                 <div class="content">
                     <p>This is a bio section. You can personalize this later.</p>
 
-                    <ul>
+                    <ul class="social-logo">
                         <li><i class="fa fa-twitter"></i></li>
                         <li><i class="fa fa-facebook"></i></li>
                         <li><i class="fa fa-instagram"></i></li>
