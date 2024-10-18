@@ -368,6 +368,17 @@ header {
   cursor: pointer;
 }
 
+.tag-dropdown2 {
+  display: flex;
+  justify-content: flex-end; 
+  align-items: center;
+  margin: 10px; 
+}
+
+.tag-label {
+  margin-right: 8px; 
+}
+
 /* Media Query for smaller screens (tablets and phones) */
 @media (max-width: 1024px) {
   .sidebar {
