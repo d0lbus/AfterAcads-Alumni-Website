@@ -37,15 +37,16 @@ if ($result->num_rows > 0) {
     <div class="sidebar">
         <div class="sidebar-brand">
             <div class="brand-flex">
-                <img class="logocircle" src="../assets/alumnilogo.png" width="30px" alt="" />
+                
                 <div class="brand-icon">
-                    <a href="your-link-here.html">
+                    <a href="javascript:void(0)" id="sidebarToggle">
                         <span class="las la-bars"></span>
                     </a>
                 </div>
+                <img class="logocircle" src="../assets/alumnilogo.png" width="30px" alt="" />
             </div>
         </div>
-        <div class="sidebar-main">
+        <div class="sidebar-content">
             <div class="sidebar-user">
                 <a href="../pages/viewProfile.php">
                     <img src="../assets/profile.jpg" alt="Profile Picture" />
@@ -233,6 +234,17 @@ if ($result->num_rows > 0) {
                 })
                 .catch(error => console.error('Error fetching posts:', error));
         });
+    </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+        const sidebar = document.querySelector(".sidebar");
+        const toggleButton = document.getElementById("sidebarToggle");
+
+        toggleButton.addEventListener("click", function() {
+            sidebar.classList.toggle("minimized");
+        });
+    });
     </script>
 </body>
 </html>

@@ -23,9 +23,11 @@
   height: 50px;
   border-radius: 50%;
   border: 2px solid var(--color-sidebar-text);
+  margin-left: 190%;
 }
 
 /* Sidebar styles */
+
 .sidebar {
   width: 280px;
   position: fixed;
@@ -36,10 +38,22 @@
   background: var(--color-sidebar-bg);
   color: var(--color-sidebar-text);
   overflow-y: auto; /* Ensure sidebar text is scrollable if it overflows */
+  overflow-x: hidden; /* Prevent horizontal scrolling */
+  transition: width 0.3s ease, padding 0.3s ease; /* Slide effect */
+  z-index: 100;
+}
+
+.sidebar.minimized {
+  width: 60px; /* Minimized width */
+  padding-left: 0.5rem; /* Reduce padding when minimized */
+  overflow-y: hidden; /* Prevent vertical scrolling when minimized */
 }
 
 .sidebar-brand {
   height: 100px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .brand-flex {
@@ -59,9 +73,20 @@
   color: var(--color-sidebar-text);
 }
 
+/* Hide sidebar content when minimized */
+.sidebar-content {
+  display: block;
+}
+
 .sidebar-user {
   margin: 1rem 0rem;
   text-align: center;
+  /* display: none; Hide user profile when minimized */
+}
+
+
+.sidebar.minimized .sidebar-content {
+  display: none; /* Hide content when minimized */
 }
 
 .sidebar-user img {
@@ -113,6 +138,7 @@
 
 .sidebar-menu ul {
   margin-bottom: 1.5rem;
+  padding-left: 0;
 }
 
 .sidebar-menu li {
@@ -139,10 +165,30 @@
   color: #fff;
 }
 
+.sidebar.minimized .sidebar-menu li a {
+  justify-content: center; /* Center the icons */
+  padding: 0.5rem 0;
+  font-size: 1.2rem;
+}
+
+.sidebar.minimized .sidebar-menu li a span {
+  margin-right: 0; /* Remove margin when minimized */
+}
+
+.sidebar {
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* Add a shadow to separate sidebar from content */
+}
+
 /* Main content styles */
 .main-content {
   margin-left: 280px;
-  padding: 1.5rem;
+  padding-left: 50px;
+  padding-right: 50px;
+  transition: margin-left 0.3s ease;
+}
+
+.sidebar.minimized ~ .main-content {
+  margin-left: 60px;
 }
 
 header {
