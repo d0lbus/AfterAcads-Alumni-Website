@@ -39,8 +39,9 @@ if ($result->num_rows > 0) {
             <div class="brand-flex">
                 <img class="logocircle" src="../assets/alumnilogo.png" width="30px" alt="" />
                 <div class="brand-icon">
-                    <span class="las la-bell"></span>
-                    <span class="las la-user-circle"></span>
+                    <a href="your-link-here.html">
+                        <span class="las la-bars"></span>
+                    </a>
                 </div>
             </div>
         </div>
@@ -59,9 +60,9 @@ if ($result->num_rows > 0) {
                     <span>Dashboard</span>
                 </div>
                 <ul>
-                    <li><a href="../pages/shareExperience.html"><span class="las la-home"></span>Home</a></li>
-                    <li><a href="../pages/ViewEvents.html"><span class="las la-sign"></span>Events</a></li>
-                    <li><a href="#"><span class="las la-tools"></span>Settings</a></li>
+                    <li><a href="../pages/shareExperience.php"><span class="las la-home"></span>Home</a></li>
+                    <li><a href="../pages/events.php"><span class="las la-sign"></span>Events</a></li>
+                    <li><a href="../pages/settings.php"><span class="las la-tools"></span>Settings</a></li>
                     <li><a href="../pages/loginpage.php"><span class="las la-sign-out-alt"></span>Logout</a></li>
                 </ul>
             </div>
@@ -70,9 +71,11 @@ if ($result->num_rows > 0) {
 
     <div class="main-content">
         <header>
-            <span class="las la-bars"></span>
-            <div class="header-icons">
-                <span class="las la-search"></span>
+            <div class="header-search-bar">
+                <input type="text" class="search-input" placeholder="Search..." />
+                <button class="search-button" aria-label="Search">
+                    <span class="las la-search"></span>
+                </button>
             </div>
         </header>
 

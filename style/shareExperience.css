@@ -48,6 +48,11 @@
   align-items: center;
 }
 
+.brand-icon a {
+  display: inline-block;
+  text-decoration: none;
+}
+
 .brand-icon span {
   font-size: 1.5rem;
   margin-left: 0.5rem;
@@ -141,18 +146,40 @@
 }
 
 header {
-  height: 100px;
+  position: relative;
+}
+
+.header-search-bar {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  background: #efefef;
-  padding: 1rem 1.5rem;
+  padding: 8px;
+  background-color: #fff;
+  border-radius: 20px;
+  width: 20%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: absolute;
+  right: 0;
+  top: 0;
 }
 
-.header-icons span {
-  font-size: 1.4rem;
+.search-input {
+  border: none;
+  outline: none;
+  padding: 8px;
 }
 
+.header-search-bar .search-button {
+  border: none;
+  background: transparent; 
+  cursor: pointer; 
+  outline: none; 
+  padding: 0; 
+  margin-left: 8px; 
+}
+
+.header-search-bar .search-button:hover {
+  color: #007bff; 
+}
 
 .addPost {
     background: #ede1e1;
