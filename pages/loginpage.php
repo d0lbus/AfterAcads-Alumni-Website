@@ -33,7 +33,7 @@
           <input type="password" id="password" name="password" placeholder="Password *" required />
       
           <a href="#">Forgot Password?</a>
-          <p>New to AfterAcads? <a href="signup.html">Sign Up</a></p>
+          <p>New to AfterAcads? <a href="signuppage.php">Sign Up</a></p>
       
           <button class="buttonsize" type="submit" name="signIn">Login</button>
       </form>

@@ -36,21 +36,17 @@
           <input type="password" id="password" name="password" placeholder="Enter your password" required />
       
           <div class="agreement-section">
-              <input type="checkbox" id="agree-terms" name="agree-terms" required />
-              <label for="agree-terms">I agree to the <a href="#">Terms of Use</a> and <a href="#">Privacy Policy</a>.</label>
+            <input type="checkbox" id="agree-terms" name="agree-terms" required />
+            <label style="color: black" for="agree-terms">
+              I agree to the<a href="#" class="terms-link"> Terms of Use</a> and
+              <a href="#" class="terms-link"> Privacy Policy</a>.
+            </label>
           </div>
           <button class="buttonsize" type="submit">Sign Up</button>
       </form>
       
 
         <!-- Agreement Section with Checkboxes -->
-        <div class="agreement-section">
-          <input type="checkbox" id="agree-terms" name="agree-terms" required />
-          <label style="color: black" for="agree-terms">
-            I agree to the <a href="#" class="terms-link">Terms of Use</a> and
-            <a href="#" class="terms-link">Privacy Policy</a>.
-          </label>
-        </div>
 
         <button class="buttonsize" type="submit" value="Sign In" name="signIn">
           Log in with SLU Email
@@ -58,7 +54,7 @@
 
         <p class="login-prompt">
           Already have an account?
-          <a href="login.html" class="login-link">Log in</a>
+          <a href="loginpage.php" class="login-link">Log in</a>
         </p>
       </div>
     </div>
