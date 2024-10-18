@@ -37,6 +37,30 @@ if ($result->num_rows > 0) {
 </head>
 
 <body>
+<div class="sidebar">
+        <div class="sidebar-brand">
+            <div class="brand-flex">
+                <img class="logocircle" src="../assets/alumnilogo.png" width="30px" alt="" />
+                <div class="brand-icon">
+                    <a href="javascript:void(0)" id="sidebarToggle">
+                        <span class="fa fa-bars"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="sidebar-content">
+            <div class="sidebar-menu">
+                <ul>
+                    <li><a href="#"><span class="fa fa-home"></span>Home</a></li>
+                    <li><a href="#"><span class="fa fa-sign"></span>Events</a></li>
+                    <li><a href="#"><span class="fa fa-tools"></span>Settings</a></li>
+                    <li><a href="#"><span class="fa fa-sign-out-alt"></span>Logout</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+<div class="main-content">
     <div class="header-wrapper">
         <div class="header"></div>
         <div class="cols-container">
@@ -92,5 +116,17 @@ if ($result->num_rows > 0) {
             </div>
         </div>
     </div>
+</div>
+
+<script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const sidebar = document.querySelector(".sidebar");
+            const toggleButton = document.getElementById("sidebarToggle");
+
+            toggleButton.addEventListener("click", function () {
+                sidebar.classList.toggle("minimized");
+            });
+        });
+    </script>
 </body>
 </html>

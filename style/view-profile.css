@@ -25,6 +25,125 @@ a {
   min-height: calc(100px + 15vw);
 }
 
+/* Sidebar styles */
+.sidebar {
+  width: 280px;
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100%;
+  background: #333;
+  color: #fff;
+  overflow-y: auto;
+  overflow-x: hidden;
+  transition: width 0.3s ease, padding 0.3s ease;
+  z-index: 100;
+}
+
+.sidebar.minimized {
+  width: 60px;
+  padding-left: 0.5rem;
+  overflow-y: hidden;
+}
+
+.sidebar-brand {
+  height: 100px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 1rem;
+}
+
+.brand-flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.brand-icon a {
+  display: inline-block;
+  text-decoration: none;
+}
+
+.brand-icon span {
+  font-size: 1.8rem;
+  color: #fff;
+}
+
+.sidebar-content {
+  display: block;
+}
+
+.sidebar.minimized .sidebar-content {
+  display: none;
+}
+
+.sidebar-menu {
+  margin-top: 2rem;
+}
+
+.sidebar-menu ul {
+  padding-left: 0;
+}
+
+.sidebar-menu li {
+  margin-bottom: 1rem;
+}
+
+.sidebar-menu li a {
+  color: #fff;
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+  transition: background-color 0.3s ease;
+  border-radius: 6px;
+}
+
+.sidebar-menu li a span {
+  font-size: 1.5rem;
+  margin-right: 0.8rem;
+}
+
+.sidebar-menu li a:hover {
+  background-color: #555;
+  color: #fff;
+}
+
+.sidebar.minimized .sidebar-menu li a {
+  justify-content: center;
+  padding: 0.5rem 0;
+  font-size: 1.5rem;
+}
+
+.sidebar.minimized .sidebar-menu li a span {
+  margin-right: 0;
+}
+
+/* Main content styles */
+.main-content {
+  margin-left: 280px;
+  transition: margin-left 0.3s ease;
+}
+
+.sidebar.minimized ~ .main-content {
+  margin-left: 60px;
+}
+
+/* Header Wrapper and content */
+.header-wrapper {
+  padding: 20px;
+}
+
+/* Adjust right-col to ensure it doesn't overlap the sidebar */
+.right-col {
+  margin-left: 1rem;
+}
+
+.left-col {
+  margin-left: 60px;
+}
+
 
 /* .header-wrapper header {
     width: 100%;
