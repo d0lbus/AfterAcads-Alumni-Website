@@ -90,7 +90,7 @@ $result_posts = $stmt_posts->get_result();
             <div class="cols-container">
                 <div class="left-col">
                     <div class="img-container">
-                        <img src="/assets/display-photo.png" alt="Display Photo" />
+                        <img src="../assets/display-photo.png" alt="Display Photo" />
                         <span></span>
                     </div>
                     <!-- Display user details dynamically -->
@@ -99,12 +99,11 @@ $result_posts = $stmt_posts->get_result();
 
                     <ul class="about">
                         <li><span>Joined <?php echo date('F d, Y', strtotime($user['created_at'])); ?></span></li>
-                        <!-- TO DO: Display OTHER FIELDS DYNAMICALLY -->
-                        <li><span>Lives in Baguio City</span></li>
+                        <li><span>Lives in <?php echo htmlspecialchars($user['address']); ?></span></li>
                     </ul>
 
                     <div class="content">
-                        <p>This is a bio section. You can personalize this later.</p>
+                        <p><?php echo htmlspecialchars($user['bio']); ?></p>
 
                         <ul class="social-logo">
                             <li><i class="fa fa-twitter"></i></li>
