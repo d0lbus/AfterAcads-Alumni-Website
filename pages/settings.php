@@ -1,3 +1,60 @@
+<?php
+include '../config/connection.php';
+
+session_start();
+
+if (!isset($_SESSION['email'])) {
+    header("Location: ../pages/loginpage.php");
+    exit();
+}
+
+$email = $_SESSION['email'];
+
+// Fetch the logged-in user's details from the database
+$sql = "SELECT * FROM users WHERE email = ?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("s", $email);
+$stmt->execute();
+$result = $stmt->get_result();
+
+if ($result->num_rows > 0) {
+    $user = $result->fetch_assoc(); // Fetch user data
+} else {
+    echo "Error: User not found.";
+    exit();
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $newPassword = $_POST['change-password'];
+    $newEmail = $_POST['change-email'];
+    $newBio = $_POST['add-bio'];
+    $newAddress = $_POST['change-address'];
+
+    // Validate email
+    if (!filter_var($newEmail, FILTER_VALIDATE_EMAIL)) {
+        header("Location: settings.php?error=Invalid email format");
+        exit();
+    }
+
+    // Hash password
+    $passwordHash = password_hash($newPassword, PASSWORD_BCRYPT);
+
+    // Update user settings in the database
+    $sql = "UPDATE users SET password_hash = ?, email = ?, bio = ?, address = ? WHERE email = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param('sssss', $passwordHash, $newEmail, $newBio, $newAddress, $email);
+
+    if ($stmt->execute()) {
+        $_SESSION['email'] = $newEmail; // Update session email if changed
+        header("Location: settings.php?success=true");
+        exit();
+    } else {
+        header("Location: settings.php?error=" . urlencode($conn->error));
+        exit();
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,7 +63,6 @@
     <title>Settings</title>
     <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css" />
     <link rel="stylesheet" href="../style/settings.css" />
-    <script src="{SCRIPT_PATH}" defer></script>
 </head>
 <body>
     <div class="sidebar">
@@ -21,10 +77,10 @@
         </div>
         <div class="sidebar-main">
             <div class="sidebar-user">
-                <img src="../assets/display-photo.png" alt="{PROFILE_ALT_TEXT}" />
+                <img src="../assets/profile.jpg" alt="{PROFILE_ALT_TEXT}" />
                 <div>
-                    <h3></h3>
-                    <span></span>
+                    <h3><?= htmlspecialchars($user['first_name'] . ' ' . $user['last_name']) ?></h3>
+                    <span><?= htmlspecialchars($user['email']) ?></span>
                 </div>
             </div>
             <div class="sidebar-menu">
@@ -57,7 +113,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="../pages/settings.html">
+                        <a href="../pages/settings.php">
                             <span class="las la-tools"></span>
                             Settings
                         </a>
@@ -84,31 +140,40 @@
             </div>
 
             <!-- Settings Form -->
-            <form class="settings-form">
+            <form class="settings-form" method="post" action="settings.php">
                 <div class="form-group">
                     <label for="change-password">Change Password</label>
-                    <input type="password" id="change-password" placeholder="New Password" required />
+                    <input type="password" name="change-password" id="change-password" placeholder="New Password" required />
                 </div>
 
                 <div class="form-group">
                     <label for="change-email">Change Email</label>
-                    <input type="email" id="change-email" placeholder="New Email" required />
+                    <input type="email" name="change-email" id="change-email" placeholder="New Email" required value="<?= htmlspecialchars($user['email']) ?>" />
                 </div>
 
                 <div class="form-group">
                     <label for="add-bio">Add Bio</label>
-                    <textarea id="add-bio" rows="4" placeholder="Tell us about yourself"></textarea>
+                    <textarea name="add-bio" id="add-bio" rows="4" placeholder="Tell us about yourself"><?= htmlspecialchars($user['bio']) ?></textarea>
                 </div>
 
                 <div class="form-group">
                     <label for="change-address">Change Address</label>
-                    <input type="text" id="change-address" placeholder="New Address" required />
+                    <input type="text" name="change-address" id="change-address" placeholder="New Address" required value="<?= htmlspecialchars($user['address']) ?>" />
                 </div>
 
                 <div class="button-container">
                     <button type="submit" class="button">Save Changes</button>
                 </div>
             </form>
+
+            <!-- Display success or error messages -->
+            <?php
+            if (isset($_GET['success']) && $_GET['success'] === 'true') {
+                echo '<p class="success-message">Settings updated successfully!</p>';
+            } elseif (isset($_GET['error'])) {
+                echo '<p class="error-message">Error: ' . htmlspecialchars($_GET['error']) . '</p>';
+            }
+            ?>
         </main>
     </div>
 </body>
