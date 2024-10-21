@@ -1,5 +1,28 @@
 <?php
+session_start();
+
+// Redirect to login page if the user is not logged in
+if (!isset($_SESSION['email'])) {
+    header("Location: loginpage.php");
+    exit();
+}
+
 include '../config/connection.php';
+
+// Fetch the logged-in user's details from the database
+$email = $_SESSION['email'];
+$sql = "SELECT * FROM users WHERE email = ?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("s", $email);
+$stmt->execute();
+$result = $stmt->get_result();
+
+if ($result->num_rows > 0) {
+    $user = $result->fetch_assoc(); // Fetch user data
+} else {
+    echo "Error: User not found.";
+    exit();
+}
 
 $event_id = isset($_GET['event_id']) ? intval($_GET['event_id']) : 0;
 
