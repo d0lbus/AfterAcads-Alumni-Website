@@ -65,59 +65,39 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link rel="stylesheet" href="../style/settings.css" />
 </head>
 <body>
-    <div class="sidebar">
+<div class="sidebar">
         <div class="sidebar-brand">
             <div class="brand-flex">
-                <img class="logocircle" src="../assets/alumnilogo.png" width="30px" alt="" />
+                
                 <div class="brand-icon">
-                    <span class="las la-bell"></span>
-                    <span class="las la-user-circle"></span>
+                    <a href="javascript:void(0)" id="sidebarToggle">
+                        <span class="las la-bars"></span>
+                    </a>
                 </div>
+
+                <img class="logocircle" src="../assets/alumnilogo.png" width="30px" alt="" />
             </div>
         </div>
-        <div class="sidebar-main">
+        <div class="sidebar-content">
             <div class="sidebar-user">
-                <img src="../assets/profile.jpg" alt="{PROFILE_ALT_TEXT}" />
+                <a href="../pages/viewProfile.php">
+                    <img src="../assets/profile.jpg" alt="Profile Picture" />
+                </a>
                 <div>
-                    <h3><?= htmlspecialchars($user['first_name'] . ' ' . $user['last_name']) ?></h3>
-                    <span><?= htmlspecialchars($user['email']) ?></span>
+                    <h3><?php echo htmlspecialchars($user['first_name'] . ' ' . $user['last_name']); ?></h3>
+                    <span><?php echo htmlspecialchars($user['email']); ?></span>
                 </div>
             </div>
+                
             <div class="sidebar-menu">
                 <div class="menu-head">
-                    <span>DASHBOARD</span>
+                    <span>Dashboard</span>
                 </div>
                 <ul>
-                    <li>
-                        <a href="{CALENDAR_LINK}">
-                            <span class="las la-calendar"></span>
-                            Calendar
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{CONTACT_LINK}">
-                            <span class="las la-phone"></span>
-                            Contact
-                        </a>
-                    </li>
-                    <li>
-                        <a href="../pages/events.html">
-                            <span class="las la-sign"></span>
-                            Events
-                        </a>
-                    </li>
-                    <li>
-                        <a href="../pages/shareExperience.php">
-                            <span class="las la-image"></span>
-                            Share
-                        </a>
-                    </li>
-                    <li>
-                        <a href="../pages/settings.php">
-                            <span class="las la-tools"></span>
-                            Settings
-                        </a>
-                    </li>
+                    <li><a href="../pages/shareExperience.php"><span class="las la-home"></span>Home</a></li>
+                    <li><a href="../pages/events.php"><span class="las la-sign"></span>Events</a></li>
+                    <li><a href="../pages/settings.php"><span class="las la-tools"></span>Settings</a></li>
+                    <li><a href="../pages/loginpage.php"><span class="las la-sign-out-alt"></span>Logout</a></li>
                 </ul>
             </div>
         </div>
@@ -176,5 +156,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             ?>
         </main>
     </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const sidebar = document.querySelector(".sidebar");
+            const toggleButton = document.getElementById("sidebarToggle");
+
+            toggleButton.addEventListener("click", function () {
+                sidebar.classList.toggle("minimized");
+            });
+        });
+    </script>
 </body>
 </html>
