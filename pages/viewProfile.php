@@ -39,7 +39,6 @@ $result_posts = $stmt_posts->get_result();
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>View Profile</title>
-    <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css" />
     <link rel="stylesheet" href="../style/view-profile.css" />
 </head>
 
@@ -131,7 +130,7 @@ $result_posts = $stmt_posts->get_result();
                         <ul class="social-logo">
                             <li><img src="../assets/twitter-icon.png" alt="twitter icon" width="20px" height="20px"/></li>
                             <li><img src="../assets/fb-icon.png" alt="fb icon" width="20px" height="20px" /></li>
-                            <li><img src="../assets/instagram-icon.png" alt="ig icon" width="20px" height="20px"></li>
+                            <li><img src="../assets/instagram-icon.png" alt="ig icon" width="20px" height="20px" ></li>
                         </ul>
                     </div>
                 </div>
