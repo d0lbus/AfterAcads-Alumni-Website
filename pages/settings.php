@@ -63,6 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <title>Settings</title>
     <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css" />
     <link rel="stylesheet" href="../style/settings.css" />
+    
 </head>
 <body>
 <div class="sidebar">
@@ -101,16 +102,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </ul>
             </div>
         </div>
-    </div>
+      </div>
 
     <div class="main-content">
-        <header>
-            <span class="las la-bars"></span>
-            <div class="header-icons">
-                <span class="las la-search"></span>
-            </div>
-        </header>
-        
         <main>
             <div class="page-header">
                 <div>

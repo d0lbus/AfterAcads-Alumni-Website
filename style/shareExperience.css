@@ -179,6 +179,10 @@
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* Add a shadow to separate sidebar from content */
 }
 
+.sidebar {
+  z-index: 100; 
+}
+
 /* Main content styles */
 .main-content {
   margin-left: 280px;
@@ -340,7 +344,7 @@ header {
 .modal {
     display: none; 
     position: fixed; 
-    z-index: 1;
+    z-index: 200;
     left: 0;
     top: 0;
     width: 100%; 
@@ -363,7 +367,7 @@ header {
 
 .modal-content {
     background-color: #fff;
-    margin: 15% auto;
+    margin: 10% auto;
     padding: 20px;
     border: 1px solid #888;
     width: 80%;
@@ -371,6 +375,7 @@ header {
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
     border-bottom: 2px solid #ccc; 
     position: relative; 
+    z-index: 300;
 }
 
 .line {
