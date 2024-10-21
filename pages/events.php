@@ -25,6 +25,7 @@ $stmt = $conn->prepare($sql);
 $stmt->bind_param('ii', $events_per_page, $offset);
 $stmt->execute();
 $result = $stmt->get_result();
+
 ?>
 
 <!DOCTYPE html>
@@ -37,66 +38,101 @@ $result = $stmt->get_result();
     <link rel="stylesheet" href="../style/events.css" />
 </head>
 <body>
-    <div class="sidebar">
-        <div class="sidebar-brand">
-            <div class="brand-flex">
-                <img class="logocircle" src="../assets/alumnilogo.png" width="30px" alt="" />
-                <div class="brand-icon">
-                    <a href="your-link-here.html">
-                        <span class="las la-bars"></span>
-                    </a>
-                </div>
-            </div>
+<div class="sidebar">
+      <div class="sidebar-brand">
+        <div class="brand-flex">
+          <div class="brand-icon">
+            <a href="javascript:void(0)" id="sidebarToggle">
+              <span
+                ><img src="../assets/bars1.png" width="24px" alt="bars"
+              /></span>
+            </a>
+          </div>
+          <img
+            class="logocircle"
+            src="../assets/alumnilogo.png"
+            width="30px"
+            alt=""
+          />
         </div>
-        <div class="sidebar-main">
-            <div class="sidebar-user">
-                <a href="../pages/viewProfile.php">
-                    <img src="../assets/profile.jpg" alt="Profile Picture" />
-                </a>
-                <div>
-                    <h3><?php echo htmlspecialchars($user['first_name'] . ' ' . $user['last_name']); ?></h3>
-                    <span><?php echo htmlspecialchars($user['email']); ?></span>
-                </div>
-            </div>
-            <div class="sidebar-menu">
-                <div class="menu-head">
-                    <span>Dashboard</span>
-                </div>
-                <ul>
-                    <li><a href="../pages/shareExperience.php"><span class="las la-home"></span>Home</a></li>
-                    <li><a href="../pages/events.php"><span class="las la-sign"></span>Events</a></li>
-                    <li><a href="../pages/settings.php"><span class="las la-tools"></span>Settings</a></li>
-                    <li><a href="../pages/loginpage.php"><span class="las la-sign-out-alt"></span>Logout</a></li>
-                </ul>
-            </div>
+      </div>
+      <div class="sidebar-content">
+        <div class="sidebar-user">
+          <a href="../pages/viewProfile.php">
+            <img src="../assets/profile.jpg" alt="Profile Picture" />
+          </a>
+          <div>
+            <h3>
+              <?php echo htmlspecialchars($user['first_name'] . ' ' . $user['last_name']); ?>
+            </h3>
+            <span><?php echo htmlspecialchars($user['email']); ?></span>
+          </div>
         </div>
+        <div class="sidebar-menu">
+          <div class="menu-head">
+            <span>Dashboard</span>
+          </div>
+          <ul>
+            <li>
+              <a href="../pages/shareExperience.php"
+                ><span
+                  ><img
+                    src="../assets/home1.png"
+                    width="20px"
+                    alt="Home" /></span
+                >Home</a
+              >
+            </li>
+            <li>
+              <a href="../pages/events.php"
+                ><span
+                  ><img
+                    src="../assets/event1.png"
+                    width="20px"
+                    alt="Events" /></span
+                >Events</a
+              >
+            </li>
+            <li>
+              <a href="../pages/settings.php"
+                ><span
+                  ><img
+                    src="../assets/setting1.png"
+                    width="20px"
+                    alt="Settings" /></span
+                >Settings</a
+              >
+            </li>
+            <li>
+              <a href="../pages/loginpage.php"
+                ><span
+                  ><img
+                    src="../assets/logout1.png"
+                    width="20px"
+                    alt="Logout" /></span
+                >Logout</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
     </div>
 
+    <!-- Main Content Section -->
     <div class="main-content">
         <header>
-            <div class="header-search-bar">
-                <input type="text" class="search-input" placeholder="Search..." />
-                <button class="search-button" aria-label="Search">
-                    <span class="las la-search"></span>
-                </button>
+            <span class="las la-bars"></span>
+            <div class="header-icons">
+                <span class="las la-search"></span>
             </div>
         </header>
+
         <main>
             <div class="page-header">
                 <div>
                     <h1>Events</h1>
                     <small>See upcoming events and mark those you are interested in</small>
-
-                    <!-- Dropdown Filter -->
-                    <div class="dropdown-container">
-                        <select id="filter-events" name="filter-events">
-                            <option value="" disabled selected>Filter Events</option>
-                            <option value="filter1">Placeholder Filter 1</option>
-                            <option value="filter2">Placeholder Filter 2</option>
-                            <option value="filter3">Placeholder Filter 3</option>
-                        </select>
-                    </div>                    
-
+                    
                     <div class="card-container">
                         <?php while ($event = $result->fetch_assoc()): ?>
                             <div class="card">
@@ -112,7 +148,7 @@ $result = $stmt->get_result();
                             </div>
                         <?php endwhile; ?>
                     </div>
-
+                    
                     <!-- Pagination Section -->
                     <div class="pagination">
                         <?php if ($page > 1): ?>
