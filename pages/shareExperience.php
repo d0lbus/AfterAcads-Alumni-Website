@@ -12,10 +12,18 @@ include '../config/connection.php'; // Include database connection
 // Fetch the logged-in user's details from the database
 $email = $_SESSION['email'];
 $sql = "SELECT * FROM users WHERE email = ?";
-$stmt = $conn->prepare($sql); $stmt->bind_param("s", $email); $stmt->execute();
-$result = $stmt->get_result(); if ($result->num_rows > 0) { $user =
-$result->fetch_assoc(); // Fetch user data } else { echo "Error: User not
-found."; exit(); } ?>
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("s", $email);
+$stmt->execute();
+$result = $stmt->get_result();
+
+if ($result->num_rows > 0) {
+    $user = $result->fetch_assoc(); // Fetch user data
+} else {
+    echo "Error: User not found.";
+    exit();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
