@@ -19,10 +19,11 @@
 }
 
 .logocircle {
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
-  border: 2px solid var(--color-sidebar-text);
+  border: 1px solid var(--color-sidebar-text);
+  margin-left: 220%;
 }
 
 /* Sidebar styles */
