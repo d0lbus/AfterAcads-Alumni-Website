@@ -7,7 +7,7 @@ if (!isset($_SESSION['email'])) {
     exit();
 }
 
-include '../config/connection.php';
+include '../config/connection.php'; // Database connection
 
 // Fetch the logged-in user's details from the database
 $email = $_SESSION['email'];
@@ -24,21 +24,9 @@ if ($result->num_rows > 0) {
     exit();
 }
 
-
-
 // Number of events per page
 $events_per_page = 5;
 
-// Get the current page number from the query string (default to 1 if not set)
-$page = isset($_GET['page']) && is_numeric($_GET['page']) ? intval($_GET['page']) : 1;
-
-// Calculate the offset for the SQL query
-$offset = ($page - 1) * $events_per_page;
-
-// Count total number of events
-$sql_count = "SELECT COUNT(*) AS total_events FROM events";
-$result_count = $conn->query($sql_count);
-$row_count = $result_count->fetch_assoc();
 $total_events = $row_count['total_events'];
 
 // Calculate the total number of pages
@@ -50,6 +38,7 @@ $stmt = $conn->prepare($sql);
 $stmt->bind_param('ii', $events_per_page, $offset);
 $stmt->execute();
 $result = $stmt->get_result();
+
 ?>
 
 <!DOCTYPE html>
