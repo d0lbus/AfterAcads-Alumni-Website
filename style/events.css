@@ -181,7 +181,13 @@
 /* Main content styles */
 .main-content {
   margin-left: 280px;
-  padding: 1.5rem;
+  padding-left: 20px;
+  padding-right: 10px;
+  transition: margin-left 0.3s ease;
+}
+
+.sidebar.minimized ~ .main-content {
+  margin-left: 60px;
 }
 
 header {

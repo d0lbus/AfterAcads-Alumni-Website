@@ -193,5 +193,17 @@ $result = $stmt->get_result();
             </div>
         </main>
     </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const sidebar = document.querySelector(".sidebar");
+            const toggleButton = document.getElementById("sidebarToggle");
+
+            toggleButton.addEventListener("click", function() {
+                sidebar.classList.toggle("minimized");
+            });
+        });
+    </script>
+
 </body>
 </html>
