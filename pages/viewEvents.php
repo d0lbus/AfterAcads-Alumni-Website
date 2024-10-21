@@ -1,4 +1,5 @@
 <?php
+
 session_start();
 
 // Redirect to login page if the user is not logged in
@@ -24,31 +25,25 @@ if ($result->num_rows > 0) {
     exit();
 }
 
-// Number of events per page
-$events_per_page = 5;
+include '../config/connection.php';
 
-// Get the current page number from the query string (default to 1 if not set)
-$page = isset($_GET['page']) && is_numeric($_GET['page']) ? intval($_GET['page']) : 1;
+$event_id = isset($_GET['event_id']) ? intval($_GET['event_id']) : 0;
 
-// Calculate the offset for the SQL query
-$offset = ($page - 1) * $events_per_page;
-
-// Count total number of events
-$sql_count = "SELECT COUNT(*) AS total_events FROM events";
-$result_count = $conn->query($sql_count);
-$row_count = $result_count->fetch_assoc();
-$total_events = $row_count['total_events'];
-
-// Calculate the total number of pages
-$total_pages = ceil($total_events / $events_per_page);
-
-// Fetch events for the current page using LIMIT and OFFSET
-$sql = "SELECT id, title, description, image_path, alt_text FROM events LIMIT ? OFFSET ?";
+// Fetch the event details from the database
+$sql = "SELECT * FROM events WHERE id = ?";
 $stmt = $conn->prepare($sql);
-$stmt->bind_param('ii', $events_per_page, $offset);
+$stmt->bind_param('i', $event_id);
 $stmt->execute();
 $result = $stmt->get_result();
+
+if ($result->num_rows > 0) {
+    $event = $result->fetch_assoc();
+} else {
+    echo "Event not found.";
+    exit();
+}
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
