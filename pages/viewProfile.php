@@ -48,14 +48,17 @@ $result_posts = $stmt_posts->get_result();
     <div class="sidebar">
         <div class="sidebar-brand">
             <div class="brand-flex">
-                
+
                 <div class="brand-icon">
                     <a href="javascript:void(0)" id="sidebarToggle">
-                        <span class="las la-bars"></span>
+                        <span><img src="../assets/bars1.png" width="24px" alt="bars" /></span>
                     </a>
                 </div>
 
-                <img class="logocircle" src="../assets/alumnilogo.png" width="30px" alt="" />
+                <img
+                    class="logocircle"
+                    src="../assets/alumnilogo.png"
+                    width="30px" alt="" />
             </div>
         </div>
         <div class="sidebar-content">
@@ -68,21 +71,42 @@ $result_posts = $stmt_posts->get_result();
                     <span><?php echo htmlspecialchars($user['email']); ?></span>
                 </div>
             </div>
-                
+
             <div class="sidebar-menu">
                 <div class="menu-head">
                     <span>Dashboard</span>
                 </div>
                 <ul>
-                    <li><a href="../pages/shareExperience.php"><span class="las la-home"></span>Home</a></li>
-                    <li><a href="../pages/events.php"><span class="las la-sign"></span>Events</a></li>
-                    <li><a href="../pages/settings.php"><span class="las la-tools"></span>Settings</a></li>
-                    <li><a href="../pages/loginpage.php"><span class="las la-sign-out-alt"></span>Logout</a></li>
+                    <li>
+                        <a href="../pages/shareExperience.php">
+                            <span>
+                                <img
+                                    src="../assets/home1.png"
+                                    width="20px"
+                                    alt="Home" />
+                            </span>Home
+                        </a>
+                    </li>
+                    <li><a href="../pages/events.php"><span><img
+                                    src="../assets/event1.png"
+                                    width="20px"
+                                    alt="Events" /></span>Events</a>
+                    </li>
+                    <li><a href="../pages/settings.php"><span><img
+                                    src="../assets/setting1.png"
+                                    width="20px"
+                                    alt="Settings" /></span>Settings</a>
+                    </li>
+                    <li><a href="../pages/loginpage.php"><span><img
+                                    src="../assets/logout1.png"
+                                    width="20px"
+                                    alt="Logout" /></span>Logout</a>
+                    </li>
                 </ul>
             </div>
         </div>
     </div>
-    
+
 
     <div class="main-content">
         <div class="header-wrapper">
@@ -121,21 +145,21 @@ $result_posts = $stmt_posts->get_result();
                         </ul>
                     </nav>
 
-                <div class="posts" id="posts">
-                    <?php if ($result_posts->num_rows > 0): ?>
-                        <?php while ($post = $result_posts->fetch_assoc()): ?>
-                            <div class="post">
-                                <p><?php echo htmlspecialchars($post['content']); ?></p>
-                                <small><?php echo date('F d, Y H:i', strtotime($post['created_at'])); ?></small>
-                            </div>
+                    <div class="posts" id="posts">
+                        <?php if ($result_posts->num_rows > 0): ?>
+                            <?php while ($post = $result_posts->fetch_assoc()): ?>
+                                <div class="post">
+                                    <p><?php echo htmlspecialchars($post['content']); ?></p>
+                                    <small><?php echo date('F d, Y H:i', strtotime($post['created_at'])); ?></small>
+                                </div>
 
-                        <?php endwhile; ?>
-                    <?php else: ?>
-                        <p>No posts yet.</p>
-                    <?php endif; ?>
-                </div>
+                            <?php endwhile; ?>
+                        <?php else: ?>
+                            <p>No posts yet.</p>
+                        <?php endif; ?>
+                    </div>
 
-                <div class="line"></div>
+                    <div class="line"></div>
                     <!-- TO DO: Display user's uploaded photos DYNAMICALLY  -->
                     <div class="photos" id="photos">
                         <img src="" alt="image" />
@@ -151,14 +175,15 @@ $result_posts = $stmt_posts->get_result();
     </div>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
+        document.addEventListener("DOMContentLoaded", function() {
             const sidebar = document.querySelector(".sidebar");
             const toggleButton = document.getElementById("sidebarToggle");
 
-            toggleButton.addEventListener("click", function () {
+            toggleButton.addEventListener("click", function() {
                 sidebar.classList.toggle("minimized");
             });
         });
     </script>
 </body>
+
 </html>
