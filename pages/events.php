@@ -62,39 +62,84 @@ $result = $stmt->get_result();
     <link rel="stylesheet" href="../style/events.css" />
 </head>
 <body>
-    <div class="sidebar">
-        <div class="sidebar-brand">
-            <div class="brand-flex">
-                <img class="logocircle" src="../assets/alumnilogo.png" width="30px" alt="" />
-                <div class="brand-icon">
-                    <a href="your-link-here.html">
-                        <span class="las la-bars"></span>
-                    </a>
-                </div>
-            </div>
+<div class="sidebar">
+      <div class="sidebar-brand">
+        <div class="brand-flex">
+          <div class="brand-icon">
+            <a href="javascript:void(0)" id="sidebarToggle">
+              <span
+                ><img src="../assets/bars1.png" width="24px" alt="bars"
+              /></span>
+            </a>
+          </div>
+          <img
+            class="logocircle"
+            src="../assets/alumnilogo.png"
+            width="30px"
+            alt=""
+          />
         </div>
-        <div class="sidebar-main">
-            <div class="sidebar-user">
-                <a href="../pages/viewProfile.php">
-                    <img src="../assets/profile.jpg" alt="Profile Picture" />
-                </a>
-                <div>
-                    <h3><?php echo htmlspecialchars($user['first_name'] . ' ' . $user['last_name']); ?></h3>
-                    <span><?php echo htmlspecialchars($user['email']); ?></span>
-                </div>
-            </div>
-            <div class="sidebar-menu">
-                <div class="menu-head">
-                    <span>Dashboard</span>
-                </div>
-                <ul>
-                    <li><a href="../pages/shareExperience.php"><span class="las la-home"></span>Home</a></li>
-                    <li><a href="../pages/events.php"><span class="las la-sign"></span>Events</a></li>
-                    <li><a href="../pages/settings.php"><span class="las la-tools"></span>Settings</a></li>
-                    <li><a href="../pages/loginpage.php"><span class="las la-sign-out-alt"></span>Logout</a></li>
-                </ul>
-            </div>
+      </div>
+      <div class="sidebar-content">
+        <div class="sidebar-user">
+          <a href="../pages/viewProfile.php">
+            <img src="../assets/profile.jpg" alt="Profile Picture" />
+          </a>
+          <div>
+            <h3>
+              <?php echo htmlspecialchars($user['first_name'] . ' ' . $user['last_name']); ?>
+            </h3>
+            <span><?php echo htmlspecialchars($user['email']); ?></span>
+          </div>
         </div>
+        <div class="sidebar-menu">
+          <div class="menu-head">
+            <span>Dashboard</span>
+          </div>
+          <ul>
+            <li>
+              <a href="../pages/shareExperience.php"
+                ><span
+                  ><img
+                    src="../assets/home1.png"
+                    width="20px"
+                    alt="Home" /></span
+                >Home</a
+              >
+            </li>
+            <li>
+              <a href="../pages/events.php"
+                ><span
+                  ><img
+                    src="../assets/event1.png"
+                    width="20px"
+                    alt="Events" /></span
+                >Events</a
+              >
+            </li>
+            <li>
+              <a href="../pages/settings.php"
+                ><span
+                  ><img
+                    src="../assets/setting1.png"
+                    width="20px"
+                    alt="Settings" /></span
+                >Settings</a
+              >
+            </li>
+            <li>
+              <a href="../pages/loginpage.php"
+                ><span
+                  ><img
+                    src="../assets/logout1.png"
+                    width="20px"
+                    alt="Logout" /></span
+                >Logout</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
     </div>
 
     <div class="main-content">
