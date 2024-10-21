@@ -1,5 +1,28 @@
 <?php
+session_start();
+
+// Redirect to login page if the user is not logged in
+if (!isset($_SESSION['email'])) {
+    header("Location: loginpage.php");
+    exit();
+}
+
 include '../config/connection.php'; // Database connection
+
+// Fetch the logged-in user's details from the database
+$email = $_SESSION['email'];
+$sql = "SELECT * FROM users WHERE email = ?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("s", $email);
+$stmt->execute();
+$result = $stmt->get_result();
+
+if ($result->num_rows > 0) {
+    $user = $result->fetch_assoc(); // Fetch user data
+} else {
+    echo "Error: User not found.";
+    exit();
+}
 
 // Number of events per page
 $events_per_page = 5;
@@ -38,84 +61,43 @@ $result = $stmt->get_result();
     <link rel="stylesheet" href="../style/events.css" />
 </head>
 <body>
+
 <div class="sidebar">
-      <div class="sidebar-brand">
-        <div class="brand-flex">
-          <div class="brand-icon">
-            <a href="javascript:void(0)" id="sidebarToggle">
-              <span
-                ><img src="../assets/bars1.png" width="24px" alt="bars"
-              /></span>
-            </a>
-          </div>
-          <img
-            class="logocircle"
-            src="../assets/alumnilogo.png"
-            width="30px"
-            alt=""
-          />
+        <div class="sidebar-brand">
+            <div class="brand-flex">
+                
+                <div class="brand-icon">
+                    <a href="javascript:void(0)" id="sidebarToggle">
+                        <span class="las la-bars"></span>
+                    </a>
+                </div>
+
+                <img class="logocircle" src="../assets/alumnilogo.png" width="30px" alt="" />
+            </div>
         </div>
-      </div>
-      <div class="sidebar-content">
-        <div class="sidebar-user">
-          <a href="../pages/viewProfile.php">
-            <img src="../assets/profile.jpg" alt="Profile Picture" />
-          </a>
-          <div>
-            <h3>
-              <?php echo htmlspecialchars($user['first_name'] . ' ' . $user['last_name']); ?>
-            </h3>
-            <span><?php echo htmlspecialchars($user['email']); ?></span>
-          </div>
+        <div class="sidebar-content">
+            <div class="sidebar-user">
+                <a href="../pages/viewProfile.php">
+                    <img src="../assets/profile.jpg" alt="Profile Picture" />
+                </a>
+                <div>
+                    <h3><?php echo htmlspecialchars($user['first_name'] . ' ' . $user['last_name']); ?></h3>
+                    <span><?php echo htmlspecialchars($user['email']); ?></span>
+                </div>
+            </div>
+                
+            <div class="sidebar-menu">
+                <div class="menu-head">
+                    <span>Dashboard</span>
+                </div>
+                <ul>
+                    <li><a href="../pages/shareExperience.php"><span class="las la-home"></span>Home</a></li>
+                    <li><a href="../pages/events.php"><span class="las la-sign"></span>Events</a></li>
+                    <li><a href="../pages/settings.php"><span class="las la-tools"></span>Settings</a></li>
+                    <li><a href="../pages/loginpage.php"><span class="las la-sign-out-alt"></span>Logout</a></li>
+                </ul>
+            </div>
         </div>
-        <div class="sidebar-menu">
-          <div class="menu-head">
-            <span>Dashboard</span>
-          </div>
-          <ul>
-            <li>
-              <a href="../pages/shareExperience.php"
-                ><span
-                  ><img
-                    src="../assets/home1.png"
-                    width="20px"
-                    alt="Home" /></span
-                >Home</a
-              >
-            </li>
-            <li>
-              <a href="../pages/events.php"
-                ><span
-                  ><img
-                    src="../assets/event1.png"
-                    width="20px"
-                    alt="Events" /></span
-                >Events</a
-              >
-            </li>
-            <li>
-              <a href="../pages/settings.php"
-                ><span
-                  ><img
-                    src="../assets/setting1.png"
-                    width="20px"
-                    alt="Settings" /></span
-                >Settings</a
-              >
-            </li>
-            <li>
-              <a href="../pages/loginpage.php"
-                ><span
-                  ><img
-                    src="../assets/logout1.png"
-                    width="20px"
-                    alt="Logout" /></span
-                >Logout</a
-              >
-            </li>
-          </ul>
-        </div>
-      </div>
     </div>
 
     <!-- Main Content Section -->
