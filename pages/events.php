@@ -24,7 +24,7 @@ if ($result->num_rows > 0) {
     exit();
 }
 
-include '../config/connection.php'; // Database connection
+
 
 // Number of events per page
 $events_per_page = 5;
