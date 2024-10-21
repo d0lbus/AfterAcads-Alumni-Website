@@ -65,6 +65,7 @@ body {
 .signup-box form {
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 
 .signup-box label {
@@ -98,11 +99,14 @@ body {
   background-color: #e0c1c6;
   color: white;
   padding: 12px;
+  margin: 10px;
   border: none;
   border-radius: 20px;
   font-size: 1rem;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  width: 60%;
+  text-align: center;
 }
 
 .buttonsize {
@@ -147,7 +151,7 @@ body {
 }
 
 .buttonsize:hover {
-  background-color: #efe1e1;
+  background-color: #999696;
 }
 
 .login-prompt {
