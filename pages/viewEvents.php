@@ -14,7 +14,7 @@
                 <img class="logocircle" src="../assets/alumnilogo.png" width="30px" alt="" />
                 <div class="brand-icon">
                     <a href="your-link-here.html">
-                        <span class="las la-bars"></span>
+                        <span><img src="../assets/bars1.png" width="20px" alt="photo"/></span>
                     </a>
                 </div>
             </div>
@@ -34,10 +34,10 @@
                     <span>Dashboard</span>
                 </div>
                 <ul>
-                    <li><a href="../pages/shareExperience.php"><span class="las la-home"></span>Home</a></li>
-                    <li><a href="../pages/events.php"><span class="las la-sign"></span>Events</a></li>
-                    <li><a href="../pages/settings.php"><span class="las la-tools"></span>Settings</a></li>
-                    <li><a href="../pages/loginpage.php"><span class="las la-sign-out-alt"></span>Logout</a></li>
+                    <li><a href="../pages/shareExperience.php"><span><img src="../assets/home1.png" width="20px" alt="Home"/></span>Home</a></li>
+                    <li><a href="../pages/events.php"><span><img src="../assets/event1.png" width="20px" alt="Events" /></span>Events</a></li>
+                    <li><a href="../pages/settings.php"><span><img src="../assets/setting1.png" width="20px" alt="Settings" /></span>Settings</a></li>
+                    <li><a href="../pages/loginpage.php"><span"><img src="../assets/logout1.png" width="20px" alt="Logout" /></span>Logout</a></li>
                 </ul>
             </div>
         </div>
@@ -48,7 +48,7 @@
             <div class="header-search-bar">
                 <input type="text" class="search-input" placeholder="Search..." />
                 <button class="search-button" aria-label="Search">
-                    <span class="las la-search"></span>
+                    <span><img src="../assets/search1.png" width="20px" alt="search" /></span>
                 </button>
             </div>
         </header>
