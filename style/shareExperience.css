@@ -27,7 +27,6 @@
 }
 
 /* Sidebar styles */
-
 .sidebar {
   width: 280px;
   position: fixed;
@@ -37,16 +36,16 @@
   padding: 24px;
   background: var(--color-sidebar-bg);
   color: var(--color-sidebar-text);
-  overflow-y: auto; /* Ensure sidebar text is scrollable if it overflows */
-  overflow-x: hidden; /* Prevent horizontal scrolling */
-  transition: width 0.3s ease, padding 0.3s ease; /* Slide effect */
+  overflow-y: auto; 
+  overflow-x: hidden; 
+  transition: width 0.3s ease, padding 0.3s ease; 
   z-index: 100;
 }
 
 .sidebar.minimized {
-  width: 60px; /* Minimized width */
-  padding-left: 0.5rem; /* Reduce padding when minimized */
-  overflow-y: hidden; /* Prevent vertical scrolling when minimized */
+  width: 60px; 
+  padding-left: 0.5rem; 
+  overflow-y: hidden;
 }
 
 .sidebar-brand {
@@ -73,7 +72,6 @@
   color: var(--color-sidebar-text);
 }
 
-/* Hide sidebar content when minimized */
 .sidebar-content {
   display: block;
 }
@@ -81,12 +79,11 @@
 .sidebar-user {
   margin: 1rem 0rem;
   text-align: center;
-  /* display: none; Hide user profile when minimized */
 }
 
 
 .sidebar.minimized .sidebar-content {
-  display: none; /* Hide content when minimized */
+  display: none; 
 }
 
 .sidebar-user img {
@@ -166,17 +163,17 @@
 }
 
 .sidebar.minimized .sidebar-menu li a {
-  justify-content: center; /* Center the icons */
+  justify-content: center; 
   padding: 0.5rem 0;
   font-size: 1.2rem;
 }
 
 .sidebar.minimized .sidebar-menu li a span {
-  margin-right: 0; /* Remove margin when minimized */
+  margin-right: 0; 
 }
 
 .sidebar {
-  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* Add a shadow to separate sidebar from content */
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); 
 }
 
 .sidebar {
@@ -209,7 +206,6 @@ header {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   margin: 20px 0; 
 }
-
 
 .search-input {
   border: none;
@@ -433,38 +429,6 @@ header {
   margin-right: 8px; 
 }
 
-/* Media Query for smaller screens (tablets and phones) */
-@media (max-width: 1024px) {
-  .sidebar {
-    width: 220px;
-  }
-
-  .main-content {
-    margin-left: 220px;
-  }
-
-  header {
-    padding: 1rem;
-  }
-}
-
-/* Media Query for mobile screens */
-@media (max-width: 768px) {
-  .sidebar {
-    width: 100px;
-    padding: 12px;
-  }
-
-  .main-content {
-    margin-left: 100px;
-  }
-
-  header {
-    padding: 0.5rem;
-  }
-}
-
-/* Post styling */
 .post {
   background-color: #f9f9f9; 
   border-radius: 12px; 
@@ -478,9 +442,9 @@ header {
 .post-user {
   display: flex;
   align-items: center;
-  font-weight: 600; /* Bold the name */
-  font-size: 1.1rem; /* Slightly larger font size */
-  margin-bottom: 8px; /* Space between name and content */
+  font-weight: 600; 
+  font-size: 1.1rem; 
+  margin-bottom: 8px; 
 }
 
 .post-user img {
@@ -492,19 +456,18 @@ header {
 
 .post-content {
   font-size: 1rem;
-  color: #333; /* Darker text for content */
-  margin-bottom: 10px; /* Space between content and timestamp */
+  color: #333;
+  margin-bottom: 10px; 
 }
 
 .post-date {
   font-size: 0.9rem;
-  color: #999; /* Lighter color for timestamp */
+  color: #999; 
   text-align: right;
 }
 
-/* Styling the Post Input Section */
 .addPost {
-  background-color: #f3e4e4; /* Light pink background */
+  background-color: #f3e4e4; 
   border-radius: 12px;
   padding: 16px;
   margin-bottom: 20px;
@@ -575,8 +538,36 @@ header {
 }
 
 
+/* Media Query for smaller screens (tablets and phones) */
+@media (max-width: 1024px) {
+  .sidebar {
+    width: 220px;
+  }
+
+  .main-content {
+    margin-left: 220px;
+  }
+
+  header {
+    padding: 1rem;
+  }
+}
+
+/* Media Query for mobile screens */
 @media (max-width: 768px) {
-  .post-input {
+  .sidebar {
+    width: 100px;
+    padding: 12px;
+  }
+
+  .main-content {
+    margin-left: 100px;
+  }
+
+  header {
+    padding: 0.5rem;
+  }
+   .post-input {
       margin-bottom: 10px;
   }
 
@@ -584,7 +575,6 @@ header {
       flex-direction: column;
   }
 }
-
 
 /* Mobile Styles */
 @media screen and (max-width: 768px) {
