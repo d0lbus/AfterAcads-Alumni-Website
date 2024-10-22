@@ -188,6 +188,15 @@
   transition: margin-left 0.3s ease;
 }
 
+.after-acads-text {
+  width: 290px;
+} 
+
+.logo-header {
+  width: 60px;
+  height: 50px;
+}
+
 .sidebar.minimized ~ .main-content {
   margin-left: 60px;
 }
