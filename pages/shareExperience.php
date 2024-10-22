@@ -102,40 +102,33 @@ if ($result->num_rows > 0) {
 
     <div class="main-content">
         <header>
-            <div class="header-search-bar">
-                <input type="text" class="search-input" placeholder="Search..." />
-                <button class="search-button" aria-label="Search">
-                    <span><img src="../assets/search1.png" width="20px" alt="search" /></span>
-                </button>
-            </div>
+            
+
         </header>
+
+        
 
         <main>
             <div class="page-header">
                 <div>
-                    <h1>Share your Experience</h1>
+                    <h1>Share Your Experience</h1>
                     <small>Share your latest experiences</small>
                 </div>
                 <div class="header-actions"></div>
             </div>
 
+
+            <!-- Post creation section -->
             <div class="addPost">
                 <div class="addPost-header">
-                    <img
-                        src="../assets/profile.jpg"
-                        alt="Profile"
-                        class="profile-pic" />
-                    <textarea
-                        id="postContent"
-                        placeholder="What's on your mind, <?php echo htmlspecialchars($user['first_name']); ?>?"
-                        class="post-input"
-                        rows="1"></textarea>
+                    <img src="../assets/profile.jpg" alt="Profile" class="profile-pic" />
+                    <textarea id="postContent" placeholder="What's on your mind, <?php echo htmlspecialchars($user['first_name']); ?>?" class="post-input" rows="1"></textarea>
                 </div>
 
                 <div class="tag-dropdown">
                     <label for="tags" class="tag-label">Select a Tag:</label>
                     <select id="tags" class="tag-select">
-                        <option value="">Select a Tag</option>
+                        <option value="GENERAL">GENERAL</option>
                         <option value="SAMCIS">SAMCIS</option>
                         <option value="SOHNABS">SOHNABS</option>
                         <option value="STELA">STELA</option>
@@ -144,33 +137,48 @@ if ($result->num_rows > 0) {
                 </div>
 
                 <div class="addPost-option">
-                    <button id="addPhotoVideoButton" class="post-option">
-                        <span><img src="../assets/photo1.png" width="20px" alt="photo" /></span>
-                        Photo
-                    </button>
+                    <input type="file" id="postImage" accept="image/*">
                 </div>
                 <button id="postButton" class="post-button">Post</button>
             </div>
 
-            <div id="postsContainer"></div>
-            <!-- Container to hold dynamic posts -->
+            <div class="header-search-bar">
+                <input type="text" class="search-input" id="searchInput" placeholder="Search..." />
+                <button class="search-button" id="searchButton" aria-label="Search">
+                    <span><img src="../assets/search1.png" width="20px" alt="search" /></span>
+                </button>
+            </div>
 
+            <!-- Tag filter dropdown -->
+            <div class="tag-dropdown2">
+                <label for="filterTag" class="tag-label">Filter by Tag:</label>
+                <select id="filterTag" class="tag-select">
+                    <option value="">All</option>
+                    <option value="GENERAL">GENERAL</option>
+                    <option value="SAMCIS">SAMCIS</option>
+                    <option value="SOHNABS">SOHNABS</option>
+                    <option value="STELA">STELA</option>
+                    <option value="SEA">SEA</option>
+                </select>
+            </div>
+
+            
+
+            <!-- Dynamic posts container -->
+            <div id="postsContainer"></div>
+
+            
+
+            <!-- Modal for creating a post -->
             <div class="modal" id="postModal">
                 <div class="modal-content">
                     <span class="close-modal">&times;</span>
                     <h2 class="modal-title">Create Post</h2>
                     <div class="line"></div>
                     <div class="modal-header">
-                        <img
-                            src="../assets/profile.jpg"
-                            alt="Profile"
-                            class="profile-pic" />
+                        <img src="../assets/profile.jpg" alt="Profile" class="profile-pic" />
                         <span><?php echo htmlspecialchars($user['first_name'] . ' ' . $user['last_name']); ?></span>
-                        <textarea
-                            id="postContent"
-                            placeholder="What's on your mind?"
-                            class="post-input"
-                            rows="3"></textarea>
+                        <textarea id="modalPostContent" placeholder="What's on your mind?" class="post-input" rows="3"></textarea>
                     </div>
 
                     <div class="modal-divider"></div>
@@ -187,25 +195,13 @@ if ($result->num_rows > 0) {
                     </div>
 
                     <div class="modal-add-option">
-                        <button class="post-option">
-                            <span><img src="../assets/photo1.png" width="20px" alt="photo" /></span>
-                            Add Photo
-                        </button>
+                        <input type="file" id="modalPostImage" accept="image/*">
                     </div>
                     <button class="post-button">Post</button>
                 </div>
             </div>
 
-            <div class="tag-dropdown2">
-                <label for="tags" class="tag-label">Sort/Filter by:</label>
-                <select id="tags" class="tag-select">
-                    <option value="">Select a Tag</option>
-                    <option value="SAMCIS">SAMCIS</option>
-                    <option value="SOHNABS">SOHNABS</option>
-                    <option value="STELA">STELA</option>
-                    <option value="SEA">SEA</option>
-                </select>
-            </div>
+            
         </main>
     </div>
 
@@ -234,59 +230,104 @@ if ($result->num_rows > 0) {
                 }
             };
 
-            // Post content handling
-            document
-                .getElementById("postButton")
-                .addEventListener("click", function() {
-                    const content = document.getElementById("postContent").value;
 
-                    if (content.trim() === "") {
-                        alert("Post content cannot be empty!");
-                        return;
+       // Handle creating a post
+       document.getElementById("postButton").addEventListener("click", function (e) {
+            e.preventDefault();
+
+            const content = document.getElementById("postContent").value;
+            const tag = document.getElementById("tags").value; // Selected tag
+            const imageInput = document.getElementById("postImage");
+
+            // Validate content
+            if (!content.trim()) {
+                alert("Post content cannot be empty!");
+                return;
+            }
+
+            // Validate tag selection
+            if (!tag) {
+                alert("Please select a tag before posting.");
+                return;
+            }
+
+            // Form data for sending the post
+            const formData = new FormData();
+            formData.append("content", content);
+            formData.append("tag", tag);
+            if (imageInput.files.length > 0) {
+                formData.append("image", imageInput.files[0]);
+            }
+
+            fetch("../config/create_posts.php", {
+                method: "POST",
+                body: formData,
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    if (data.success) {
+                        alert("Post created successfully!");
+                        location.reload(); // Reload to display new post
+                    } else {
+                        alert("Error creating post.");
                     }
+                })
+                .catch((error) => console.error("Error:", error));
+        });
 
-                    // Send post content to PHP backend
-                    fetch("../config/create_posts.php", {
-                            method: "POST",
-                            headers: {
-                                "Content-Type": "application/json",
-                            },
-                            body: JSON.stringify({
-                                content: content
-                            }),
-                        })
-                        .then((response) => response.json())
-                        .then((data) => {
-                            if (data.success) {
-                                alert("Post created successfully!");
-                                location.reload(); // Reload the page to show the new post
-                            } else {
-                                alert("Error creating post.");
-                            }
-                        })
-                        .catch((error) => console.error("Error:", error));
-                });
+        // Fetch and display posts
+        function fetchPosts(tag = null, search = null) {
+            let url = "../config/fetch_posts.php";
+            if (tag) {
+                url += `?tag=${tag}`;
+            } else if (search) {
+                url += `?search=${search}`;
+            }
 
-            fetch("../config/fetch_posts.php")
+            fetch(url)
                 .then((response) => response.json())
                 .then((posts) => {
                     const postsContainer = document.getElementById("postsContainer");
-
+                    postsContainer.innerHTML = "";
                     posts.forEach((post) => {
                         const postElement = document.createElement("div");
                         postElement.classList.add("post");
                         postElement.innerHTML = `
                             <div class="post-user">${post.full_name}</div>
                             <div class="post-content">${post.content}</div>
+                            ${
+                                post.image
+                                    ? `<img src="data:image/jpeg;base64,${post.image}" alt="Post Image" />`
+                                    : ""
+                            }
+                            <div class="post-tag">Tag: ${post.tag}</div>
                             <div class="post-date">${new Date(
-                              post.created_at
+                                post.created_at
                             ).toLocaleString()}</div>
                         `;
                         postsContainer.appendChild(postElement);
                     });
                 })
                 .catch((error) => console.error("Error fetching posts:", error));
+        }
+
+        // Filter posts by tag
+        document.getElementById("filterTag").addEventListener("change", function () {
+            const selectedTag = this.value;
+            fetchPosts(selectedTag);
         });
+
+         // Search posts by keyword
+         document.getElementById("searchButton").addEventListener("click", function () {
+            const searchQuery = document.getElementById("searchInput").value.trim();
+            if (searchQuery) {
+                fetchPosts(null, searchQuery);
+            }
+        });
+
+        // Initial fetch of posts
+        fetchPosts();
+    });
     </script>
 
     <script>

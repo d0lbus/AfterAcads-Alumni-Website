@@ -205,17 +205,20 @@ header {
   padding: 8px;
   background-color: #fff;
   border-radius: 20px;
-  width: 20%;
+  width: 100%; 
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  position: absolute;
-  right: 0;
-  top: 0;
+  margin: 20px 0; 
 }
+
 
 .search-input {
   border: none;
   outline: none;
-  padding: 8px;
+  padding: 10px;
+  flex-grow: 1;
+  font-size: 1rem;
+  border-radius: 12px;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .header-search-bar .search-button {
@@ -463,11 +466,13 @@ header {
 
 /* Post styling */
 .post {
-  background-color: #f9f9f9; /* Light background for the post */
-  border-radius: 12px; /* Rounded corners */
-  padding: 16px; /* Padding for the post content */
-  margin-top: 20px; /* Space between posts */
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  background-color: #f9f9f9; 
+  border-radius: 12px; 
+  padding: 16px; 
+  margin-top: 20px; 
+  overflow: auto;
+  max-height: 300px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); 
 }
 
 .post-user {
@@ -561,6 +566,14 @@ header {
 .post-option:hover {
   background-color: rgba(141, 162, 251, 0.2);
 }
+
+.post img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
 
 @media (max-width: 768px) {
   .post-input {

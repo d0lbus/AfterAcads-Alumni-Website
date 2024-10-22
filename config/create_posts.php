@@ -1,24 +1,38 @@
 <?php
 session_start();
-include '../config/connection.php';
+include 'connection.php';
 
-$data = json_decode(file_get_contents('php://input'), true);
+// Fetch the logged-in user's ID
+$email = $_SESSION['email'];
+$sql = "SELECT id FROM users WHERE email = ?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("s", $email);
+$stmt->execute();
+$result = $stmt->get_result();
+$user = $result->fetch_assoc();
+$user_id = $user['id'];
 
-if (isset($data['content']) && !empty($data['content'])) {
-    $content = $data['content'];
-    
-    $userId = $_SESSION['user_id']; 
-
-    $sql = "INSERT INTO posts (user_id, content) VALUES (?, ?)";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param('is', $userId, $content);
-
-    if ($stmt->execute()) {
-        echo json_encode(['success' => true]);
-    } else {
-        echo json_encode(['success' => false]);
-    }
-} else {
-    echo json_encode(['success' => false, 'message' => 'Post content cannot be empty']);
+// Check if image is uploaded
+$image_blob = null;
+if (isset($_FILES['image']) && $_FILES['image']['size'] > 0) {
+    $image_blob = file_get_contents($_FILES['image']['tmp_name']);
 }
+
+// Get the post content and tag from the request
+$content = $_POST['content'];
+$tag = $_POST['tag'];
+
+// Prepare and execute the insert query
+$sql = "INSERT INTO posts (user_id, content, tag, image) VALUES (?, ?, ?, ?)";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("isss", $user_id, $content, $tag, $image_blob);
+
+if ($stmt->execute()) {
+    echo json_encode(['success' => true]);
+} else {
+    echo json_encode(['success' => false]);
+}
+
+$stmt->close();
+$conn->close();
 ?>
