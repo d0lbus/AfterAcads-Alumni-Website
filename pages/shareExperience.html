@@ -47,13 +47,10 @@ if ($result->num_rows > 0) {
                         <span><img src="../assets/bars1.png" width="24px" alt="bars" /></span>
                     </a>
                 </div>
-                <img
-                    class="logocircle"
-                    src="../assets/alumnilogo.png"
-                    width="30px"
-                    alt="" />
+                <img class="logocircle" src="../assets/alumnilogo.png" width="30px" alt="" />
             </div>
         </div>
+        
         <div class="sidebar-content">
             <div class="sidebar-user">
                 <a href="../pages/viewProfile.php">
@@ -66,34 +63,30 @@ if ($result->num_rows > 0) {
                     <span><?php echo htmlspecialchars($user['email']); ?></span>
                 </div>
             </div>
+            
             <div class="sidebar-menu">
                 <div class="menu-head">
                     <span>Dashboard</span>
                 </div>
                 <ul>
                     <li>
-                        <a href="../pages/shareExperience.php"><span><img
-                                    src="../assets/home1.png"
-                                    width="20px"
-                                    alt="Home" /></span>Home</a>
+                        <a href="../pages/shareExperience.php">
+                            <span><img src="../assets/home1.png" width="20px" alt="Home" /></span>Home
+                        </a>
                     </li>
                     <li>
-                        <a href="../pages/events.php"><span><img
-                                    src="../assets/event1.png"
-                                    width="20px"
-                                    alt="Events" /></span>Events</a>
+                        <a href="../pages/events.php">
+                            <span><img src="../assets/event1.png" width="20px" alt="Events" /></span>Events
+                        </a>
                     </li>
                     <li>
-                        <a href="../pages/settings.php"><span><img
-                                    src="../assets/setting1.png"
-                                    width="20px"
-                                    alt="Settings" /></span>Settings</a>
+                        <a href="../pages/settings.php">
+                            <span><img src="../assets/setting1.png" width="20px" alt="Settings" /></span>Settings
+                        </a>
                     </li>
                     <li>
-                        <a href="../pages/loginpage.php"><span><img
-                                    src="../assets/logout1.png"
-                                    width="20px"
-                                    alt="Logout" /></span>Logout</a>
+                        <a href="../pages/loginpage.php">
+                            <span><img src="../assets/logout1.png" width="20px" alt="Logout" /></span>Logout</a>
                     </li>
                 </ul>
             </div>
@@ -102,12 +95,8 @@ if ($result->num_rows > 0) {
 
     <div class="main-content">
         <header>
-            
-
         </header>
-
         
-
         <main>
             <div class="page-header">
                 <div>
@@ -116,7 +105,6 @@ if ($result->num_rows > 0) {
                 </div>
                 <div class="header-actions"></div>
             </div>
-
 
             <!-- Post creation section -->
             <div class="addPost">
@@ -162,12 +150,8 @@ if ($result->num_rows > 0) {
                 </select>
             </div>
 
-            
-
             <!-- Dynamic posts container -->
             <div id="postsContainer"></div>
-
-            
 
             <!-- Modal for creating a post -->
             <div class="modal" id="postModal">
@@ -199,9 +183,7 @@ if ($result->num_rows > 0) {
                     </div>
                     <button class="post-button">Post</button>
                 </div>
-            </div>
-
-            
+            </div> 
         </main>
     </div>
 
@@ -229,7 +211,6 @@ if ($result->num_rows > 0) {
                     modal.style.display = "none";
                 }
             };
-
 
        // Handle creating a post
        document.getElementById("postButton").addEventListener("click", function (e) {
@@ -340,6 +321,6 @@ if ($result->num_rows > 0) {
             });
         });
     </script>
-</body>
 
+</body>
 </html>
