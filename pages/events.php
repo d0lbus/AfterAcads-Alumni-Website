@@ -75,7 +75,7 @@ $result = $stmt->get_result();
     <div class="sidebar-content">
       <div class="sidebar-user">
         <a href="../pages/viewProfile.php">
-          <img src="../assets/profile.jpg" alt="Profile Picture" />
+          <img src="../assets/display-photo.png" alt="Profile Picture" />
         </a>
         <div>
           <h3>
