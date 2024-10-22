@@ -101,7 +101,7 @@ if ($result->num_rows > 0) {
             <!-- Post creation section -->
             <div class="addPost">
                 <div class="addPost-header">
-                    <img src="../assets/profile.jpg" alt="Profile" class="profile-pic" />
+                    <img src="../assets/display-photo.png" alt="Profile" class="profile-pic" />
                     <textarea id="postContent" placeholder="What's on your mind, <?php echo htmlspecialchars($user['first_name']); ?>?" class="post-input" rows="1"></textarea>
                 </div>
 
