@@ -23,7 +23,7 @@ if ($result->num_rows > 0) {
     exit();
 }
 
-$sql_posts = "SELECT content, created_at FROM posts WHERE user_id = ?";
+$sql_posts = "SELECT content, created_at, tag, image FROM posts WHERE user_id = ? ORDER BY created_at DESC";
 $stmt_posts = $conn->prepare($sql_posts);
 $stmt_posts->bind_param("i", $user['id']);
 $stmt_posts->execute();
@@ -121,11 +121,11 @@ $result_posts = $stmt_posts->get_result();
 
                     <ul class="about">
                         <li><span>Joined <?php echo date('F d, Y', strtotime($user['created_at'])); ?></span></li>
-                        <li><span>Lives in <?php echo htmlspecialchars($user['address']); ?></span></li>
+                        <li><span>Address: <?php echo isset($user['address']) ? htmlspecialchars($user['address']) : '(Not provided)'; ?></span></li>
                     </ul>
 
                     <div class="content">
-                        <p><?php echo htmlspecialchars($user['bio']); ?></p>
+                        <p><?php echo isset($user['bio']) ? htmlspecialchars($user['bio']) : 'Bio not provided'; ?></p>
 
                         <ul class="social-logo">
                             <li><img src="../assets/twitter-icon.png" alt="twitter icon" width="20px" height="20px"/></li>
@@ -147,10 +147,24 @@ $result_posts = $stmt_posts->get_result();
                         <?php if ($result_posts->num_rows > 0): ?>
                             <?php while ($post = $result_posts->fetch_assoc()): ?>
                                 <div class="post">
+                                    <!-- Display post content -->
                                     <p><?php echo htmlspecialchars($post['content']); ?></p>
+                                    
+                                    <!-- Display tag if available -->
+                                    <?php if (!empty($post['tag'])): ?>
+                                        <small>Tag: <?php echo htmlspecialchars($post['tag']); ?></small>
+                                    <?php endif; ?>
+                                    
+                                    <!-- Display image if available -->
+                                    <?php if (!empty($post['image'])): ?>
+                                        <div class="post-image">
+                                            <img src="data:image/jpeg;base64,<?php echo base64_encode($post['image']); ?>" alt="Post Image" style="max-width:100%; height:auto;">
+                                        </div>
+                                    <?php endif; ?>
+
+                                    <!-- Display the post date -->
                                     <small><?php echo date('F d, Y H:i', strtotime($post['created_at'])); ?></small>
                                 </div>
-
                             <?php endwhile; ?>
                         <?php else: ?>
                             <p>No posts yet.</p>
@@ -158,6 +172,8 @@ $result_posts = $stmt_posts->get_result();
                     </div>
 
                     <div class="line"></div>
+
+
                     <!-- TO DO: Display user's uploaded photos DYNAMICALLY  -->
                     <div class="photos" id="photos">
                         <img src="" alt="image" />
