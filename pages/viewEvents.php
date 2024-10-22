@@ -140,7 +140,6 @@ if ($result->num_rows > 0) {
             </div>
         </header>
         
-        <!-- The rest of the content appears below the search bar -->
         <main>
             <div class="page-header">
                 <div class="content-container">
@@ -178,6 +177,15 @@ if ($result->num_rows > 0) {
             });
         });
     </script>
-    
+    <div class="right-panel">
+      <h2>Friends</h2>
+      <hr class="title-divider">
+      <div class="friend-list">
+          <div class="friend">
+              <img src="../assets/profile.jpg" alt="Friend Profile Picture">
+              <span>Friend Name 1</span>
+          </div>
+      </div>
+    </div>
 </body>
 </html>

@@ -313,6 +313,85 @@ small {
   margin-top: 0;
 }
 
+/* Right Panel Styles */
+.right-panel {
+  width: 280px;
+  position: fixed;
+  right: 0;
+  top: 0;
+  height: 100%;
+  padding: 24px;
+  background: #ffffff; /* Changed to white */
+  color: var(--color-sidebar-text);
+  overflow-y: auto;
+  z-index: 100;
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1); /* Add shadow to separate it from content */
+}
+
+.right-panel h2 {
+  text-align: center;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: var(--color-main); /* Adjust text color for contrast */
+}
+
+.friend-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.friend {
+  display: flex;
+  align-items: center;
+}
+
+.friend img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-right: 16px;
+}
+
+.friend span {
+  font-size: 1.1rem;
+  color: var(--color-main); /* Adjust text color for contrast */
+}
+
+/* Adjust main content to account for right panel */
+.main-content {
+  margin-left: 280px;
+  margin-right: 280px;
+  padding-left: 20px;
+  padding-right: 10px;
+  transition: margin-left 0.3s ease, margin-right 0.3s ease;
+}
+
+.sidebar.minimized ~ .main-content {
+  margin-left: 60px;
+}
+
+/* Line after Friends title */
+.title-divider {
+  border: none;
+  border-top: 2px solid var(--color-main); /* Adjust color for contrast */
+  margin: 8px 0 16px 0; /* Add space before and after the line */
+  width: 100%;
+}
+
+/* Adjust main content to account for right panel */
+.main-content {
+  margin-left: 280px;
+  margin-right: 280px;
+  padding-left: 20px;
+  padding-right: 10px;
+  transition: margin-left 0.3s ease, margin-right 0.3s ease;
+}
+
+.sidebar.minimized ~ .main-content {
+  margin-left: 60px;
+}
+
 /* Page Layout */
 .pagination {
   text-align: center;
