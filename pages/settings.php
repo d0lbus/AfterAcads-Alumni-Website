@@ -75,11 +75,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <span><img src="../assets/bars1.png" width="24px" alt="bars" /></span>
                     </a>
                 </div>
-
-                <img
-                    class="logocircle"
-                    src="../assets/alumnilogo.png"
-                    width="30px" alt="" />
             </div>
         </div>
         <div class="sidebar-content">
@@ -129,14 +124,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
 
     <div class="main-content">
+        <header>
+            <img src="../assets/alumnilogo.png" alt="logo" class="logo-header" />
+            <img src="../assets/afteracadstext.png" alt="AfterAcads" class="after-acads-text" />
+            
+        </header>
         <main>
-            <div class="page-header">
-                <div>
-                    <h1>Settings</h1>
-                    <small>Update your account settings below</small>
-                </div>
-            </div>
-
+            <h1>Settings</h1>
+            <small>Update your account settings below</small>
             <!-- Settings Form -->
             <form class="settings-form" method="post" action="settings.php">
                 <div class="form-group">

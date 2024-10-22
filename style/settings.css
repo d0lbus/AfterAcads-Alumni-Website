@@ -180,24 +180,31 @@
 
 /* Main content styles */
 .main-content {
-  margin-left: 280px;
-  padding-left: 20px;
+  margin-left: 320px;
+  margin-right: 120px;
+  padding-left: 50px;
   padding-right: 10px;
-  transition: margin-left 0.3s ease;
+  transition: margin-left 0.3s ease, margin-right 0.3s ease;
 }
 
 .sidebar.minimized ~ .main-content {
   margin-left: 60px;
 }
 
+.after-acads-text {
+  width: 290px;
+} 
+
+.logo-header {
+  width: 60px;
+  height: 50px;
+}
 
 header {
   height: 100px;
-  display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #efefef;
-  padding: 1rem 1.5rem;
+  margin-top: 30px;
 }
 
 .header-icons span {
