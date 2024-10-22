@@ -85,9 +85,6 @@ $result = $stmt->get_result();
         </div>
       </div>
       <div class="sidebar-menu">
-        <div class="menu-head">
-          <span>Dashboard</span>
-        </div>
         <ul>
           <li>
             <a href="../pages/shareExperience.php"><span><img

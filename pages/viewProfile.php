@@ -71,9 +71,6 @@ $result_posts = $stmt_posts->get_result();
             </div>
 
             <div class="sidebar-menu">
-                <div class="menu-head">
-                    <span>Dashboard</span>
-                </div>
                 <ul>
                     <li>
                         <a href="../pages/shareExperience.php">
@@ -128,9 +125,9 @@ $result_posts = $stmt_posts->get_result();
                         <p><?php echo isset($user['bio']) ? htmlspecialchars($user['bio']) : 'Bio not provided'; ?></p>
 
                         <ul class="social-logo">
-                            <li><img src="../assets/twitter-icon.png" alt="twitter icon" width="20px" height="20px"/></li>
+                            <li><img src="../assets/twitter-icon.png" alt="twitter icon" width="20px" height="20px" /></li>
                             <li><img src="../assets/fb-icon.png" alt="fb icon" width="20px" height="20px" /></li>
-                            <li><img src="../assets/instagram-icon.png" alt="ig icon" width="20px" height="20px" ></li>
+                            <li><img src="../assets/instagram-icon.png" alt="ig icon" width="20px" height="20px"></li>
                         </ul>
                     </div>
                 </div>
@@ -149,12 +146,12 @@ $result_posts = $stmt_posts->get_result();
                                 <div class="post">
                                     <!-- Display post content -->
                                     <p><?php echo htmlspecialchars($post['content']); ?></p>
-                                    
+
                                     <!-- Display tag if available -->
                                     <?php if (!empty($post['tag'])): ?>
                                         <small>Tag: <?php echo htmlspecialchars($post['tag']); ?></small>
                                     <?php endif; ?>
-                                    
+
                                     <!-- Display image if available -->
                                     <?php if (!empty($post['image'])): ?>
                                         <div class="post-image">

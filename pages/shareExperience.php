@@ -66,9 +66,6 @@ if ($result->num_rows > 0) {
             </div>
 
             <div class="sidebar-menu">
-                <div class="menu-head">
-                    <span>Dashboard</span>
-                </div>
                 <ul>
                     <li>
                         <a href="../pages/shareExperience.php">

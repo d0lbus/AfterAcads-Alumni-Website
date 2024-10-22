@@ -57,16 +57,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Settings</title>
     <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css" />
     <link rel="stylesheet" href="../style/settings.css" />
-    
+
 </head>
+
 <body>
-<div class="sidebar">
+    <div class="sidebar">
         <div class="sidebar-brand">
             <div class="brand-flex">
 
@@ -89,9 +91,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
 
             <div class="sidebar-menu">
-                <div class="menu-head">
-                    <span>Dashboard</span>
-                </div>
                 <ul>
                     <li>
                         <a href="../pages/shareExperience.php">
@@ -127,7 +126,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <header>
             <img src="../assets/alumnilogo.png" alt="logo" class="logo-header" />
             <img src="../assets/afteracadstext.png" alt="AfterAcads" class="after-acads-text" />
-            
+
         </header>
         <main>
             <h1>Settings</h1>
@@ -171,14 +170,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
+        document.addEventListener("DOMContentLoaded", function() {
             const sidebar = document.querySelector(".sidebar");
             const toggleButton = document.getElementById("sidebarToggle");
 
-            toggleButton.addEventListener("click", function () {
+            toggleButton.addEventListener("click", function() {
                 sidebar.classList.toggle("minimized");
             });
         });
     </script>
 </body>
+
 </html>
