@@ -100,8 +100,7 @@ if ($result->num_rows > 0) {
         <main>
             <div class="page-header">
                 <div>
-                    <h1>Share Your Experience</h1>
-                    <small>Share your latest experiences</small>
+                    <h1>After Acads</h1>
                 </div>
                 <div class="header-actions"></div>
             </div>
