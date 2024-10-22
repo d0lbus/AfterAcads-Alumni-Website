@@ -180,17 +180,28 @@
 
 /* Main content styles */
 .main-content {
-  margin-left: 280px;
-  padding-left: 20px;
+  margin-left: 320px;
+  margin-right: 350px;
+  padding-left: 50px;
   padding-right: 10px;
-  transition: margin-left 0.3s ease;
+  transition: margin-left 0.3s ease, margin-right 0.3s ease;
 }
 
 .sidebar.minimized ~ .main-content {
   margin-left: 60px;
 }
 
+.after-acads-text {
+  width: 290px;
+} 
+
+.logo-header {
+  width: 60px;
+  height: 50px;
+}
+
 header {
+  margin-top: 30px;
   position: relative;
 }
 
@@ -227,6 +238,7 @@ header {
 }
 
 h1 {
+  margin-top: 15px;
   margin-bottom: 8px;
 }
 
@@ -330,12 +342,13 @@ small {
 
 .right-panel h2 {
   text-align: center;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   margin-bottom: 1rem;
   color: var(--color-main); /* Adjust text color for contrast */
 }
 
 .friend-list {
+  margin-top: 10px;
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -347,49 +360,23 @@ small {
 }
 
 .friend img {
-  width: 50px;
-  height: 50px;
+  width: 35px;
+  height: 35px;
   border-radius: 50%;
   margin-right: 16px;
 }
 
 .friend span {
-  font-size: 1.1rem;
+  font-size: 1rem;
   color: var(--color-main); /* Adjust text color for contrast */
-}
-
-/* Adjust main content to account for right panel */
-.main-content {
-  margin-left: 280px;
-  margin-right: 280px;
-  padding-left: 20px;
-  padding-right: 10px;
-  transition: margin-left 0.3s ease, margin-right 0.3s ease;
-}
-
-.sidebar.minimized ~ .main-content {
-  margin-left: 60px;
 }
 
 /* Line after Friends title */
 .title-divider {
   border: none;
   border-top: 2px solid var(--color-main); /* Adjust color for contrast */
-  margin: 8px 0 16px 0; /* Add space before and after the line */
+  margin: 8px 0 30px 0; /* Add space before and after the line */
   width: 100%;
-}
-
-/* Adjust main content to account for right panel */
-.main-content {
-  margin-left: 280px;
-  margin-right: 280px;
-  padding-left: 20px;
-  padding-right: 10px;
-  transition: margin-left 0.3s ease, margin-right 0.3s ease;
-}
-
-.sidebar.minimized ~ .main-content {
-  margin-left: 60px;
 }
 
 /* Page Layout */

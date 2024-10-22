@@ -179,7 +179,20 @@ if ($result->num_rows > 0) {
                     <button class="post-button">Post</button>
                 </div>
             </div> 
+
+            
         </main>
+    </div>
+
+    <div class="right-panel">
+        <h2>Friends</h2>
+        <hr class="title-divider">
+        <div class="friend-list">
+            <div class="friend">
+                <img src="../assets/profile.jpg" alt="Friend Profile Picture">
+                <span>Friend Name 1</span>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -317,15 +330,6 @@ if ($result->num_rows > 0) {
         });
     </script>
 
-<div class="right-panel">
-      <h2>Friends</h2>
-      <hr class="title-divider">
-      <div class="friend-list">
-          <div class="friend">
-              <img src="../assets/profile.jpg" alt="Friend Profile Picture">
-              <span>Friend Name 1</span>
-          </div>
-      </div>
-    </div>
+
 </body>
 </html>
