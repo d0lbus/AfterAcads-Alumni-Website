@@ -48,10 +48,10 @@ if ($result->num_rows > 0) {
                         <span><img src="../assets/bars1.png" width="24px" alt="bars" /></span>
                     </a>
                 </div>
-                
+
             </div>
         </div>
-        
+
         <div class="sidebar-content">
             <div class="sidebar-user">
                 <a href="../pages/viewProfile.php">
@@ -64,7 +64,7 @@ if ($result->num_rows > 0) {
                     <span><?php echo htmlspecialchars($user['email']); ?></span>
                 </div>
             </div>
-            
+
             <div class="sidebar-menu">
                 <div class="menu-head">
                     <span>Dashboard</span>
@@ -99,7 +99,7 @@ if ($result->num_rows > 0) {
             <img src="../assets/alumnilogo.png" alt="logo" class="logo-header" />
             <img src="../assets/afteracadstext.png" alt="AfterAcads" class="after-acads-text" />
         </header>
-        
+
         <main>
             <!-- Post creation section -->
             <div class="addPost">
@@ -178,9 +178,9 @@ if ($result->num_rows > 0) {
                     </div>
                     <button class="post-button">Post</button>
                 </div>
-            </div> 
+            </div>
 
-            
+
         </main>
     </div>
 
@@ -220,68 +220,68 @@ if ($result->num_rows > 0) {
                 }
             };
 
-       // Handle creating a post
-       document.getElementById("postButton").addEventListener("click", function (e) {
-            e.preventDefault();
+            // Handle creating a post
+            document.getElementById("postButton").addEventListener("click", function(e) {
+                e.preventDefault();
 
-            const content = document.getElementById("postContent").value;
-            const tag = document.getElementById("tags").value; // Selected tag
-            const imageInput = document.getElementById("postImage");
+                const content = document.getElementById("postContent").value;
+                const tag = document.getElementById("tags").value; // Selected tag
+                const imageInput = document.getElementById("postImage");
 
-            // Validate content
-            if (!content.trim()) {
-                alert("Post content cannot be empty!");
-                return;
-            }
+                // Validate content
+                if (!content.trim()) {
+                    alert("Post content cannot be empty!");
+                    return;
+                }
 
-            // Validate tag selection
-            if (!tag) {
-                alert("Please select a tag before posting.");
-                return;
-            }
+                // Validate tag selection
+                if (!tag) {
+                    alert("Please select a tag before posting.");
+                    return;
+                }
 
-            // Form data for sending the post
-            const formData = new FormData();
-            formData.append("content", content);
-            formData.append("tag", tag);
-            if (imageInput.files.length > 0) {
-                formData.append("image", imageInput.files[0]);
-            }
+                // Form data for sending the post
+                const formData = new FormData();
+                formData.append("content", content);
+                formData.append("tag", tag);
+                if (imageInput.files.length > 0) {
+                    formData.append("image", imageInput.files[0]);
+                }
 
-            fetch("../config/create_posts.php", {
-                method: "POST",
-                body: formData,
-            })
-                .then((response) => response.json())
-                .then((data) => {
-                    if (data.success) {
-                        alert("Post created successfully!");
-                        location.reload(); // Reload to display new post
-                    } else {
-                        alert("Error creating post.");
-                    }
-                })
-                .catch((error) => console.error("Error:", error));
-        });
+                fetch("../config/create_posts.php", {
+                        method: "POST",
+                        body: formData,
+                    })
+                    .then((response) => response.json())
+                    .then((data) => {
+                        if (data.success) {
+                            alert("Post created successfully!");
+                            location.reload(); // Reload to display new post
+                        } else {
+                            alert("Error creating post.");
+                        }
+                    })
+                    .catch((error) => console.error("Error:", error));
+            });
 
-        // Fetch and display posts
-        function fetchPosts(tag = null, search = null) {
-            let url = "../config/fetch_posts.php";
-            if (tag) {
-                url += `?tag=${tag}`;
-            } else if (search) {
-                url += `?search=${search}`;
-            }
+            // Fetch and display posts
+            function fetchPosts(tag = null, search = null) {
+                let url = "../config/fetch_posts.php";
+                if (tag) {
+                    url += `?tag=${tag}`;
+                } else if (search) {
+                    url += `?search=${search}`;
+                }
 
-            fetch(url)
-                .then((response) => response.json())
-                .then((posts) => {
-                    const postsContainer = document.getElementById("postsContainer");
-                    postsContainer.innerHTML = "";
-                    posts.forEach((post) => {
-                        const postElement = document.createElement("div");
-                        postElement.classList.add("post");
-                        postElement.innerHTML = `
+                fetch(url)
+                    .then((response) => response.json())
+                    .then((posts) => {
+                        const postsContainer = document.getElementById("postsContainer");
+                        postsContainer.innerHTML = "";
+                        posts.forEach((post) => {
+                            const postElement = document.createElement("div");
+                            postElement.classList.add("post");
+                            postElement.innerHTML = `
                             <div class="post-user">${post.full_name}</div>
                             <div class="post-content">${post.content}</div>
                             ${
@@ -294,29 +294,29 @@ if ($result->num_rows > 0) {
                                 post.created_at
                             ).toLocaleString()}</div>
                         `;
-                        postsContainer.appendChild(postElement);
-                    });
-                })
-                .catch((error) => console.error("Error fetching posts:", error));
-        }
-
-        // Filter posts by tag
-        document.getElementById("filterTag").addEventListener("change", function () {
-            const selectedTag = this.value;
-            fetchPosts(selectedTag);
-        });
-
-         // Search posts by keyword
-         document.getElementById("searchButton").addEventListener("click", function () {
-            const searchQuery = document.getElementById("searchInput").value.trim();
-            if (searchQuery) {
-                fetchPosts(null, searchQuery);
+                            postsContainer.appendChild(postElement);
+                        });
+                    })
+                    .catch((error) => console.error("Error fetching posts:", error));
             }
-        });
 
-        // Initial fetch of posts
-        fetchPosts();
-    });
+            // Filter posts by tag
+            document.getElementById("filterTag").addEventListener("change", function() {
+                const selectedTag = this.value;
+                fetchPosts(selectedTag);
+            });
+
+            // Search posts by keyword
+            document.getElementById("searchButton").addEventListener("click", function() {
+                const searchQuery = document.getElementById("searchInput").value.trim();
+                if (searchQuery) {
+                    fetchPosts(null, searchQuery);
+                }
+            });
+
+            // Initial fetch of posts
+            fetchPosts();
+        });
     </script>
 
     <script>
@@ -328,8 +328,32 @@ if ($result->num_rows > 0) {
                 sidebar.classList.toggle("minimized");
             });
         });
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const addPost = document.querySelector(".addPost");
+            const postContent = document.getElementById("postContent");
+
+            // Initially minimize the addPost
+            addPost.classList.add("minimized");
+
+            // Expand addPost when the textarea is clicked
+            postContent.addEventListener("click", function(event) {
+                event.stopPropagation(); // Prevent the event from bubbling up to the document
+                addPost.classList.remove("minimized");
+                addPost.classList.add("expanded");
+            });
+
+            // Collapse addPost when clicking outside
+            document.addEventListener("click", function(event) {
+                if (!addPost.contains(event.target)) {
+                    addPost.classList.remove("expanded");
+                    addPost.classList.add("minimized");
+                }
+            });
+        });
     </script>
 
 
 </body>
+
 </html>

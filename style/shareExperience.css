@@ -248,6 +248,33 @@ header {
     padding: 16px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     margin-top: 20px;
+    transition: all 0.3s ease;
+    overflow: hidden;
+    max-height: 80px; /* Minimized height */
+    padding: 10px;
+    display: flex;
+}
+
+.addPost.minimized {
+  max-height: 80px; /* Show only profile image and text area */
+  padding: 10px;
+}
+
+.addPost.expanded {
+  max-height: 500px; /* Increased height to show all elements */
+  padding: 20px;
+}
+
+.addPost.minimized .tag-dropdown,
+.addPost.minimized .addPost-option,
+.addPost.minimized .post-button {
+    display: none;
+}
+
+.addPost.expanded .tag-dropdown,
+.addPost.expanded .addPost-option,
+.addPost.expanded .post-button {
+    display: block;
 }
 
 .addPost-header {
