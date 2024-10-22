@@ -52,17 +52,12 @@ $result_posts = $stmt_posts->get_result();
                         <span><img src="../assets/bars1.png" width="24px" alt="bars" /></span>
                     </a>
                 </div>
-
-                <img
-                    class="logocircle"
-                    src="../assets/alumnilogo.png"
-                    width="30px" alt="" />
             </div>
         </div>
         <div class="sidebar-content">
             <div class="sidebar-user">
                 <a href="../pages/viewProfile.php">
-                    <img src="../assets/profile.jpg" alt="Profile Picture" />
+                    <img src="../assets/display-photo.png" alt="Profile Picture" />
                 </a>
                 <div>
                     <h3><?php echo htmlspecialchars($user['first_name'] . ' ' . $user['last_name']); ?></h3>
