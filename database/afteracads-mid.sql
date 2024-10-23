@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 22, 2024 at 04:23 AM
+-- Generation Time: Oct 23, 2024 at 12:37 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -31,6 +31,7 @@ CREATE TABLE `events` (
   `id` int(11) NOT NULL,
   `title` varchar(255) NOT NULL,
   `description` text NOT NULL,
+  `tag` varchar(255) DEFAULT NULL,
   `host` varchar(255) NOT NULL,
   `date` date NOT NULL,
   `time` time NOT NULL,
@@ -44,12 +45,12 @@ CREATE TABLE `events` (
 -- Dumping data for table `events`
 --
 
-INSERT INTO `events` (`id`, `title`, `description`, `host`, `date`, `time`, `location`, `image_path`, `alt_text`, `created_at`) VALUES
-(1, 'Annual Alumni Meetup', 'Join us for the Annual Alumni Meetup to reconnect with old friends and make new connections. Don\'t miss this exciting event with live entertainment and dinner.', 'SLU Alumni Association', '2024-12-01', '18:00:00', 'SLU Main Hall', '/assets/events/alumni_meetup.jpg', 'Annual Alumni Meetup', '2024-10-17 23:54:54'),
-(2, 'Tech Summit 2024', 'A summit bringing together industry leaders to discuss the future of technology, innovation, and the role of AI in business.', 'SLU Computer Science Department', '2024-11-15', '09:00:00', 'SLU Auditorium', '/assets/events/tech_summit.jpg', 'Tech Summit 2024', '2024-10-17 23:54:54'),
-(3, 'Sports Fest 2024', 'Get ready for an action-packed day at the SLU Sports Fest 2024. Compete in various sports activities and win exciting prizes!', 'SLU Sports Committee', '2024-12-20', '08:00:00', 'SLU Sports Complex', '/assets/events/sports_fest.jpg', 'Sports Fest 2024', '2024-10-17 23:54:54'),
-(4, 'Cultural Night', 'Experience the diverse cultural performances by students and special guests at the SLU Cultural Night. Free entry for students!', 'SLU Cultural Committee', '2024-10-25', '19:00:00', 'SLU Cultural Hall', '/assets/events/cultural_night.jpg', 'Cultural Night', '2024-10-17 23:54:54'),
-(5, 'Entrepreneurship Workshop', 'An interactive workshop for aspiring entrepreneurs to learn the basics of starting a business and funding it. Industry experts will share tips and experiences.', 'SLU Business Department', '2024-11-05', '10:00:00', 'SLU Business Center', '/assets/events/entrepreneurship_workshop.jpg', 'Entrepreneurship Workshop', '2024-10-17 23:54:54');
+INSERT INTO `events` (`id`, `title`, `description`, `tag`, `host`, `date`, `time`, `location`, `image_path`, `alt_text`, `created_at`) VALUES
+(6, 'General Event 1', 'Description of the general event 1', 'GENERAL', 'Host 1', '2024-11-10', '14:00:00', 'Location 1', '/images/event1.jpg', 'General Event 1 Image', '2024-10-23 10:03:13'),
+(7, 'SAMCIS Conference', 'SAMCIS Annual Conference Description', 'SAMCIS', 'SAMCIS Host', '2024-11-12', '10:00:00', 'Conference Hall 2', '/images/samcis_event.jpg', 'SAMCIS Conference Image', '2024-10-23 10:03:13'),
+(8, 'SOHNABS Health Workshop', 'SOHNABS Health Workshop Event Description', 'SOHNABS', 'SOHNABS Host', '2024-11-14', '09:00:00', 'Health Center 5', '/images/sohnabs_event.jpg', 'SOHNABS Workshop Image', '2024-10-23 10:03:13'),
+(9, 'STELA Leadership Summit', 'STELA Leadership Summit Event Description', 'STELA', 'STELA Host', '2024-11-20', '11:00:00', 'Leadership Center', '/images/stela_event.jpg', 'STELA Summit Image', '2024-10-23 10:03:13'),
+(10, 'SEA Environmental Conference', 'SEA Environmental Conference Description', 'SEA', 'SEA Host', '2024-11-22', '08:00:00', 'Environment Hall', '/images/sea_event.jpg', 'SEA Conference Image', '2024-10-23 10:03:13');
 
 -- --------------------------------------------------------
 
@@ -117,7 +118,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `first_name`, `last_name`, `email`, `password_hash`, `agreed_to_terms`, `created_at`, `address`, `bio`) VALUES
-(1, 'Jan Dolby', 'Aquino', 'jandolbyaquino19@slu.edu.ph', '$2y$10$Qmr8V/KX0n7rGiZBsHU5n.DkWtYmFB6ZcDS3NNfWvAxI5jbqAuMie', 1, '2024-10-15 00:33:08', '83 Malabago Mangaldan Pangasinan', 'Hi my name is Jan Dolby'),
+(1, 'Jan Dolby', 'Aquino', 'jandolbyaquino19@slu.edu.ph', '$2y$10$sHBn0qMHnOQQ8oHPkAHa4u24aV/7pIS7RPkIX2Sr9uYmlxZbnoQJW', 1, '2024-10-15 00:33:08', '83 Malabago Mangaldan Pangasinan', 'Hi my name is Jan Dolby'),
 (2, 'Jan Dolby', 'Aquino', 'jandolbyaquino20@slu.edu.ph', '$2y$10$w4l8..AW/0jm6UUBNYI16eOx/17aJf66VwYNnaPzG/P1WoqWBP6V.', 1, '2024-10-15 00:34:02', NULL, NULL),
 (3, 'Jan Dolby', 'Aquino', 'jandolbyaquino21@slu.edu.ph', '$2y$10$IhalskFjVnbHekNUtj3CzedWp2UqLm3gCZNe.uNJclfsba4wNXGi.', 1, '2024-10-15 00:35:46', NULL, NULL);
 
@@ -161,7 +162,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `events`
 --
 ALTER TABLE `events`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `event_participants`
