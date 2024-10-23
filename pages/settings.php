@@ -135,7 +135,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <form class="settings-form" method="post" action="settings.php">
                 <div class="form-group">
                     <label for="change-password">Change Password</label>
-                    <input type="password" name="change-password" id="change-password" placeholder="New Password" required />
+                    <input type="password" name="change-password" id="change-password" placeholder="New Password"/>
                 </div>
 
                 <div class="form-group">

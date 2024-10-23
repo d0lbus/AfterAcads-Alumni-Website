@@ -129,10 +129,20 @@ if ($result->num_rows > 0) {
                 </button>
             </div>
 
-            <!-- Tag filter dropdown -->
-            <div class="tag-dropdown2">
-                <label for="filterTag" class="tag-label">Filter by Tag:</label>
-                <select id="filterTag" class="tag-select">
+            <div class="sort-filter-container">
+            <!-- Sort by Dropdown -->
+            <div class="sort-dropdown">
+                <label for="sortOrder" class="sort-label">Sort by:</label>
+                <select id="sortOrder" class="sort-select">
+                    <option value="latest">Latest</option>
+                    <option value="oldest">Oldest</option>
+                </select>
+            </div>
+
+            <!-- Filter by Tag Dropdown -->
+            <div class="filter-dropdown">
+                <label for="filterTag" class="filter-label">Filter by Tag:</label>
+                <select id="filterTag" class="filter-select">
                     <option value="">All</option>
                     <option value="GENERAL">GENERAL</option>
                     <option value="SAMCIS">SAMCIS</option>
@@ -141,6 +151,8 @@ if ($result->num_rows > 0) {
                     <option value="SEA">SEA</option>
                 </select>
             </div>
+        </div>
+
 
             <!-- Dynamic posts container -->
             <div id="postsContainer"></div>
@@ -219,7 +231,7 @@ if ($result->num_rows > 0) {
 
             // Handle creating a post
             document.getElementById("postButton").addEventListener("click", function(e) {
-                e.preventDefault();
+            e.preventDefault();
 
                 const content = document.getElementById("postContent").value;
                 const tag = document.getElementById("tags").value; // Selected tag
@@ -261,13 +273,14 @@ if ($result->num_rows > 0) {
                     .catch((error) => console.error("Error:", error));
             });
 
-            // Fetch and display posts
-            function fetchPosts(tag = null, search = null) {
-                let url = "../config/fetch_posts.php";
+            // Fetch and display posts with optional filters (tag, search, sort)
+            function fetchPosts(tag = null, search = null, sort = 'latest') {
+                let url = `../config/fetch_posts.php?sort=${sort}`; // Add sorting to the URL
                 if (tag) {
-                    url += `?tag=${tag}`;
-                } else if (search) {
-                    url += `?search=${search}`;
+                    url += `&tag=${tag}`;
+                }
+                if (search) {
+                    url += `&search=${search}`;
                 }
 
                 fetch(url)
@@ -279,18 +292,16 @@ if ($result->num_rows > 0) {
                             const postElement = document.createElement("div");
                             postElement.classList.add("post");
                             postElement.innerHTML = `
-                            <div class="post-user">${post.full_name}</div>
-                            <div class="post-content">${post.content}</div>
-                            ${
-                                post.image
-                                    ? `<img src="data:image/jpeg;base64,${post.image}" alt="Post Image" />`
-                                    : ""
-                            }
-                            <div class="post-tag">Tag: ${post.tag}</div>
-                            <div class="post-date">${new Date(
-                                post.created_at
-                            ).toLocaleString()}</div>
-                        `;
+                                <div class="post-user">${post.full_name}</div>
+                                <div class="post-content">${post.content}</div>
+                                ${
+                                    post.image
+                                        ? `<img src="data:image/jpeg;base64,${post.image}" alt="Post Image" />`
+                                        : ""
+                                }
+                                <div class="post-tag">Tag: ${post.tag}</div>
+                                <div class="post-date">${new Date(post.created_at).toLocaleString()}</div>
+                            `;
                             postsContainer.appendChild(postElement);
                         });
                     })
@@ -300,18 +311,28 @@ if ($result->num_rows > 0) {
             // Filter posts by tag
             document.getElementById("filterTag").addEventListener("change", function() {
                 const selectedTag = this.value;
-                fetchPosts(selectedTag);
+                const sortOrder = document.getElementById("sortOrder").value; // Get the selected sort order
+                fetchPosts(selectedTag, null, sortOrder);
             });
 
             // Search posts by keyword
             document.getElementById("searchButton").addEventListener("click", function() {
                 const searchQuery = document.getElementById("searchInput").value.trim();
+                const sortOrder = document.getElementById("sortOrder").value; // Get the selected sort order
                 if (searchQuery) {
-                    fetchPosts(null, searchQuery);
+                    fetchPosts(null, searchQuery, sortOrder);
                 }
             });
 
-            // Initial fetch of posts
+            // Handle sorting by latest or oldest
+            document.getElementById("sortOrder").addEventListener("change", function() {
+                const sortOrder = this.value;
+                const selectedTag = document.getElementById("filterTag").value; // Get selected tag
+                const searchQuery = document.getElementById("searchInput").value.trim(); // Get search query
+                fetchPosts(selectedTag, searchQuery, sortOrder);
+            });
+
+            // Initial fetch of posts (default to latest)
             fetchPosts();
         });
     </script>
