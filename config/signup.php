@@ -2,8 +2,8 @@
 include 'connection.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $firstName = $_POST['firstName'];
-    $lastName = $_POST['lastName'];
+    $firstName = upperCaseFirstLetter($_POST['firstName']);
+    $lastName = upperCaseFirstLetter($_POST['lastName']);
     $email = $_POST['email'];
     $password = $_POST['password'];
     $agreedToTerms = isset($_POST['agree-terms']) ? 1 : 0;
@@ -39,5 +39,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         echo "Error: " . $conn->error;
     }
+}
+
+
+// Uppercase First Letter of firstName & lastName
+function upperCaseFirstLetter($data){
+    $data = ucwords($data);
+    $data = htmlspecialchars($data);
+    return $data;
 }
 ?>
