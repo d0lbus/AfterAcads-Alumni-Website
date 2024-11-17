@@ -37,7 +37,7 @@
                 <ul>
                 <li><a href="../pages/shareExperience.php"><span><img src="../assets/home1.png" width="20px" alt="Home" /></span>Home</a></li>
                 <li><a href="../pages/events.php"><span><img src="../assets/event1.png" width="20px" alt="Events" /></span>Events</a></li>
-                <li><a href="../pages/opportunities.php"><span><img src="" width="20px" alt="Opportunities" /></span>Opportunities</a></li>
+                <li><a href="../pages/opportunities.php"><span><img src="../assets/opportunities.png" width="20px" alt="Opportunities" /></span>Opportunities</a></li>
                 <li><a href="../pages/settings.php"><span><img src="../assets/setting1.png" width="20px" alt="Settings" /></span>Settings</a></li>
                 <li><a href="../pages/loginpage.php"><span><img src="../assets/logout1.png" width="20px" alt="Logout" /></span>Logout</a></li>
                 </ul>
@@ -56,6 +56,7 @@
             
             <!-- Settings Form -->
             <form class="settings-form" method="post" action="../config/update_settings.php">
+                <h2>Profile Settings</h2>
                 <div class="form-group">
                     <label for="first-name">First Name</label>
                     <input type="text" name="first-name" id="first-name" placeholder="First Name" required value="<?= htmlspecialchars($user['first_name']) ?>" />
@@ -86,6 +87,7 @@
                     <input type="number" name="batch-year" id="batch-year" placeholder="Batch Year" required min="1900" max="2100" />
                 </div>
 
+                <h2>Change Password</h2>
                 <div class="form-group">
                     <label for="old-password">Old Password</label>
                     <input type="password" name="old-password" id="old-password" placeholder="Old Password" required />
@@ -101,6 +103,7 @@
                     <input type="password" name="confirm-password" id="confirm-password" placeholder="Confirm Password" required />
                 </div>
 
+                <h2>Choose a Program and Course</h2>
                 <div class="form-group">
                     <label for="program">Program</label>
                     <select name="program" id="program" required>
@@ -111,7 +114,6 @@
                         <option value="science">SOL</option>
                         <option value="science">SOM</option>
                         <option value="arts">STELA</option>
-                        <!-- Add more options as needed -->
                     </select>
                 </div>
                 

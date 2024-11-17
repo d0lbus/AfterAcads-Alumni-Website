@@ -82,6 +82,7 @@ $result_posts = $stmt_posts->get_result();
                                     width="20px"
                                     alt="Events" /></span>Events</a>
                     </li>
+                    <li><a href="../pages/opportunities.php"><span><img src="../assets/opportunities.png" width="20px" alt="Opportunities" /></span>Opportunities</a></li>
                     <li><a href="../pages/settings.php"><span><img
                                     src="../assets/setting1.png"
                                     width="20px"
