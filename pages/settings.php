@@ -56,13 +56,18 @@
             <!-- Settings Form -->
             <form class="settings-form" method="post" action="../config/update_settings.php">
                 <div class="form-group">
-                    <label for="change-password">Change Password</label>
-                    <input type="password" name="change-password" id="change-password" placeholder="New Password"/>
+                    <label for="first-name">First Name</label>
+                    <input type="text" name="first-name" id="first-name" placeholder="First Name" required value="<?= htmlspecialchars($user['first_name']) ?>" />
                 </div>
 
                 <div class="form-group">
-                    <label for="change-email">Change Email</label>
-                    <input type="email" name="change-email" id="change-email" placeholder="New Email" required value="<?= htmlspecialchars($user['email']) ?>" />
+                    <label for="middle-name">Middle Name (optional)</label>
+                    <input type="text" name="middle-name" id="middle-name" placeholder="Middle Name" value="<?= htmlspecialchars($user['middle_name']) ?>" />
+                </div>
+
+                <div class="form-group">
+                    <label for="last-name">Last Name</label>
+                    <input type="text" name="last-name" id="last-name" placeholder="Last Name" required value="<?= htmlspecialchars($user['last_name']) ?>" />
                 </div>
 
                 <div class="form-group">
@@ -74,6 +79,66 @@
                     <label for="change-address">Change Address</label>
                     <input type="text" name="change-address" id="change-address" placeholder="New Address" required value="<?= htmlspecialchars($user['address']) ?>" />
                 </div>
+
+                <div class="form-group">
+                    <label for="batch-year">Batch Year</label>
+                    <input type="number" name="batch-year" id="batch-year" placeholder="Batch Year" required min="1900" max="2100" />
+                </div>
+
+                <div class="form-group">
+                    <label for="old-password">Old Password</label>
+                    <input type="password" name="old-password" id="old-password" placeholder="Old Password" required />
+                </div>
+                
+                <div class="form-group">
+                    <label for="new-password">New Password</label>
+                    <input type="password" name="new-password" id="new-password" placeholder="New Password" required />
+                </div>
+                
+                <div class="form-group">
+                    <label for="confirm-password">Confirm Password</label>
+                    <input type="password" name="confirm-password" id="confirm-password" placeholder="Confirm Password" required />
+                </div>
+
+                <div class="form-group">
+                    <label for="program">Program</label>
+                    <select name="program" id="program" required>
+                        <option value="">Select Program</option>
+                        <option value="science">SAMCIS</option>
+                        <option value="science">SEA</option>
+                        <option value="engineering">SONAHBS</option>
+                        <option value="science">SOL</option>
+                        <option value="science">SOM</option>
+                        <option value="arts">STELA</option>
+                        <!-- Add more options as needed -->
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="course">Course</label>
+                    <select name="course" id="course" disabled required>
+                        <option value="">Select Course</option>
+                        <!-- Courses will be added dynamically based on program selection -->
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Employment Status</label>
+                    <div class="checkbox-group">
+                        <label>
+                            <input type="radio" name="employment-status" value="employed" required />
+                            Employed
+                        </label>
+                        <label>
+                            <input type="radio" name="employment-status" value="unemployed" required />
+                            Unemployed
+                        </label>
+                        <label>
+                            <input type="radio" name="employment-status" value="prefer-not-to-say" required />
+                            Prefer not to say
+                        </label>
+                    </div>
+                </div>                
 
                 <div class="button-container">
                     <button type="submit" class="button">Save Changes</button>
