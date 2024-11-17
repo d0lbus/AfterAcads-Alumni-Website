@@ -108,6 +108,17 @@ include '../config/events_controller.php';
     </main>
   </div>
 
+  <div class="right-panel">
+    <h2>Friends</h2>
+    <hr class="title-divider">
+    <div class="friend-list">
+        <div class="friend">
+            <img src="../assets/profile.jpg" alt="Friend Profile Picture">
+            <span>Friend Name 1</span>
+        </div>
+    </div>
+</div>
+
   <script>
     document.addEventListener("DOMContentLoaded", function() {
       const sidebar = document.querySelector(".sidebar");
