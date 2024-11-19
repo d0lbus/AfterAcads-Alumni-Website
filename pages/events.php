@@ -118,6 +118,16 @@ include '../config/events_controller.php';
       });
     });
   </script>
+  <div class="right-panel">
+        <h2>Friends</h2>
+        <hr class="title-divider">
+        <div class="friend-list">
+            <div class="friend">
+                <img src="../assets/profile.jpg" alt="Friend Profile Picture">
+                <span>Friend Name 1</span>
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>
