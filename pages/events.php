@@ -39,6 +39,7 @@ include '../config/events_controller.php';
         <ul>
           <li><a href="../pages/shareExperience.php"><span><img src="../assets/home1.png" width="20px" alt="Home" /></span>Home</a></li>
           <li><a href="../pages/events.php"><span><img src="../assets/event1.png" width="20px" alt="Events" /></span>Events</a></li>
+          <li><a href="../pages/opportunities.php"><span><img src="../assets/opportunities.png" width="20px" alt="Opportunities" /></span>Opportunities</a></li>
           <li><a href="../pages/settings.php"><span><img src="../assets/setting1.png" width="20px" alt="Settings" /></span>Settings</a></li>
           <li><a href="../pages/loginpage.php"><span><img src="../assets/logout1.png" width="20px" alt="Logout" /></span>Logout</a></li>
         </ul>
@@ -107,6 +108,17 @@ include '../config/events_controller.php';
       </div>
     </main>
   </div>
+
+  <div class="right-panel">
+    <h2>Friends</h2>
+    <hr class="title-divider">
+    <div class="friend-list">
+        <div class="friend">
+            <img src="../assets/profile.jpg" alt="Friend Profile Picture">
+            <span>Friend Name 1</span>
+        </div>
+    </div>
+</div>
 
   <script>
     document.addEventListener("DOMContentLoaded", function() {

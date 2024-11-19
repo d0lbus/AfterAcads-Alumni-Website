@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Job Opportunity - View</title>
+  <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css" />
+  <link rel="stylesheet" href="../style/view-opportunities.css" />
+</head>
+
+<body>
+  <div class="sidebar">
+    <div class="sidebar-brand">
+      <div class="brand-flex">
+        <div class="brand-icon">
+          <a href="javascript:void(0)" id="sidebarToggle">
+            <span><img src="../assets/bars1.png" width="24px" alt="bars" /></span>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="sidebar-content">
+      <div class="sidebar-user">
+        <a href="../pages/viewProfile.php">
+          <img src="../assets/display-photo.png" alt="Profile Picture" />
+        </a>
+        <div>
+          <h3>User Name</h3>
+          <span>user@example.com</span>
+        </div>
+      </div>
+      <div class="sidebar-menu">
+        <ul>
+          <li><a href="../pages/shareExperience.php"><span><img src="../assets/home1.png" width="20px" alt="Home" /></span>Home</a></li>
+          <li><a href="../pages/events.php"><span><img src="../assets/event1.png" width="20px" alt="Events" /></span>Events</a></li>
+          <li><a href="../pages/opportunities.php"><span><img src="../assets/opportunities.png" width="20px" alt="Opportunities" /></span>Opportunities</a></li>
+          <li><a href="../pages/settings.php"><span><img src="../assets/setting1.png" width="20px" alt="Settings" /></span>Settings</a></li>
+          <li><a href="../pages/loginpage.php"><span><img src="../assets/logout1.png" width="20px" alt="Logout" /></span>Logout</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content Area -->
+  <div class="main-content">
+    <header>
+      <img src="../assets/alumnilogo.png" alt="logo" class="logo-header" />
+      <img src="../assets/afteracadstext.png" alt="AfterAcads" class="after-acads-text" />
+    </header>
+
+    <main>
+      <div class="page-header">
+        <h1>Job Opportunity</h1>
+        <small>{Details about the job you are interested in}</small>
+
+        <div class="job-detail-container">
+          <div class="job-detail">
+            <div class="company-logo">
+              <img src="../assets/company-logo.png" alt="Company Logo">
+            </div>
+            <div class="job-details">
+              <h2>Software Engineer</h2> <!-- Job Title -->
+              <p><strong>Company:</strong> {XYZ Corp}</p>
+              <p><strong>Location:</strong> {LOCATION}</p>
+              <p><strong>Description:</strong> {DESCIPTION}</p>
+              <p><strong>Requirements:</strong> {REQUIREMENTS}</p>
+              <p><strong>How to Apply:</strong> Send your resume and cover letter to <a href="">{EMAIL}</a>.</p>
+            </div>
+            <div class="button-container">
+              <a href="apply.php?job_id=1" class="button">APPLY NOW</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <div class="right-panel">
+    <h2>Suggested Jobs</h2>
+    <hr class="title-divider">
+    <div class="suggested-companies-list">
+      <div class="suggested-companies">
+        <img src="" alt="Company Logo">
+        <span>Frontend Developer at ABC Corp</span>
+      </div>
+      <div class="suggested-companies">
+        <img src="" alt="Company">
+        <span>Backend Developer at DEF Corp</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const sidebar = document.querySelector(".sidebar");
+      const toggleButton = document.getElementById("sidebarToggle");
+
+      toggleButton.addEventListener("click", function() {
+        sidebar.classList.toggle("minimized");
+      });
+    });
+  </script>
+</body>
+
+</html>
