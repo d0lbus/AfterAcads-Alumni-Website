@@ -123,12 +123,8 @@ $result_posts = $stmt_posts->get_result();
                         <div class="contact-button">
                             <button onclick="contactUser()">Contact</button>
                         </div>
+
                         
-                        <!-- <ul class="social-logo">
-                            <li><img src="../assets/twitter-icon.png" alt="twitter icon" width="20px" height="20px" /></li>
-                            <li><img src="../assets/fb-icon.png" alt="fb icon" width="20px" height="20px" /></li>
-                            <li><img src="../assets/instagram-icon.png" alt="ig icon" width="20px" height="20px"></li>
-                        </ul> -->
                     </div>
                 </div>
                 <div class="right-col">
@@ -136,7 +132,6 @@ $result_posts = $stmt_posts->get_result();
                         <ul>
                             <li><a href="#posts">Posts</a></li>
                             <li><a href="#photos">Photos</a></li>
-                            <li><a href="#about">About</a></li>
                         </ul>
                     </nav>
 
@@ -185,6 +180,29 @@ $result_posts = $stmt_posts->get_result();
         </div>
     </div>
 
+    <!-- Contact Details Modal -->
+    <div id="contactModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h3> User's Contact Details</h3>
+            <p><strong>Email:</strong> useremail@gmail.com</p>
+            <p><strong>Address:</strong> user address baguio city</p>
+            
+            <!-- <ul class="social-links">
+                <li><a href="<?php echo htmlspecialchars($user['twitter_link']); ?>" target="_blank"><img src="../assets/twitter-icon.png" alt="Twitter" width="24px" /></a></li>
+                <li><a href="<?php echo htmlspecialchars($user['facebook_link']); ?>" target="_blank"><img src="../assets/fb-icon.png" alt="Facebook" width="24px" /></a></li>
+                <li><a href="<?php echo htmlspecialchars($user['instagram_link']); ?>" target="_blank"><img src="../assets/instagram-icon.png" alt="Instagram" width="24px" /></a></li>
+            </ul> -->
+
+            <ul class="social-links">
+                <li><img src="../assets/twitter-icon.png" alt="twitter icon" width="20px" height="20px" /></li>
+                <li><img src="../assets/fb-icon.png" alt="fb icon" width="20px" height="20px" /></li>
+                <li><img src="../assets/instagram-icon.png" alt="ig icon" width="20px" height="20px"></li>
+            </ul>
+        </div>
+    </div>
+
+
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const sidebar = document.querySelector(".sidebar");
@@ -192,6 +210,28 @@ $result_posts = $stmt_posts->get_result();
 
             toggleButton.addEventListener("click", function() {
                 sidebar.classList.toggle("minimized");
+            });
+        });
+
+        function contactUser() {
+            const modal = document.getElementById("contactModal");
+            modal.style.display = "block"; // Show the modal
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const modal = document.getElementById("contactModal");
+            const closeButton = document.querySelector(".close-button");
+
+            // Close the modal when the close button is clicked
+            closeButton.addEventListener("click", function () {
+                modal.style.display = "none";
+            });
+
+            // Close the modal when clicking outside of the modal content
+            window.addEventListener("click", function (event) {
+                if (event.target === modal) {
+                    modal.style.display = "none";
+                }
             });
         });
     </script>
