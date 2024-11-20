@@ -304,12 +304,42 @@ a {
     color: #1d1d1d;
     line-height: 1.8em;
   }
-  .header-wrapper .cols-container .content ul {
+
+  /* .header-wrapper .cols-container .content ul {
     gap: 30px;
     justify-content: center;
     align-items: center;
     margin-top: 25px;
+  } */
+
+  /* Styles for the "Contact" button */
+  .header-wrapper .cols-container .content .contact-button button {
+    background-color: #007BFF; /* Primary button color */
+    color: #fff; /* White text */
+    font-size: 15px; /* Button text size */
+    font-weight: 600;
+    border: none; /* Remove border */
+    border-radius: 8px; /* Rounded corners */
+    padding: 5px 10px; /* Button padding */
+    margin-top: 10px;
+    cursor: pointer; /* Pointer cursor on hover */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Button shadow */
+    transition: all 0.3s ease; /* Smooth transition for hover effects */
   }
+
+  /* Hover effect for the button */
+  .header-wrapper .cols-container .content .contact-button button:hover {
+    background-color: #0056b3; /* Darker shade on hover */
+    transform: translateY(-2px); /* Slight lift on hover */
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15); /* Enhance shadow */
+  }
+
+  /* Focus effect for accessibility */
+.header-wrapper .cols-container .content .contact-button button:focus {
+  outline: 2px solid #0056b3; /* Focus outline */
+  outline-offset: 2px;
+  }
+
   .header-wrapper .cols-container .content ul li {
     font-size: 1.3 rem;
   }

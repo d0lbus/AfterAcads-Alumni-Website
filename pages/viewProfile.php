@@ -120,11 +120,15 @@ $result_posts = $stmt_posts->get_result();
                     <div class="content">
                         <p><?php echo isset($user['bio']) ? htmlspecialchars($user['bio']) : 'Bio not provided'; ?></p>
 
-                        <ul class="social-logo">
+                        <div class="contact-button">
+                            <button onclick="contactUser()">Contact</button>
+                        </div>
+                        
+                        <!-- <ul class="social-logo">
                             <li><img src="../assets/twitter-icon.png" alt="twitter icon" width="20px" height="20px" /></li>
                             <li><img src="../assets/fb-icon.png" alt="fb icon" width="20px" height="20px" /></li>
                             <li><img src="../assets/instagram-icon.png" alt="ig icon" width="20px" height="20px"></li>
-                        </ul>
+                        </ul> -->
                     </div>
                 </div>
                 <div class="right-col">
