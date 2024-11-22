@@ -50,7 +50,7 @@
             <a href="#" class="terms-link"> Privacy Policy</a>.
           </label>
         </div>
-        <button class="buttonsize" type="submit">Sign Up</button>
+        <button class="buttonsize" type="submit">SIGN UP</button>
       </form>
 
 

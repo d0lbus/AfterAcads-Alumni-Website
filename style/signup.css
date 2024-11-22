@@ -27,7 +27,7 @@ body {
   height: 100%;
 }
 .body-color2 {
-  background-color: #b0a4c5;
+  background-color: #194569;
 }
 
 .signup-box {
@@ -35,11 +35,11 @@ body {
   padding: 50px 90px;
   border-radius: 30px;
   text-align: center;
-  color: #efe1e1;
+  color: #cadeed;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
   max-width: 650px;
   width: 100%;
-  background-color: #efe1e1;
+  background-color: #cadeed;
   align-items: center;
 }
 
@@ -142,21 +142,22 @@ input.success {
 }
 
 .signup-box button {
-  background-color: #e0c1c6;
+  background-color: #5f84a2;
   color: white;
   padding: 12px;
   margin: 10px;
   border: none;
   border-radius: 20px;
-  font-size: 1rem;
+  font-size: 1.1rem;
+  font-weight: 800;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  width: 60%;
+  width: 50%;
   text-align: center;
 }
 
-.buttonsize {
-  width: 40%;
+.buttonsize:hover {
+  background-color: #91aec4;
 }
 
 /* Checkbox and terms styling */
@@ -183,21 +184,6 @@ input.success {
 
 .terms-link:hover {
   text-decoration: none;
-}
-
-.buttonsize {
-  background-color: #e0c1c6;
-  color: white;
-  padding: 12px;
-  border: none;
-  border-radius: 30px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.buttonsize:hover {
-  background-color: #999696;
 }
 
 .login-prompt {
