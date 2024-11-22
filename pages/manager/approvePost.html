@@ -29,13 +29,11 @@
                 <li><a href="viewProfile.php"><img class="profile-img" src="../../assets/display-photo.png"
                             alt="Profile" /></a></li>
             </div>
-            </div>
-            </div>
         </header>
     </section>
     <div class="approve-posts-section container">
         <div class="button-group">
-            <li><button class="btn pending">Pending Posts</button></li>
+            <button class="btn pending">Pending Posts</button>
             <button class="btn approved">Approved Posts</button>
             <button class="btn denied">Denied Posts</button>
         </div>
@@ -51,7 +49,7 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>Joe</td>
+                    <td>Joe29</td>
                     <td>Joe</td>
                     <td>Hello</td>
                     <td>11/29/2024</td>
@@ -61,7 +59,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>mork</td>
+                    <td>mork12</td>
                     <td>mork</td>
                     <td>Hi</td>
                     <td>11/30/2024</td>
@@ -73,6 +71,71 @@
             </tbody>
         </table>
     </div>
+
+    <div class="post-details-modal" id="postDetailsModal">
+        <div class="modal-content">
+            <span class="close-btn" id="closeModal">&times;</span>
+            <h2>Post Details</h2>
+            <p><strong>Username:</strong> <span id="postName"></span></p>
+            <p><strong>Description:</strong> <span id="postDescription"></span></p>
+            <p><strong>Image:</strong> <span id="postDescription"></span></p>
+            <p><strong>Date:</strong> <span id="postDate"></span></p>
+
+            <div class="modal-buttons">
+                <button class="btn approve">Accept</button>
+                <button class="btn deny">Deny</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const rows = document.querySelectorAll(".post-table tbody tr");
+            const modal = document.getElementById("postDetailsModal");
+            const closeModalButton = document.getElementById("closeModal");
+
+            rows.forEach(row => {
+                row.addEventListener("click", function () {
+                    const name = this.cells[0].textContent; 
+                    const description = this.cells[2].textContent; 
+                    const date = this.cells[3].textContent; 
+
+                    document.getElementById("postName").textContent = name;
+                    document.getElementById("postDescription").textContent = description;
+                    document.getElementById("postDate").textContent = date;
+
+                    modal.style.display = "flex"; 
+                });
+            });
+
+            const approveButtons = document.querySelectorAll(".btn.approve");
+            const denyButtons = document.querySelectorAll(".btn.deny");
+
+            approveButtons.forEach(button => {
+                button.addEventListener("click", (event) => {
+                    event.stopPropagation();
+                    console.log("Post Approved");
+                });
+            });
+
+            denyButtons.forEach(button => {
+                button.addEventListener("click", (event) => {
+                    event.stopPropagation();
+                    console.log("Post Denied");
+                });
+            });
+
+            closeModalButton.addEventListener("click", () => {
+                modal.style.display = "none"; 
+            });
+
+            window.addEventListener("click", (event) => {
+                if (event.target === modal) {
+                    modal.style.display = "none";
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>

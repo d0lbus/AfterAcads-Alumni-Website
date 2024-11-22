@@ -206,7 +206,7 @@ header img {
   text-align: left;
   padding: 10px;
   border-bottom: 1px solid #ddd;
-  width: 20%;
+  width: auto;
   word-wrap: break-word; 
 }
 
@@ -220,12 +220,16 @@ header img {
   color: var(--color-dark);
 }
 
-.post-table tr td {
-  cursor: pointer;
+.post-table tr:hover {
+  background-color: #f0f0f0;
 }
 
-.post-table tr td:hover {
-  background-color: #f0f0f0; 
+.post-table td {
+  background-color: transparent;
+}
+
+.post-table td:hover {
+  background-color: transparent;
 }
 
 .action-buttons .btn {
@@ -246,79 +250,81 @@ header img {
   color: white;
 }
 
-/* Responsive Design */
-@media screen and (max-width: 768px) {
-  .approve-posts-section {
-    padding: 15px;
-  }
-
-  .button-group .btn {
-    font-size: 12px;
-  }
-
-  .post-table th,
-  .post-table td {
-    font-size: 14px;
-  }
+/* Modal styles */
+.post-details-modal {
+  display: none; 
+  position: fixed;
+  z-index: 1; 
+  left: 0;
+  top: 0;
+  width: 100%; 
+  height: 100%; 
+  background-color: rgba(0, 0, 0, 0.4); 
+  justify-content: center;
+  align-items: center;
+  overflow: auto; 
 }
 
-/* Media Query for smaller screens (tablets and phones) */
-@media (max-width: 1024px) {
-  .sidebar {
-    width: 220px;
-  }
-
-  .main-content {
-    margin-left: 220px;
-  }
-
-  .cards {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 2rem;
-  }
-
-  header {
-    padding: 1rem;
-  }
+.modal-content {
+  background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    width: 60%; 
+    max-width: 500px;
+    margin: auto;
+    position: relative;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+    text-align: center; 
 }
 
-/* Media Query for mobile screens */
-@media (max-width: 768px) {
-  .sidebar {
-    width: 100px;
-    padding: 12px;
-  }
-
-  .main-content {
-    margin-left: 100px;
-  }
-
-  .cards {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-  }
-
-  header {
-    padding: 0.5rem;
-  }
-
-  .card-single {
-    padding: 0.8rem;
-  }
-
-  .card-info h2 {
-    font-size: 1.5rem;
-  }
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 30px;
+  font-weight: bold;
+  cursor: pointer;
 }
 
-/* Mobile Styles */
-@media screen and (max-width: 768px) {
-  .sidebar {
-    width: 280px;
-    background-color: var(--color-dark);
-  }
+.close-btn:hover,
+.close-btn:focus {
+  color: #aaa;
+  text-decoration: none;
+  cursor: pointer;
+}
 
-  .main-content {
-    margin-left: 280px;
-  }
+.modal-content h2 {
+  margin-bottom: 10px;
+}
+
+.modal-content p {
+  font-size: 16px;
+  margin: 5px 0;
+}
+
+.modal-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+  justify-content: center; 
+}
+
+.modal-buttons .btn {
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  border-radius: 5px;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+}
+
+.modal-buttons .btn.approve {
+  background-color: #2ecc71; 
+  color: white;
+}
+
+.modal-buttons .btn.deny {
+  background-color: #e74c3c; 
+  color: white;
 }
