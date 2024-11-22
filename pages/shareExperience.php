@@ -32,7 +32,7 @@ include '../config/header.php';
         <div class="sidebar-content">
             <div class="sidebar-user">
                 <a href="../pages/viewProfile.php">
-                    <img src="../assets/display-photo.png" alt="Profile Picture" />
+                    <img src="../assets/profileIcon.jpg" alt="Profile Picture" />
                 </a>
                 <div>
                     <h3>
@@ -72,15 +72,14 @@ include '../config/header.php';
 
     <div class="main-content">
         <header>
-            <img src="../assets/alumnilogo.png" alt="logo" class="logo-header" />
-            <img src="../assets/afteracadstext.png" alt="AfterAcads" class="after-acads-text" />
+            <img src="../assets/logoBlue.png" alt="logo" class="logo-header" />
         </header>
 
         <main>
             <!-- Post creation section -->
             <div class="addPost">
                 <div class="addPost-header">
-                    <img src="../assets/display-photo.png" alt="Profile" class="profile-pic" />
+                    <img src="../assets/profileIcon.jpg" alt="Profile" class="profile-pic" />
                     <textarea id="postContent" placeholder="What's on your mind, <?php echo htmlspecialchars($user['first_name']); ?>?" class="post-input" rows="1"></textarea>
                 </div>
 
