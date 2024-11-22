@@ -311,9 +311,8 @@ include '../config/header.php';
             // Initial fetch of posts (default to latest)
             fetchPosts();
         });
-    </script>
 
-    <script>
+        // Responsive Sidebar
         document.addEventListener("DOMContentLoaded", function() {
             const sidebar = document.querySelector(".sidebar");
             const toggleButton = document.getElementById("sidebarToggle");
@@ -323,6 +322,7 @@ include '../config/header.php';
             });
         });
 
+        // Add Post Container
         document.addEventListener("DOMContentLoaded", function() {
             const addPost = document.querySelector(".addPost");
             const postContent = document.getElementById("postContent");

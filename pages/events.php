@@ -28,7 +28,7 @@ include '../config/events_controller.php';
     <div class="sidebar-content">
       <div class="sidebar-user">
         <a href="../pages/viewProfile.php">
-          <img src="../assets/display-photo.png" alt="Profile Picture" />
+          <img src="../assets/profileIcon.jpg" alt="Profile Picture" />
         </a>
         <div>
           <h3><?php echo htmlspecialchars($user['first_name'] . ' ' . $user['last_name']); ?></h3>
@@ -49,8 +49,7 @@ include '../config/events_controller.php';
 
   <div class="main-content">
     <header>
-      <img src="../assets/alumnilogo.png" alt="logo" class="logo-header" />
-      <img src="../assets/afteracadstext.png" alt="AfterAcads" class="after-acads-text" />
+      <img src="../assets/logoBlue.png" alt="logo" class="logo-header" />
     </header>
 
     <main>
@@ -158,6 +157,16 @@ include '../config/events_controller.php';
         }
       });
     });
+
+    // Responsive Sidebar
+    document.addEventListener("DOMContentLoaded", function() {
+            const sidebar = document.querySelector(".sidebar");
+            const toggleButton = document.getElementById("sidebarToggle");
+
+            toggleButton.addEventListener("click", function() {
+                sidebar.classList.toggle("minimized");
+            });
+        });
   </script>
 </body>
 
