@@ -32,7 +32,7 @@ body {
 
 .signup-box {
   background: rgba(255, 255, 255, 0.1);
-  padding: 80px 90px;
+  padding: 50px 90px;
   border-radius: 30px;
   text-align: center;
   color: #efe1e1;
@@ -40,11 +40,12 @@ body {
   max-width: 650px;
   width: 100%;
   background-color: #efe1e1;
+  align-items: center;
 }
 
 .signup-box h2 {
-  font-size: 2rem;
-  margin-bottom: 20px;
+  font-size: 20px;
+  margin-top: 10px;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -55,11 +56,19 @@ body {
   font-size: 1.1rem;
   color: black;
 }
-.logocircle {
-  width: 80px;
+
+/* .logo {
+  width: 500px;
   height: 80px;
-  border-radius: 50%;
   border: 2px solid var(--color-sidebar-text);
+} */
+
+.signup-box img.logo {
+  display: block;
+  margin: 0 auto 20px; /* Center the logo and add space below */
+  width: auto; /* Adjust as needed */
+  max-width: 100%; /* Ensure it fits within the container */
+  height: auto;
 }
 
 .signup-box form {
@@ -68,11 +77,11 @@ body {
   align-items: center;
 }
 
-.signup-box label {
+/* .signup-box label {
   margin-bottom: 8px;
   font-size: 0.9rem;
   text-align: left;
-}
+} */
 
 .signup-box input {
   padding: 12px;
@@ -82,6 +91,27 @@ body {
   font-size: 1rem;
   width: 100%;
 }
+
+.name-fields {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px; /* Space between the fields */
+  width: 100%; /* Ensure it takes the full width of the container */
+  margin-top: 20px; /* Add spacing below the name fields */
+}
+
+.signup-box .name-fields input {
+  flex: 1; /* Make both fields equal in width */
+  padding: 12px;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+.confirmPass {
+  margin-top: 20px;
+}
+
 
 .signup-box input[type="email"],
 .signup-box input[type="password"] {
