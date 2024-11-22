@@ -43,6 +43,10 @@
         <p id="error-message" style="color: red; display: none;">Passwords do not match.</p>
         </div>
 
+        <p style="font-size: 0.9rem; margin-bottom: 0; margin-top: 20px;"> By continuing, you agree to our User Agreement and acknowledge that
+        you understand the Privacy Policy.
+        </p>
+
         <div class="agreement-section">
           <input type="checkbox" id="agree-terms" name="agree-terms" required />
           <label style="color: black" for="agree-terms">
