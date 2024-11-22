@@ -62,6 +62,7 @@ include '../config/events_controller.php';
             <input type="text" class="search-input" name="search" id="searchInput" placeholder="Search..." value="<?php echo htmlspecialchars($search); ?>" />
             <button type="submit" class="search-button" aria-label="Search"><span class="las la-search"></span></button>
             
+            <!-- Dropdown container for search suggestions -->
             <div id="suggestions" class="suggestions-list"></div>
           </form>
 
@@ -154,6 +155,13 @@ include '../config/events_controller.php';
             });
             suggestionsList.appendChild(suggestionElement);
           });
+        }
+      });
+
+      // Hide suggestions when clicking outside
+      document.addEventListener("click", function(e) {
+        if (!e.target.closest('.header-search-bar')) {
+          suggestionsList.innerHTML = ''; // Hide suggestions
         }
       });
     });

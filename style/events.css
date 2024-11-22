@@ -18,7 +18,6 @@
   padding: 0;
 }
 
-/* Sidebar styles */
 .sidebar {
   width: 280px;
   position: fixed;
@@ -150,7 +149,7 @@
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
 }
 
-/* Main content styles */
+/* Main Content Styles */
 .main-content {
   margin-left: 320px;
   margin-right: 350px;
@@ -387,10 +386,11 @@ small {
   display: inline-block;
   padding: 10px 20px;
   margin: 0 5px;
-  background-color: #8da2fb;
+  background-color: var(--color-accent);
   color: white;
   text-decoration: none;
-  border-radius: 5px;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
 }
 
 .pagination .button:hover {
