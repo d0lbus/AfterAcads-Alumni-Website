@@ -93,8 +93,8 @@ include '../config/events_controller.php';
                 <p><?php echo htmlspecialchars($event['description']); ?></p>
               </div>
               <div class="button-container">
-                <a href="viewEvents.php?event_id=<?php echo $event['id']; ?>" class="button">VIEW</a>
-                <a href="interested.php?event_id=<?php echo $event['id']; ?>" class="button">INTERESTED</a>
+                <a href="viewEvents.php?event_id=<?php echo $event['id']; ?>" class="button">View</a>
+                <a href="interested.php?event_id=<?php echo $event['id']; ?>" class="button">Interested</a>
               </div>
             </div>
           <?php endwhile; ?>

@@ -1,3 +1,7 @@
+<?php
+include '../config/header.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -23,7 +27,7 @@
     <div class="sidebar-content">
       <div class="sidebar-user">
         <a href="../pages/viewProfile.php">
-          <img src="../assets/display-photo.png" alt="Profile Picture" />
+          <img src="../assets/profileIcon.jpg" alt="Profile Picture" />
         </a>
         <div>
           <h3>User Name</h3>
@@ -44,8 +48,7 @@
 
   <div class="main-content">
     <header>
-      <img src="../assets/alumnilogo.png" alt="logo" class="logo-header" />
-      <img src="../assets/afteracadstext.png" alt="AfterAcads" class="after-acads-text" />
+    <img src="../assets/logoBlue.png" alt="logo" class="logo-header" />
     </header>
 
     <main>
@@ -73,8 +76,8 @@
               <p>{Description of the opportunity goes here. This is a brief summary of what the job entails and any key details.}</p>
             </div>
             <div class="button-container">
-              <a href="../pages/viewOpportunities.php" class="button">VIEW</a>
-              <a href="apply.php?job_id=1" class="button">APPLY</a>
+              <a href="../pages/viewOpportunities.php" class="button">View</a>
+              <a href="apply.php?job_id=1" class="button">Apply</a>
             </div>
           </div>
           <!-- Additional job cards would go here -->
