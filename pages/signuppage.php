@@ -36,7 +36,9 @@
 
         <label for="password">Password</label>
         <input type="password" id="password" name="password" placeholder="Password *" required />
-        <input class="confirmPass" type="password" id="password" name="password" placeholder="Confirm Password *" required />
+        
+        <label for="confirmPassword">Confirm Password</label>
+        <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password *" required />
 
         <p id="error-message" style="color: red; display: none;">Passwords do not match.</p>
         </div>

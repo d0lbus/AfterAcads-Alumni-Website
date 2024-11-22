@@ -6,7 +6,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $lastName = upperCaseFirstLetter($_POST['lastName']);
     $email = $_POST['email'];
     $password = $_POST['password'];
+    $confirmPassword = $_POST['confirmPassword'];
     $agreedToTerms = isset($_POST['agree-terms']) ? 1 : 0;
+
+    // Ensure passwords match (server-side check)
+    if ($password !== $confirmPassword) {
+        echo "Passwords do not match.";
+        exit();
+    }
 
     // Validate email
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
