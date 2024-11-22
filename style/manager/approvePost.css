@@ -32,6 +32,7 @@
 .container {
   padding: 20px;
 }
+
 /* Main content styles */
 .main-content {
   margin-left: 280px;
@@ -84,7 +85,7 @@ header {
   height: 100px;
 }
 header img {
-  width: 50px; /* Example size for logo */
+  width: 50px;
   height: auto;
   margin-right: 20px;
   display: inline-block;
@@ -127,7 +128,7 @@ header img {
 .page-header {
   background-color: #fff;
   padding: 20px;
-  margin-top: 80px; /* Ensure space below fixed header */
+  margin-top: 80px; 
 }
 
 .page-header h1 {
@@ -144,16 +145,14 @@ header img {
   box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
-/* Scoped styles for Approve Posts section */
-.registration-section {
-  margin-top: 120px; /* Ensure it appears below the fixed header */
+.approve-posts-section {
+  margin-top: 120px; 
   background-color: var(--color-light);
   border-radius: 8px;
   padding: 20px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-/* Buttons for Pending/Approved/Denied Users */
 .button-group {
   display: flex;
   gap: 10px;
@@ -178,49 +177,57 @@ header img {
 }
 
 .btn.approved {
-  background-color: #003f91; /* Blue */
+  background-color: #003f91;
   color: white;
 }
 
 .btn.denied {
-  background-color: #003f91; /* Red */
+  background-color: #003f91; 
   color: white;
 }
 
-/* Active State for Buttons */
 .btn.active {
-  background-color: #003f91; /* Highlighted color */
+  background-color: #003f91; 
   color: white;
 }
 
-/* Table for user data */
-.user-table {
+.post-table {
   width: 100%;
   border-collapse: collapse;
   background-color: white;
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  table-layout: fixed;
 }
 
-.user-table th,
-.user-table td {
+.post-table th,
+.post-table td {
   text-align: left;
   padding: 10px;
   border-bottom: 1px solid #ddd;
+  width: 20%;
+  word-wrap: break-word; 
 }
 
-.user-table th {
+.post-table th {
   background-color: var(--color-main);
   color: var(--color-light);
 }
 
-.user-table td {
+.post-table td {
   background-color: var(--color-light);
   color: var(--color-dark);
 }
 
-/* Buttons for action */
+.post-table tr td {
+  cursor: pointer;
+}
+
+.post-table tr td:hover {
+  background-color: #f0f0f0; 
+}
+
 .action-buttons .btn {
   padding: 8px 15px;
   border-radius: 5px;
@@ -249,8 +256,8 @@ header img {
     font-size: 12px;
   }
 
-  .user-table th,
-  .user-table td {
+  .post-table th,
+  .post-table td {
     font-size: 14px;
   }
 }

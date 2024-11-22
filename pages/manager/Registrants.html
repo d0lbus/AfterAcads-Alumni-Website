@@ -1,88 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>approvePosts</title>
-    <link
-      rel="stylesheet"
-      href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css"
-    />
-    <link rel="stylesheet" href="../../style/manager/Registrants.css" />
-    <script src="script.js" defer></script>
-  </head>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Registrants</title>
+  <link rel="stylesheet"
+    href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css" />
+  <link rel="stylesheet" href="../../style/manager/Registrants.css" />
+  <script src="script.js" defer></script>
+</head>
+
+<body>
+
   <body>
-    <body>
-        <section>
-            <header>
-                <div><img class="logo" src="../../assets/alumnilogo.png" alt="afteracads" />
-                    <img class="afteracadstext" src="../../assets/afteracadstext.png" alt="AfterAcads" />
-                </div>
-                <ul class="nav-links">
-                    <li><a href="../../pages/manager/home.html">Home</a></li>
-                    <li><a href="../../pages/manager/Registrants.html">Registrants</a></li>
-                    <li><a href="../../pages/manager/approvePost.html">Posts</a></li>
-                    <li><a href="#">Events</a></li>
-                    <li><a href="#">Opportunities</a></li>
-                    <li><a href="../../pages/manager/statistics.html"">Statistics</a></li>
-                </ul>
-                <div class="profile">
-                    <li><a href="viewProfile.php"><img class="profile-img" src="../../assets/display-photo.png" alt="Profile" /></a></li>
-                    </div>
-                  </div>
-                </div>
-            </header>
-        </section>  
-        <div class="approve-posts-section container">
-            <div class="button-group">
-                <button class="btn pending">Pending Users</button>
-                <button class="btn approved">Approved Users</button>
-                <button class="btn denied">Denied Users</button>
-            </div>
-            <table class="user-table">
-                <thead>
-                    <tr>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>E-mail</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Joe</td>
-                        <td>Joe</td>
-                        <td>joe@gmail.com</td>
-                        <td class="action-buttons">
-                            <button class="btn approve">Approve</button>
-                            <button class="btn deny">Deny</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>mork</td>
-                        <td>mork</td>
-                        <td>mork@example.com</td>
-                        <td class="action-buttons">
-                            <button class="btn approve">Approve</button>
-                            <button class="btn deny">Deny</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+    <section>
+      <header>
+        <div><img class="logo" src="../../assets/alumnilogo.png" alt="afteracads" />
+          <img class="afteracadstext" src="../../assets/afteracadstext.png" alt="AfterAcads" />
         </div>
-      </main>
-      <script>// Get all the buttons in the group
-        const buttons = document.querySelectorAll('.button-group .btn');
-        
-        // Add click event listener to each button
-        buttons.forEach((button) => {
-          button.addEventListener('click', () => {
-            // Remove 'active' class from all buttons
-            buttons.forEach((btn) => btn.classList.remove('active'));
-            // Add 'active' class to the clicked button
-            button.classList.add('active');
-          });
+        <ul class="nav-links">
+          <li><a href="../../pages/manager/home.html">Home</a></li>
+          <li><a href="../../pages/manager/Registrants.html">Registrants</a></li>
+          <li><a href="../../pages/manager/approvePost.html">Posts</a></li>
+          <li><a href="#">Events</a></li>
+          <li><a href="#">Opportunities</a></li>
+          <li><a href="../../pages/manager/statistics.html">Statistics</a></li>
+        </ul>
+        <div class="profile">
+          <li><a href="viewProfile.php"><img class="profile-img" src="../../assets/display-photo.png"
+                alt="Profile" /></a></li>
+        </div>
+        </div>
+        </div>
+      </header>
+    </section>
+    <div class="registration-section container">
+      <div class="button-group">
+        <button class="btn pending">Pending Users</button>
+        <button class="btn approved">Approved Users</button>
+        <button class="btn denied">Denied Users</button>
+      </div>
+      <table class="user-table">
+        <thead>
+          <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>E-mail</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Joe</td>
+            <td>Joe</td>
+            <td>joe@gmail.com</td>
+            <td class="action-buttons">
+              <button class="btn approve">Approve</button>
+              <button class="btn deny">Deny</button>
+            </td>
+          </tr>
+          <tr>
+            <td>mork</td>
+            <td>mork</td>
+            <td>mork@example.com</td>
+            <td class="action-buttons">
+              <button class="btn approve">Approve</button>
+              <button class="btn deny">Deny</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    </main>
+    <script>// Get all the buttons in the group
+      const buttons = document.querySelectorAll('.button-group .btn');
+
+      // Add click event listener to each button
+      buttons.forEach((button) => {
+        button.addEventListener('click', () => {
+          // Remove 'active' class from all buttons
+          buttons.forEach((btn) => btn.classList.remove('active'));
+          // Add 'active' class to the clicked button
+          button.classList.add('active');
         });
-        </script>
+      });
+    </script>
   </body>
+
 </html>

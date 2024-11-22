@@ -1,77 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Home</title>
-    <link
-      rel="stylesheet"
-      href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css"
-    />
-    <link rel="stylesheet" href="../../style/manager/home.css" />
-    <script src="script.js" defer></script>
-  </head>
-  <body>
-    <section>
-      <header>
-        <div>
-          <img class="logo" src="../../assets/alumnilogo.png" alt="afteracads" />
-          <img
-            class="afteracadstext"
-            src="../../assets/afteracadstext.png"
-            alt="AfterAcads"
-          />
-        </div>
-        <ul class="nav-links">
-          <li><a href="../../pages/manager/home.html">Home</a></li>
-          <li><a href="../../pages/manager/Registrants.html">Registrants</a></li>
-          <li><a href="../../pages/manager/approvePost.html">Posts</a></li>
-          <li><a href="#">Events</a></li>
-          <li><a href="#">Opportunities</a></li>
-          <li><a href="../../pages/manager/statistics.html">Statistics</a></li>
-        </ul>
-        <div class="profile">
-          <li>
-            <a href="viewProfile.php"
-              ><img
-                class="profile-img"
-                src="../../assets/display-photo.png"
-                alt="Profile"
-            /></a>
-          </li>
-        </div>
-      </header>
 
-      <!-- Main Content Section -->
-      <div class="main-content">
-        <div class="content-container">
-          <div class="box-wrapper">
-            <div class="left-side">
-              <div class="box registrants">
-                <h3>Registrants</h3>
-              </div>
-              <div class="box posts">
-                <h3>Posts</h3>
-              </div>
-              <div class="box events">
-                <h3>Events</h3>
-              </div>
-              <div class="box opportunities">
-                <h3>Opportunities</h3>
-              </div>
-            </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Home</title>
+  <link rel="stylesheet"
+    href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css" />
+  <link rel="stylesheet" href="../../style/manager/home.css" />
+  <script src="script.js" defer></script>
+</head>
 
-            <div class="box statistics">
-              <h3>Statistics</h3>
-              <li>
-                <a href="../../pages/manager/statistics.html"
-                  >chart pag pinindot punta sa statistics?</a
-                >
-              </li>
+<body>
+  <section>
+    <header>
+      <div>
+        <img class="logo" src="../../assets/alumnilogo.png" alt="afteracads" />
+        <img class="afteracadstext" src="../../assets/afteracadstext.png" alt="AfterAcads" />
+      </div>
+      <ul class="nav-links">
+        <li><a href="../../pages/manager/home.html">Home</a></li>
+        <li><a href="../../pages/manager/Registrants.html">Registrants</a></li>
+        <li><a href="../../pages/manager/approvePost.html">Posts</a></li>
+        <li><a href="#">Events</a></li>
+        <li><a href="#">Opportunities</a></li>
+        <li><a href="../../pages/manager/statistics.html">Statistics</a></li>
+      </ul>
+      <div class="profile">
+        <li>
+          <a href="viewProfile.php"><img class="profile-img" src="../../assets/display-photo.png" alt="Profile" /></a>
+        </li>
+      </div>
+    </header>
+
+    <!-- Main Content Section -->
+    <div class="main-content">
+      <div class="content-container">
+        <div class="box-wrapper">
+          <div class="left-side">
+            <div class="box registrants">
+              <h3>Registrants</h3>
+              <p>Total: 2</p>
+              <a href="../../pages/manager/Registrants.html" class="icon-link">
+                <i class="las la-arrow-right"></i>
+              </a>
             </div>
+            <div class="box posts">
+              <h3>Posts</h3>
+              <p>Total: 0</p>
+              <a href="../../pages/manager/approvePost.html" class="icon-link">
+                <i class="las la-arrow-right"></i>
+              </a>
+            </div>
+            <div class="box events">
+              <h3>Events</h3>
+              <p>Total: 7</p>
+              <a href="#" class="icon-link">
+                <i class="las la-arrow-right"></i>
+              </a>
+            </div>
+            <div class="box opportunities">
+              <h3>Opportunities</h3>
+              <p>Total: 9</p>
+              <a href="#" class="icon-link">
+                <i class="las la-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+
+          <div class="box statistics">
+            <h3>Statistics</h3>
+            <a href="../../pages/manager/statistics.html" class="icon-link">
+              <i class="las la-arrow-right"></i>
+            </a>
           </div>
         </div>
       </div>
-    </section>
-  </body>
+    </div>
+  </section>
+</body>
+
 </html>

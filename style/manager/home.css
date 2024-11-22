@@ -22,30 +22,30 @@ header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: #e7e5e5; /* Same background as registrant */
-  padding: 1rem 1.5rem; /* Padding adjusted as per registrant header */
+  background-color: #e7e5e5;
+  padding: 1rem 1.5rem; 
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   z-index: 1000;
-  height: 100px; /* Ensure consistent height */
+  height: 100px;
 }
 
 header img.logo {
-  width: 80px; /* Fixed width for the logo */
-  height: 80px; /* Fixed height to ensure consistency */
-  object-fit: contain; /* Ensures logo doesn't stretch */
+  width: 80px; 
+  height: 80px; 
+  object-fit: contain; 
   margin-right: 20px;
   display: inline-block;
 }
 
 header img.afteracadstext {
-  width: auto; /* Width will scale based on height */
-  height: 20px; /* Fixed height for afteracadstext */
+  width: auto; 
+  height: 20px; 
   margin-bottom: 15px;
   display: inline-block;
-  object-fit: contain; /* Prevent stretching */
+  object-fit: contain;
 }
 
 .nav-links {
@@ -113,7 +113,12 @@ header img.afteracadstext {
   display: flex;
   flex-direction: column;
   gap: 20px;
-  flex: 3; /* Makes left side take up 3 parts of the space */
+  flex: 3;
+}
+
+.left-side p {
+  font-size: 14px;
+  color: var(--secondary-color);
 }
 
 .box {
@@ -122,6 +127,7 @@ header img.afteracadstext {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   padding: 20px;
   flex: 1;
+  position: relative;
 }
 
 .box h3 {
@@ -129,13 +135,35 @@ header img.afteracadstext {
   margin-bottom: 15px;
 }
 
+.icon-link {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #003f91;
+  color: #ffffff;
+  border-radius: 50%;
+  font-size: 12px;
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  text-decoration: none;
+  transition: background 0.3s ease;
+}
+
+.icon-link:hover {
+  background: #0056b3;
+}
+
+
 /* Right side (Statistics Box) */
 .statistics {
   background-color: #fff;
   border-radius: 10px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   padding: 20px;
-  flex: 4; /* Makes statistics box take up 4 parts of the space */
+  flex: 4;
 }
 
 /* General Reset */
@@ -149,7 +177,7 @@ header img.afteracadstext {
 /* Responsive Layout for Small Screens */
 @media (max-width: 768px) {
   .box-wrapper {
-    flex-direction: column; /* Stacks left and right sections vertically */
+    flex-direction: column;
   }
 
   .left-side {
