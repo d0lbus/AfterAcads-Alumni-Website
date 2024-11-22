@@ -60,8 +60,10 @@ include '../config/events_controller.php';
 
         <div class="header-actions-container">
           <form method="GET" action="events.php" class="header-search-bar">
-            <input type="text" class="search-input" name="search" placeholder="Search..." value="<?php echo htmlspecialchars($search); ?>" />
+            <input type="text" class="search-input" name="search" id="searchInput" placeholder="Search..." value="<?php echo htmlspecialchars($search); ?>" />
             <button type="submit" class="search-button" aria-label="Search"><span class="las la-search"></span></button>
+            
+            <div id="suggestions" class="suggestions-list"></div>
           </form>
 
           <form method="GET" action="events.php" class="tag-dropdown">
@@ -128,11 +130,32 @@ include '../config/events_controller.php';
 
   <script>
     document.addEventListener("DOMContentLoaded", function() {
-      const sidebar = document.querySelector(".sidebar");
-      const toggleButton = document.getElementById("sidebarToggle");
+      const searchInput = document.getElementById("searchInput");
+      const suggestionsList = document.getElementById("suggestions");
 
-      toggleButton.addEventListener("click", function() {
-        sidebar.classList.toggle("minimized");
+      // Example suggested search terms
+      const suggestions = ["Upcoming events", "SAMCIS", "SEA", "General", "STELA", "SOHNABS"];
+      
+      searchInput.addEventListener("input", function() {
+        const query = searchInput.value.toLowerCase();
+        suggestionsList.innerHTML = ""; // Clear existing suggestions
+
+        if (query.length > 0) {
+          const filteredSuggestions = suggestions.filter(function(suggestion) {
+            return suggestion.toLowerCase().includes(query);
+          });
+
+          filteredSuggestions.forEach(function(suggestion) {
+            const suggestionElement = document.createElement("div");
+            suggestionElement.classList.add("suggestion-item");
+            suggestionElement.textContent = suggestion;
+            suggestionElement.addEventListener("click", function() {
+              searchInput.value = suggestion; // Set input field to selected suggestion
+              suggestionsList.innerHTML = ""; // Clear suggestions after selection
+            });
+            suggestionsList.appendChild(suggestionElement);
+          });
+        }
       });
     });
   </script>
