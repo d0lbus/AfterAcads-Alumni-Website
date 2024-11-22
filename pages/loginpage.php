@@ -15,15 +15,12 @@
   <div class="login-container">
     <div class="login-box">
       <img
-        class="logocircle"
-        src="../assets/alumnilogo.png"
+        class="logo"
+        src="../assets/logoBlue.png"
         width=""
         alt="" />
-      <h2 style="color: black">Log In</h2>
-      <p>
-        By continuing, you agree to our User Agreement and acknowledge that
-        you understand the Privacy Policy.
-      </p>
+      <h2 style="color: black">Log Into AfterAcads</h2>
+      
 
       <form action="../config/login.php" method="POST">
         <label for="email"></label>
@@ -35,7 +32,7 @@
         <a href="#">Forgot Password?</a>
         <p>New to AfterAcads? <a href="signuppage.php">Sign Up</a></p>
 
-        <button class="buttonsize" type="submit" name="signIn">Login</button>
+        <button class="buttonsize" type="submit" name="signIn">LOGIN</button>
       </form>
 
 

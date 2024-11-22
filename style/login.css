@@ -11,17 +11,17 @@ body {
   align-items: center;
   height: 100vh;
   padding: 0 20px;
-  animation: animateBg 5s linear infinite;
+  /* animation: animateBg 5s linear infinite; */
 }
 
-@keyframes animateBg {
+/* @keyframes animateBg {
   100% {
       filter: hue-rotate(360deg);
   }
-}
+} */
 
 .body-color2 {
-  background-color: #b0a4c5;
+  background-color: #194569;
 }
 
 .login-container {
@@ -36,16 +36,18 @@ body {
   padding: 80px 90px;
   border-radius: 30px;
   text-align: center;
-  color: #efe1e1;
+  color: #cadeed;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
   max-width: 650px;
   width: 100%;
-  background-color: #efe1e1;
+  background-color: #cadeed;
+  align-items: center;
 }
 
 .login-box h2 {
-  font-size: 2rem;
-  margin-bottom: 20px;
+  font-size: 20px;
+  margin-top: 10px;
+  margin-bottom: 10px;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -57,11 +59,12 @@ body {
   color: #000000;
 }
 
-.logocircle {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  border: 2px solid var(--color-sidebar-text);
+.logo {
+  display: block;
+  margin: 0 auto 20px; 
+  width: auto; 
+  max-width: 100%; 
+  height: auto;
 }
 
 .login-box form {
@@ -98,23 +101,22 @@ body {
 }
 
 .login-box button {
-  background-color: #e0c1c6;
+  background-color: #5f84a2;
   color: white;
   padding: 12px;
+  margin: 10px;
   border: none;
-  border-radius: 20px; /* Rounded button */
-  font-size: 1rem;
+  border-radius: 20px;
+  font-size: 1.1rem;
+  font-weight: 800;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  width: 40%;
+  width: 50%;
   text-align: center;
 }
 
 .login-box button:hover {
-  background-color: #efe1e1;
-}
-.buttonsize {
-  width: 40%;
+  background-color: #91aec4;
 }
 
 /* Responsive Design */

@@ -65,9 +65,9 @@ body {
 
 .signup-box img.logo {
   display: block;
-  margin: 0 auto 20px; /* Center the logo and add space below */
-  width: auto; /* Adjust as needed */
-  max-width: 100%; /* Ensure it fits within the container */
+  margin: 0 auto 20px; 
+  width: auto; 
+  max-width: 100%; 
   height: auto;
 }
 
@@ -211,14 +211,15 @@ input.success {
 }
 
 .agreement-section input[type="checkbox"] {
+  margin-top: 5px; 
   margin-right: 5px; 
-  width: 18px; 
-  height: 18px; 
-  cursor: pointer; /
+  width: 15px; 
+  height: 15px; 
+  cursor: pointer;
 }
 
 .agreement-section label {
-  margin: 5px; 
+  margin-left: 5px; 
   font-size: 0.9rem; 
   color: black;
   display: flex; 
