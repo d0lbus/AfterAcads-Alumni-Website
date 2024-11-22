@@ -11,14 +11,14 @@ body {
   align-items: center;
   height: 100vh;
   padding: 0 20px;
-  animation: animateBg 5s linear infinite;
+  /* animation: animateBg 5s linear infinite; */
 }
 
-@keyframes animateBg {
+/* @keyframes animateBg {
   100% {
       filter: hue-rotate(360deg);
   }
-}
+} */
 
 .signup-container {
   display: flex;
@@ -77,16 +77,37 @@ body {
   align-items: center;
 }
 
-/* .signup-box label {
+.signup-box label {
   margin-bottom: 8px;
   font-size: 0.9rem;
   text-align: left;
-} */
+}
+
+input {
+  border: 2px solid #ccc; 
+  border-radius: 5px;
+  padding: 10px;
+}
+
+/* styles for error/success borders */
+input.error {
+  border-color: red;
+}
+
+input.success {
+  border-color: green;
+}
+
+#error-message {
+  color: red;
+  display: none;
+  text-align: left;
+  font-size: small;
+}
 
 .signup-box input {
   padding: 12px;
   margin-bottom: 15px;
-  border: none;
   border-radius: 6px;
   font-size: 1rem;
   width: 100%;
@@ -103,15 +124,10 @@ body {
 .signup-box .name-fields input {
   flex: 1; /* Make both fields equal in width */
   padding: 12px;
-  border: none;
   border-radius: 6px;
   font-size: 1rem;
+  background-color: aliceblue;
 }
-
-.confirmPass {
-  margin-top: 20px;
-}
-
 
 .signup-box input[type="email"],
 .signup-box input[type="password"] {
