@@ -57,7 +57,7 @@ $result_posts = $stmt_posts->get_result();
         <div class="sidebar-content">
             <div class="sidebar-user">
                 <a href="../pages/viewProfile.php">
-                    <img src="../assets/display-photo.png" alt="Profile Picture" />
+                    <img src="../assets/profileIcon.jpg" alt="Profile Picture" />
                 </a>
                 <div>
                     <h3><?php echo htmlspecialchars($user['first_name'] . ' ' . $user['last_name']); ?></h3>
@@ -74,8 +74,7 @@ $result_posts = $stmt_posts->get_result();
                                     src="../assets/home1.png"
                                     width="20px"
                                     alt="Home" />
-                            </span>Home
-                        </a>
+                            </span>Home</a>
                     </li>
                     <li><a href="../pages/events.php"><span><img
                                     src="../assets/event1.png"
@@ -105,7 +104,7 @@ $result_posts = $stmt_posts->get_result();
             <div class="cols-container">
                 <div class="left-col">
                     <div class="img-container">
-                        <img src="../assets/display-photo.png" alt="Display Photo" />
+                        <img src="../assets/profileIcon.jpg" alt="Display Photo" />
                         <span></span>
                     </div>
                     <!-- Display user details dynamically -->
@@ -121,7 +120,7 @@ $result_posts = $stmt_posts->get_result();
                         <p><?php echo isset($user['bio']) ? htmlspecialchars($user['bio']) : 'Bio not provided'; ?></p>
 
                         <div class="contact-button">
-                            <button onclick="contactUser()">Contact</button>
+                            <button onclick="contactUser()">Contact Details</button>
                         </div>
 
                         
@@ -187,12 +186,6 @@ $result_posts = $stmt_posts->get_result();
             <h3> User's Contact Details</h3>
             <p><strong>Email:</strong> useremail@gmail.com</p>
             <p><strong>Address:</strong> user address baguio city</p>
-            
-            <!-- <ul class="social-links">
-                <li><a href="<?php echo htmlspecialchars($user['twitter_link']); ?>" target="_blank"><img src="../assets/twitter-icon.png" alt="Twitter" width="24px" /></a></li>
-                <li><a href="<?php echo htmlspecialchars($user['facebook_link']); ?>" target="_blank"><img src="../assets/fb-icon.png" alt="Facebook" width="24px" /></a></li>
-                <li><a href="<?php echo htmlspecialchars($user['instagram_link']); ?>" target="_blank"><img src="../assets/instagram-icon.png" alt="Instagram" width="24px" /></a></li>
-            </ul> -->
 
             <ul class="social-links">
                 <li><img src="../assets/twitter-icon.png" alt="twitter icon" width="20px" height="20px" /></li>
