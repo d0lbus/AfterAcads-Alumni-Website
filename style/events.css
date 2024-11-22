@@ -376,13 +376,7 @@ small {
   color: var(--color-main);
 }
 
-.title-divider {
-  border: none;
-  border-top: 2px solid var(--color-main);
-  margin: 8px 0 30px 0;
-  width: 100%;
-}
-
+/* Pagination Styles */
 .pagination {
   text-align: center;
   margin-top: 20px;
