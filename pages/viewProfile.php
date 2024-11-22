@@ -1,27 +1,6 @@
 <?php
-session_start();
+include '../config/header.php';
 
-if (!isset($_SESSION['email'])) {
-    header("Location: loginpage.php");
-    exit();
-}
-
-include '../config/connection.php';
-
-// Fetch user data based on the session email
-$email = $_SESSION['email'];
-$sql = "SELECT * FROM users WHERE email = ?";
-$stmt = $conn->prepare($sql);
-$stmt->bind_param("s", $email);
-$stmt->execute();
-$result = $stmt->get_result();
-
-if ($result->num_rows > 0) {
-    $user = $result->fetch_assoc();
-} else {
-    echo "Error: User not found.";
-    exit();
-}
 
 $sql_posts = "SELECT content, created_at, tag, image FROM posts WHERE user_id = ? ORDER BY created_at DESC";
 $stmt_posts = $conn->prepare($sql_posts);
@@ -167,12 +146,27 @@ $result_posts = $stmt_posts->get_result();
 
                     <!-- TO DO: Display user's uploaded photos DYNAMICALLY  -->
                     <div class="photos" id="photos">
-                        <img src="" alt="image" />
-                        <img src="" alt="image" />
-                        <img src="" alt="image" />
-                        <img src="" alt="image" />
-                        <img src="" alt="image" />
-                        <img src="" alt="image" />
+                        <?php
+                        // Fetch all user images from the database
+                        $sql_photos = "SELECT image FROM posts WHERE user_id = ? AND image IS NOT NULL ORDER BY created_at DESC";
+                        $stmt_photos = $conn->prepare($sql_photos);
+                        $stmt_photos->bind_param("i", $user['id']);
+                        $stmt_photos->execute();
+                        $result_photos = $stmt_photos->get_result();
+
+                        if ($result_photos->num_rows > 0):
+                            while ($photo = $result_photos->fetch_assoc()):
+                                // Display each image
+                                echo '<div class="photo-item">';
+                                echo '<img src="data:image/jpeg;base64,' . base64_encode($photo['image']) . '" alt="User Photo" style="max-width: 100%; height: auto; margin-bottom: 10px;" />';
+                                echo '</div>';
+                            endwhile;
+                        else:
+                            echo "<p>No photos to display.</p>";
+                        endif;
+
+                        $stmt_photos->close();
+                        ?>
                     </div>
                 </div>
             </div>
