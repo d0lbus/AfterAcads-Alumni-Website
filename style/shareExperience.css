@@ -465,44 +465,53 @@ header {
 
 /* Container for Sort and Filter Dropdowns */
 .sort-filter-container {
-    display: flex;
-    justify-content: space-between; 
-    align-items: center;
-    margin-bottom: 20px; 
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 24px;
+  margin-bottom: 20px;
 }
 
-/* Sorting Dropdown */
-.sort-dropdown, .filter-dropdown {
-    display: flex;
-    align-items: center;
+.sort-dropdown,
+.filter-dropdown {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
-.sort-label, .filter-label {
-    font-size: 1rem;
-    font-weight: 500;
-    margin-right: 8px;
-    color: var(--color-dark); 
+.sort-label,
+.filter-label {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--color-dark);
+  white-space: nowrap;
+  margin-right: 4px;
 }
 
-.sort-select, .filter-select {
-    border: 1px solid #ccc;
-    border-radius: 20px;
-    padding: 8px 16px; 
-    font-size: 1rem;
-    outline: none;
-    transition: border 0.3s ease;
-    cursor: pointer;
-    background-color: white; 
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+.sort-select,
+.filter-select {
+  width: 130px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  padding: 8px 12px;
+  font-size: 1rem;
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.3s ease;
 }
 
-.sort-select:focus, .filter-select:focus {
-    border-color: var(--color-accent); 
+.sort-select:focus,
+.filter-select:focus {
+  border-color: var(--color-accent);
 }
 
-.sort-select option, .filter-select option {
-    padding: 10px; 
+.sort-select option,
+.filter-select option {
+  padding: 10px;
 }
+
 
 
 
