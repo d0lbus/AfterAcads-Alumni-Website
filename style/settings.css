@@ -251,6 +251,32 @@ header {
   background-color: #91aec4;
 }
 
+.profile-picture-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center horizontally */
+  text-align: center;  /* Align text to the center */
+  margin-bottom: 2rem; /* Add space below the group */
+}
+
+.profile-picture-preview {
+  margin-bottom: 1rem; /* Add space below the picture preview */
+}
+
+.profile-picture-preview img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%; /* Make the image circular */
+  border: 3px solid var(--color-sidebar-text); /* Add a border for visual appeal */
+  object-fit: cover; /* Ensure the image fits well in the circle */
+}
+
+input[type="file"] {
+  margin-top: 0.5rem;
+  display: block;
+}
+
+
 /* Card styles */
 .cards {
   display: grid;

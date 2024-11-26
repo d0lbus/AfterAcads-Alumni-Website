@@ -54,6 +54,16 @@
             <small>Update your account settings below</small>
             
             <!-- Settings Form -->
+            <div class="form-group profile-picture-group">
+                <h2>Profile Picture</h2>
+                <div class="profile-picture-preview">
+                    <img src="<?= $profilePicture ?>" alt="Current Profile Picture" id="profile-picture-preview" />
+                </div>
+                <label for="profile-picture">Upload New Profile Picture</label>
+                <input type="file" name="profile-picture" id="profile-picture" accept="image/*" onchange="previewImage(event)" />
+                <small>Supported formats: JPG, PNG. Max size: 2MB.</small>
+            </div>
+
             <form class="settings-form" method="post" action="../config/update_settings.php">
                 <h2>Profile Settings</h2>
                 <div class="form-group">
