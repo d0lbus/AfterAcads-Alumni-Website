@@ -18,15 +18,18 @@
   padding: 0;
 }
 
-.logocircle {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  border: 1px solid var(--color-sidebar-text);
-  margin-left: 220%;
+.logo {
+  width: 90px;
+  height: 90px;
 }
 
-.container{
+.afteracadstext {
+  width: auto;
+  height: 20px;
+  margin-bottom: 15px;
+}
+
+.container {
   padding: 20px;
 }
 /* Main content styles */
@@ -35,7 +38,6 @@
   padding: 1.5rem;
   transition: margin-left 0.3s ease;
 }
-
 
 /* General Reset */
 * {
@@ -55,10 +57,25 @@ body {
 .container {
   margin-top: 60px; /* Space for fixed header */
 }
+.profile {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.profile-img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  margin-right: 15px;
+  border: 2px solid var(--color-accent);
+}
 
 header {
-  background-color: #003f91;
-  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #e7e5e5;
   padding: 1rem 1.5rem;
   position: fixed;
   top: 0;
@@ -66,7 +83,6 @@ header {
   z-index: 1000;
   height: 100px;
 }
-
 header img {
   width: 50px; /* Example size for logo */
   height: auto;
@@ -79,15 +95,15 @@ header img {
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  float: right;
+  margin-left: auto;
 }
 
 .nav-links li {
-  margin-right: 20px;
+  margin-right: 30px;
 }
 
 .nav-links li a {
-  color: white;
+  color: rgb(0, 0, 0);
   text-decoration: none;
   font-size: 16px;
   padding: 10px;
@@ -100,7 +116,7 @@ header img {
 }
 
 .nav-links li a.active {
-  background-color: #007BFF;
+  background-color: #007bff;
 }
 
 .nav-links li a:focus {
@@ -152,7 +168,6 @@ header img {
 .after-acads-text {
   width: 290px;
 }
-
 
 .search-input {
   border: none;

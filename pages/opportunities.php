@@ -1,3 +1,7 @@
+<?php
+include '../config/header.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -23,7 +27,7 @@
     <div class="sidebar-content">
       <div class="sidebar-user">
         <a href="../pages/viewProfile.php">
-          <img src="../assets/display-photo.png" alt="Profile Picture" />
+          <img src="../assets/profileIcon.jpg" alt="Profile Picture" />
         </a>
         <div>
           <h3>User Name</h3>
@@ -44,8 +48,7 @@
 
   <div class="main-content">
     <header>
-      <img src="../assets/alumnilogo.png" alt="logo" class="logo-header" />
-      <img src="../assets/afteracadstext.png" alt="AfterAcads" class="after-acads-text" />
+    <img src="../assets/logoBlue.png" alt="logo" class="logo-header" />
     </header>
 
     <main>
@@ -55,8 +58,9 @@
 
         <div class="header-actions-container">
           <form class="header-search-bar">
-            <input type="text" class="search-input" name="search" placeholder="Search..." />
+            <input type="text" class="search-input" name="search" placeholder="Search..." id="search-input" />
             <button type="submit" class="search-button" aria-label="Search"><span class="las la-search"></span></button>
+            <div class="dropdown-container" id="dropdown-container"></div>
           </form>
         </div>
 
@@ -72,8 +76,8 @@
               <p>{Description of the opportunity goes here. This is a brief summary of what the job entails and any key details.}</p>
             </div>
             <div class="button-container">
-              <a href="../pages/viewOpportunities.php" class="button">VIEW</a>
-              <a href="apply.php?job_id=1" class="button">APPLY</a>
+              <a href="../pages/viewOpportunities.php" class="button">View</a>
+              <a href="apply.php?job_id=1" class="button">Apply</a>
             </div>
           </div>
           <!-- Additional job cards would go here -->
@@ -91,7 +95,7 @@
             <span>Friend Name 1</span>
         </div>
     </div>
-</div>
+  </div>
 
   <script>
     document.addEventListener("DOMContentLoaded", function() {
@@ -100,6 +104,53 @@
 
       toggleButton.addEventListener("click", function() {
         sidebar.classList.toggle("minimized");
+      });
+
+      const searchInput = document.getElementById('search-input');
+      const dropdownContainer = document.getElementById('dropdown-container');
+
+      // Sample data for suggestions
+      const suggestions = [
+        'Architecture and Urban Design',
+        'Sustainable Development',
+        'Eco-friendly Tourism',
+        'Green Spaces',
+        'Waste Management',
+        'Public Transportation'
+      ];
+
+      // Show dropdown based on input
+      searchInput.addEventListener('input', function() {
+        const query = searchInput.value.trim().toLowerCase();
+        dropdownContainer.innerHTML = ''; // Clear current suggestions
+        
+        if (query) {
+          const filteredSuggestions = suggestions.filter(item =>
+            item.toLowerCase().includes(query)
+          );
+
+          filteredSuggestions.forEach(suggestion => {
+            const div = document.createElement('div');
+            div.classList.add('dropdown-item');
+            div.textContent = suggestion;
+            div.onclick = () => {
+              searchInput.value = suggestion;
+              dropdownContainer.innerHTML = ''; // Hide dropdown on selection
+            };
+            dropdownContainer.appendChild(div);
+          });
+
+          dropdownContainer.style.display = 'block';
+        } else {
+          dropdownContainer.style.display = 'none';
+        }
+      });
+
+      // Hide dropdown when clicking outside
+      document.addEventListener('click', function(e) {
+        if (!e.target.closest('.header-search-bar')) {
+          dropdownContainer.style.display = 'none';
+        }
       });
     });
   </script>

@@ -1,27 +1,6 @@
 <?php
-session_start();
+include '../config/header.php';
 
-if (!isset($_SESSION['email'])) {
-    header("Location: loginpage.php");
-    exit();
-}
-
-include '../config/connection.php';
-
-// Fetch user data based on the session email
-$email = $_SESSION['email'];
-$sql = "SELECT * FROM users WHERE email = ?";
-$stmt = $conn->prepare($sql);
-$stmt->bind_param("s", $email);
-$stmt->execute();
-$result = $stmt->get_result();
-
-if ($result->num_rows > 0) {
-    $user = $result->fetch_assoc();
-} else {
-    echo "Error: User not found.";
-    exit();
-}
 
 $sql_posts = "SELECT content, created_at, tag, image FROM posts WHERE user_id = ? ORDER BY created_at DESC";
 $stmt_posts = $conn->prepare($sql_posts);
@@ -57,7 +36,7 @@ $result_posts = $stmt_posts->get_result();
         <div class="sidebar-content">
             <div class="sidebar-user">
                 <a href="../pages/viewProfile.php">
-                    <img src="../assets/display-photo.png" alt="Profile Picture" />
+                    <img src="../assets/profileIcon.jpg" alt="Profile Picture" />
                 </a>
                 <div>
                     <h3><?php echo htmlspecialchars($user['first_name'] . ' ' . $user['last_name']); ?></h3>
@@ -74,8 +53,7 @@ $result_posts = $stmt_posts->get_result();
                                     src="../assets/home1.png"
                                     width="20px"
                                     alt="Home" />
-                            </span>Home
-                        </a>
+                            </span>Home</a>
                     </li>
                     <li><a href="../pages/events.php"><span><img
                                     src="../assets/event1.png"
@@ -105,7 +83,7 @@ $result_posts = $stmt_posts->get_result();
             <div class="cols-container">
                 <div class="left-col">
                     <div class="img-container">
-                        <img src="../assets/display-photo.png" alt="Display Photo" />
+                        <img src="../assets/profileIcon.jpg" alt="Display Photo" />
                         <span></span>
                     </div>
                     <!-- Display user details dynamically -->
@@ -120,11 +98,11 @@ $result_posts = $stmt_posts->get_result();
                     <div class="content">
                         <p><?php echo isset($user['bio']) ? htmlspecialchars($user['bio']) : 'Bio not provided'; ?></p>
 
-                        <ul class="social-logo">
-                            <li><img src="../assets/twitter-icon.png" alt="twitter icon" width="20px" height="20px" /></li>
-                            <li><img src="../assets/fb-icon.png" alt="fb icon" width="20px" height="20px" /></li>
-                            <li><img src="../assets/instagram-icon.png" alt="ig icon" width="20px" height="20px"></li>
-                        </ul>
+                        <div class="contact-button">
+                            <button onclick="contactUser()">Contact Details</button>
+                        </div>
+
+                        
                     </div>
                 </div>
                 <div class="right-col">
@@ -132,7 +110,6 @@ $result_posts = $stmt_posts->get_result();
                         <ul>
                             <li><a href="#posts">Posts</a></li>
                             <li><a href="#photos">Photos</a></li>
-                            <li><a href="#about">About</a></li>
                         </ul>
                     </nav>
 
@@ -169,17 +146,49 @@ $result_posts = $stmt_posts->get_result();
 
                     <!-- TO DO: Display user's uploaded photos DYNAMICALLY  -->
                     <div class="photos" id="photos">
-                        <img src="" alt="image" />
-                        <img src="" alt="image" />
-                        <img src="" alt="image" />
-                        <img src="" alt="image" />
-                        <img src="" alt="image" />
-                        <img src="" alt="image" />
+                        <?php
+                        // Fetch all user images from the database
+                        $sql_photos = "SELECT image FROM posts WHERE user_id = ? AND image IS NOT NULL ORDER BY created_at DESC";
+                        $stmt_photos = $conn->prepare($sql_photos);
+                        $stmt_photos->bind_param("i", $user['id']);
+                        $stmt_photos->execute();
+                        $result_photos = $stmt_photos->get_result();
+
+                        if ($result_photos->num_rows > 0):
+                            while ($photo = $result_photos->fetch_assoc()):
+                                // Display each image
+                                echo '<div class="photo-item">';
+                                echo '<img src="data:image/jpeg;base64,' . base64_encode($photo['image']) . '" alt="User Photo" style="max-width: 100%; height: auto; margin-bottom: 10px;" />';
+                                echo '</div>';
+                            endwhile;
+                        else:
+                            echo "<p>No photos to display.</p>";
+                        endif;
+
+                        $stmt_photos->close();
+                        ?>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <!-- Contact Details Modal -->
+    <div id="contactModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h3> User's Contact Details</h3>
+            <p><strong>Email:</strong> useremail@gmail.com</p>
+            <p><strong>Address:</strong> user address baguio city</p>
+
+            <ul class="social-links">
+                <li><img src="../assets/twitter-icon.png" alt="twitter icon" width="20px" height="20px" /></li>
+                <li><img src="../assets/fb-icon.png" alt="fb icon" width="20px" height="20px" /></li>
+                <li><img src="../assets/instagram-icon.png" alt="ig icon" width="20px" height="20px"></li>
+            </ul>
+        </div>
+    </div>
+
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
@@ -188,6 +197,28 @@ $result_posts = $stmt_posts->get_result();
 
             toggleButton.addEventListener("click", function() {
                 sidebar.classList.toggle("minimized");
+            });
+        });
+
+        function contactUser() {
+            const modal = document.getElementById("contactModal");
+            modal.style.display = "block"; // Show the modal
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const modal = document.getElementById("contactModal");
+            const closeButton = document.querySelector(".close-button");
+
+            // Close the modal when the close button is clicked
+            closeButton.addEventListener("click", function () {
+                modal.style.display = "none";
+            });
+
+            // Close the modal when clicking outside of the modal content
+            window.addEventListener("click", function (event) {
+                if (event.target === modal) {
+                    modal.style.display = "none";
+                }
             });
         });
     </script>

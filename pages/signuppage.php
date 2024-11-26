@@ -15,25 +15,37 @@
   <div class="signup-container">
     <div class="signup-box">
       <img
-        class="logocircle"
-        src="../assets/alumnilogo.png"
+        class="logo"
+        src="../assets/logoBlue.png"
         width=""
         alt="" />
-      <h2 style="color: black">Sign Up</h2>
-      <p>Log in with your SLU email</p>
+      <h2 style="color: black">Create an Account</h2>
 
       <form action="../config/signup.php" method="POST">
-        <label for="firstName">First Name</label>
+        <div class="name-fields">
+        <!-- <label for="firstName">First Name</label> -->
         <input type="text" id="firstName" name="firstName" placeholder="First name *" required />
 
-        <label for="lastName">Last Name</label>
+        <!-- <label for="lastName">Last Name</label> -->
         <input type="text" id="lastName" name="lastName" placeholder="Last name *" required />
+        </div>
 
+        <div>
         <label for="email">SLU Email</label>
         <input type="email" id="email" name="email" placeholder="yourname@slu.edu.ph *" required />
 
         <label for="password">Password</label>
-        <input type="password" id="password" name="password" placeholder="Enter your password *" required />
+        <input type="password" id="password" name="password" placeholder="Password *" required />
+        
+        <label for="confirmPassword">Confirm Password</label>
+        <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password *" required />
+
+        <p id="error-message" style="color: red; display: none;">Passwords do not match.</p>
+        </div>
+
+        <p style="font-size: 0.9rem; margin-bottom: 0; margin-top: 20px;"> By continuing, you agree to our User Agreement and acknowledge that
+        you understand the Privacy Policy.
+        </p>
 
         <div class="agreement-section">
           <input type="checkbox" id="agree-terms" name="agree-terms" required />
@@ -42,22 +54,40 @@
             <a href="#" class="terms-link"> Privacy Policy</a>.
           </label>
         </div>
-        <button class="buttonsize" type="submit">Sign Up</button>
+        <button class="buttonsize" type="submit">SIGN UP</button>
       </form>
 
 
       <!-- Agreement Section with Checkboxes -->
-
-      <button class="buttonsize" type="submit" value="Sign In" name="signIn">
-        Log in with SLU Email
-      </button>
-
       <p class="login-prompt">
         Already have an account?
         <a href="loginpage.php" class="login-link">Log in</a>
       </p>
     </div>
   </div>
+
+
+  <!-- Jerilyn Cahanap -->
+  <script>
+    const password = document.getElementById('password');
+    const confirmPassword = document.getElementById('confirmPassword');
+    const errorMessage = document.getElementById('error-message');
+    const submitButton = document.getElementById('submit-button');
+
+    // Check passwords on input in the confirmPassword field
+    confirmPassword.addEventListener('input', () => {
+      if (confirmPassword.value === password.value) {
+        errorMessage.style.display = 'none'; // Hide error message
+        confirmPassword.style.borderColor = 'green'; // Add success indicator
+        submitButton.disabled = false; // Enable the submit button
+      } else {
+        errorMessage.style.display = 'block'; // Show error message
+        confirmPassword.style.borderColor = 'red'; // Add error indicator
+        submitButton.disabled = true; // Disable the submit button
+      }
+    });
+  </script>
+
 </body>
 
 </html>

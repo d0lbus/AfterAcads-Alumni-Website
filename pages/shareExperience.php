@@ -10,8 +10,7 @@ include '../config/header.php';
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Home</title>
-    <link
-        rel="stylesheet"
+    <link rel="stylesheet"
         href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css" />
     <link rel="stylesheet" href="../style/shareExperience.css" />
 </head>
@@ -32,13 +31,15 @@ include '../config/header.php';
         <div class="sidebar-content">
             <div class="sidebar-user">
                 <a href="../pages/viewProfile.php">
-                    <img src="../assets/display-photo.png" alt="Profile Picture" />
+                    <img src="../assets/profileIcon.jpg" alt="Profile Picture" />
                 </a>
                 <div>
                     <h3>
                         <?php echo htmlspecialchars($user['first_name'] . ' ' . $user['last_name']); ?>
                     </h3>
-                    <span><?php echo htmlspecialchars($user['email']); ?></span>
+                    <span>
+                        <?php echo htmlspecialchars($user['email']); ?>
+                    </span>
                 </div>
             </div>
 
@@ -55,7 +56,8 @@ include '../config/header.php';
                         </a>
                     </li>
                     <li><a href="../pages/opportunities.php">
-                        <span><img src="../assets/opportunities.png" width="20px" alt="Opportunities" /></span>Opportunities</a></li>
+                            <span><img src="../assets/opportunities.png" width="20px"
+                                    alt="Opportunities" /></span>Opportunities</a></li>
                     <li>
                         <a href="../pages/settings.php">
                             <span><img src="../assets/setting1.png" width="20px" alt="Settings" /></span>Settings
@@ -72,16 +74,17 @@ include '../config/header.php';
 
     <div class="main-content">
         <header>
-            <img src="../assets/alumnilogo.png" alt="logo" class="logo-header" />
-            <img src="../assets/afteracadstext.png" alt="AfterAcads" class="after-acads-text" />
+            <img src="../assets/logoBlue.png" alt="logo" class="logo-header" />
         </header>
 
         <main>
             <!-- Post creation section -->
             <div class="addPost">
                 <div class="addPost-header">
-                    <img src="../assets/display-photo.png" alt="Profile" class="profile-pic" />
-                    <textarea id="postContent" placeholder="What's on your mind, <?php echo htmlspecialchars($user['first_name']); ?>?" class="post-input" rows="1"></textarea>
+                    <img src="../assets/profileIcon.jpg" alt="Profile" class="profile-pic" />
+                    <textarea id="postContent"
+                        placeholder="What's on your mind, <?php echo htmlspecialchars($user['first_name']); ?>?"
+                        class="post-input" rows="1"></textarea>
                 </div>
 
                 <div class="tag-dropdown">
@@ -109,26 +112,36 @@ include '../config/header.php';
             </div>
 
             <div class="sort-filter-container">
-            <!-- Sort by Dropdown -->
-            <div class="sort-dropdown">
-                <label for="sortOrder" class="sort-label">Sort by:</label>
-                <select id="sortOrder" class="sort-select">
-                    <option value="latest">Latest</option>
-                    <option value="oldest">Oldest</option>
-                </select>
+                <div class="sort-dropdown">
+                    <label for="sortOrder" class="sort-label">Sort by:</label>
+                    <select id="sortOrder" class="sort-select">
+                        <option value="latest">Latest</option>
+                        <option value="oldest">Oldest</option>
+                    </select>
+                </div>
+                <div class="filter-dropdown">
+                    <label class="filter-label">Filter by:</label>
+                    <select id="filterSchool" class="filter-select">
+                        <option value="">School</option>
+                        <option value="SAMCIS">SAMCIS</option>
+                        <option value="SEA">SEA</option>
+                        <option value="SOHNABS">SOHNABS</option>
+                    </select>
+                    <select id="filterCourse" class="filter-select">
+                        <option value="">Course</option>
+                        <option value="Computer Science">Computer Science</option>
+                        <option value="Information Technology">Information Technology</option>
+                        <option value="Nursing">Nursing</option>
+                    </select>
+                    <select id="filterBatch" class="filter-select">
+                        <option value="">Batch</option>
+                        <option value="223">223</option>
+                        <option value="222">222</option>
+                        <option value="221">221</option>
+                    </select>
+                </div>
             </div>
-
-            <!-- Filter by Tag Dropdown -->
-            <div class="filter-dropdown">
-                <label for="filterTag" class="filter-label">Filter by Tag:</label>
-                <select id="filterTag" class="filter-select">
-                    <option value="">All</option>
-                    <option value="School">School</option>
-                    <option value="Course">Course</option>
-                    <option value="Batch">Batch</option>
-                </select>
-            </div>
-        </div>
+            
 
 
             <!-- Dynamic posts container -->
@@ -142,8 +155,11 @@ include '../config/header.php';
                     <div class="line"></div>
                     <div class="modal-header">
                         <img src="../assets/profile.jpg" alt="Profile" class="profile-pic" />
-                        <span><?php echo htmlspecialchars($user['first_name'] . ' ' . $user['last_name']); ?></span>
-                        <textarea id="modalPostContent" placeholder="What's on your mind?" class="post-input" rows="3"></textarea>
+                        <span>
+                            <?php echo htmlspecialchars($user['first_name'] . ' ' . $user['last_name']); ?>
+                        </span>
+                        <textarea id="modalPostContent" placeholder="What's on your mind?" class="post-input"
+                            rows="3"></textarea>
                     </div>
 
                     <div class="modal-divider"></div>
@@ -183,32 +199,32 @@ include '../config/header.php';
 
     <script>
         // Modal open/close functionality
-        document.addEventListener("DOMContentLoaded", function() {
+        document.addEventListener("DOMContentLoaded", function () {
             const modal = document.getElementById("postModal");
             const openModalButton = document.getElementById("addPhotoVideoButton");
             const closeModalButton = document.querySelector(".close-modal");
 
             if (openModalButton) {
-                openModalButton.onclick = function() {
+                openModalButton.onclick = function () {
                     modal.style.display = "block";
                 };
             }
 
             if (closeModalButton) {
-                closeModalButton.onclick = function() {
+                closeModalButton.onclick = function () {
                     modal.style.display = "none";
                 };
             }
 
-            window.onclick = function(event) {
+            window.onclick = function (event) {
                 if (event.target == modal) {
                     modal.style.display = "none";
                 }
             };
 
             // Handle creating a post
-            document.getElementById("postButton").addEventListener("click", function(e) {
-            e.preventDefault();
+            document.getElementById("postButton").addEventListener("click", function (e) {
+                e.preventDefault();
 
                 const content = document.getElementById("postContent").value;
                 const tag = document.getElementById("tags").value; // Selected tag
@@ -235,9 +251,9 @@ include '../config/header.php';
                 }
 
                 fetch("../config/create_posts.php", {
-                        method: "POST",
-                        body: formData,
-                    })
+                    method: "POST",
+                    body: formData,
+                })
                     .then((response) => response.json())
                     .then((data) => {
                         if (data.success) {
@@ -271,10 +287,9 @@ include '../config/header.php';
                             postElement.innerHTML = `
                                 <div class="post-user">${post.full_name}</div>
                                 <div class="post-content">${post.content}</div>
-                                ${
-                                    post.image
-                                        ? `<img src="data:image/jpeg;base64,${post.image}" alt="Post Image" />`
-                                        : ""
+                                ${post.image
+                                    ? `<img src="data:image/jpeg;base64,${post.image}" alt="Post Image" />`
+                                    : ""
                                 }
                                 <div class="post-tag">Tag: ${post.tag}</div>
                                 <div class="post-date">${new Date(post.created_at).toLocaleString()}</div>
@@ -286,14 +301,14 @@ include '../config/header.php';
             }
 
             // Filter posts by tag
-            document.getElementById("filterTag").addEventListener("change", function() {
+            document.getElementById("filterTag").addEventListener("change", function () {
                 const selectedTag = this.value;
                 const sortOrder = document.getElementById("sortOrder").value; // Get the selected sort order
                 fetchPosts(selectedTag, null, sortOrder);
             });
 
             // Search posts by keyword
-            document.getElementById("searchButton").addEventListener("click", function() {
+            document.getElementById("searchButton").addEventListener("click", function () {
                 const searchQuery = document.getElementById("searchInput").value.trim();
                 const sortOrder = document.getElementById("sortOrder").value; // Get the selected sort order
                 if (searchQuery) {
@@ -302,7 +317,7 @@ include '../config/header.php';
             });
 
             // Handle sorting by latest or oldest
-            document.getElementById("sortOrder").addEventListener("change", function() {
+            document.getElementById("sortOrder").addEventListener("change", function () {
                 const sortOrder = this.value;
                 const selectedTag = document.getElementById("filterTag").value; // Get selected tag
                 const searchQuery = document.getElementById("searchInput").value.trim(); // Get search query
@@ -312,19 +327,19 @@ include '../config/header.php';
             // Initial fetch of posts (default to latest)
             fetchPosts();
         });
-    </script>
 
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
+        // Responsive Sidebar
+        document.addEventListener("DOMContentLoaded", function () {
             const sidebar = document.querySelector(".sidebar");
             const toggleButton = document.getElementById("sidebarToggle");
 
-            toggleButton.addEventListener("click", function() {
+            toggleButton.addEventListener("click", function () {
                 sidebar.classList.toggle("minimized");
             });
         });
 
-        document.addEventListener("DOMContentLoaded", function() {
+        // Add Post Container
+        document.addEventListener("DOMContentLoaded", function () {
             const addPost = document.querySelector(".addPost");
             const postContent = document.getElementById("postContent");
 
@@ -332,14 +347,14 @@ include '../config/header.php';
             addPost.classList.add("minimized");
 
             // Expand addPost when the textarea is clicked
-            postContent.addEventListener("click", function(event) {
+            postContent.addEventListener("click", function (event) {
                 event.stopPropagation(); // Prevent the event from bubbling up to the document
                 addPost.classList.remove("minimized");
                 addPost.classList.add("expanded");
             });
 
             // Collapse addPost when clicking outside
-            document.addEventListener("click", function(event) {
+            document.addEventListener("click", function (event) {
                 if (!addPost.contains(event.target)) {
                     addPost.classList.remove("expanded");
                     addPost.classList.add("minimized");

@@ -4,8 +4,8 @@
   --color-main: #1a202e;
   --color-light: #f5f5f5;
   --color-dark: #1a1a1a;
-  --color-accent: #8da2fb;
-  --color-sidebar-bg: #d1b4c6;
+  --color-accent: #91aec4;
+  --color-sidebar-bg: #cadeed;
   --color-sidebar-text: #000000;
 }
 
@@ -16,14 +16,6 @@
   list-style-type: none;
   margin: 0;
   padding: 0;
-}
-
-.logocircle {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  border: 1px solid var(--color-sidebar-text);
-  margin-left: 220%;
 }
 
 /* Sidebar styles */
@@ -195,7 +187,7 @@
 } 
 
 .logo-header {
-  width: 60px;
+  width: 300px;
   height: 50px;
 }
 
@@ -247,11 +239,16 @@ header {
 }
 
 .button {
-  background-color: #f0d2da; 
+  background-color: #5f84a2; 
   padding: 0.5rem 1rem; 
   border: none; 
   border-radius: 5px; 
   cursor: pointer;
+  color: white;
+}
+
+.button:hover {
+  background-color: #91aec4;
 }
 
 /* Card styles */
