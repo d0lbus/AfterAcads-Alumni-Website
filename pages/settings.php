@@ -62,7 +62,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="middle-name">Middle Name (optional)</label>
+                    <label for="middle-name">Middle Name</label>
                     <input type="text" name="middle-name" id="middle-name" placeholder="Middle Name" value="<?= htmlspecialchars($user['middle_name']) ?>" />
                 </div>
 
@@ -81,10 +81,10 @@
                     <input type="text" name="change-address" id="change-address" placeholder="New Address" required value="<?= htmlspecialchars($user['address']) ?>" />
                 </div>
 
-                <div class="form-group">
+                <!-- <div class="form-group">
                     <label for="batch-year">Batch Year</label>
                     <input type="number" name="batch-year" id="batch-year" placeholder="Batch Year" required min="1900" max="2100" />
-                </div>
+                </div> -->
 
                 <h2>Change Password</h2>
                 <div class="form-group">
@@ -102,7 +102,26 @@
                     <input type="password" name="confirm-password" id="confirm-password" placeholder="Confirm Password" required />
                 </div>
 
-                <h2>Choose a Program and Course</h2>
+                <div class="form-group">
+                    <label>Gender</label>
+                    <div class="checkbox-group">
+                        <label>
+                            <input type="radio" name="employment-status" value="employed" required />
+                            Male
+                        </label>
+                        <label>
+                            <input type="radio" name="employment-status" value="unemployed" required />
+                            Female
+                        </label>
+                        <label>
+                            <input type="radio" name="employment-status" value="prefer-not-to-say" required />
+                            Prefer not to say
+                        </label>
+                    </div>
+                </div>                
+            </form>
+
+                <!-- <h2>Choose a Program and Course</h2>
                 <div class="form-group">
                     <label for="program">Program</label>
                     <select name="program" id="program" required>
@@ -120,9 +139,8 @@
                     <label for="course">Course</label>
                     <select name="course" id="course" disabled required>
                         <option value="">Select Course</option>
-                        <!-- Courses will be added dynamically based on program selection -->
                     </select>
-                </div>
+                </div> -->
 
                 <div class="form-group">
                     <label>Employment Status</label>
