@@ -121,11 +121,11 @@
                 </div>                
             </form>
 
-                <h2>Choose a Program and Course</h2>
+                <h2>Choose a School and Course</h2>
                 <div class="form-group">
-                    <label for="program">Program</label>
+                    <label for="program">School</label>
                     <select name="program" id="program" required>
-                        <option value="">Select Program</option>
+                        <option value="">Select School</option>
                         <option value="science">SAMCIS</option>
                         <option value="science">SEA</option>
                         <option value="engineering">SONAHBS</option>
