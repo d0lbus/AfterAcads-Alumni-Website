@@ -16,31 +16,67 @@
     <div class="signup-box">
       <img
         class="logo"
-        src="../assets/logoBlue.png"
+        src="../assets/logo.png"
         width=""
         alt="" />
       <h2 style="color: black">Create an Account</h2>
 
       <form action="../config/signup.php" method="POST">
         <div class="name-fields">
-        <!-- <label for="firstName">First Name</label> -->
-        <input type="text" id="firstName" name="firstName" placeholder="First name *" required />
+          <div class="name-field">
+            <label for="firstName">First Name</label>
+            <input type="text" id="firstName" name="firstName" placeholder="First name *" required />
+          </div>
 
-        <!-- <label for="lastName">Last Name</label> -->
-        <input type="text" id="lastName" name="lastName" placeholder="Last name *" required />
+          <div class="name-field">
+            <label for="middleName">Middle Name</label>
+            <input type="text" id="middleName" name="middleName" placeholder="Middle name *" required />
+          </div>
+
+          <div class="name-field">
+            <label for="lastName">Last Name</label>
+            <input type="text" id="lastName" name="lastName" placeholder="Last name *" required />
+          </div>
         </div>
 
-        <div>
-        <label for="email">SLU Email</label>
-        <input type="email" id="email" name="email" placeholder="yourname@slu.edu.ph *" required />
 
-        <label for="password">Password</label>
-        <input type="password" id="password" name="password" placeholder="Password *" required />
-        
-        <label for="confirmPassword">Confirm Password</label>
-        <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password *" required />
+        <div class="fields">
+          
 
-        <p id="error-message" style="color: red; display: none;">Passwords do not match.</p>
+          <div class="gender-container">
+            <label class="gender-label">Gender</label>
+            <div class="gender">
+              <div class="gender-option">
+                <input type="radio" id="gender-male" name="gender" value="male" required />
+                <label for="gender-male">Male</label>
+              </div>
+              <div class="gender-option">
+                <input type="radio" id="gender-female" name="gender" value="female" required />
+                <label for="gender-female">Female</label>
+              </div>
+              <div class="gender-option">
+                <input type="radio" id="gender-notToSay" name="gender" value="prefer-not-to-say" required />
+                <label for="gender-notToSay">Prefer not to say</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="yourname@slu.edu.ph *" required />
+          </div>
+
+          <div class="field">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" placeholder="Password *" required />
+          </div>
+
+          <div class="field">
+            <label for="confirmPassword">Confirm Password</label>
+            <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password *" required />
+          </div>
+
+          <p id="error-message" style="color: red; display: none;">Passwords do not match.</p>
         </div>
 
         <p style="font-size: 0.9rem; margin-bottom: 0; margin-top: 20px;"> By continuing, you agree to our User Agreement and acknowledge that
@@ -66,8 +102,6 @@
     </div>
   </div>
 
-
-  <!-- Jerilyn Cahanap -->
   <script>
     const password = document.getElementById('password');
     const confirmPassword = document.getElementById('confirmPassword');

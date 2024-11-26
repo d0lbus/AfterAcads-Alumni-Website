@@ -47,7 +47,7 @@
 
     <div class="main-content">
         <header>
-            <img src="../assets/logoBlue.png" alt="logo" class="logo-header" />
+            <img src="../assets/logo.png" alt="logo" class="logo-header" />
         </header>
         <main>
             <h1>Settings</h1>

@@ -35,7 +35,7 @@ body {
   padding: 50px 90px;
   border-radius: 30px;
   text-align: center;
-  color: #cadeed;
+  color: black;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
   max-width: 650px;
   width: 100%;
@@ -53,15 +53,9 @@ body {
 
 .signup-box p {
   margin-bottom: 25px;
-  font-size: 1.1rem;
+  font-size: 1rem;
   color: black;
 }
-
-/* .logo {
-  width: 500px;
-  height: 80px;
-  border: 2px solid var(--color-sidebar-text);
-} */
 
 .signup-box img.logo {
   display: block;
@@ -89,28 +83,40 @@ input {
   padding: 10px;
 }
 
-/* styles for error/success borders */
-input.error {
-  border-color: red;
-}
-
-input.success {
-  border-color: green;
-}
-
-#error-message {
-  color: red;
-  display: none;
-  text-align: left;
-  font-size: small;
-}
-
 .signup-box input {
   padding: 12px;
   margin-bottom: 15px;
   border-radius: 6px;
   font-size: 1rem;
   width: 100%;
+}
+
+.fields {
+  gap: 10px;
+  width: 100%; 
+  margin-top: 20px; 
+}
+
+.field {
+  display: flex;
+  flex-direction: column; /* Stack the label and input vertically */
+  margin-bottom: 20px; /* Space between fields */
+}
+
+.field label {
+  margin-bottom: 5px; /* Space between label and input */
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: black;
+}
+
+.field input {
+  padding: 12px;
+  border: 2px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  width: 100%;
+  background-color: aliceblue;
 }
 
 .name-fields {
@@ -121,9 +127,23 @@ input.success {
   margin-top: 20px; /* Add spacing below the name fields */
 }
 
+.name-field {
+  display: flex;
+  flex-direction: column; /* Stack the label and input vertically */
+  flex: 1; /* Make each field equal in width */
+}
+
+.name-field label {
+  margin-bottom: 5px; 
+  margin-top: 10px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: black;
+}
+
 .signup-box .name-fields input {
-  flex: 1; /* Make both fields equal in width */
   padding: 12px;
+  border: 2px solid #ccc;
   border-radius: 6px;
   font-size: 1rem;
   background-color: aliceblue;
@@ -158,6 +178,60 @@ input.success {
 
 .buttonsize:hover {
   background-color: #91aec4;
+}
+
+.gender-container {
+  display: flex;
+  flex-direction: column; 
+  align-items: flex-start; 
+  margin-bottom: 20px;
+}
+
+.gender-label {
+  font-size: 1rem;
+  font-weight: bold;
+  color: black;
+  margin-bottom: 10px; 
+}
+
+.gender {
+  display: flex;
+  justify-content: left; 
+  gap: 20px; 
+  width: 100%; 
+}
+
+.gender-option {
+  display: flex;
+  align-items: center; /* Vertically align radio buttons and labels */
+  gap: 5px; /* Space between radio button and label */
+}
+
+.gender-option input[type="radio"] {
+  width: 16px; /* Small radio buttons */
+  height: 16px;
+}
+
+.gender-option label {
+  font-size: 0.9rem;
+  color: black;
+  cursor: pointer;
+}
+
+/* styles for error/success borders */
+input.error {
+  border-color: red;
+}
+
+input.success {
+  border-color: green;
+}
+
+#error-message {
+  color: red;
+  display: none;
+  text-align: left;
+  font-size: small;
 }
 
 /* Checkbox and terms styling */
