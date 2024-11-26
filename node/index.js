@@ -1,15 +1,20 @@
 const express = require('express');
 const mysql = require('mysql');
+const cors = require('cors');
 const app = express();
 const port = 3000;
 
-// Create a connection pool to the database
+// Connection pool to the database
 const db = mysql.createPool({
   host: 'localhost',
   user: 'root',
   password: '',
   database: 'afteracads'
 });
+
+
+// Enable CORS
+app.use(cors());
 
 // Endpoint 1: User Statistics
 app.get('/api/users/statistics', (req, res) => {
