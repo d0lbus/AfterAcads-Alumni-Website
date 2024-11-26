@@ -146,7 +146,7 @@ header img {
   box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
-.approve-posts-section {
+.posts-section {
   margin-top: 120px; 
   background-color: var(--color-light);
   border-radius: 8px;
@@ -298,6 +298,13 @@ header img {
   margin-bottom: 10px;
 }
 
+.modal-divider {
+  border: 0;
+  height: 1px;
+  background-color: #ccc; 
+  margin: 10px 0; 
+}
+
 .modal-content p {
   font-size: 16px;
   margin: 5px 0;
@@ -328,4 +335,15 @@ header img {
 .modal-buttons .btn.deny {
   background-color: #e74c3c; 
   color: white;
+}
+
+#dateHeader .sort-icon {
+  margin-left: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: transform 0.3s ease;
+}
+
+#dateHeader .ascending {
+  transform: rotate(180deg); /* Rotates the icon for ascending order */
 }
