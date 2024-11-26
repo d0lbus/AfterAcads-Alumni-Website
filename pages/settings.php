@@ -81,10 +81,10 @@
                     <input type="text" name="change-address" id="change-address" placeholder="New Address" required value="<?= htmlspecialchars($user['address']) ?>" />
                 </div>
 
-                <!-- <div class="form-group">
+                <div class="form-group">
                     <label for="batch-year">Batch Year</label>
                     <input type="number" name="batch-year" id="batch-year" placeholder="Batch Year" required min="1900" max="2100" />
-                </div> -->
+                </div>
 
                 <h2>Change Password</h2>
                 <div class="form-group">
@@ -121,7 +121,7 @@
                 </div>                
             </form>
 
-                <!-- <h2>Choose a Program and Course</h2>
+                <h2>Choose a Program and Course</h2>
                 <div class="form-group">
                     <label for="program">Program</label>
                     <select name="program" id="program" required>
@@ -140,7 +140,7 @@
                     <select name="course" id="course" disabled required>
                         <option value="">Select Course</option>
                     </select>
-                </div> -->
+                </div>
 
                 <div class="form-group">
                     <label>Employment Status</label>
