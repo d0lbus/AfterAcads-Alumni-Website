@@ -1,0 +1,200 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap");
+
+:root {
+    --color-primary: #003f91;
+    --color-secondary: #8da2fb;
+    --color-light: #f5f5f5;
+    --color-dark: #1a1a1a;
+    --color-accent: #f0a500;
+}
+
+* {
+    font-family: "Poppins", sans-serif;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--color-light);
+    color: var(--color-dark);
+}
+
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--color-light);
+    padding: 1rem 1.5rem;
+    border-bottom: 2px solid #ddd;
+}
+
+header img {
+    width: 150px;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-left: auto;
+}
+
+.nav-links li {
+  margin-right: 30px;
+}
+
+.nav-links li a {
+  color: rgb(0, 0, 0);
+  text-decoration: none;
+  font-size: 16px;
+  padding: 10px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.nav-links li a:hover {
+  background-color: #575757;
+}
+
+.nav-links li a.active {
+  background-color: #007bff;
+}
+
+.nav-links li a:focus {
+  outline: none;
+}
+
+.profile img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 2px solid var(--color-secondary);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 1rem;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.button-group .btn.upcoming {
+    background-color: #003f91; /* Blue for Upcoming Events */
+    color: white;
+}
+
+.button-group .btn.finished {
+    background-color: #003f91; /* Green for Finished Events */
+    color: white;
+}
+
+.button-group .btn.archived {
+    background-color: #003f91; /* Red for Archived/Denied Events */
+    color: white;
+}
+
+.button-group .btn.add {
+    background-color: #003f91; /* Amber for Add Events */
+    color: white;
+}
+
+.button-group .btn {
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s, opacity 0.3s;
+    border: none;
+    flex-shrink: 0;
+    text-decoration: none;
+}
+
+.button-group .btn:hover {
+    opacity: 0.9;
+}
+
+h2 {
+    margin-top: 30px;
+    margin-bottom: 1rem;
+    color: var(--color-primary);
+}
+
+form {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem 2rem;
+}
+
+form div {
+    display: flex;
+    flex-direction: column;
+}
+
+form label {
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+
+form input, form select, form textarea {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+form textarea {
+    resize: none;
+}
+
+.upload-section {
+    grid-column: span 2;
+    text-align: center;
+    border: 2px dashed #ccc;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.upload-section label.upload-label {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: transparent; /* Remove purple background for the image label */
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.upload-section label.btn {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: var(--color-secondary); /* Retain purple background for "Browse Files" label */
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+
+
+.upload-section input {
+    display: none;
+}
+
+.btn-submit {
+    grid-column: span 2;
+    padding: 10px 20px;
+    background-color: var(--color-primary);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-submit:hover {
+    background-color: var(--color-accent);
+}
