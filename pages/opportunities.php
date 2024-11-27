@@ -48,13 +48,12 @@ include '../config/header.php';
 
   <div class="main-content">
     <header>
-    <img src="../assets/logoBlue.png" alt="logo" class="logo-header" />
+    <img src="../assets/logo.png" alt="logo" class="logo-header" />
     </header>
 
     <main>
       <div class="page-header">
-        <h1>Opportunities</h1>
-        <small>Find available job openings and internships provided by our partners</small>
+        
 
         <div class="header-actions-container">
           <form class="header-search-bar">
@@ -63,6 +62,9 @@ include '../config/header.php';
             <div class="dropdown-container" id="dropdown-container"></div>
           </form>
         </div>
+
+        <h1>Opportunities</h1>
+        <small>Find available job openings and internships provided by our partners</small>
 
         <div class="card-container">
           <div class="card">

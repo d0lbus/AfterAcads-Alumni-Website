@@ -49,13 +49,12 @@ include '../config/events_controller.php';
 
   <div class="main-content">
     <header>
-      <img src="../assets/logoBlue.png" alt="logo" class="logo-header" />
+      <img src="../assets/logo.png" alt="logo" class="logo-header" />
     </header>
 
     <main>
       <div class="page-header">
-        <h1>Events</h1>
-        <small>See upcoming events and mark those you are interested in</small>
+        
 
         <div class="header-actions-container">
           <form method="GET" action="events.php" class="header-search-bar">
@@ -77,6 +76,9 @@ include '../config/events_controller.php';
             </select>
           </form>
         </div>
+
+        <h1>Events</h1>
+        <small>See upcoming events and mark those you are interested in</small>
 
         <!-- Buttons for All Events and Interested Events -->
         <div class="event-buttons-container">

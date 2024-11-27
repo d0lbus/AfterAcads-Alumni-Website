@@ -74,10 +74,17 @@ include '../config/header.php';
 
     <div class="main-content">
         <header>
-            <img src="../assets/logoBlue.png" alt="logo" class="logo-header" />
+            <img src="../assets/logo.png" alt="logo" class="logo-header" />
         </header>
 
         <main>
+
+            <div class="header-search-bar">
+                <input type="text" class="search-input" id="searchInput" placeholder="Search..." />
+                <button class="search-button" id="searchButton" aria-label="Search">
+                    <span><img src="../assets/search1.png" width="20px" alt="search" /></span>
+                </button>
+            </div>
             <!-- Post creation section -->
             <div class="addPost">
                 <div class="addPost-header">
@@ -104,12 +111,7 @@ include '../config/header.php';
                 <button id="postButton" class="post-button">Post</button>
             </div>
 
-            <div class="header-search-bar">
-                <input type="text" class="search-input" id="searchInput" placeholder="Search..." />
-                <button class="search-button" id="searchButton" aria-label="Search">
-                    <span><img src="../assets/search1.png" width="20px" alt="search" /></span>
-                </button>
-            </div>
+            
 
             <div class="sort-filter-container">
                 <div class="sort-dropdown">
