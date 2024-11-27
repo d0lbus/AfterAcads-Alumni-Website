@@ -49,7 +49,9 @@ include '../config/events_controller.php';
 
   <div class="main-content">
     <header>
-      <img src="../assets/logo.png" alt="logo" class="logo-header" />
+      <a href="../pages/shareExperience.php">
+          <img src="../assets/logo.png" alt="logo" class="logo-header" />
+      </a>
     </header>
 
     <main>

@@ -84,8 +84,9 @@ if ($result->num_rows > 0) {
     </div>
     <div class="main-content">
         <header>
-            <img src="../assets/logo.png" alt="logo" class="logo-header">
-            <img src="../assets/afteracadstext.png" alt="AfterAcads" class="after-acads-text">
+            <a href="../pages/shareExperience.php">
+                <img src="../assets/logo.png" alt="logo" class="logo-header" />
+            </a>
         </header>
 
         <main>

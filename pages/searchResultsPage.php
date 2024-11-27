@@ -103,7 +103,9 @@ if ($query) {
     <!-- Main Content -->
     <div class="main-content">
         <header>
-            <img src="../assets/logo.png" alt="logo" class="logo-header" />
+            <a href="../pages/shareExperience.php">
+                <img src="../assets/logo.png" alt="logo" class="logo-header" />
+            </a>
         </header>
 
         <main>
