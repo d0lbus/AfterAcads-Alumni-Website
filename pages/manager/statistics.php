@@ -17,7 +17,7 @@
     <body>
         <section>
             <header>
-                <div><img class="logo" src="../../assets/alumnilogo.png" alt="afteracads" />
+                <div><img class="logo" src="../../assets/logo.png" alt="afteracads" />
                     <img class="afteracadstext" src="../../assets/afteracadstext.png" alt="AfterAcads" />
                 </div>
                 <ul class="nav-links">
@@ -25,8 +25,8 @@
                     <li><a href="../../pages/manager/Registrants.html">Registrants</a></li>
                     <li><a href="../../pages/manager/approvePost.html">Posts</a></li>
                     <li><a href="../../pages/manager/upcomingEvents.html">Events</a></li>
-                    <li><a href="#">Opportunities</a></li>
-                    <li><a href="../../pages/manager/statistics.html">Statistics</a></li>
+                    <li><a href="../../pages/manager/opportunities.html">Opportunities</a></li>
+                    <li><a href="../../pages/manager/statistics.php">Statistics</a></li>
                 </ul>
                 <div class="profile">
                     <li><a href="viewProfile.php"><img class="profile-img" src="../../assets/display-photo.png"

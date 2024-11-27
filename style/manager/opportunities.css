@@ -160,25 +160,15 @@ img.afteracadstext {
 }
 
 /* Specific button styles */
-.button-group .btn.upcoming {
-  background-color: #003f91; /* Blue for Upcoming Events */
-  color: white;
-}
-
-.button-group .btn.finished {
-  background-color: #003f91; /* Green for Finished Events */
-  color: white;
-}
-
-.button-group .btn.archived {
-  background-color: #003f91; /* Red for Archived/Denied Events */
-  color: white;
-}
-
 .button-group .btn.add {
   background-color: #003f91; /* Amber for Add Events */
   color: white;
 }
+
+.button-group .btn.delete {
+    background-color: #003f91; /* Amber for Add Events */
+    color: white;
+  }
 
 .button-container {
     display: flex;
@@ -202,19 +192,14 @@ img.afteracadstext {
     opacity: 0.9;
 }
 
-.button-container .btn.mark-done {
+.button-container .btn.post {
     background-color: #003f91; /* Blue for Mark as Done */
     color: white;
 }
 
-.button-container .btn.archive {
-    background-color: #8da2fb; /* Lighter blue for Archive */
+/* .button-container .btn.edit {
+    background-color: #f0a500; 
     color: white;
-}
-
-.button-container .btn.edit {
-    background-color: #f0a500; /* Amber for Edit */
-    color: white;
-}
+} */
 
 
