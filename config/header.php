@@ -21,4 +21,5 @@ if ($result->num_rows > 0) {
     echo "Error: User not found.";
     exit();
 }
+
 ?>

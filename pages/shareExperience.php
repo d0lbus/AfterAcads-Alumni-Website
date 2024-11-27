@@ -80,10 +80,18 @@ include '../config/header.php';
         <main>
 
             <div class="header-search-bar">
-                <input type="text" class="search-input" id="searchInput" placeholder="Search..." />
+                <!-- <input type="text" class="search-input" id="searchInput" placeholder="Search..." />
                 <button class="search-button" id="searchButton" aria-label="Search">
                     <span><img src="../assets/search1.png" width="20px" alt="search" /></span>
-                </button>
+                </button> -->
+
+                <form action="../pages/searchResultsPage.php" method="get" style="display: flex; width: 100%;">
+                    <input type="text" class="search-input" name="query" placeholder="Search..." required />
+                    <button class="search-button" id="searchButton" aria-label="Search">
+                        <span><img src="../assets/search1.png" width="20px" alt="search" /></span>
+                    </button>
+                </form>
+
             </div>
             <!-- Post creation section -->
             <div class="addPost">
@@ -310,13 +318,41 @@ include '../config/header.php';
             });
 
             // Search posts by keyword
-            document.getElementById("searchButton").addEventListener("click", function () {
-                const searchQuery = document.getElementById("searchInput").value.trim();
-                const sortOrder = document.getElementById("sortOrder").value; // Get the selected sort order
-                if (searchQuery) {
-                    fetchPosts(null, searchQuery, sortOrder);
+            // document.getElementById("searchButton").addEventListener("click", function () {
+            //     const searchQuery = document.getElementById("searchInput").value.trim();
+            //     const sortOrder = document.getElementById("sortOrder").value; // Get the selected sort order
+            //     if (searchQuery) {
+            //         fetchPosts(null, searchQuery, sortOrder);
+            //     }
+            // });
+
+            document.addEventListener("DOMContentLoaded", function () {
+                const searchInput = document.getElementById("searchInput");
+                const searchButton = document.getElementById("searchButton");
+
+                // Handle Enter Key Press
+                searchInput.addEventListener("keypress", function (event) {
+                    if (event.key === "Enter") {
+                        event.preventDefault();
+                        redirectToSearchResults(searchInput.value.trim());
+                    }
+                });
+
+                // Handle Search Button Click
+                searchButton.addEventListener("click", function () {
+                    const searchQuery = searchInput.value.trim();
+                    if (searchQuery) {
+                        redirectToSearchResults(searchQuery);
+                    }
+                });
+
+                // Redirect to Search Results Page
+                function redirectToSearchResults(query) {
+                    window.location.href = `searchResultsPage.php?query=${encodeURIComponent(query)}`;
                 }
             });
+
+            
 
             // Handle sorting by latest or oldest
             document.getElementById("sortOrder").addEventListener("change", function () {
