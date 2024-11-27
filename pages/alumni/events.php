@@ -1,6 +1,6 @@
 <?php
 // Include controller for backend logic
-include '../config/events_controller.php';
+include '../../config/events_controller.php';
 ?>
 
 <!DOCTYPE html>

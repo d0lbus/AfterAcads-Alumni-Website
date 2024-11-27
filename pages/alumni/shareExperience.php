@@ -1,5 +1,5 @@
 <?php
-include '../config/header.php';
+include '../../config/header.php';
 ?>
 
 <!DOCTYPE html>
@@ -30,8 +30,8 @@ include '../config/header.php';
 
         <div class="sidebar-content">
             <div class="sidebar-user">
-                <a href="../pages/viewProfile.php">
-                    <img src="../assets/profileIcon.jpg" alt="Profile Picture" />
+                <a href="viewProfile.php">
+                    <img src="../../assets/profileIcon.jpg" alt="Profile Picture" />
                 </a>
                 <div>
                     <h3>
@@ -46,26 +46,26 @@ include '../config/header.php';
             <div class="sidebar-menu">
                 <ul>
                     <li>
-                        <a href="../pages/shareExperience.php">
-                            <span><img src="../assets/home1.png" width="20px" alt="Home" /></span>Home
+                        <a href="shareExperience.php">
+                            <span><img src="../../assets/home1.png" width="20px" alt="Home" /></span>Home
                         </a>
                     </li>
                     <li>
-                        <a href="../pages/events.php">
-                            <span><img src="../assets/event1.png" width="20px" alt="Events" /></span>Events
+                        <a href="events.php">
+                            <span><img src="../../assets/event1.png" width="20px" alt="Events" /></span>Events
                         </a>
                     </li>
-                    <li><a href="../pages/opportunities.php">
-                            <span><img src="../assets/opportunities.png" width="20px"
+                    <li><a href="opportunities.php">
+                            <span><img src="../../assets/opportunities.png" width="20px"
                                     alt="Opportunities" /></span>Opportunities</a></li>
                     <li>
-                        <a href="../pages/settings.php">
-                            <span><img src="../assets/setting1.png" width="20px" alt="Settings" /></span>Settings
+                        <a href="settings.php">
+                            <span><img src="../../assets/setting1.png" width="20px" alt="Settings" /></span>Settings
                         </a>
                     </li>
                     <li>
-                        <a href="../pages/loginpage.php">
-                            <span><img src="../assets/logout1.png" width="20px" alt="Logout" /></span>Logout</a>
+                        <a href="loginpage.php">
+                            <span><img src="../../assets/logout1.png" width="20px" alt="Logout" /></span>Logout</a>
                     </li>
                 </ul>
             </div>
@@ -74,8 +74,8 @@ include '../config/header.php';
 
     <div class="main-content">
         <header>
-            <a href="../pages/shareExperience.php">
-                <img src="../assets/logo.png" alt="logo" class="logo-header" />
+            <a href="shareExperience.php">
+                <img src="../../assets/logo.png" alt="logo" class="logo-header" />
             </a>
         </header>
 
@@ -84,21 +84,22 @@ include '../config/header.php';
             <div class="header-search-bar">
                 <!-- <input type="text" class="search-input" id="searchInput" placeholder="Search..." />
                 <button class="search-button" id="searchButton" aria-label="Search">
-                    <span><img src="../assets/search1.png" width="20px" alt="search" /></span>
+                    <span><img src="../../assets/search1.png" width="20px" alt="search" /></span>
                 </button> -->
 
-                <form action="../pages/searchResultsPage.php" method="get" style="display: flex; width: 100%;">
+                <form action="searchResultsPage.php" method="get" style="display: flex; width: 100%;">
                     <input type="text" class="search-input" name="query" placeholder="Search..." required />
                     <button class="search-button" id="searchButton" aria-label="Search">
-                        <span><img src="../assets/search1.png" width="20px" alt="search" /></span>
+                        <span><img src="../../assets/search1.png" width="20px" alt="search" /></span>
                     </button>
                 </form>
 
             </div>
+
             <!-- Post creation section -->
             <div class="addPost">
                 <div class="addPost-header">
-                    <img src="../assets/profileIcon.jpg" alt="Profile" class="profile-pic" />
+                    <img src="../../assets/profileIcon.jpg" alt="Profile" class="profile-pic" />
                     <textarea id="postContent"
                         placeholder="What's on your mind, <?php echo htmlspecialchars($user['first_name']); ?>?"
                         class="post-input" rows="1"></textarea>
@@ -166,7 +167,7 @@ include '../config/header.php';
                     <h2 class="modal-title">Create Post</h2>
                     <div class="line"></div>
                     <div class="modal-header">
-                        <img src="../assets/profile.jpg" alt="Profile" class="profile-pic" />
+                        <img src="../../assets/profile.jpg" alt="Profile" class="profile-pic" />
                         <span>
                             <?php echo htmlspecialchars($user['first_name'] . ' ' . $user['last_name']); ?>
                         </span>
@@ -203,7 +204,7 @@ include '../config/header.php';
         <hr class="title-divider">
         <div class="friend-list">
             <div class="friend">
-                <img src="../assets/profile.jpg" alt="Friend Profile Picture">
+                <img src="../../assets/profile.jpg" alt="Friend Profile Picture">
                 <span>Friend Name 1</span>
             </div>
         </div>

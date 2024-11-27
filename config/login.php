@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             session_start();
             $_SESSION['email'] = $row['email'];
             $_SESSION['user_id'] = $row['id']; // Store the user's ID in the session
-            header("Location: ../pages/viewProfile.php");
+            header("Location: ../pages/alumni/viewProfile.php");
             exit();
         } else {
             echo "Incorrect password.";

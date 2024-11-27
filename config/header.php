@@ -2,11 +2,11 @@
 session_start();
 
 if (!isset($_SESSION['email'])) {
-    header("Location: ../pages/loginpage.php");
+    header("Location: ../pages/alumni/loginpage.php");
     exit();
 }
 
-include '../config/connection.php';
+include 'login.php';
 
 $email = $_SESSION['email'];
 $sql = "SELECT * FROM users WHERE email = ?";

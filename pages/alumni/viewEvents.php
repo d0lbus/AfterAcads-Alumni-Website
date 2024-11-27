@@ -7,7 +7,7 @@ if (!isset($_SESSION['email'])) {
     exit();
 }
 
-include '../config/connection.php';
+include '../../config/connection.php';
 
 // Fetch the logged-in user's details from the database
 $email = $_SESSION['email'];

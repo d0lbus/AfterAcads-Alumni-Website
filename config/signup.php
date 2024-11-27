@@ -41,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->bind_param('ssssi', $firstName, $lastName, $email, $passwordHash, $agreedToTerms);
 
     if ($stmt->execute()) {
-        header("Location: ../pages/loginpage.php");
+        header("Location: ../../pages/loginpage.php");
         exit();
     } else {
         echo "Error: " . $conn->error;

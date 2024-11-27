@@ -22,7 +22,7 @@
       <h2 style="color: black">Log Into AfterAcads</h2>
       
 
-      <form action="../config/login.php" method="POST">
+      <form action="../../config/login.php" method="POST">
         <label for="email"></label>
         <input type="email" id="email" name="email" placeholder="Email *" required />
 
@@ -34,8 +34,6 @@
 
         <button class="buttonsize" type="submit" name="signIn">LOGIN</button>
       </form>
-
-
     </div>
   </div>
 </body>

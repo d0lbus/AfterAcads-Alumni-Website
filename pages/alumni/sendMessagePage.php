@@ -1,5 +1,5 @@
 <?php
-include '../config/header.php';
+include '../../config/header.php';
 ?>
 
 <!DOCTYPE html>

@@ -1,4 +1,4 @@
-<?php include '../config/header.php'; ?>
+<?php include '../../config/header.php'; ?>
 
 <!DOCTYPE html>
 <html lang="en">

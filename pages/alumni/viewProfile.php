@@ -1,10 +1,33 @@
 <?php
-include '../config/header.php';
+include '../../config/header.php';
 
+if (isset($_GET['user_id']) && !empty($_GET['user_id'])) {
+    $target_user_id = intval($_GET['user_id']);
+
+    // Fetch the target user's profile from the database
+    $sql_user = "SELECT * FROM users WHERE id = ?";
+    $stmt_user = $conn->prepare($sql_user);
+    $stmt_user->bind_param("i", $target_user_id);
+    $stmt_user->execute();
+    $result_user = $stmt_user->get_result();
+
+    if ($result_user->num_rows > 0) {
+        $target_user = $result_user->fetch_assoc(); 
+    } else {
+        echo "User not found.";
+        exit;
+    }
+} else {
+    // Default to logged-in user's profile
+    $target_user = $user; 
+    $is_current_user = true;
+
+
+}
 
 $sql_posts = "SELECT content, created_at, tag, image FROM posts WHERE user_id = ? ORDER BY created_at DESC";
 $stmt_posts = $conn->prepare($sql_posts);
-$stmt_posts->bind_param("i", $user['id']);
+$stmt_posts->bind_param("i", $target_user['id']);
 $stmt_posts->execute();
 $result_posts = $stmt_posts->get_result();
 
@@ -28,14 +51,14 @@ $result_posts = $stmt_posts->get_result();
 
                 <div class="brand-icon">
                     <a href="javascript:void(0)" id="sidebarToggle">
-                        <span><img src="../assets/bars1.png" width="24px" alt="bars" /></span>
+                        <span><img src="../../assets/bars1.png" width="24px" alt="bars" /></span>
                     </a>
                 </div>
             </div>
         </div>
         <div class="sidebar-content">
             <div class="sidebar-user">
-                <a href="../pages/viewProfile.php">
+                <a href="viewProfile.php">
                     <img src="../../assets/profileIcon.jpg" alt="Profile Picture" />
                 </a>
                 <div>
@@ -47,27 +70,27 @@ $result_posts = $stmt_posts->get_result();
             <div class="sidebar-menu">
                 <ul>
                     <li>
-                        <a href="../pages/shareExperience.php">
+                        <a href="shareExperience.php">
                             <span>
                                 <img
-                                    src="../assets/home1.png"
+                                    src="../../assets/home1.png"
                                     width="20px"
                                     alt="Home" />
                             </span>Home</a>
                     </li>
-                    <li><a href="../pages/events.php"><span><img
-                                    src="../assets/event1.png"
+                    <li><a href="events.php"><span><img
+                                    src="../../assets/event1.png"
                                     width="20px"
                                     alt="Events" /></span>Events</a>
                     </li>
-                    <li><a href="../pages/opportunities.php"><span><img src="../assets/opportunities.png" width="20px" alt="Opportunities" /></span>Opportunities</a></li>
-                    <li><a href="../pages/settings.php"><span><img
-                                    src="../assets/setting1.png"
+                    <li><a href="opportunities.php"><span><img src="../../assets/opportunities.png" width="20px" alt="Opportunities" /></span>Opportunities</a></li>
+                    <li><a href="settings.php"><span><img
+                                    src="../../assets/setting1.png"
                                     width="20px"
                                     alt="Settings" /></span>Settings</a>
                     </li>
-                    <li><a href="../pages/loginpage.php"><span><img
-                                    src="../assets/logout1.png"
+                    <li><a href="loginpage.php"><span><img
+                                    src="../../assets/logout1.png"
                                     width="20px"
                                     alt="Logout" /></span>Logout</a>
                     </li>
@@ -83,26 +106,24 @@ $result_posts = $stmt_posts->get_result();
             <div class="cols-container">
                 <div class="left-col">
                     <div class="img-container">
-                        <img src="../assets/profileIcon.jpg" alt="Display Photo" />
+                        <img src="../../assets/profileIcon.jpg" alt="Display Photo" />
                         <span></span>
                     </div>
                     <!-- Display user details dynamically -->
-                    <h2><?php echo htmlspecialchars($user['first_name'] . ' ' . $user['last_name']); ?></h2>
-                    <p><?php echo htmlspecialchars($user['email']); ?></p>
+                    <h2><?php echo htmlspecialchars($target_user['first_name'] . ' ' . $target_user['last_name']); ?></h2>
+                    <p><?php echo htmlspecialchars($target_user['email']); ?></p>
 
                     <ul class="about">
-                        <li><span>Joined <?php echo date('F d, Y', strtotime($user['created_at'])); ?></span></li>
-                        <li><span>Address: <?php echo isset($user['address']) ? htmlspecialchars($user['address']) : '(Not provided)'; ?></span></li>
+                        <li><span>Joined <?php echo date('F d, Y', strtotime($target_user['created_at'])); ?></span></li>
+                        <li><span>Address: <?php echo isset($target_user['address']) ? htmlspecialchars($target_user['address']) : '(Not provided)'; ?></span></li>
                     </ul>
 
                     <div class="content">
-                        <p><?php echo isset($user['bio']) ? htmlspecialchars($user['bio']) : 'Bio not provided'; ?></p>
+                        <p><?php echo isset($target_user['bio']) ? htmlspecialchars($target_user['bio']) : 'Bio not provided'; ?></p>
 
                         <div class="contact-button">
                             <button onclick="contactUser()">Contact Details</button>
                         </div>
-
-                        
                     </div>
                 </div>
                 <div class="right-col">
@@ -150,7 +171,7 @@ $result_posts = $stmt_posts->get_result();
                         // Fetch all user images from the database
                         $sql_photos = "SELECT image FROM posts WHERE user_id = ? AND image IS NOT NULL ORDER BY created_at DESC";
                         $stmt_photos = $conn->prepare($sql_photos);
-                        $stmt_photos->bind_param("i", $user['id']);
+                        $stmt_photos->bind_param("i", $target_user['id']);
                         $stmt_photos->execute();
                         $result_photos = $stmt_photos->get_result();
 
@@ -182,9 +203,9 @@ $result_posts = $stmt_posts->get_result();
             <p><strong>Address:</strong> user address baguio city</p>
 
             <ul class="social-links">
-                <li><img src="../assets/twitter-icon.png" alt="twitter icon" width="20px" height="20px" /></li>
-                <li><img src="../assets/fb-icon.png" alt="fb icon" width="20px" height="20px" /></li>
-                <li><img src="../assets/instagram-icon.png" alt="ig icon" width="20px" height="20px"></li>
+                <li><img src="../../assets/twitter-icon.png" alt="twitter icon" width="20px" height="20px" /></li>
+                <li><img src="../../assets/fb-icon.png" alt="fb icon" width="20px" height="20px" /></li>
+                <li><img src="../../assets/instagram-icon.png" alt="ig icon" width="20px" height="20px"></li>
             </ul>
         </div>
     </div>
