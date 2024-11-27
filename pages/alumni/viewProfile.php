@@ -18,7 +18,7 @@ $result_posts = $stmt_posts->get_result();
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>View Profile</title>
-    <link rel="stylesheet" href="../style/view-profile.css" />
+    <link rel="stylesheet" href="../../style/view-profile.css" />
 </head>
 
 <body>
@@ -36,7 +36,7 @@ $result_posts = $stmt_posts->get_result();
         <div class="sidebar-content">
             <div class="sidebar-user">
                 <a href="../pages/viewProfile.php">
-                    <img src="../assets/profileIcon.jpg" alt="Profile Picture" />
+                    <img src="../../assets/profileIcon.jpg" alt="Profile Picture" />
                 </a>
                 <div>
                     <h3><?php echo htmlspecialchars($user['first_name'] . ' ' . $user['last_name']); ?></h3>

@@ -1,20 +1,51 @@
 <?php
-include '../config/header.php';
+include '../config/header.php'; 
+
+$query = isset($_GET['query']) ? trim($_GET['query']) : '';
+
+// Fetch results from the database (users, posts, etc.)
+$searchResults = [];
+
+if ($query) {
+    $stmt = $conn->prepare("
+        SELECT 'user' AS type, CONCAT(first_name, ' ', last_name) AS name, email 
+        FROM users 
+        WHERE first_name LIKE ? OR last_name LIKE ? OR email LIKE ?
+        UNION
+        SELECT 'post' AS type, content AS name, '' AS email 
+        FROM posts 
+        WHERE content LIKE ?
+    ");
+    
+    if ($stmt) {
+        $likeQuery = "%{$query}%";
+        $stmt->bind_param("ssss", $likeQuery, $likeQuery, $likeQuery, $likeQuery);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $searchResults = $result->fetch_all(MYSQLI_ASSOC);
+        $stmt->close();
+    } else {
+        echo "SQL Error: " . $conn->error;
+    }
+}
+
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8" />
+    <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet"
-        href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css" />
-    <link rel="stylesheet" href="../style/sendMessage.css" />
-    <title>Message</title>
+    <title>Search Results</title>
+    <link rel="stylesheet" href="../../style/searchResults.css" />
+    <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css" />
 </head>
+
 <body>
-<div class="sidebar">
+    <!-- Sidebar -->
+    <div class="sidebar">
         <div class="sidebar-brand">
             <div class="brand-flex">
                 <div class="brand-icon">
@@ -22,7 +53,6 @@ include '../config/header.php';
                         <span><img src="../assets/bars1.png" width="24px" alt="bars" /></span>
                     </a>
                 </div>
-
             </div>
         </div>
 
@@ -70,6 +100,7 @@ include '../config/header.php';
         </div>
     </div>
 
+    <!-- Main Content -->
     <div class="main-content">
         <header>
             <a href="../pages/shareExperience.php">
@@ -78,38 +109,33 @@ include '../config/header.php';
         </header>
 
         <main>
-
             <div class="header-search-bar">
-                <input type="text" class="search-input" id="searchInput" placeholder="Search..." />
-                <button class="search-button" id="searchButton" aria-label="Search">
-                    <span><img src="../assets/search1.png" width="20px" alt="search" /></span>
-                </button>
-            </div>
-            
-            <!-- Message Area -->
-            <div class="message-container" id="messageContainer" style="display: none;">
-                <div class="chat-header">
-                    <img src="../assets/profile.jpg" alt="User Profile Picture" class="chat-user-icon">
-                    <span class="chat-username">Friend Name</span>
-                </div>
-                <div class="chat-box">
-                    <div class="message received">
-                        <p>Hey! How are you?</p>
-                        <span class="timestamp">12:00 PM</span>
-                    </div>
-                    <div class="message sent">
-                        <p>I'm good! How about you?</p>
-                        <span class="timestamp">12:01 PM</span>
-                    </div>
-                </div>
-                <div class="chat-input">
-                    <input type="text" placeholder="Type a message..." class="message-input">
-                    <button class="send-button">Send</button>
-                </div>
-            </div>
-        </main>
-    </div>
 
+                <form action="../pages/searchResultsPage.php" method="get" style="display: flex; width: 100%;">
+                    <input type="text" class="search-input" name="query" placeholder="Search..." required />
+                    <button class="search-button" id="searchButton" aria-label="Search">
+                        <span><img src="../assets/search1.png" width="20px" alt="search" /></span>
+                    </button>
+                </form>
+
+            </div>
+            <h1>Search Results for "<?php echo htmlspecialchars($query); ?>"</h1>
+            <div class="results-container">
+                <?php if (empty($searchResults)) : ?>
+                    <p>No results found for your search.</p>
+                <?php else : ?>
+                    <?php foreach ($searchResults as $result) : ?>
+                        <div class="result-item">
+                            <?php if ($result['type'] === 'user') : ?>
+                                <h3><?php echo htmlspecialchars($result['name']); ?></h3>
+                                <p>Email: <?php echo htmlspecialchars($result['email']); ?></p>
+                            <?php elseif ($result['type'] === 'post') : ?>
+                                <p><?php echo htmlspecialchars($result['name']); ?></p>
+                            <?php endif; ?>
+                        </div>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+            </div>
         </main>
     </div>
 
@@ -117,7 +143,7 @@ include '../config/header.php';
         <h2>Friends</h2>
         <hr class="title-divider">
         <div class="friend-list">
-            <div class="friend" onclick="openChat('Friend Name')">
+            <div class="friend">
                 <img src="../assets/profile.jpg" alt="Friend Profile Picture">
                 <span>Friend Name 1</span>
             </div>
@@ -125,14 +151,16 @@ include '../config/header.php';
     </div>
 
     <script>
-        function openChat(friendName) {
-            const messageContainer = document.getElementById('messageContainer');
-            messageContainer.style.display = 'block';
+        // Responsive Sidebar
+        document.addEventListener("DOMContentLoaded", function () {
+            const sidebar = document.querySelector(".sidebar");
+            const toggleButton = document.getElementById("sidebarToggle");
 
-            const chatUsername = document.querySelector('.chat-username');
-            chatUsername.textContent = friendName;
-        }
-  </script>
-    
+            toggleButton.addEventListener("click", function () {
+                sidebar.classList.toggle("minimized");
+            });
+        });
+    </script>
 </body>
+
 </html>

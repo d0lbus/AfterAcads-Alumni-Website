@@ -8,7 +8,7 @@
   <link
     rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" />
-  <link rel="stylesheet" href="../style/login.css" />
+  <link rel="stylesheet" href="../../style/login.css" />
 </head>
 
 <body class="body-color2">

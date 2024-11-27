@@ -48,7 +48,7 @@ if ($result->num_rows > 0) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>View Event</title>
     <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
-    <link rel="stylesheet" href="../style/view-events.css">
+    <link rel="stylesheet" href="../../style/view-events.css">
 </head>
 <body>
     <div class="sidebar">
@@ -56,7 +56,7 @@ if ($result->num_rows > 0) {
             <div class="brand-flex">
                 <div class="brand-icon">
                     <a href="javascript:void(0)" id="sidebarToggle">
-                        <span><img src="../assets/bars1.png" width="24px" alt="bars"></span>
+                        <span><img src="../../assets/bars1.png" width="24px" alt="bars"></span>
                     </a>
                 </div>
             </div>
