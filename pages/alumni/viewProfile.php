@@ -2,28 +2,26 @@
 include '../../config/header.php';
 
 if (isset($_GET['user_id']) && !empty($_GET['user_id'])) {
-    $target_user_id = intval($_GET['user_id']);
+    $viewing_user_id = intval($_GET['user_id']);
 
-    // Fetch the target user's profile from the database
-    $sql_user = "SELECT * FROM users WHERE id = ?";
-    $stmt_user = $conn->prepare($sql_user);
-    $stmt_user->bind_param("i", $target_user_id);
-    $stmt_user->execute();
-    $result_user = $stmt_user->get_result();
+    $stmt = $conn->prepare("SELECT * FROM users WHERE id = ?");
+    $stmt->bind_param("i", $viewing_user_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
-    if ($result_user->num_rows > 0) {
-        $target_user = $result_user->fetch_assoc(); 
+    if ($result->num_rows > 0) {
+        $target_user = $result->fetch_assoc(); 
+        $is_current_user = ($viewing_user_id === $user['id']); 
     } else {
         echo "User not found.";
         exit;
     }
 } else {
     // Default to logged-in user's profile
-    $target_user = $user; 
-    $is_current_user = true;
-
-
+    $target_user = $user;
+    $is_current_user = true; 
 }
+
 
 $sql_posts = "SELECT content, created_at, tag, image FROM posts WHERE user_id = ? ORDER BY created_at DESC";
 $stmt_posts = $conn->prepare($sql_posts);
@@ -120,6 +118,17 @@ $result_posts = $stmt_posts->get_result();
 
                     <div class="content">
                         <p><?php echo isset($target_user['bio']) ? htmlspecialchars($target_user['bio']) : 'Bio not provided'; ?></p>
+
+                        <?php if (!$is_current_user): ?>
+                        <!-- Show Add Friend button if viewing another user's profile -->
+                        <form method="POST" action="addFriend.php">
+                            <input type="hidden" name="friend_id" value="<?php echo htmlspecialchars($target_user['id']); ?>">
+                            <button type="submit" class="add-friend-button">Add Friend</button>
+                        </form>
+                        <?php else: ?>
+                            <!-- Show edit profile button for current user -->
+                            <a href="settings.php" class="edit-profile-button">Edit Profile</a>
+                        <?php endif; ?>
 
                         <div class="contact-button">
                             <button onclick="contactUser()">Contact Details</button>
