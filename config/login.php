@@ -2,12 +2,19 @@
 include 'connection.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $email = $_POST['email'];
-    $password = $_POST['password'];
+    $email = trim($_POST['email']);
+    $password = trim($_POST['password']);
 
-    // Prepare SQL statement to prevent SQL injection
+    if (empty($email) || empty($password)) {
+        echo "Email and password are required.";
+        exit();
+    }
+
     $sql = "SELECT * FROM users WHERE email = ?";
     $stmt = $conn->prepare($sql);
+    if (!$stmt) {
+        die("Database error: " . $conn->error);
+    }
     $stmt->bind_param("s", $email);
     $stmt->execute();
     $result = $stmt->get_result();
@@ -17,16 +24,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         
         // Verify the password
         if (password_verify($password, $row['password_hash'])) {
+            // Set session variables
             session_start();
             $_SESSION['email'] = $row['email'];
-            $_SESSION['user_id'] = $row['id']; // Store the user's ID in the session
+            $_SESSION['user_id'] = $row['id']; 
+
+            // Redirect to profile page
             header("Location: ../pages/alumni/viewProfile.php");
             exit();
         } else {
+            // Handle incorrect password
             echo "Incorrect password.";
         }
     } else {
+        // Handle user not found
         echo "No user found with that email.";
     }
+
+    // Close the statement and connection
+    $stmt->close();
+    $conn->close();
 }
 ?>

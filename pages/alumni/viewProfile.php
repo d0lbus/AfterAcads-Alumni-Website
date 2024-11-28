@@ -1,27 +1,38 @@
 <?php
-include '../../config/header.php';
+include '../../config/header.php'; 
+include '../../config/connection.php';
+include '../../config/friendsManager.php';
+
+$user = getAuthenticatedUser();
+
+if (!isset($user) || !is_array($user)) {
+    die("User not authenticated. Please log in.");
+}
+
+$friendsManager = new FriendsManager($conn);
+$logged_in_user_id = $user['id']; 
 
 if (isset($_GET['user_id']) && !empty($_GET['user_id'])) {
-    $viewing_user_id = intval($_GET['user_id']);
+    $profile_user_id = intval($_GET['user_id']); // Set profile_user_id for viewing another user's profile
 
     $stmt = $conn->prepare("SELECT * FROM users WHERE id = ?");
-    $stmt->bind_param("i", $viewing_user_id);
+    $stmt->bind_param("i", $profile_user_id); // Use profile_user_id for the query
     $stmt->execute();
     $result = $stmt->get_result();
 
-    if ($result->num_rows > 0) {
+    if ($result && $result->num_rows > 0) {
         $target_user = $result->fetch_assoc(); 
-        $is_current_user = ($viewing_user_id === $user['id']); 
+        $is_current_user = ($profile_user_id === $logged_in_user_id);
     } else {
         echo "User not found.";
-        exit;
+        exit();
     }
 } else {
     // Default to logged-in user's profile
+    $profile_user_id = $logged_in_user_id; // Set profile_user_id to the logged-in user's ID
     $target_user = $user;
-    $is_current_user = true; 
+    $is_current_user = true;
 }
-
 
 $sql_posts = "SELECT content, created_at, tag, image FROM posts WHERE user_id = ? ORDER BY created_at DESC";
 $stmt_posts = $conn->prepare($sql_posts);
@@ -29,7 +40,22 @@ $stmt_posts->bind_param("i", $target_user['id']);
 $stmt_posts->execute();
 $result_posts = $stmt_posts->get_result();
 
+// Determine friendship status
+$friendStatus = $friendsManager->checkFriendStatus($logged_in_user_id, $profile_user_id);
+
+// Set button text and action based on friendship status
+if ($friendStatus === 'not_friends') {
+    $buttonText = "Add Friend";
+    $action = "../../config/addFriend.php";
+} elseif ($friendStatus === 'pending') {
+    $buttonText = "Request Sent";
+    $action = "#"; // No action for pending requests
+} elseif ($friendStatus === 'friends') {
+    $buttonText = "Unfriend";
+    $action = "../../config/unfriend.php";
+}
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -120,15 +146,14 @@ $result_posts = $stmt_posts->get_result();
                         <p><?php echo isset($target_user['bio']) ? htmlspecialchars($target_user['bio']) : 'Bio not provided'; ?></p>
 
                         <?php if (!$is_current_user): ?>
-                        <!-- Show Add Friend button if viewing another user's profile -->
-                        <form method="POST" action="addFriend.php">
-                            <input type="hidden" name="friend_id" value="<?php echo htmlspecialchars($target_user['id']); ?>">
-                            <button type="submit" class="add-friend-button">Add Friend</button>
-                        </form>
+                            <form method="POST" action="<?php echo $action; ?>">
+                                <input type="hidden" name="friend_id" value="<?php echo htmlspecialchars($profile_user_id); ?>">
+                                <button type="submit" class="friend-button"><?php echo $buttonText; ?></button>
+                            </form>
                         <?php else: ?>
-                            <!-- Show edit profile button for current user -->
                             <a href="settings.php" class="edit-profile-button">Edit Profile</a>
                         <?php endif; ?>
+
 
                         <div class="contact-button">
                             <button onclick="contactUser()">Contact Details</button>
@@ -250,6 +275,32 @@ $result_posts = $stmt_posts->get_result();
                     modal.style.display = "none";
                 }
             });
+            
+            const friendButton = document.querySelector('.friend-button');
+
+            if (friendButton) {
+                friendButton.addEventListener('click', function (event) {
+                    event.preventDefault();
+
+                    const form = this.closest('form');
+                    const action = form.getAttribute('action');
+                    const formData = new FormData(form);
+
+                    fetch(action, {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            friendButton.textContent = data.new_button_text;
+                        } else {
+                            alert('Action failed: ' + data.message);
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
+                });
+            }
         });
     </script>
 </body>
