@@ -27,17 +27,21 @@
         <li><a href="../../pages/manager/statistics.php">Statistics</a></li>
       </ul>
       <div class="profile">
-        <li><a href="../../pages/manager/profile.html"><img class="profile-img" src="../../assets/profileIcon.jpg" alt="Profile" /></a>
+        <li><a href="../../pages/manager/profile.html"><img class="profile-img" src="../../assets/profileIcon.jpg"
+              alt="Profile" /></a>
         </li>
       </div>
     </header>
   </section>
 
   <div class="users-section container">
-    <div class="button-group">
-      <button class="btn pending">Pending Users</button>
-      <button class="btn approved">Approved Users</button>
-      <button class="btn denied">Denied Users</button>
+    <div class="search-and-buttons">
+      <input type="text" class="search-input" placeholder="Search..." />
+      <div class="button-group">
+        <button class="btn pending">Pending Users</button>
+        <button class="btn approved">Approved Users</button>
+        <button class="btn denied">Denied Users</button>
+      </div>
     </div>
 
     <!-- Table for Pending Users -->
@@ -189,23 +193,23 @@
       const actionButtons = document.querySelectorAll(".action-buttons button");
       actionButtons.forEach(button => {
         button.addEventListener("click", (event) => {
-          event.stopPropagation(); 
+          event.stopPropagation();
         });
       });
 
       // Handle row click to open modal and populate user details
       rows.forEach(row => {
         row.addEventListener("click", function () {
-          const firstName = this.cells[0].textContent.trim() || "N/A"; 
-          const lastName = this.cells[1].textContent.trim() || "N/A";  
-          const email = this.cells[2].textContent.trim() || "N/A"; 
+          const firstName = this.cells[0].textContent.trim() || "N/A";
+          const lastName = this.cells[1].textContent.trim() || "N/A";
+          const email = this.cells[2].textContent.trim() || "N/A";
 
           // Populate modal with details from the clicked row
           document.getElementById("firstName").textContent = firstName;
           document.getElementById("lastName").textContent = lastName;
           document.getElementById("email").textContent = email;
-          document.getElementById("middleName").textContent = "N/A"; 
-          document.getElementById("gender").textContent = "N/A"; 
+          document.getElementById("middleName").textContent = "N/A";
+          document.getElementById("gender").textContent = "N/A";
 
           // Open the modal
           modal.style.display = "flex";

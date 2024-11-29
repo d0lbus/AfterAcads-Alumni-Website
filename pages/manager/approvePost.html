@@ -27,16 +27,19 @@
                 <li><a href="../../pages/manager/statistics.php">Statistics</a></li>
             </ul>
             <div class="profile">
-                <li><a href="../../pages/manager/profile.html"><img class="profile-img" src="../../assets/profileIcon.jpg"
-                            alt="Profile" /></a></li>
+                <li><a href="../../pages/manager/profile.html"><img class="profile-img"
+                            src="../../assets/profileIcon.jpg" alt="Profile" /></a></li>
             </div>
         </header>
     </section>
     <div class="posts-section container">
-        <div class="button-group">
-            <button class="btn pending">Pending Posts</button>
-            <button class="btn approved">Approved Posts</button>
-            <button class="btn denied">Denied Posts</button>
+        <div class="search-and-buttons">
+            <input type="text" class="search-input" placeholder="Search..." />
+            <div class="button-group">
+                <button class="btn pending">Pending Posts</button>
+                <button class="btn approved">Approved Posts</button>
+                <button class="btn denied">Denied Posts</button>
+            </div>
         </div>
 
         <!-- Table for Pending Posts -->
@@ -163,7 +166,7 @@
             const modal = document.getElementById("postDetailsModal");
             const closeModalButton = document.getElementById("closeModal");
             const statusButtons = document.querySelectorAll(".button-group .btn");
-            const actionButtons = document.querySelectorAll(".action-buttons button"); 
+            const actionButtons = document.querySelectorAll(".action-buttons button");
 
             // Function to switch between tables
             const toggleTable = (status) => {
@@ -189,7 +192,7 @@
             // Prevent modal from opening when clicking on action buttons
             actionButtons.forEach(button => {
                 button.addEventListener("click", (event) => {
-                    event.stopPropagation(); 
+                    event.stopPropagation();
                 });
             });
 
