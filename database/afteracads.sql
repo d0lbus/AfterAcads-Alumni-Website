@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 26, 2024 at 03:22 AM
+-- Generation Time: Nov 29, 2024 at 03:17 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -69,6 +69,27 @@ CREATE TABLE `event_participants` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `friends`
+--
+
+CREATE TABLE `friends` (
+  `id` int(11) NOT NULL,
+  `user1` int(11) NOT NULL,
+  `user2` int(11) NOT NULL,
+  `accepted` tinyint(1) DEFAULT 0,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `friends`
+--
+
+INSERT INTO `friends` (`id`, `user1`, `user2`, `accepted`, `created_at`) VALUES
+(1, 10, 1, 0, '2024-11-28 09:42:49');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `posts`
 --
 
@@ -125,7 +146,8 @@ INSERT INTO `users` (`id`, `first_name`, `last_name`, `email`, `password_hash`, 
 (6, 'Chloe', 'San Miguel', 'chloe@gmail.com', '$2y$10$ui1f.yWS4nhFPg/b/ENrnOVYJr8n77ixWiYBf7su/dgCwmcnTBAxq', 1, '2024-11-07 01:52:10', NULL, NULL, 'Unemployed', 'pending'),
 (7, 'Julianne Therese', 'Abitan', 'julianneabitan@gmail.com', '$2y$10$DqJiBrhBqQ9kD.X6AQlsYebQToQh7/IH0YgkPjMFzzrP7OH8B/H6i', 1, '2024-11-07 01:52:11', 'apt', '', 'Unemployed', 'pending'),
 (8, 'marvin', '908u87y79', '0999999@google.com', '$2y$10$VFF4spsp6irhT3SF4H.L3e0yE0.ssgwJ05Mp4/aQyFxiSAyQhG0.G', 1, '2024-11-07 01:58:06', NULL, NULL, 'Unemployed', 'pending'),
-(9, 'qwerty', 'cruz', 'qwerty@slu.edu.ph', '$2y$10$rKScj4PvbsnFjiZK4m7D8OEEqP9Z495Dey1byJ5cjv2acW1.Eh3tu', 1, '2024-11-07 02:00:00', 'Baguio City', 'Hi ', 'Unemployed', 'pending');
+(9, 'qwerty', 'cruz', 'qwerty@slu.edu.ph', '$2y$10$rKScj4PvbsnFjiZK4m7D8OEEqP9Z495Dey1byJ5cjv2acW1.Eh3tu', 1, '2024-11-07 02:00:00', 'Baguio City', 'Hi ', 'Unemployed', 'pending'),
+(10, 'Dummy', 'Account', 'totoongslu@slu.edu.ph', '$2y$10$sYYhnd40PHfTh98P30VoPegfkLqcGdW1N2nybRUhVt.rw4UbTUlP2', 1, '2024-11-27 19:59:52', NULL, NULL, 'Unemployed', 'pending');
 
 --
 -- Indexes for dumped tables
@@ -144,6 +166,13 @@ ALTER TABLE `event_participants`
   ADD PRIMARY KEY (`id`),
   ADD KEY `event_id` (`event_id`),
   ADD KEY `user_id` (`user_id`);
+
+--
+-- Indexes for table `friends`
+--
+ALTER TABLE `friends`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `unique_relationship` (`user1`,`user2`);
 
 --
 -- Indexes for table `posts`
@@ -176,6 +205,12 @@ ALTER TABLE `event_participants`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `friends`
+--
+ALTER TABLE `friends`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `posts`
 --
 ALTER TABLE `posts`
@@ -185,7 +220,7 @@ ALTER TABLE `posts`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- Constraints for dumped tables
