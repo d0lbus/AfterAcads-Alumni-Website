@@ -8,6 +8,8 @@
   <link
     rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" />
+  <link rel="stylesheet" 
+    href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css" />
   <link rel="stylesheet" href="../../style/signup.css" />
 </head>
 
@@ -16,9 +18,8 @@
     <div class="signup-box">
       <img
         class="logo"
-        src="../assets/logo.png"
-        width=""
-        alt="" />
+        src="../../assets/logo.png"
+        alt="logo" />
       <h2 style="color: black">Create an Account</h2>
 
       <form action="../../config/signup.php" method="POST">
@@ -77,6 +78,31 @@
           </div>
 
           <p id="error-message" style="color: red; display: none;">Passwords do not match.</p>
+        </div>
+
+        <!-- File Upload Section -->
+        <div class="file-upload-section">
+          <h3>Add File</h3>
+          <div class="upload-box">
+            <label for="alumniFile" class="upload-label">
+              <div class="upload-icon">
+                <i class="las la-cloud-upload-alt"></i>
+              </div>
+              <p>Upload your file here</p>
+              <p class="upload-subtext">Files supported: TXT, HTML, CSS</p>
+              <p class="upload-maxsize">Maximum size: 2MB</p>
+              <input type="file" id="alumniFile" name="alumniFile" class="upload-input" required />
+            </label>
+            <button type="button" class="browse-btn">Browse</button>
+          </div>
+          <div class="file-preview">
+            <ul>
+              <li>
+                <span class="file-name">example.txt</span>
+                <i class="las la-trash-alt delete-icon"></i>
+              </li>
+            </ul>
+          </div>
         </div>
 
         <p style="font-size: 0.9rem; margin-bottom: 0; margin-top: 20px;"> By continuing, you agree to our User Agreement and acknowledge that
