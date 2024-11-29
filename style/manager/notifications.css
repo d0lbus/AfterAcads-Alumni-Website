@@ -147,7 +147,7 @@ header img {
   box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
-.posts-section {
+.notifications-section {
   margin-top: 120px; 
   background-color: var(--color-light);
   border-radius: 8px;
@@ -174,27 +174,22 @@ header img {
   transition: background-color 0.3s ease, color 0.3s ease; 
 }
 
-.btn.pending:hover {
+.btn.all:hover {
   background-color: #b7d0e1;
   color: var(--color-dark); 
 }
 
-.btn.approved:hover {
+.btn.create:hover {
   background-color: #b7d0e1;
   color: var(--color-dark);
 }
 
-.btn.denied:hover {
-  background-color: #b7d0e1;
-  color: var(--color-dark);
-}
-
-.btn.pending {
+.btn.all {
   background-color: var(--color-main);
   color: var(--color-light);
 }
 
-.btn.approved {
+.btn.create {
   background-color: #003f91;
   color: white;
 }
@@ -204,12 +199,7 @@ header img {
   color: white;
 }
 
-.btn.active {
-  background-color: #003f91; 
-  color: white;
-}
-
-.post-table {
+.notifications-table {
   width: 100%;
   border-collapse: collapse;
   background-color: white;
@@ -219,8 +209,8 @@ header img {
   table-layout: fixed;
 }
 
-.post-table th,
-.post-table td {
+.notifications-table th,
+.notifications-table td {
   text-align: left;
   padding: 10px;
   border-bottom: 1px solid #ddd;
@@ -228,25 +218,25 @@ header img {
   word-wrap: break-word; 
 }
 
-.post-table th {
+.notifications-table th {
   background-color: var(--color-main);
   color: var(--color-light);
 }
 
-.post-table td {
+.notifications-table td {
   background-color: var(--color-light);
   color: var(--color-dark);
 }
 
-.post-table tr:hover {
+.notifications-table tr:hover {
   background-color: #f0f0f0;
 }
 
-.post-table td {
+.notifications-table td {
   background-color: transparent;
 }
 
-.post-table td:hover {
+.notifications-table td:hover {
   background-color: transparent;
 }
 
@@ -285,7 +275,7 @@ header img {
 }
 
 /* Modal styles */
-.post-details-modal {
+.notifications-details-modal {
   display: none; 
   position: fixed;
   z-index: 1; 
@@ -360,12 +350,12 @@ header img {
   transition: background-color 0.3s ease;
 }
 
-.modal-buttons .btn.approve {
+.modal-buttons .btn.edit {
   background-color: #2ecc71; 
   color: white;
 }
 
-.modal-buttons .btn.deny {
+.modal-buttons .btn.delete {
   background-color: #e74c3c; 
   color: white;
 }
