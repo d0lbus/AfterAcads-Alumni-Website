@@ -175,17 +175,17 @@ header img {
 }
 
 .btn.pending:hover {
-  background-color: rgb(234, 234, 131);
+  background-color: #b7d0e1;
   color: var(--color-dark); 
 }
 
 .btn.approved:hover {
-  background-color: rgb(234, 234, 131);
+  background-color: #b7d0e1;
   color: var(--color-dark);
 }
 
 .btn.denied:hover {
-  background-color: rgb(234, 234, 131);
+  background-color: #b7d0e1;
   color: var(--color-dark);
 }
 
