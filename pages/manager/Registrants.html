@@ -5,7 +5,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Registrants</title>
-  <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css" />
+  <link rel="stylesheet"
+    href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css" />
   <link rel="stylesheet" href="../../style/manager/Registrants.css" />
   <script src="script.js" defer></script>
 </head>
@@ -26,7 +27,8 @@
         <li><a href="../../pages/manager/statistics.php">Statistics</a></li>
       </ul>
       <div class="profile">
-        <li><a href="viewProfile.php"><img class="profile-img" src="../../assets/profileIcon.jpg" alt="Profile" /></a></li>
+        <li><a href="viewProfile.php"><img class="profile-img" src="../../assets/profileIcon.jpg" alt="Profile" /></a>
+        </li>
       </div>
     </header>
   </section>
@@ -185,17 +187,17 @@
       // Handle row click to open modal and populate user details
       rows.forEach(row => {
         row.addEventListener("click", function () {
-          const firstName = this.cells[0].textContent.trim();  // Extract first name
-          const lastName = this.cells[1].textContent.trim();   // Extract last name
-          const email = this.cells[2].textContent.trim();      // Extract email
+          const firstName = this.cells[0].textContent.trim();  
+          const lastName = this.cells[1].textContent.trim();   
+          const email = this.cells[2].textContent.trim();  
           const username = this.querySelector(".username") ? this.querySelector(".username").textContent : '';
 
           // Populate modal with details from the clicked row
           document.getElementById("firstName").textContent = firstName;
           document.getElementById("lastName").textContent = lastName;
           document.getElementById("email").textContent = email;
-          document.getElementById("middleName").textContent = "N/A"; // Optional, add a middle name if available
-          document.getElementById("gender").textContent = "N/A"; // Optional, add gender if available
+          document.getElementById("middleName").textContent = "N/A"; 
+          document.getElementById("gender").textContent = "N/A"; 
 
           // Open the modal
           modal.style.display = "flex";
@@ -222,8 +224,27 @@
               ? "approved"
               : "denied";
 
-          // Toggle between tables based on the selected status
           toggleTable(status);
+        });
+      });
+
+      // Add event listeners to "Approve" buttons
+      const approveButtons = document.querySelectorAll(".btn.approve");
+      const denyButtons = document.querySelectorAll(".btn.deny");
+
+      approveButtons.forEach(button => {
+        button.addEventListener("click", function (event) {
+          event.preventDefault();
+          event.stopPropagation();  
+          console.log("Approve button clicked!");
+        });
+      });
+
+      denyButtons.forEach(button => {
+        button.addEventListener("click", function (event) {
+          event.preventDefault();
+          event.stopPropagation(); 
+          console.log("Deny button clicked!");
         });
       });
     });
