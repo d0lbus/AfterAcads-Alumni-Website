@@ -172,6 +172,15 @@ header img {
   background-color: var(--color-light);
   color: var(--color-dark);
   transition: background-color 0.3s ease, color 0.3s ease; 
+  display: inline-flex;   
+  align-items: center;      
+  justify-content: center;  
+}
+
+.btn.all, .btn.create{
+  width: auto;             
+  height: 40px;             
+  min-width: 120px;      
 }
 
 .btn.all:hover {
@@ -194,9 +203,14 @@ header img {
   color: white;
 }
 
-.btn.denied {
-  background-color: #003f91; 
-  color: white;
+.notifications-section {
+  display: block;
+  margin-top: 120px;
+  background-color: var(--color-light);
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden; /* Prevent overflow issues */
 }
 
 .notifications-table {
@@ -221,6 +235,7 @@ header img {
 .notifications-table th {
   background-color: var(--color-main);
   color: var(--color-light);
+  width: 20%;
 }
 
 .notifications-table td {
@@ -238,6 +253,16 @@ header img {
 
 .notifications-table td:hover {
   background-color: transparent;
+}
+
+#notificationsTable {
+  display: table;
+  width: 100%;
+}
+
+#createForm {
+  display: none; 
+  width: 100%; 
 }
 
 .user-info {
@@ -266,12 +291,16 @@ header img {
 
 .btn.edit {
   background-color: #2ecc71;
-  color: white;
+  color: white;    
+  width: 90px;             
+  height: 32px;         
 }
 
 .btn.delete {
   background-color: #e74c3c;
   color: white;
+  width: 90px;             
+  height: 32px;   
 }
 
 /* Modal styles */
@@ -369,4 +398,67 @@ header img {
 
 #dateHeader .ascending {
   transform: rotate(180deg); /* Rotates the icon for ascending order */
+}
+
+/* Create notification form styles */
+.create-notification-form {
+  display: none;
+  background-color: var(--color-light);
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.create-notification-form h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.create-notification-form .form-group {
+  margin-bottom: 15px;
+}
+
+.create-notification-form .form-group label {
+  font-size: 16px;
+  margin-bottom: 5px;
+  display: block;
+}
+
+.create-notification-form .form-group input,
+.create-notification-form .form-group textarea {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  font-size: 16px;
+  margin-top: 5px;
+}
+
+.create-notification-form .form-buttons {
+  margin-top: 20px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.create-notification-form .btn {
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+}
+
+.create-notification-form .btn.reset {
+  background-color: #f0f0f0;
+  color: #333;
+}
+
+.create-notification-form .btn.save {
+  background-color: var(--color-main);
+  color: #fff;
+  margin-left: 10px;
+}
+
+.create-notification-form .btn:hover {
+  background-color: #b7d0e1;
+  color: var(--color-dark);
 }
