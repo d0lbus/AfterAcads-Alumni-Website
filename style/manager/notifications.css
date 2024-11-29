@@ -1,0 +1,139 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap");
+
+:root {
+  --color-main: #003f91;
+  --color-light: #f5f5f5;
+  --color-dark: #1a1a1a;
+  --color-accent: #8da2fb;
+  --color-sidebar-bg: #d1b4c6;
+  --color-sidebar-text: #000000;
+}
+
+* {
+  font-family: "Poppins", sans-serif;
+  box-sizing: border-box;
+  text-decoration: none;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.logo {
+  width: 90px;
+  height: 90px;
+}
+
+img.afteracadstext {
+  width: 200px; 
+  height: auto; 
+  display: inline-block;
+  object-fit: contain;
+}
+
+.container {
+  padding: 20px;
+}
+
+/* Main content styles */
+.main-content {
+  margin-left: 280px;
+  padding: 1.5rem;
+  transition: margin-left 0.3s ease;
+}
+
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Body and layout */
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  background-color: #f4f4f4;
+  color: #333;
+}
+
+.container {
+  margin-top: 60px;
+}
+
+.profile {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.profile-img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  margin-right: 15px;
+  border: 2px solid var(--color-accent);
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #e7e5e5;
+  padding: 1rem 1.5rem;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  height: 100px;
+}
+header img {
+  width: 50px;
+  height: auto;
+  margin-right: 20px;
+  display: inline-block;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-left: auto;
+}
+
+.nav-links li {
+  margin-right: 30px;
+}
+
+.nav-links li a {
+  color: rgb(0, 0, 0);
+  text-decoration: none;
+  font-size: 16px;
+  padding: 10px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.nav-links li a:hover {
+  background-color: #575757;
+}
+
+.nav-links li a.active {
+  background-color: #007bff;
+}
+
+.nav-links li a:focus {
+  outline: none;
+}
+
+/* Page header and main content */
+.page-header {
+  background-color: #fff;
+  padding: 20px;
+  margin-top: 80px; 
+}
+
+.page-header h1 {
+  font-size: 28px;
+}
+
