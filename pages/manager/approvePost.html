@@ -102,7 +102,7 @@
                             <img class="user-avatar" src="../../assets/profileIcon.jpg" alt="user avatar" />
                             <span class="username">Joe29</span>
                         </div>
-                    </td>                    
+                    </td>
                     <td>Joe</td>
                     <td>Hello</td>
                     <td>11/29/2024</td>
@@ -124,19 +124,19 @@
                 </tr>
             </thead>
             <tbody>
-                <tbody>
-                    <tr>
-                        <td>
-                            <div class="user-info">
-                                <img class="user-avatar" src="../../assets/profileIcon.jpg" alt="user avatar" />
-                                <span class="username">Joe29</span>
-                            </div>
-                        </td>
-                        <td>Joe</td>
-                        <td>Hello</td>
-                        <td>11/29/2024</td>
-                    </tr>
-                </tbody>
+            <tbody>
+                <tr>
+                    <td>
+                        <div class="user-info">
+                            <img class="user-avatar" src="../../assets/profileIcon.jpg" alt="user avatar" />
+                            <span class="username">Joe29</span>
+                        </div>
+                    </td>
+                    <td>Joe</td>
+                    <td>Hello</td>
+                    <td>11/29/2024</td>
+                </tr>
+            </tbody>
             </tbody>
         </table>
     </div>
@@ -145,164 +145,97 @@
         <div class="modal-content">
             <div class="modal-content-pending">
                 <span class="close-btn" id="closeModal">&times;</span>
-            <h2>Post Details</h2>
-            <hr class="modal-divider">
-            <p><strong>Username:</strong> <span id="postName"></span></p>
-            <p><strong>Content:</strong> <span id="postContent"></span></p>
-            <p><strong>Image:</strong> <span id="postImage"></span></p>
-            <p><strong>Tag:</strong> <span id="postTag"></span></p>
-            <p><strong>Date:</strong> <span id="postDate"></span></p>
+                <h2>Post Details</h2>
+                <hr class="modal-divider">
+                <p><strong>Username:</strong> <span id="postName"></span></p>
+                <p><strong>Content:</strong> <span id="postContent"></span></p>
+                <p><strong>Image:</strong> <span id="postImage"></span></p>
+                <p><strong>Tag:</strong> <span id="postTag"></span></p>
+                <p><strong>Date:</strong> <span id="postDate"></span></p>
             </div>
         </div>
     </div>
 
     <script>
+
         document.addEventListener("DOMContentLoaded", () => {
-    const rows = document.querySelectorAll(".post-table tbody tr");
-    const modal = document.getElementById("postDetailsModal");
-    const closeModalButton = document.getElementById("closeModal");
-    const statusButtons = document.querySelectorAll(".button-group .btn");
-    const approvedTable = document.querySelector(".approved-table tbody");
-    const deniedTable = document.querySelector(".denied-table tbody");
-    const pendingTable = document.querySelector(".pending-table tbody");
+            const rows = document.querySelectorAll(".post-table tbody tr");
+            const modal = document.getElementById("postDetailsModal");
+            const closeModalButton = document.getElementById("closeModal");
+            const statusButtons = document.querySelectorAll(".button-group .btn");
+            const actionButtons = document.querySelectorAll(".action-buttons button");  // Target action buttons
 
-    let postStatus = {};
-    let approvedPosts = [];
-    let deniedPosts = [];
+            // Function to switch between tables
+            const toggleTable = (status) => {
+                const pendingTable = document.querySelector(".pending-table");
+                const approvedTable = document.querySelector(".approved-table");
+                const deniedTable = document.querySelector(".denied-table");
 
-    // Function to switch between tables
-    const toggleTable = (status) => {
-        const pendingTable = document.querySelector(".pending-table");
-        const approvedTable = document.querySelector(".approved-table");
-        const deniedTable = document.querySelector(".denied-table");
-
-        if (status === "approved") {
-            pendingTable.style.display = "none";
-            approvedTable.style.display = "table";
-            deniedTable.style.display = "none";
-        } else if (status === "denied") {
-            pendingTable.style.display = "none";
-            approvedTable.style.display = "none";
-            deniedTable.style.display = "table";
-        } else {
-            pendingTable.style.display = "table";
-            approvedTable.style.display = "none";
-            deniedTable.style.display = "none";
-        }
-    };
-
-    // Handle row click to open modal
-    rows.forEach(row => {
-        row.addEventListener("click", function () {
-            const name = this.cells[0].textContent.trim() || "N/A";
-            const content = this.cells[2].textContent.trim() || "N/A";
-            const date = this.cells[3].textContent.trim() || "N/A";
-            const imageSrc = this.querySelector("img")?.src || "N/A";
-
-            document.getElementById("postName").textContent = name;
-            document.getElementById("postContent").textContent = content;
-            document.getElementById("postDate").textContent = date;
-            document.getElementById("postImage").textContent = "N/A";
-            document.getElementById("postTag").textContent = "N/A"; 
-
-            modal.style.display = "flex";
-        });
-    });
-
-    closeModalButton.addEventListener("click", () => {
-        modal.style.display = "none";
-    });
-
-    window.addEventListener("click", (event) => {
-        if (event.target === modal) {
-            modal.style.display = "none";
-        }
-    });
-
-    // Handle approve and deny buttons
-    document.querySelectorAll(".btn.approve").forEach(button => {
-        button.addEventListener("click", (event) => {
-            event.stopPropagation();
-            const row = button.closest("tr");
-            postStatus[row.cells[0].textContent] = "approved";
-            console.log(`${row.cells[0].textContent} approved`);
-
-            // Move the post to approvedPosts table
-            const approvedPost = {
-                name: row.cells[1].textContent,
-                description: row.cells[2].textContent
+                if (status === "approved") {
+                    pendingTable.style.display = "none";
+                    approvedTable.style.display = "table";
+                    deniedTable.style.display = "none";
+                } else if (status === "denied") {
+                    pendingTable.style.display = "none";
+                    approvedTable.style.display = "none";
+                    deniedTable.style.display = "table";
+                } else {
+                    pendingTable.style.display = "table";
+                    approvedTable.style.display = "none";
+                    deniedTable.style.display = "none";
+                }
             };
-            approvedPosts.push(approvedPost);
-            updateApprovedPostsTable();
-        });
-    });
 
-    document.querySelectorAll(".btn.deny").forEach(button => {
-        button.addEventListener("click", (event) => {
-            event.stopPropagation();
-            const row = button.closest("tr");
-            postStatus[row.cells[0].textContent] = "denied";
-            console.log(`${row.cells[0].textContent} denied`);
+            // Prevent modal from opening when clicking on action buttons
+            actionButtons.forEach(button => {
+                button.addEventListener("click", (event) => {
+                    event.stopPropagation(); // Prevent the modal from opening when clicking the buttons
+                });
+            });
 
-            // Move the post to deniedPosts table
-            const deniedPost = {
-                name: row.cells[1].textContent,
-                description: row.cells[2].textContent
-            };
-            deniedPosts.push(deniedPost);
-            updateDeniedPostsTable();
-        });
-    });
+            // Handle row click to open modal and populate post details
+            rows.forEach(row => {
+                row.addEventListener("click", function () {
+                    const name = this.cells[0].textContent.trim() || "N/A";
+                    const content = this.cells[2].textContent.trim() || "N/A";
+                    const date = this.cells[3].textContent.trim() || "N/A";
+                    const imageSrc = this.querySelector("img")?.src || "N/A";
 
-    // Update the approved posts table
-    const updateApprovedPostsTable = () => {
-        approvedTable.innerHTML = ""; // Clear existing posts
-        approvedPosts.forEach(post => {
-            const row = document.createElement("tr");
-            row.innerHTML = `
-            <td>${post.name || "N/A"}</td>
-            <td>${post.description || "N/A"}</td>
-            <td><button class="btn delete">Delete</button></td>
-        `;
-            approvedTable.appendChild(row);
+                    document.getElementById("postName").textContent = name;
+                    document.getElementById("postContent").textContent = content;
+                    document.getElementById("postDate").textContent = date;
+                    document.getElementById("postImage").textContent = "N/A";
+                    document.getElementById("postTag").textContent = "N/A";
 
-            // Add delete functionality
-            row.querySelector(".btn.delete").addEventListener("click", () => {
-                row.remove();
-                // Optionally, remove the post from the approvedPosts array as well
-                approvedPosts = approvedPosts.filter(p => p !== post);
+                    modal.style.display = "flex";
+                });
+            });
+
+            // Close modal functionality
+            closeModalButton.addEventListener("click", () => {
+                modal.style.display = "none";
+            });
+
+            window.addEventListener("click", (event) => {
+                if (event.target === modal) {
+                    modal.style.display = "none";
+                }
+            });
+
+            // Handle filter buttons (Pending, Approved, Denied)
+            statusButtons.forEach(button => {
+                button.addEventListener("click", () => {
+                    const status = button.classList.contains("pending")
+                        ? "pending"
+                        : button.classList.contains("approved")
+                            ? "approved"
+                            : "denied";
+
+                    // Toggle between tables based on status
+                    toggleTable(status);
+                });
             });
         });
-    };
-
-    // Update the denied posts table
-    const updateDeniedPostsTable = () => {
-        deniedTable.innerHTML = ""; // Clear existing posts
-        deniedPosts.forEach(post => {
-            const row = document.createElement("tr");
-            row.innerHTML = `
-            <td>${post.name || "N/A"}</td>
-            <td>${post.description || "N/A"}</td>
-        `;
-            deniedTable.appendChild(row);
-        });
-    };
-
-    // Handle filter buttons (Pending, Approved, Denied)
-    statusButtons.forEach(button => {
-        button.addEventListener("click", () => {
-            const status = button.classList.contains("pending")
-                ? "pending"
-                : button.classList.contains("approved")
-                    ? "approved"
-                    : "denied";
-
-            // Toggle between tables based on status
-            toggleTable(status);
-        });
-    });
-});
-
     </script>
 </body>
 
