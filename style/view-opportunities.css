@@ -335,41 +335,26 @@ small {
   color: var(--color-main);
 }
 
-.right-panel .company-logo-placeholder {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 20px;
-  background-color: #f5f5f5;
-  width: 100px;
-  height: 100px;
-  border-radius: 8px;
-  border: 1px solid #ddd;
-  font-size: 1.5rem;
-  color: var(--color-main);
-  font-weight: bold;
-}
-
-.suggested-companies-list {
+.friend-list {
   margin-top: 10px;
   display: flex;
   flex-direction: column;
   gap: 16px;
 }
 
-.suggested-companies {
+.friend {
   display: flex;
   align-items: center;
 }
 
-.suggested-companies img {
+.friend img {
   width: 35px;
   height: 35px;
   border-radius: 50%;
   margin-right: 16px;
 }
 
-.suggested-companies span {
+.friend span {
   font-size: 1rem;
   color: var(--color-main);
 }
@@ -380,7 +365,6 @@ small {
   margin: 8px 0 30px 0;
   width: 100%;
 }
-
 .pagination {
   text-align: center;
   margin-top: 20px;
