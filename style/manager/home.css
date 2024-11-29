@@ -134,6 +134,13 @@ header img.afteracadstext {
   margin-bottom: 15px;
 }
 
+.box span {
+  font-size: 1.4rem;
+  padding-left: 5px;
+  color: rgb(244, 96, 96);
+  margin-bottom: 15px;
+}
+
 .icon-link {
   width: 30px;
   height: 30px;
