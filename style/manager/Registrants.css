@@ -285,7 +285,7 @@ header img {
 }
 
 /* Modal styles */
-.post-details-modal {
+.user-details-modal {
   display: none; 
   position: fixed;
   z-index: 1; 
