@@ -16,9 +16,8 @@
     <div class="login-box">
       <img
         class="logo"
-        src="../assets/logo.png"
-        width=""
-        alt="" />
+        src="../../assets/logo.png"
+        alt="logo" />
       <h2 style="color: black">Log Into AfterAcads</h2>
       
 
