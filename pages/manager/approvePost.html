@@ -163,7 +163,7 @@
             const modal = document.getElementById("postDetailsModal");
             const closeModalButton = document.getElementById("closeModal");
             const statusButtons = document.querySelectorAll(".button-group .btn");
-            const actionButtons = document.querySelectorAll(".action-buttons button");  // Target action buttons
+            const actionButtons = document.querySelectorAll(".action-buttons button"); 
 
             // Function to switch between tables
             const toggleTable = (status) => {
@@ -189,7 +189,7 @@
             // Prevent modal from opening when clicking on action buttons
             actionButtons.forEach(button => {
                 button.addEventListener("click", (event) => {
-                    event.stopPropagation(); // Prevent the modal from opening when clicking the buttons
+                    event.stopPropagation(); 
                 });
             });
 

@@ -210,7 +210,7 @@ header img {
   border-radius: 8px;
   padding: 20px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  overflow: hidden; /* Prevent overflow issues */
+  overflow: hidden; 
 }
 
 .notifications-table {
@@ -397,7 +397,7 @@ header img {
 }
 
 #dateHeader .ascending {
-  transform: rotate(180deg); /* Rotates the icon for ascending order */
+  transform: rotate(180deg); 
 }
 
 /* Create notification form styles */

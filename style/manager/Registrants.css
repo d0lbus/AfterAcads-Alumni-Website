@@ -384,5 +384,5 @@ header img {
 }
 
 #dateHeader .ascending {
-  transform: rotate(180deg); /* Rotates the icon for ascending order */
+  transform: rotate(180deg); 
 }

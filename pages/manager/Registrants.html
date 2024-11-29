@@ -189,23 +189,23 @@
       const actionButtons = document.querySelectorAll(".action-buttons button");
       actionButtons.forEach(button => {
         button.addEventListener("click", (event) => {
-          event.stopPropagation(); // Prevent modal from opening when clicking buttons
+          event.stopPropagation(); 
         });
       });
 
       // Handle row click to open modal and populate user details
       rows.forEach(row => {
         row.addEventListener("click", function () {
-          const firstName = this.cells[0].textContent.trim() || "N/A";  // Default to "N/A" if empty
-          const lastName = this.cells[1].textContent.trim() || "N/A";  // Default to "N/A" if empty
-          const email = this.cells[2].textContent.trim() || "N/A";  // Default to "N/A" if empty
+          const firstName = this.cells[0].textContent.trim() || "N/A"; 
+          const lastName = this.cells[1].textContent.trim() || "N/A";  
+          const email = this.cells[2].textContent.trim() || "N/A"; 
 
           // Populate modal with details from the clicked row
           document.getElementById("firstName").textContent = firstName;
           document.getElementById("lastName").textContent = lastName;
           document.getElementById("email").textContent = email;
-          document.getElementById("middleName").textContent = "N/A"; // Default to "N/A"
-          document.getElementById("gender").textContent = "N/A"; // Default to "N/A"
+          document.getElementById("middleName").textContent = "N/A"; 
+          document.getElementById("gender").textContent = "N/A"; 
 
           // Open the modal
           modal.style.display = "flex";
