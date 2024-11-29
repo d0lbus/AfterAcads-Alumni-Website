@@ -147,7 +147,7 @@ header img {
   box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
-.posts-section {
+.users-section {
   margin-top: 120px; 
   background-color: var(--color-light);
   border-radius: 8px;
@@ -209,7 +209,7 @@ header img {
   color: white;
 }
 
-.post-table {
+.user-table {
   width: 100%;
   border-collapse: collapse;
   background-color: white;
@@ -219,8 +219,8 @@ header img {
   table-layout: fixed;
 }
 
-.post-table th,
-.post-table td {
+.user-table th,
+.user-table td {
   text-align: left;
   padding: 10px;
   border-bottom: 1px solid #ddd;
@@ -228,25 +228,25 @@ header img {
   word-wrap: break-word; 
 }
 
-.post-table th {
+.user-table th {
   background-color: var(--color-main);
   color: var(--color-light);
 }
 
-.post-table td {
+.user-table td {
   background-color: var(--color-light);
   color: var(--color-dark);
 }
 
-.post-table tr:hover {
+.user-table tr:hover {
   background-color: #f0f0f0;
 }
 
-.post-table td {
+.user-table td {
   background-color: transparent;
 }
 
-.post-table td:hover {
+.user-table td:hover {
   background-color: transparent;
 }
 
