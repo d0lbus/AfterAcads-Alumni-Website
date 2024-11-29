@@ -143,18 +143,15 @@
 
     <div class="post-details-modal" id="postDetailsModal">
         <div class="modal-content">
-            <span class="close-btn" id="closeModal">&times;</span>
+            <div class="modal-content-pending">
+                <span class="close-btn" id="closeModal">&times;</span>
             <h2>Post Details</h2>
             <hr class="modal-divider">
             <p><strong>Username:</strong> <span id="postName"></span></p>
-            <p><strong>Content:</strong> <span id="postDescription"></span></p>
+            <p><strong>Content:</strong> <span id="postContent"></span></p>
             <p><strong>Image:</strong> <span id="postImage"></span></p>
             <p><strong>Tag:</strong> <span id="postTag"></span></p>
             <p><strong>Date:</strong> <span id="postDate"></span></p>
-
-            <div class="modal-buttons">
-                <button class="btn approve">Approve</button>
-                <button class="btn deny">Deny</button>
             </div>
         </div>
     </div>
@@ -198,12 +195,12 @@
             rows.forEach(row => {
                 row.addEventListener("click", function () {
                     const name = this.cells[0].textContent;
-                    const description = this.cells[2].textContent;
+                    const content = this.cells[2].textContent;
                     const date = this.cells[3].textContent;
                     const imageSrc = this.querySelector("img")?.src || "No image available";
 
                     document.getElementById("postName").textContent = name;
-                    document.getElementById("postDescription").textContent = description;
+                    document.getElementById("postContent").textContent = content;
                     document.getElementById("postDate").textContent = date;
 
                     modal.style.display = "flex";
@@ -261,10 +258,10 @@
                 approvedPosts.forEach(post => {
                     const row = document.createElement("tr");
                     row.innerHTML = `
-                <td>${post.name}</td>
-                <td>${post.description}</td>
-                <td><button class="btn delete">Delete</button></td>
-            `;
+                    <td>${post.name}</td>
+                    <td>${post.description}</td>
+                    <td><button class="btn delete">Delete</button></td>
+                `;
                     approvedTable.appendChild(row);
 
                     // Add delete functionality
@@ -282,9 +279,9 @@
                 deniedPosts.forEach(post => {
                     const row = document.createElement("tr");
                     row.innerHTML = `
-                <td>${post.name}</td>
-                <td>${post.description}</td>
-            `;
+                    <td>${post.name}</td>
+                    <td>${post.description}</td>
+                `;
                     deniedTable.appendChild(row);
                 });
             };

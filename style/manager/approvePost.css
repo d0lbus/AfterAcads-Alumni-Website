@@ -171,7 +171,22 @@ header img {
   font-weight: 500;
   background-color: var(--color-light);
   color: var(--color-dark);
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, color 0.3s ease; 
+}
+
+.btn.pending:hover {
+  background-color: rgb(234, 234, 131);
+  color: var(--color-dark); 
+}
+
+.btn.approved:hover {
+  background-color: rgb(234, 234, 131);
+  color: var(--color-dark);
+}
+
+.btn.denied:hover {
+  background-color: rgb(234, 234, 131);
+  color: var(--color-dark);
 }
 
 .btn.pending {
