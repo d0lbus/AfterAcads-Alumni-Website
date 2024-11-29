@@ -21,12 +21,12 @@
                     <img class="afteracadstext" src="../../assets/afteracadstext.png" alt="AfterAcads" />
                 </div>
                 <ul class="nav-links">
-                    <li><a href="../../pages/manager/home.html">Home</a></li>
-                    <li><a href="../../pages/manager/Registrants.html">Registrants</a></li>
-                    <li><a href="../../pages/manager/approvePost.html">Posts</a></li>
-                    <li><a href="../../pages/manager/upcomingEvents.html">Events</a></li>
-                    <li><a href="../../pages/manager/opportunities.html">Opportunities</a></li>
-                    <li><a href="../../pages/manager/statistics.php">Statistics</a></li>
+                <li><a href="../../pages/manager/home.html">Home</a></li>
+                <li><a href="../../pages/manager/Registrants.html">Registrants</a></li>
+                <li><a href="../../pages/manager/approvePost.html">Posts</a></li>
+                <li><a href="../../pages/manager/eventsDashboard.html">Events</a></li>
+                <li><a href="../../pages/manager/opportunities.html">Opportunities</a></li>
+                <li><a href="../../pages/manager/statistics.php">Statistics</a></li>
                 </ul>
                 <div class="profile">
                     <li><a href="viewProfile.php"><img class="profile-img" src="../../assets/display-photo.png"
