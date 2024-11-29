@@ -17,15 +17,15 @@
             <div class="brand-flex">
                 <div class="brand-icon">
                     <a href="javascript:void(0)" id="sidebarToggle">
-                        <span><img src="../assets/bars1.png" width="24px" alt="bars" /></span>
+                        <span><img src="../../assets/bars1.png" width="24px" alt="bars" /></span>
                     </a>
                 </div>
             </div>
         </div>
         <div class="sidebar-content">
             <div class="sidebar-user">
-                <a href="../pages/viewProfile.php">
-                    <img src="../assets/profileIcon.jpg" alt="Profile Picture" />
+                <a href="../../pages/alumni/viewProfile.php">
+                    <img src="../../assets/profileIcon.jpg" alt="Profile Picture" />
                 </a>
                 <div>
                     <h3><?php echo htmlspecialchars($user['first_name'] . ' ' . $user['last_name']); ?></h3>
@@ -35,11 +35,11 @@
 
             <div class="sidebar-menu">
                 <ul>
-                <li><a href="../pages/shareExperience.php"><span><img src="../assets/home1.png" width="20px" alt="Home" /></span>Home</a></li>
-                <li><a href="../pages/events.php"><span><img src="../assets/event1.png" width="20px" alt="Events" /></span>Events</a></li>
-                <li><a href="../pages/opportunities.php"><span><img src="../assets/opportunities.png" width="20px" alt="Opportunities" /></span>Opportunities</a></li>
-                <li><a href="../pages/settings.php"><span><img src="../assets/setting1.png" width="20px" alt="Settings" /></span>Settings</a></li>
-                <li><a href="../pages/loginpage.php"><span><img src="../assets/logout1.png" width="20px" alt="Logout" /></span>Logout</a></li>
+                <li><a href="../../pages/alumni/shareExperience.php"><span><img src="../../assets/home1.png" width="20px" alt="Home" /></span>Home</a></li>
+                <li><a href="../../pages/alumni/events.php"><span><img src="../../assets/event1.png" width="20px" alt="Events" /></span>Events</a></li>
+                <li><a href="../../pages/alumni/opportunities.php"><span><img src="../../assets/opportunities.png" width="20px" alt="Opportunities" /></span>Opportunities</a></li>
+                <li><a href="../../pages/alumni/settings.php"><span><img src="../../assets/setting1.png" width="20px" alt="Settings" /></span>Settings</a></li>
+                <li><a href="../../pages/alumni/loginpage.php"><span><img src="../../assets/logout1.png" width="20px" alt="Logout" /></span>Logout</a></li>
                 </ul>
             </div>
         </div>
@@ -47,8 +47,8 @@
 
     <div class="main-content">
         <header>
-            <a href="../pages/shareExperience.php">
-                <img src="../assets/logo.png" alt="logo" class="logo-header" />
+            <a href="../../pages/alumni/shareExperience.php">
+                <img src="../../assets/logo.png" alt="logo" class="logo-header" />
             </a>
         </header>
         <main>

@@ -21,7 +21,7 @@ include '../../config/header.php';
             <div class="brand-flex">
                 <div class="brand-icon">
                     <a href="javascript:void(0)" id="sidebarToggle">
-                        <span><img src="../assets/bars1.png" width="24px" alt="bars" /></span>
+                        <span><img src="../../assets/bars1.png" width="24px" alt="bars" /></span>
                     </a>
                 </div>
 
@@ -82,10 +82,6 @@ include '../../config/header.php';
         <main>
 
             <div class="header-search-bar">
-                <!-- <input type="text" class="search-input" id="searchInput" placeholder="Search..." />
-                <button class="search-button" id="searchButton" aria-label="Search">
-                    <span><img src="../../assets/search1.png" width="20px" alt="search" /></span>
-                </button> -->
 
                 <form action="searchResultsPage.php" method="get" style="display: flex; width: 100%;">
                     <input type="text" class="search-input" name="query" placeholder="Search..." required />

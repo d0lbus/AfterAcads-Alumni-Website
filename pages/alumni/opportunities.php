@@ -19,28 +19,28 @@ include '../../config/header.php';
       <div class="brand-flex">
         <div class="brand-icon">
           <a href="javascript:void(0)" id="sidebarToggle">
-            <span><img src="../assets/bars1.png" width="24px" alt="bars" /></span>
+            <span><img src="../../assets/bars1.png" width="24px" alt="bars" /></span>
           </a>
         </div>
       </div>
     </div>
     <div class="sidebar-content">
       <div class="sidebar-user">
-        <a href="../pages/viewProfile.php">
-          <img src="../assets/profileIcon.jpg" alt="Profile Picture" />
+        <a href="../../pages/alumni/viewProfile.php">
+          <img src="../../assets/profileIcon.jpg" alt="Profile Picture" />
         </a>
         <div>
-          <h3>User Name</h3>
-          <span>user@example.com</span>
+          <h3><?php echo htmlspecialchars($user['first_name'] . ' ' . $user['last_name']); ?></h3>
+          <span><?php echo htmlspecialchars($user['email']); ?></span>
         </div>
       </div>
       <div class="sidebar-menu">
         <ul>
-          <li><a href="../pages/shareExperience.php"><span><img src="../assets/home1.png" width="20px" alt="Home" /></span>Home</a></li>
-          <li><a href="../pages/events.php"><span><img src="../assets/event1.png" width="20px" alt="Events" /></span>Events</a></li>
-          <li><a href="../pages/opportunities.php"><span><img src="../assets/opportunities.png" width="20px" alt="Opportunities" /></span>Opportunities</a></li>
-          <li><a href="../pages/settings.php"><span><img src="../assets/setting1.png" width="20px" alt="Settings" /></span>Settings</a></li>
-          <li><a href="../pages/loginpage.php"><span><img src="../assets/logout1.png" width="20px" alt="Logout" /></span>Logout</a></li>
+          <li><a href="../../pages/alumni/shareExperience.php"><span><img src="../../assets/home1.png" width="20px" alt="Home" /></span>Home</a></li>
+          <li><a href="../../pages/alumni/events.php"><span><img src="../../assets/event1.png" width="20px" alt="Events" /></span>Events</a></li>
+          <li><a href="../../pages/alumni/opportunities.php"><span><img src="../../assets/opportunities.png" width="20px" alt="Opportunities" /></span>Opportunities</a></li>
+          <li><a href="../../pages/alumni/settings.php"><span><img src="../../assets/setting1.png" width="20px" alt="Settings" /></span>Settings</a></li>
+          <li><a href="../../pages/alumni/loginpage.php"><span><img src="../../assets/logout1.png" width="20px" alt="Logout" /></span>Logout</a></li>
         </ul>
       </div>
     </div>
@@ -48,22 +48,22 @@ include '../../config/header.php';
 
   <div class="main-content">
     <header>
-      <a href="../pages/shareExperience.php">
-          <img src="../assets/logo.png" alt="logo" class="logo-header" />
+      <a href="../../pages/alumni/shareExperience.php">
+          <img src="../../assets/logo.png" alt="logo" class="logo-header" />
       </a>
     </header>
 
     <main>
-      <div class="page-header">
-        
+    <div class="header-search-bar">
 
-        <div class="header-actions-container">
-          <form class="header-search-bar">
-            <input type="text" class="search-input" name="search" placeholder="Search..." id="search-input" />
-            <button type="submit" class="search-button" aria-label="Search"><span class="las la-search"></span></button>
-            <div class="dropdown-container" id="dropdown-container"></div>
-          </form>
-        </div>
+      <form action="searchResultsPage.php" method="get" style="display: flex; width: 100%;">
+          <input type="text" class="search-input" name="query" placeholder="Search..." required />
+          <button class="search-button" id="searchButton" aria-label="Search">
+              <span><img src="../../assets/search1.png" width="20px" alt="search" /></span>
+          </button>
+      </form>
+
+      </div>
 
         <h1>Opportunities</h1>
         <small>Find available job openings and internships provided by our partners</small>
@@ -71,7 +71,7 @@ include '../../config/header.php';
         <div class="card-container">
           <div class="card">
             <div class="company-logo">
-              <img src="../assets/company-logo.png" alt="Company Logo">
+              <img src="../../assets/company-logo.png" alt="Company Logo">
             </div>
             <div class="container">
               <h2><b>{Job Title}</b></h2>
@@ -80,7 +80,7 @@ include '../../config/header.php';
               <p>{Description of the opportunity goes here. This is a brief summary of what the job entails and any key details.}</p>
             </div>
             <div class="button-container">
-              <a href="../pages/viewOpportunities.php" class="button">View</a>
+              <a href="../../pages/alumni/viewOpportunities.php" class="button">View</a>
               <a href="apply.php?job_id=1" class="button">Apply</a>
             </div>
           </div>
@@ -95,7 +95,7 @@ include '../../config/header.php';
     <hr class="title-divider">
     <div class="friend-list">
         <div class="friend">
-            <img src="../assets/profile.jpg" alt="Friend Profile Picture">
+            <img src="../../assets/profile.jpg" alt="Friend Profile Picture">
             <span>Friend Name 1</span>
         </div>
     </div>

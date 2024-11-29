@@ -1,5 +1,5 @@
 <?php
-include '../config/connection.php'; 
+include 'connection.php'; 
 
 $tag = isset($_GET['tag']) ? $_GET['tag'] : null;
 $search = isset($_GET['search']) ? $_GET['search'] : null;
