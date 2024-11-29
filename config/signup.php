@@ -3,6 +3,7 @@ include 'connection.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $firstName = upperCaseFirstLetter($_POST['firstName']);
+    $middleName = upperCaseFirstLetter($_POST['middleName']);
     $lastName = upperCaseFirstLetter($_POST['lastName']);
     $email = $_POST['email'];
     $password = $_POST['password'];
@@ -36,12 +37,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Insert user data into the database
-    $sql = "INSERT INTO users (first_name, last_name, email, password_hash, agreed_to_terms) VALUES (?, ?, ?, ?, ?)";
+    $sql = "INSERT INTO users (first_name, middle_name, last_name, email, password_hash, agreed_to_terms) VALUES (?, ?, ?, ?, ?, ?)";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param('ssssi', $firstName, $lastName, $email, $passwordHash, $agreedToTerms);
+    $stmt->bind_param('sssssi', $firstName, $middleName, $lastName, $email, $passwordHash, $agreedToTerms);
 
     if ($stmt->execute()) {
-        header("Location: ../../pages/loginpage.php");
+        header("Location: ../../pages/alumni/loginpage.php");
         exit();
     } else {
         echo "Error: " . $conn->error;

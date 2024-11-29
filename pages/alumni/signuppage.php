@@ -93,7 +93,7 @@
               <p class="upload-subtext" style="text-align: center">Files supported: Images, PDFs, DOCX</p>
               <p class="upload-maxsize" style="text-align: center">Maximum size: </p>
             </label>
-            <input type="file" id="file-upload" class="upload-input" multiple accept=".jpg, .jpeg, .png, .pdf, .docx" required />
+            <input type="file" id="file-upload" class="upload-input" multiple accept=".jpg, .jpeg, .png, .pdf, .docx"/>
             <button type="button" class="browse-btn">Browse</button>
           </div>
           <div class="file-preview">
