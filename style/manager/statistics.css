@@ -18,15 +18,11 @@
   padding: 0;
 }
 
-.logo {
-  width: 90px;
-  height: 90px;
-}
-
 .afteracadstext {
-  width: auto;
-  height: 20px;
-  margin-bottom: 15px;
+  width: 200px; 
+  height: auto; 
+  display: inline-block;
+  object-fit: contain;
 }
 
 .container {

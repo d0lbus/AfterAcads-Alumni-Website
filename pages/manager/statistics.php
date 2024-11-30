@@ -17,8 +17,8 @@
     <body>
         <section>
             <header>
-                <div><img class="logo" src="../../assets/logo.png" alt="afteracads" />
-                    <img class="afteracadstext" src="../../assets/afteracadstext.png" alt="AfterAcads" />
+                <div>
+                    <img class="afteracadstext" src="../../assets/logo.png" alt="afteracads" />
                 </div>
                 <ul class="nav-links">
                 <li><a href="../../pages/manager/home.html">Home</a></li>
