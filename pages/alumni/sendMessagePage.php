@@ -1,8 +1,26 @@
 <?php
 include '../../config/header.php';
+include '../../config/connection.php';
 
-// Get the friend's name from the query string
-$friendName = isset($_GET['friend_name']) ? htmlspecialchars($_GET['friend_name']) : 'Unknown Friend';
+$user = getAuthenticatedUser();
+
+if (isset($_GET['chat_with']) && !empty($_GET['chat_with'])) {
+    $friend_id = intval($_GET['chat_with']); // Get the friend's ID from the URL
+
+    // Fetch friend's details
+    $stmt = $conn->prepare("SELECT first_name, last_name, profile_picture FROM users WHERE id = ?");
+    $stmt->bind_param("i", $friend_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows > 0) {
+        $friend = $result->fetch_assoc(); // Fetch friend details
+    } else {
+        die("Friend not found.");
+    }
+} else {
+    die("No friend selected for messaging.");
+}
 ?>
 
 <!DOCTYPE html>
@@ -93,7 +111,7 @@ $friendName = isset($_GET['friend_name']) ? htmlspecialchars($_GET['friend_name'
             <div class="message-container" id="messageContainer" style="display: none;">
                 <div class="chat-header">
                     <img src="../../assets/profile.jpg" alt="User Profile Picture" class="chat-user-icon">
-                    <span class="chat-username"><?php echo $friendName; ?></span>
+                    <span class="chat-username"><?php echo $friend; ?></span>
                 </div>
                 <div class="chat-box">
                     <div class="message received">

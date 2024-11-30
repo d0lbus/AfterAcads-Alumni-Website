@@ -47,9 +47,12 @@ $friendStatus = $friendsManager->checkFriendStatus($logged_in_user_id, $profile_
 if ($friendStatus === 'not_friends') {
     $buttonText = "Add Friend";
     $action = "../../config/addFriend.php";
-} elseif ($friendStatus === 'pending') {
-    $buttonText = "Request Sent";
-    $action = "#"; // No action for pending requests
+} elseif ($friendStatus === 'request_sent') {
+    $buttonText = "Cancel Friend Request";
+    $action = "../../config/cancelFriendRequest.php";
+} elseif ($friendStatus === 'pending_request') {
+    $buttonText = "Accept Request";
+    $action = "../../config/acceptFriend.php";
 } elseif ($friendStatus === 'friends') {
     $buttonText = "Unfriend";
     $action = "../../config/unfriend.php";
@@ -146,10 +149,17 @@ if ($friendStatus === 'not_friends') {
                         <p><?php echo isset($target_user['bio']) ? htmlspecialchars($target_user['bio']) : 'Bio not provided'; ?></p>
 
                         <?php if (!$is_current_user): ?>
-                            <form method="POST" action="<?php echo $action; ?>">
-                                <input type="hidden" name="friend_id" value="<?php echo htmlspecialchars($profile_user_id); ?>">
-                                <button type="submit" class="friend-button"><?php echo $buttonText; ?></button>
-                            </form>
+                        <form method="POST" action="<?php echo $action; ?>">
+                            <input type="hidden" name="friend_id" value="<?php echo htmlspecialchars($profile_user_id); ?>">
+                            <button type="submit" class="friend-button"><?php echo $buttonText; ?></button>
+                        </form>
+
+                        <form method="POST" action="../../config/initiateChat.php">
+                            <input type = "hidden" name="friend_id" value="<?php echo htmlspecialchars($profile_user_id); ?>">
+                            <button type="submit" class="message-button">Message</button>
+                        </form>
+
+
                         <?php else: ?>
                             <a href="settings.php" class="edit-profile-button">Edit Profile</a>
                         <?php endif; ?>
@@ -246,63 +256,74 @@ if ($friendStatus === 'not_friends') {
 
 
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const sidebar = document.querySelector(".sidebar");
-            const toggleButton = document.getElementById("sidebarToggle");
-
-            toggleButton.addEventListener("click", function() {
+    document.addEventListener("DOMContentLoaded", function () {
+        // Handle Sidebar Toggle
+        const sidebar = document.querySelector(".sidebar");
+        const toggleButton = document.getElementById("sidebarToggle");
+        if (sidebar && toggleButton) {
+            toggleButton.addEventListener("click", function () {
                 sidebar.classList.toggle("minimized");
             });
-        });
-
-        function contactUser() {
-            const modal = document.getElementById("contactModal");
-            modal.style.display = "block"; // Show the modal
         }
 
-        document.addEventListener("DOMContentLoaded", function () {
-            const modal = document.getElementById("contactModal");
-            const closeButton = document.querySelector(".close-button");
+        // Handle Contact Modal
+        const modal = document.getElementById("contactModal");
+        const closeButton = document.querySelector(".close-button");
 
-            // Close the modal when the close button is clicked
-            closeButton.addEventListener("click", function () {
-                modal.style.display = "none";
-            });
+        function showModal() {
+            if (modal) modal.style.display = "block"; // Show modal
+        }
 
-            // Close the modal when clicking outside of the modal content
-            window.addEventListener("click", function (event) {
-                if (event.target === modal) {
-                    modal.style.display = "none";
-                }
-            });
-            
-            const friendButton = document.querySelector('.friend-button');
+        function closeModal() {
+            if (modal) modal.style.display = "none"; // Hide modal
+        }
 
-            if (friendButton) {
-                friendButton.addEventListener('click', function (event) {
-                    event.preventDefault();
+        if (closeButton) {
+            closeButton.addEventListener("click", closeModal); // Close when clicking the button
+        }
 
-                    const form = this.closest('form');
-                    const action = form.getAttribute('action');
-                    const formData = new FormData(form);
-
-                    fetch(action, {
-                        method: 'POST',
-                        body: formData
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            friendButton.textContent = data.new_button_text;
-                        } else {
-                            alert('Action failed: ' + data.message);
-                        }
-                    })
-                    .catch(error => console.error('Error:', error));
-                });
+        window.addEventListener("click", function (event) {
+            if (event.target === modal) {
+                closeModal(); // Close when clicking outside the modal
             }
         });
+
+        // Expose showModal function globally (if required elsewhere)
+        window.contactUser = showModal;
+
+        // Handle Friend Button Action
+        const friendButton = document.querySelector('.friend-button');
+        if (friendButton) {
+            friendButton.addEventListener('click', function (event) {
+                event.preventDefault();
+
+                const form = this.closest('form');
+                const action = form?.getAttribute('action'); // Ensure form and action exist
+                if (!action) {
+                    console.error('Form action not found');
+                    return;
+                }
+
+                const formData = new FormData(form);
+
+                fetch(action, {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        friendButton.textContent = data.new_button_text; // Update button text
+                    } else {
+                        alert('Action failed: ' + data.message); // Show error message
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+            });
+        }
+    });
     </script>
+
 </body>
 
 </html>

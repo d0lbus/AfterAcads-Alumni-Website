@@ -36,49 +36,73 @@ class friendsManager {
 
     // Accept a friend request
     public function acceptFriendRequest($user1, $user2) {
-        $stmt = $this->conn->prepare("UPDATE friends SET accepted = 1 WHERE user1 = ? AND user2 = ?");
+        $stmt = $this->conn->prepare("
+            UPDATE friends 
+            SET accepted = 1 
+            WHERE user1 = ? AND user2 = ? AND accepted = 0
+        ");
         $stmt->bind_param("ii", $user1, $user2);
-        if ($stmt->execute()) {
-            return "Friend request accepted.";
-        } else {
-            return "Error: " . $this->conn->error;
-        }
+        $result = $stmt->execute();
+        $stmt->close();
+        return $result;
     }
 
     // Unfriend a user
-    public function unfriend($user1, $user2) {
-        $stmt = $this->conn->prepare("DELETE FROM friends WHERE (user1 = ? AND user2 = ?) OR (user1 = ? AND user2 = ?)");
+    public function removeFriend($user1, $user2) {
+        $stmt = $this->conn->prepare("
+            DELETE FROM friends 
+            WHERE (user1 = ? AND user2 = ?) 
+               OR (user1 = ? AND user2 = ?)
+        ");
         $stmt->bind_param("iiii", $user1, $user2, $user2, $user1);
-        if ($stmt->execute()) {
-            return "Unfriended successfully.";
-        } else {
-            return "Error: " . $this->conn->error;
-        }
+        $result = $stmt->execute();
+        $stmt->close();
+        return $result;
+    }
+
+    // Cancel Friend request
+    public function cancelFriendRequest($user1, $user2) {
+        $stmt = $this->conn->prepare("
+            DELETE FROM friends 
+            WHERE user1 = ? AND user2 = ? AND accepted = 0
+        ");
+        $stmt->bind_param("ii", $user1, $user2);
+        $result = $stmt->execute();
+        $stmt->close();
+        return $result;
     }
 
     // Check friend status
-    public function checkFriendStatus($user1, $user2) {
+    public function checkFriendStatus($logged_in_user_id, $profile_user_id) {
         $stmt = $this->conn->prepare("
-            SELECT * FROM friends 
-            WHERE (user1 = ? AND user2 = ?) OR (user1 = ? AND user2 = ?)
+            SELECT user1, user2, accepted 
+            FROM friends 
+            WHERE (user1 = ? AND user2 = ?) 
+               OR (user1 = ? AND user2 = ?)
         ");
-        $stmt->bind_param("iiii", $user1, $user2, $user2, $user1);
+        $stmt->bind_param("iiii", $logged_in_user_id, $profile_user_id, $profile_user_id, $logged_in_user_id);
         $stmt->execute();
         $result = $stmt->get_result();
-
+    
         if ($result->num_rows > 0) {
             $row = $result->fetch_assoc();
-            if ($row['accepted'] == 1) {
-                return 'friends';
-            } elseif ($row['user1'] == $user1) {
-                return 'pending';
-            } else {
-                return 'pending';
+            if ($row['accepted'] == 0) {
+                // Pending request logic
+                if ($row['user1'] === $logged_in_user_id) {
+                    return 'request_sent'; // Logged-in user sent the request
+                } else {
+                    return 'pending_request'; // Logged-in user received the request
+                }
+            } elseif ($row['accepted'] == 1) {
+                return 'friends'; // Friendship is confirmed
             }
-        } else {
-            return 'not_friends';
         }
+    
+        return 'not_friends'; // No record found, users are not friends
     }
+    
+    
+    
 
     // Fetch all friends for a user
     public function getFriends($userId) {
@@ -101,5 +125,7 @@ class friendsManager {
         }
         return $friends;
     }
+
+    
 }
 ?>
