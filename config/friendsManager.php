@@ -102,30 +102,25 @@ class friendsManager {
     }
     
     
-    
-
     // Fetch all friends for a user
-    public function getFriends($userId) {
+    public function getFriends($user_id) {
         $stmt = $this->conn->prepare("
-            SELECT 
-                CASE 
-                    WHEN user1 = ? THEN user2
-                    ELSE user1
-                END AS friend_id
-            FROM friends
-            WHERE (user1 = ? OR user2 = ?) AND accepted = 1
+            SELECT u.id, u.first_name, u.last_name, u.email, u.profile_picture
+            FROM friends f
+            JOIN users u ON (u.id = f.user1 AND f.user2 = ?) OR (u.id = f.user2 AND f.user1 = ?)
+            WHERE f.accepted = 1
         ");
-        $stmt->bind_param("iii", $userId, $userId, $userId);
+        $stmt->bind_param("ii", $user_id, $user_id);
         $stmt->execute();
         $result = $stmt->get_result();
-
+        
         $friends = [];
         while ($row = $result->fetch_assoc()) {
-            $friends[] = $row['friend_id'];
+            $friends[] = $row;
         }
+        $stmt->close();
         return $friends;
     }
-
     
 }
 ?>
