@@ -5,7 +5,7 @@
   --color-light: #f5f5f5;
   --color-dark: #1a1a1a;
   --color-accent: #8da2fb;
-  --color-sidebar-bg: #d1b4c6;
+  --color-sidebar-bg: #cadeed;
   --color-sidebar-text: #000000;
 }
 
@@ -297,7 +297,7 @@ small {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   padding: 16px;
   border-radius: 12px;
-  background-color: #cabbcb;
+  background-color: #cadeed;
 }
 
 .card img {
@@ -318,7 +318,7 @@ small {
 .button-container .button {
   display: block;
   padding: 8px;
-  background-color: #f0d2da;
+  background-color: #cadeed;
   text-decoration: none;
   border-radius: 12px;
   margin-top: 8px;
