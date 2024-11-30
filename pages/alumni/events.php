@@ -1,6 +1,15 @@
 <?php
-// Include controller for backend logic
-include '../../config/events_controller.php';
+include '../../config/header.php';
+include '../../config/friendsManager.php';
+include '../../config/connection.php';
+
+$user = getAuthenticatedUser();
+
+$friendsManager = new FriendsManager($conn);
+
+$friends = $friendsManager->getFriends($user['id']);
+
+
 ?>
 
 <!DOCTYPE html>
@@ -122,18 +131,34 @@ include '../../config/events_controller.php';
   </div>
 
   <div class="right-panel">
-    <h2>Friends</h2>
-    <hr class="title-divider">
-    <div class="friend-list">
-      <a href="sendMessagePage.php?friend_name=Friend+Name+1">
-      <div class="friend" onclick="openChat('Friend Name')">
-        <img src="../../assets/profile.jpg" alt="Friend Profile Picture">
-        <span>Friend Name 1</span>
-      </div>
+        <h2>Friends</h2>
+        <hr class="title-divider">
+        <div class="friend-list">
+            <?php if (!empty($friends)): ?>
+                <?php foreach ($friends as $friend): ?>
+                    <div class="friend-item">
+                        <div class="friend-avatar">
+                            <?php if (!empty($friend['profile_picture'])): ?>
+                                <img src="data:image/jpeg;base64,<?php echo base64_encode($friend['profile_picture']); ?>" 
+                                    alt="<?php echo htmlspecialchars($friend['first_name']); ?>'s Profile Picture" 
+                                    style="max-width: 50px; border-radius: 50%;">
+                            <?php else: ?>
+                                <img src="../../assets/profileIcon.jpg" 
+                                    alt="Default Avatar" 
+                                    style="max-width: 50px; border-radius: 50%;">
+                            <?php endif; ?>
+                        </div>
+                        <div class="friend-info">
+                            <h4><?php echo htmlspecialchars($friend['first_name'] . ' ' . $friend['last_name']); ?></h4>
+                            <p><?php echo htmlspecialchars($friend['email']); ?></p>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <p>No friends found.</p>
+            <?php endif; ?>
+        </div>
     </div>
-  </div>
-
-
 
   <script>
     // Search functionality
