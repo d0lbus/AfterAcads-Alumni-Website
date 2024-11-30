@@ -1,12 +1,17 @@
+<?php
+// Include controller for backend logic
+include '../../config/notifications_controller.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Job Opportunity - View</title>
+  <title>Notifications</title>
   <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css" />
-  <link rel="stylesheet" href="../../style/view-opportunities.css" />
+  <link rel="stylesheet" href="../../style/notifications.css" />
 </head>
 
 <body>
@@ -15,19 +20,19 @@
       <div class="brand-flex">
         <div class="brand-icon">
           <a href="javascript:void(0)" id="sidebarToggle">
-            <span><img src="../assets/bars1.png" width="24px" alt="bars" /></span>
+            <span><img src="../../assets/bars1.png" width="24px" alt="bars" /></span>
           </a>
         </div>
       </div>
     </div>
     <div class="sidebar-content">
       <div class="sidebar-user">
-        <a href="../pages/viewProfile.php">
-          <img src="../assets/display-photo.png" alt="Profile Picture" />
+        <a href="../../pages/alumni/viewProfile.php">
+          <img src="../../assets/profileIcon.jpg" alt="Profile Picture" />
         </a>
         <div>
-          <h3>User Name</h3>
-          <span>user@example.com</span>
+          <h3><?php echo htmlspecialchars($user['first_name'] . ' ' . $user['last_name']); ?></h3>
+          <span><?php echo htmlspecialchars($user['email']); ?></span>
         </div>
       </div>
       <div class="sidebar-menu">
@@ -43,37 +48,29 @@
     </div>
   </div>
 
-  <!-- Main Content Area -->
   <div class="main-content">
     <header>
-      <img src="../assets/alumnilogo.png" alt="logo" class="logo-header" />
-      <img src="../assets/afteracadstext.png" alt="AfterAcads" class="after-acads-text" />
+      <a href="../pages/alumni/shareExperience.php">
+          <img src="../../assets/logo.png" alt="logo" class="logo-header" />
+      </a>
     </header>
 
     <main>
       <div class="page-header">
-        <h1>Job Opportunity</h1>
-        <small>{Details about the job you are interested in}</small>
-
-        <div class="job-detail-container">
-          <div class="job-detail">
-            <div class="company-logo">
-              <img src="../assets/company-logo.png" alt="Company Logo">
-            </div>
-            <div class="job-details">
-              <h2>Software Engineer</h2> <!-- Job Title -->
-              <p><strong>Company:</strong> {XYZ Corp}</p>
-              <p><strong>Location:</strong> {LOCATION}</p>
-              <p><strong>Description:</strong> {DESCIPTION}</p>
-              <p><strong>Requirements:</strong> {REQUIREMENTS}</p>
-              <p><strong>How to Apply:</strong> Send your resume and cover letter to <a href="">{EMAIL}</a>.</p>
-            </div>
-            <div class="button-container">
-              <a href="apply.php?job_id=1" class="button">APPLY NOW</a>
-            </div>
-          </div>
-        </div>
+        <h1>Notifications</h1>
+        <small>View your recent notifications</small>
       </div>
+
+      <div class="notification-container">
+        <!-- Sample notification card -->
+        <div class="notification-card">
+          <div class="notification-content">
+            <h3>Sample Notification Title</h3>
+            <p>This is an example of a notification message. It provides the details for this notification.</p>
+          </div>
+          <span class="notification-timestamp">2024-11-30 14:30</span>
+        </div>
+      </div>      
     </main>
   </div>
 
@@ -81,20 +78,22 @@
     <h2>Friends</h2>
     <hr class="title-divider">
     <div class="friend-list">
-        <div class="friend">
-            <img src="../../assets/profile.jpg" alt="Friend Profile Picture">
-            <span>Friend Name 1</span>
-        </div>
+      <a href="sendMessagePage.php?friend_name=Friend+Name+1">
+      <div class="friend" onclick="openChat('Friend Name')">
+        <img src="../../assets/profile.jpg" alt="Friend Profile Picture">
+        <span>Friend Name 1</span>
+      </div>
     </div>
   </div>
 
   <script>
+    // Responsive Sidebar
     document.addEventListener("DOMContentLoaded", function() {
       const sidebar = document.querySelector(".sidebar");
       const toggleButton = document.getElementById("sidebarToggle");
 
       toggleButton.addEventListener("click", function() {
-        sidebar.classList.toggle("minimized");
+          sidebar.classList.toggle("minimized");
       });
     });
   </script>
