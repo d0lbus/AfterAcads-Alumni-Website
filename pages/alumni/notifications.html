@@ -62,16 +62,15 @@ include '../../config/notifications_controller.php';
       </div>
 
       <div class="notification-container">
-        <?php while ($notification = $notifications_result->fetch_assoc()): ?>
-          <div class="notification-card">
-            <div class="notification-content">
-              <h3><?php echo htmlspecialchars($notification['title']); ?></h3>
-              <p><?php echo htmlspecialchars($notification['message']); ?></p>
-            </div>
-            <span class="notification-timestamp"><?php echo htmlspecialchars($notification['timestamp']); ?></span>
+        <!-- Sample notification card -->
+        <div class="notification-card">
+          <div class="notification-content">
+            <h3>Sample Notification Title</h3>
+            <p>This is an example of a notification message. It provides the details for this notification.</p>
           </div>
-        <?php endwhile; ?>
-      </div>
+          <span class="notification-timestamp">2024-11-30 14:30</span>
+        </div>
+      </div>      
     </main>
   </div>
 
