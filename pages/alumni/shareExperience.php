@@ -191,31 +191,36 @@ $friends = $friendsManager->getFriends($user['id']);
     <div class="right-panel">
         <h2>Friends</h2>
         <hr class="title-divider">
-        <div class="friend-list">
-            <?php if (!empty($friends)): ?>
-                <?php foreach ($friends as $friend): ?>
-                    <div class="friend-item">
-                        <div class="friend-avatar">
-                            <?php if (!empty($friend['profile_picture'])): ?>
-                                <img src="data:image/jpeg;base64,<?php echo base64_encode($friend['profile_picture']); ?>" 
-                                    alt="<?php echo htmlspecialchars($friend['first_name']); ?>'s Profile Picture" 
-                                    style="max-width: 50px; border-radius: 50%;">
-                            <?php else: ?>
-                                <img src="../../assets/profileIcon.jpg" 
-                                    alt="Default Avatar" 
-                                    style="max-width: 50px; border-radius: 50%;">
-                            <?php endif; ?>
+            <div class="friend-list">
+                <?php if (!empty($friends)): ?>
+                    <?php foreach ($friends as $friend): ?>
+                        <div class="friend-item">
+                            <div class="friend-avatar">
+                                <?php if (!empty($friend['profile_picture'])): ?>
+                                    <img src="data:image/jpeg;base64,<?php echo base64_encode($friend['profile_picture']); ?>" 
+                                        alt="<?php echo htmlspecialchars($friend['first_name']); ?>'s Profile Picture" 
+                                        style="max-width: 50px; border-radius: 50%;">
+                                <?php else: ?>
+                                    <img src="../../assets/profileIcon.jpg" 
+                                        alt="Default Avatar" 
+                                        style="max-width: 50px; border-radius: 50%;">
+                                <?php endif; ?>
+                            </div>
+                            <div class="friend-info">
+                                <h4>
+                                    <!-- Make the name a clickable link -->
+                                    <a href="viewProfile.php?user_id=<?php echo $friend['id']; ?>">
+                                        <?php echo htmlspecialchars($friend['first_name'] . ' ' . $friend['last_name']); ?>
+                                    </a>
+                                </h4>
+                                <p><?php echo htmlspecialchars($friend['email']); ?></p>
+                            </div>
                         </div>
-                        <div class="friend-info">
-                            <h4><?php echo htmlspecialchars($friend['first_name'] . ' ' . $friend['last_name']); ?></h4>
-                            <p><?php echo htmlspecialchars($friend['email']); ?></p>
-                        </div>
-                    </div>
-                <?php endforeach; ?>
-            <?php else: ?>
-                <p>No friends found.</p>
-            <?php endif; ?>
-        </div>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <p>No friends found.</p>
+                <?php endif; ?>
+            </div>
     </div>
 
     <script>

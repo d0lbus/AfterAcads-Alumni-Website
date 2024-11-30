@@ -4,10 +4,9 @@ session_start();
 include 'connection.php'; 
 
 if (!isset($_SESSION['email'])) {
-    header("Location: ../pages/alumni/loginpage.php");
+    header("Location: ../../pages/alumni/loginpage.php");
     exit();
 }
-
 
 
 // Fetch the logged-in user's details

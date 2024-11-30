@@ -1,6 +1,5 @@
 <?php
 include '../../config/header.php'; 
-include '../../config/header.php';
 include '../../config/friendsManager.php';
 include '../../config/connection.php';
 

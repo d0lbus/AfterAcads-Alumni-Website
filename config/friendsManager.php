@@ -3,6 +3,7 @@
 // source: https://stackoverflow.com/questions/2542800/how-to-make-an-add-friend-defriend-function-in-php
 // source: https://www.youtube.com/watch?v=Rf4gFHhUaz4
 
+
 class friendsManager {
     private $conn;
 
