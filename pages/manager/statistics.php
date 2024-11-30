@@ -30,7 +30,7 @@
                 <li><a href="../../pages/manager/statistics.php">Statistics</a></li>
                 </ul>
                 <div class="profile">
-                    <li><a href="../../pages/manager/profile.html"><img class="profile-img" src="../../assets/display-photo.png"
+                    <li><a href="../../pages/manager/managerProfile.html"><img class="profile-img" src="../../assets/display-photo.png"
                                 alt="Profile" /></a></li>
                 </div>
                 </div>
