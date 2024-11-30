@@ -92,33 +92,14 @@ if ($friendStatus === 'not_friends') {
             </div>
 
             <div class="sidebar-menu">
-                <ul>
-                    <li>
-                        <a href="shareExperience.php">
-                            <span>
-                                <img
-                                    src="../../assets/home1.png"
-                                    width="20px"
-                                    alt="Home" />
-                            </span>Home</a>
-                    </li>
-                    <li><a href="events.php"><span><img
-                                    src="../../assets/event1.png"
-                                    width="20px"
-                                    alt="Events" /></span>Events</a>
-                    </li>
-                    <li><a href="opportunities.php"><span><img src="../../assets/opportunities.png" width="20px" alt="Opportunities" /></span>Opportunities</a></li>
-                    <li><a href="settings.php"><span><img
-                                    src="../../assets/setting1.png"
-                                    width="20px"
-                                    alt="Settings" /></span>Settings</a>
-                    </li>
-                    <li><a href="loginpage.php"><span><img
-                                    src="../../assets/logout1.png"
-                                    width="20px"
-                                    alt="Logout" /></span>Logout</a>
-                    </li>
-                </ul>
+            <ul>
+          <li><a href="../../pages/alumni/shareExperience.php"><span><img src="../../assets/home1.png" width="20px" alt="Home" /></span>Home</a></li>
+          <li><a href="../../pages/alumni/events.php"><span><img src="../../assets/event1.png" width="20px" alt="Events" /></span>Events</a></li>
+          <li><a href="../../pages/alumni/opportunities.php"><span><img src="../../assets/opportunities.png" width="20px" alt="Opportunities" /></span>Opportunities</a></li>
+          <li><a href="../../pages/alumni/notifications.php"><span><img src="../../assets/notification-removebg-preview.png" width="20px" alt="Notifications" /></span>Notifications</a></li>
+          <li><a href="../../pages/alumni/settings.php"><span><img src="../../assets/setting1.png" width="20px" alt="Settings" /></span>Settings</a></li>
+          <li><a href="../../pages/alumni/loginpage.php"><span><img src="../../assets/logout1.png" width="20px" alt="Logout" /></span>Logout</a></li>
+        </ul>
             </div>
         </div>
     </div>
