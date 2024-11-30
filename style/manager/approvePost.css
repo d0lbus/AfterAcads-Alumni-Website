@@ -18,62 +18,6 @@
   padding: 0;
 }
 
-.logo {
-  width: 90px;
-  height: 90px;
-}
-
-img.afteracadstext {
-  width: 200px; 
-  height: auto; 
-  display: inline-block;
-  object-fit: contain;
-}
-
-.container {
-  padding: 20px;
-}
-
-/* Main content styles */
-.main-content {
-  margin-left: 280px;
-  padding: 1.5rem;
-  transition: margin-left 0.3s ease;
-}
-
-/* General Reset */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-/* Body and layout */
-body {
-  font-family: Arial, sans-serif;
-  line-height: 1.6;
-  background-color: #f4f4f4;
-  color: #333;
-}
-
-.container {
-  margin-top: 60px;
-}
-
-.profile {
-  display: flex;
-  align-items: center;
-  margin-top: 10px;
-}
-
-.profile-img {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  margin-right: 15px;
-  border: 2px solid var(--color-accent);
-}
-
 header {
   display: flex;
   align-items: center;
@@ -86,11 +30,17 @@ header {
   z-index: 1000;
   height: 100px;
 }
-header img {
-  width: 50px;
-  height: auto;
-  margin-right: 20px;
+
+img.afteracadstext {
+  width: 200px; 
+  height: auto; 
   display: inline-block;
+  object-fit: contain;
+}
+
+.container {
+  padding: 20px;
+  margin-top: 50px; 
 }
 
 .nav-links {
@@ -126,15 +76,18 @@ header img {
   outline: none;
 }
 
-/* Page header and main content */
-.page-header {
-  background-color: #fff;
-  padding: 20px;
-  margin-top: 80px; 
+.profile {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
 }
 
-.page-header h1 {
-  font-size: 28px;
+.profile-img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  margin-right: 15px;
+  border: 2px solid var(--color-accent);
 }
 
 .posts-section {

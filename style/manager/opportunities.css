@@ -5,6 +5,8 @@
   --color-light: #f5f5f5;
   --color-dark: #1a1a1a;
   --color-accent: #8da2fb;
+  --color-sidebar-bg: #d1b4c6;
+  --color-sidebar-text: #000000;
 }
 
 * {
@@ -14,11 +16,6 @@
   list-style-type: none;
   margin: 0;
   padding: 0;
-}
-
-body {
-  background-color: #f4f4f4;
-  color: #333;
 }
 
 /* Header and Navigation Bar */
@@ -35,11 +32,6 @@ header {
   height: 100px;
 }
 
-.logo {
-  width: 90px;
-  height: 90px;
-}
-
 img.afteracadstext {
   width: 200px;
   height: auto;
@@ -47,7 +39,14 @@ img.afteracadstext {
   object-fit: contain;
 }
 
+/* Page Layout */
+.container {
+  padding: 20px;
+  margin-top: 50px;  /* Adjusted to directly compensate for header height */
+}
+
 .nav-links {
+  list-style: none;
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -75,39 +74,117 @@ img.afteracadstext {
   background-color: #007bff;
 }
 
+.nav-links li a:focus {
+  outline: none;
+}
+
 .profile {
   display: flex;
   align-items: center;
+  margin-top: 10px;
 }
 
 .profile-img {
   width: 60px;
   height: 60px;
   border-radius: 50%;
+  margin-right: 15px;
   border: 2px solid var(--color-accent);
 }
 
-/* Page Layout */
-.container {
+.opportunities-section {
+  margin-top: 120px; 
+  background-color: var(--color-light);
+  border-radius: 8px;
   padding: 20px;
-  margin-top: 50px;  /* Adjusted to directly compensate for header height */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-/* Page Header */
-.page-header {
-  background-color: #fff;
-  padding: 20px;
-  margin-top: -20px;  /* Negative margin to pull the header closer to the content */
-  margin-bottom: 0;   /* Eliminate bottom margin */
+.search-and-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; 
+  margin-bottom: 20px;
+  gap: 10px; 
 }
 
-.page-header h1 {
-  font-size: 28px;
-  color: var(--color-main);  /* Ensure there's no margin pushing the table further down */
+.search-input {
+  border: none;
+  outline: none;
+  padding: 10px;
+  font-size: 1rem;
+  border-radius: 12px;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+  width: 200px;
 }
 
-/* Event Table */
-.event-table {
+.button-group {
+  display: flex;
+  gap: 10px;
+}
+
+.btn {
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  border-radius: 5px;
+  font-weight: 500;
+  background-color: var(--color-light);
+  color: var(--color-dark);
+  transition: background-color 0.3s ease, color 0.3s ease; 
+}
+
+.button-group .btn.add {
+  background-color: #003f91; 
+  color: white;
+}
+
+.button-group .btn.delete {
+    background-color: #003f91; /* Amber for Add opportunitiess */
+    color: white;
+}
+
+.button-group .btn:hover {
+  background-color: #b7d0e1;
+  color: var(--color-dark);
+}
+
+.button-container {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end; /* Aligns buttons to the right */
+  position: relative;
+  margin-top: 20px; /* Adds space between the table and buttons */
+}
+
+.button-container .btn {
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s, opacity 0.3s;
+  border: none;
+  flex-shrink: 0; /* Propportunities buttons from shrinking */
+}
+
+.button-container .btn.post:hover {
+  background-color: #b7d0e1;
+  color: var(--color-dark);
+}
+
+.button-container .btn.post {
+  background-color: #003f91;
+  color: white;
+}
+
+/* .button-container .btn.edit {
+  background-color: #f0a500; 
+  color: white;
+} */
+
+/* opportunities Table */
+.opportunities-table {
   width: 100%;
   border-collapse: collapse;
   background-color: white;
@@ -115,91 +192,39 @@ img.afteracadstext {
   overflow: hidden;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   table-layout: fixed;
-  margin-top: 0;  /* Ensures no space above the table */
 }
 
-.event-table th,
-.event-table td {
+.opportunities-table th,
+.opportunities-table td {
   text-align: left;
   padding: 10px;
   border-bottom: 1px solid #ddd;
+  width: auto;
   word-wrap: break-word;
 }
 
-.event-table th {
+.opportunities-table th {
   background-color: var(--color-main);
   color: var(--color-light);
 }
 
-.event-table tr:hover {
+.opportunities-table td {
+  background-color: var(--color-light);
+  color: var(--color-dark);
+}
+
+.opportunities-table tr:hover {
   background-color: #f0f0f0;
 }
 
-/* Button Group */
-.button-group {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-    margin-top: 0; 
-    margin-bottom: 20px;
-    justify-content: flex-end;
+.opportunities-table td {
+  background-color: transparent;
 }
 
-.button-group .btn {
-  padding: 10px 20px;
-  border-radius: 5px;
-  font-size: 14px;
-  cursor: pointer;
-  transition: background-color 0.3s, opacity 0.3s;
-  border: none;
-  flex-shrink: 0; /* Prevent buttons from shrinking */
+.opportunities-table td:hover {
+  background-color: transparent;
 }
 
-.button-group .btn:hover {
-  opacity: 0.9;
-}
 
-/* Specific button styles */
-.button-group .btn.add {
-  background-color: #003f91; /* Amber for Add Events */
-  color: white;
-}
-
-.button-group .btn.delete {
-    background-color: #003f91; /* Amber for Add Events */
-    color: white;
-  }
-
-.button-container {
-    display: flex;
-    gap: 10px;
-    justify-content: flex-end; /* Aligns buttons to the right */
-    position: relative;
-    margin-top: 20px; /* Adds space between the table and buttons */
-}
-
-.button-container .btn {
-    padding: 10px 20px;
-    border-radius: 5px;
-    font-size: 14px;
-    cursor: pointer;
-    transition: background-color 0.3s, opacity 0.3s;
-    border: none;
-    flex-shrink: 0; /* Prevent buttons from shrinking */
-}
-
-.button-container .btn:hover {
-    opacity: 0.9;
-}
-
-.button-container .btn.post {
-    background-color: #003f91; /* Blue for Mark as Done */
-    color: white;
-}
-
-/* .button-container .btn.edit {
-    background-color: #f0a500; 
-    color: white;
-} */
 
 

@@ -20,8 +20,9 @@
                 <li><a href="../../pages/manager/home.html">Home</a></li>
                 <li><a href="../../pages/manager/Registrants.html">Registrants</a></li>
                 <li><a href="../../pages/manager/approvePost.html">Posts</a></li>
-                <li><a href="../../pages/manager/upcomingEvents.html">Events</a></li>
+                <li><a href="../../pages/manager/eventsDashboard.html">Events</a></li>
                 <li><a href="../../pages/manager/opportunities.html">Opportunities</a></li>
+                <li><a href="../../pages/manager/notifications.html">Notifications</a></li>
                 <li><a href="../../pages/manager/statistics.php">Statistics</a></li>
             </ul>
             <div class="profile">
@@ -30,47 +31,46 @@
         </header>
     </section>
 
-    <div class="events-section container">
-        <div class="posts-section container">
+    <div class="opportunities-section container">
+        <div class="search-and-buttons">
+            <input type="text" class="search-input" placeholder="Search..." />
             <div class="button-group">
-                <a href="addEvents.html" class="btn add">Add Events</a>
-                <a href="addEvents.html" class="btn delete">Delete Events</a>
+                <button class="btn add">Add Opportunity</button>
+                <button class="btn delete">Delete Opportunity</button>
             </div>  
+        </div>
 
         <!-- Table for Upcoming Events -->
-        <table class="event-table">
+        <table class="opportunities-table">
             <thead>
               <tr>
-                <th><input type="checkbox" class="event-checkbox"></th>
+                <th><input type="checkbox" class="opportunities-checkbox"></th>
                 <th>Job Title</th>
                 <th>Company</th>
                 <th>Location</th>
                 <th>Description</th>
                 <th>Date Created</th>
                 <th>Time Created</th>
-                <th>Status</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td><input type="checkbox" class="event-checkbox"></td>
+                <td><input type="checkbox" class="opportunities-checkbox"></td>
                 <td>Web Developer</td>
                 <td>SLU</td>
                 <td>Baguio City</td>
                 <td>We are hiring!!</td>
                 <td>Nov 28, 2024</td>
                 <td>12:00 am</td>
-                <td>Posted</td>
               </tr>
               <tr>
-                <td><input type="checkbox" class="event-checkbox"></td>
+                <td><input type="checkbox" class="opportunities-checkbox"></td>
                 <td>Frontend</td>
                 <td>SLU</td>
                 <td>Baguio City</td>
                 <td>We are hiring!!</td>
                 <td>Nov 28, 2024</td>
                 <td>12:00 am</td>
-                <td>Pending</td>
               </tr>
             </tbody>
           </table>    
