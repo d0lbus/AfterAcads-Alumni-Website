@@ -1,0 +1,103 @@
+<?php
+// Include controller for backend logic
+include '../../config/notifications_controller.php';
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Notifications</title>
+  <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css" />
+  <link rel="stylesheet" href="../../style/notifications.css" />
+</head>
+
+<body>
+  <div class="sidebar">
+    <div class="sidebar-brand">
+      <div class="brand-flex">
+        <div class="brand-icon">
+          <a href="javascript:void(0)" id="sidebarToggle">
+            <span><img src="../../assets/bars1.png" width="24px" alt="bars" /></span>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="sidebar-content">
+      <div class="sidebar-user">
+        <a href="../../pages/alumni/viewProfile.php">
+          <img src="../../assets/profileIcon.jpg" alt="Profile Picture" />
+        </a>
+        <div>
+          <h3><?php echo htmlspecialchars($user['first_name'] . ' ' . $user['last_name']); ?></h3>
+          <span><?php echo htmlspecialchars($user['email']); ?></span>
+        </div>
+      </div>
+      <div class="sidebar-menu">
+        <ul>
+          <li><a href="../../pages/alumni/shareExperience.php"><span><img src="../../assets/home1.png" width="20px" alt="Home" /></span>Home</a></li>
+          <li><a href="../../pages/alumni/events.php"><span><img src="../../assets/event1.png" width="20px" alt="Events" /></span>Events</a></li>
+          <li><a href="../../pages/alumni/opportunities.php"><span><img src="../../assets/opportunities.png" width="20px" alt="Opportunities" /></span>Opportunities</a></li>
+          <li><a href="../../pages/alumni/notifications.php"><span><img src="../../assets/notification-removebg-preview.png" width="20px" alt="Notifications" /></span>Notifications</a></li>
+          <li><a href="../../pages/alumni/settings.php"><span><img src="../../assets/setting1.png" width="20px" alt="Settings" /></span>Settings</a></li>
+          <li><a href="../../pages/alumni/loginpage.php"><span><img src="../../assets/logout1.png" width="20px" alt="Logout" /></span>Logout</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="main-content">
+    <header>
+      <a href="../pages/alumni/shareExperience.php">
+          <img src="../../assets/logo.png" alt="logo" class="logo-header" />
+      </a>
+    </header>
+
+    <main>
+      <div class="page-header">
+        <h1>Notifications</h1>
+        <small>View your recent notifications</small>
+      </div>
+
+      <div class="notification-container">
+        <?php while ($notification = $notifications_result->fetch_assoc()): ?>
+          <div class="notification-card">
+            <div class="notification-content">
+              <h3><?php echo htmlspecialchars($notification['title']); ?></h3>
+              <p><?php echo htmlspecialchars($notification['message']); ?></p>
+            </div>
+            <span class="notification-timestamp"><?php echo htmlspecialchars($notification['timestamp']); ?></span>
+          </div>
+        <?php endwhile; ?>
+      </div>
+    </main>
+  </div>
+
+  <div class="right-panel">
+    <h2>Friends</h2>
+    <hr class="title-divider">
+    <div class="friend-list">
+      <a href="sendMessagePage.php?friend_name=Friend+Name+1">
+      <div class="friend" onclick="openChat('Friend Name')">
+        <img src="../../assets/profile.jpg" alt="Friend Profile Picture">
+        <span>Friend Name 1</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Responsive Sidebar
+    document.addEventListener("DOMContentLoaded", function() {
+      const sidebar = document.querySelector(".sidebar");
+      const toggleButton = document.getElementById("sidebarToggle");
+
+      toggleButton.addEventListener("click", function() {
+          sidebar.classList.toggle("minimized");
+      });
+    });
+  </script>
+</body>
+
+</html>
