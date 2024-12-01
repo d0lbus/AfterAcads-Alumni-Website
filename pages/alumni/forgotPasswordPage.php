@@ -18,13 +18,13 @@
             <h1>Forgot Password</h1>
             <p>Please enter your <b>email address</b> to reset your password</p>
         
-            <form action="../../pages/alumni/forgotPWCodePage.php" method="POST">
-                <label for="emailOrPhone"></label>
-                <input type="text" id="emailOrPhone" name="emailOrPhone" placeholder="Email or Phone" required />
+            <form action="#" method="POST">
+                <label for="Email"></label>
+                <input type="email" id="email" name="email" placeholder="Enter Your Email" required />
 
                 <div class="button-group">
                     <button class="buttonsize cancel-btn" type="button" onclick="window.location.href='loginpage.php'">Cancel</button>
-                    <button class="buttonsize send-btn" type="submit">Send</button>
+                    <button class="buttonsize send-btn" type="submit" onclick="window.location.href='forgotPWCodePage.php'" name="sendResetCode">Send</button>
                 </div>
             </form>
         </div>

@@ -19,16 +19,32 @@
             <p>We sent a code to <b>your-email@example.com</b></p>
 
             <!-- Code Input -->
-            <div class="code-inputs">
+            <!-- <div class="code-inputs">
                 <input type="text" maxlength="1" class="code-box" required />
                 <input type="text" maxlength="1" class="code-box" required />
                 <input type="text" maxlength="1" class="code-box" required />
                 <input type="text" maxlength="1" class="code-box" required />
             </div>
 
-            <button class="buttonsize continue-btn" type="button">Continue</button>
+            <button class="buttonsize continue-btn" type="button">Continue</button> -->
+
+            <div class="code-inputs">
+                <form action="#" method="POST">
+                    <input type="text" id="code" name="code" maxlength="1" class="code-box" required />
+                    <input type="text" id="code" name="code" maxlength="1" class="code-box" required />
+                    <input type="text" id="code" name="code" maxlength="1" class="code-box" required />
+                    <input type="text" id="code" name="code" maxlength="1" class="code-box" required />
+                    <!-- <input type="hidden" name="email" value="<?php echo $_GET['email']; ?>" /> -->
+
+                    <div class="continue-btn-container">
+                        <button class="buttonsize continue-btn" type="submit" onclick="window.location.href='resetPasswordPage.php'" name="verifyCode">Continue</button>
+                    </div>
+                    
+                </form>
+            </div>
+
             <p>
-            Didn’t receive the email? <a href="#" class="resend-link">Click to resend</a>
+            Didn’t receive the email? <a href="forgotPasswordPage.php" class="resend-link">Click to resend</a>
             </p>
             <a href="loginpage.php" class="back-link">← Back to log in</a>
         </div>

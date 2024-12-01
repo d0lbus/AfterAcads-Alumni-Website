@@ -77,6 +77,10 @@ body {
     border-color: #009688;
     box-shadow: 0 0 5px rgba(0, 150, 136, 0.5);
   }
+
+  .continue-btn-container {
+    margin-top: 20px;
+  }
   
   .continue-btn {
     background-color: #009688;
