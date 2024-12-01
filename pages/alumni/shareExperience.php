@@ -158,14 +158,17 @@ $friends = $friendsManager->getFriends($user['id']);
             <div id="commentsModal" class="modal" style="display: none;">
                 <div class="modal-content">
                     <span class="close-modal" onclick="document.getElementById('commentsModal').style.display='none'">&times;</span>
-                    <h2>Comments</h2>
-                    <div id="commentsContainer" class="comments-container">
+                    <h2 class="modal-title">Comments</h2>
+                    <div class="comments-container" id="commentsContainer">
                         <!-- Comments will be dynamically loaded here -->
                     </div>
-                    <textarea id="commentInput" placeholder="Write a comment..."></textarea>
-                    <button id="submitCommentButton">Submit</button>
+                    <div class="comment-input-section">
+                        <textarea id="commentInput" class="comment-input" placeholder="Write a comment..."></textarea>
+                        <button id="submitCommentButton" class="submit-comment-button">Submit</button>
+                    </div>
                 </div>
             </div>
+
         </main>
     </div>
 
@@ -206,9 +209,6 @@ $friends = $friendsManager->getFriends($user['id']);
 
     <script>
     document.addEventListener("DOMContentLoaded", function () {
-        console.log("commentsModal:", document.getElementById("commentsModal"));
-        console.log("commentsContainer:", document.getElementById("commentsContainer"));
-
         const sidebar = document.querySelector(".sidebar");
         const toggleButton = document.getElementById("sidebarToggle");
 
@@ -342,7 +342,6 @@ $friends = $friendsManager->getFriends($user['id']);
                     const postsContainer = document.getElementById("postsContainer");
                     postsContainer.innerHTML = ""; // Clear previous posts
                     posts.forEach((post) => {
-                        console.log(post); 
                         const postElement = document.createElement("div");
                         postElement.classList.add("post");
                         postElement.innerHTML = `
@@ -495,7 +494,6 @@ $friends = $friendsManager->getFriends($user['id']);
 
     // View and Create Comments Modal
     function viewComments(postId) {
-        console.log(`Fetching comments for post ID: ${postId}`);
         const modal = document.getElementById("commentsModal");
         const commentsContainer = document.getElementById("commentsContainer");
 
@@ -546,9 +544,6 @@ $friends = $friendsManager->getFriends($user['id']);
                     alert("Comment cannot be empty!");
                     return;
                 }
-
-                // Log the data being sent to the backend
-                console.log({ post_id: postId, comment });
 
                 // Send the comment to the server
                 fetch("../../config/alumni/create_comment.php", {
