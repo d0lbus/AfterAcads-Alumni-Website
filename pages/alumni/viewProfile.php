@@ -101,7 +101,15 @@ if ($friendStatus === 'not_friends') {
           <li><a href="../../pages/alumni/opportunities.php"><span><img src="../../assets/opportunities.png" width="20px" alt="Opportunities" /></span>Opportunities</a></li>
           <li><a href="../../pages/alumni/notifications.php"><span><img src="../../assets/notification-removebg-preview.png" width="20px" alt="Notifications" /></span>Notifications</a></li>
           <li><a href="../../pages/alumni/settings.php"><span><img src="../../assets/setting1.png" width="20px" alt="Settings" /></span>Settings</a></li>
-          <li><a href="javascript:void(0);" onclick="confirmLogout()"><span><img src="../../assets/logout1.png" width="20px" alt="Logout" /></span>Logout</a></li>
+          <li>
+                <form action="../../config/general/logout.php" method="post" onclick="confirmLogout()" style="margin: 0;">
+                    <button type="submit" class="logout-button">
+                        <span>
+                            <img src="../../assets/logout1.png" width="20px" alt="Logout" />
+                        </span>Logout
+                    </button>
+                </form>
+          </li>
         </ul>
             </div>
         </div>
@@ -220,7 +228,7 @@ if ($friendStatus === 'not_friends') {
     <div id="contactModal" class="modal">
         <div class="modal-content">
             <span class="close-button">&times;</span>
-            <h3> User's Contact Details</h3>
+            <h3> <?php echo htmlspecialchars($target_user['first_name'] . ' ' . $target_user['last_name']); ?>'s Contact Details </h3>
             <p><strong>Email:</strong> <?php echo htmlspecialchars($target_user['email']); ?> </p>
             <p><strong>Address:</strong> <?php echo isset($target_user['address']) ? htmlspecialchars($target_user['address']) : '(Not provided)'; ?> </p>
 
