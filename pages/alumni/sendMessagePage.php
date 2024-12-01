@@ -77,7 +77,15 @@ if (isset($_GET['chat_with']) && !empty($_GET['chat_with'])) {
           <li><a href="../../pages/alumni/opportunities.php"><span><img src="../../assets/opportunities.png" width="20px" alt="Opportunities" /></span>Opportunities</a></li>
           <li><a href="../../pages/alumni/notifications.php"><span><img src="../../assets/notification-removebg-preview.png" width="20px" alt="Notifications" /></span>Notifications</a></li>
           <li><a href="../../pages/alumni/settings.php"><span><img src="../../assets/setting1.png" width="20px" alt="Settings" /></span>Settings</a></li>
-          <li><a href="javascript:void(0);" onclick="confirmLogout()"><span><img src="../../assets/logout1.png" width="20px" alt="Logout" /></span>Logout</a></li>
+          <li>
+          <form action="../../config/general/logout.php" method="post" onclick="confirmLogout()" style="margin: 0;">
+                <button type="submit" class="logout-button">
+                    <span>
+                        <img src="../../assets/logout1.png" width="20px" alt="Logout" />
+                    </span>Logout
+                </button>
+            </form>
+          </li>
         </ul>
             </div>
         </div>
