@@ -27,8 +27,8 @@
                 <li><a href="../../pages/manager/statistics.php">Statistics</a></li>
             </ul>
             <div class="profile">
-                <li><a href="../../pages/manager/managerProfile.html"><img class="profile-img" src="../../assets/profileIcon.jpg"
-                            alt="Profile" /></a></li>
+                <li><a href="../../pages/manager/managerProfile.html"><img class="profile-img"
+                            src="../../assets/profileIcon.jpg" alt="Profile" /></a></li>
             </div>
         </header>
     </section>
@@ -38,7 +38,7 @@
             <input type="text" class="search-input" placeholder="Search..." />
             <div class="button-group">
                 <button class="btn all">All</button>
-            <button class="btn create">Create</button>
+                <button class="btn create">Create</button>
             </div>
         </div>
 
@@ -46,10 +46,25 @@
         <table class="notifications-table" id="notificationsTable">
             <thead>
                 <tr>
-                    <th>Title</th>
+                    <th>Title
+                        <button class="sort-button" data-sort="asc" onclick="toggleSort(this, 2)">
+                            <span class="arrow-up">&#9650;</span>
+                            <span class="arrow-down">&#9660;</span>
+                        </button>
+                    </th>
                     <th>Description</th>
-                    <th>Sent To</th>
-                    <th>Date</th>
+                    <th>Sent To
+                        <button class="sort-button" data-sort="asc" onclick="toggleSort(this, 2)">
+                            <span class="arrow-up">&#9650;</span>
+                            <span class="arrow-down">&#9660;</span>
+                        </button>
+                    </th>
+                    <th>Date
+                        <button class="sort-button" data-sort="asc" onclick="toggleSort(this, 2)">
+                            <span class="arrow-up">&#9650;</span>
+                            <span class="arrow-down">&#9660;</span>
+                        </button>
+                    </th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -59,6 +74,16 @@
                     <td>Hi Notification</td>
                     <td></td>
                     <td>12/02/2024</td>
+                    <td class="action-buttons">
+                        <button class="btn edit">Edit</button>
+                        <button class="btn delete">Delete</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Test2</td>
+                    <td>Zzz</td>
+                    <td>All</td>
+                    <td>12/03/2024</td>
                     <td class="action-buttons">
                         <button class="btn edit">Edit</button>
                         <button class="btn delete">Delete</button>
@@ -205,7 +230,7 @@
         // Show the table, hide the "Create" form
         allButton.addEventListener('click', () => {
             createForm.style.display = 'none';
-            notificationsTable.style.display = 'table'; 
+            notificationsTable.style.display = 'table';
         });
 
         // Close modal when clicking the close button
@@ -236,6 +261,49 @@
             createNotificationForm.reset();
             createForm.style.display = 'none';
             notificationsTable.style.display = 'block';
+        });
+
+    </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const tables = document.querySelectorAll(".notifications-table");
+
+            function sortTable(table, columnIndex, isAscending) {
+                const tbody = table.querySelector("tbody");
+                const rows = Array.from(tbody.rows);
+
+                rows.sort((a, b) => {
+                    const cellA = a.cells[columnIndex].textContent.trim();
+                    const cellB = b.cells[columnIndex].textContent.trim();
+
+                    if (!isNaN(Date.parse(cellA)) && !isNaN(Date.parse(cellB))) {
+                        return isAscending ? new Date(cellA) - new Date(cellB) : new Date(cellB) - new Date(cellA);
+                    }
+
+                    if (!isNaN(cellA) && !isNaN(cellB)) {
+                        return isAscending ? cellA - cellB : cellB - cellA;
+                    }
+
+                    return isAscending ? cellA.localeCompare(cellB) : cellB.localeCompare(cellA);
+                });
+
+                rows.forEach(row => tbody.appendChild(row));
+            }
+
+            function toggleSort(button, table, columnIndex) {
+                const isAscending = button.dataset.sort === "asc";
+                button.dataset.sort = isAscending ? "desc" : "asc";
+                sortTable(table, columnIndex, !isAscending);
+            }
+
+            tables.forEach(table => {
+                const sortButtons = table.querySelectorAll(".sort-button");
+
+                sortButtons.forEach((button, index) => {
+                    button.addEventListener("click", () => toggleSort(button, table, index));
+                });
+            });
         });
 
     </script>

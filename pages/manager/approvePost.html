@@ -50,7 +50,7 @@
                         <button class="sort-button" data-sort="asc" onclick="toggleSort(this, 2)">
                             <span class="arrow-up">&#9650;</span>
                             <span class="arrow-down">&#9660;</span>
-                          </button>
+                        </button>
                     </th>
                     <th>Name</th>
                     <th>Content</th>
@@ -58,7 +58,7 @@
                         <button class="sort-button" data-sort="asc" onclick="toggleSort(this, 2)">
                             <span class="arrow-up">&#9650;</span>
                             <span class="arrow-down">&#9660;</span>
-                          </button>
+                        </button>
                     </th>
                     <th>Action</th>
                 </tr>
@@ -105,7 +105,7 @@
                         <button class="sort-button" data-sort="asc" onclick="toggleSort(this, 2)">
                             <span class="arrow-up">&#9650;</span>
                             <span class="arrow-down">&#9660;</span>
-                          </button>
+                        </button>
                     </th>
                     <th>Name</th>
                     <th>Content</th>
@@ -113,7 +113,7 @@
                         <button class="sort-button" data-sort="asc" onclick="toggleSort(this, 2)">
                             <span class="arrow-up">&#9650;</span>
                             <span class="arrow-down">&#9660;</span>
-                          </button>
+                        </button>
                     </th>
                     <th>Action</th>
                 </tr>
@@ -144,7 +144,7 @@
                         <button class="sort-button" data-sort="asc" onclick="toggleSort(this, 2)">
                             <span class="arrow-up">&#9650;</span>
                             <span class="arrow-down">&#9660;</span>
-                          </button>
+                        </button>
                     </th>
                     <th>Name</th>
                     <th>Content</th>
@@ -152,7 +152,7 @@
                         <button class="sort-button" data-sort="asc" onclick="toggleSort(this, 2)">
                             <span class="arrow-up">&#9650;</span>
                             <span class="arrow-down">&#9660;</span>
-                          </button>
+                        </button>
                     </th>
                 </tr>
             </thead>
@@ -271,48 +271,48 @@
         });
     </script>
 
-<script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const tables = document.querySelectorAll(".post-table");
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const tables = document.querySelectorAll(".post-table");
 
-      function sortTable(table, columnIndex, isAscending) {
-        const tbody = table.querySelector("tbody");
-        const rows = Array.from(tbody.rows);
+            function sortTable(table, columnIndex, isAscending) {
+                const tbody = table.querySelector("tbody");
+                const rows = Array.from(tbody.rows);
 
-        rows.sort((a, b) => {
-          const cellA = a.cells[columnIndex].textContent.trim();
-          const cellB = b.cells[columnIndex].textContent.trim();
+                rows.sort((a, b) => {
+                    const cellA = a.cells[columnIndex].textContent.trim();
+                    const cellB = b.cells[columnIndex].textContent.trim();
 
-          if (!isNaN(Date.parse(cellA)) && !isNaN(Date.parse(cellB))) {
-            return isAscending ? new Date(cellA) - new Date(cellB) : new Date(cellB) - new Date(cellA);
-          }
+                    if (!isNaN(Date.parse(cellA)) && !isNaN(Date.parse(cellB))) {
+                        return isAscending ? new Date(cellA) - new Date(cellB) : new Date(cellB) - new Date(cellA);
+                    }
 
-          if (!isNaN(cellA) && !isNaN(cellB)) {
-            return isAscending ? cellA - cellB : cellB - cellA;
-          }
+                    if (!isNaN(cellA) && !isNaN(cellB)) {
+                        return isAscending ? cellA - cellB : cellB - cellA;
+                    }
 
-          return isAscending ? cellA.localeCompare(cellB) : cellB.localeCompare(cellA);
+                    return isAscending ? cellA.localeCompare(cellB) : cellB.localeCompare(cellA);
+                });
+
+                rows.forEach(row => tbody.appendChild(row));
+            }
+
+            function toggleSort(button, table, columnIndex) {
+                const isAscending = button.dataset.sort === "asc";
+                button.dataset.sort = isAscending ? "desc" : "asc";
+                sortTable(table, columnIndex, !isAscending);
+            }
+
+            tables.forEach(table => {
+                const sortButtons = table.querySelectorAll(".sort-button");
+
+                sortButtons.forEach((button, index) => {
+                    button.addEventListener("click", () => toggleSort(button, table, index));
+                });
+            });
         });
 
-        rows.forEach(row => tbody.appendChild(row));
-      }
-
-      function toggleSort(button, table, columnIndex) {
-        const isAscending = button.dataset.sort === "asc";
-        button.dataset.sort = isAscending ? "desc" : "asc";
-        sortTable(table, columnIndex, !isAscending);
-      }
-
-      tables.forEach(table => {
-        const sortButtons = table.querySelectorAll(".sort-button");
-
-        sortButtons.forEach((button, index) => {
-          button.addEventListener("click", () => toggleSort(button, table, index));
-        });
-      });
-    });
-
-  </script>
+    </script>
 </body>
 
 </html>
