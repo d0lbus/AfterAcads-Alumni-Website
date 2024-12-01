@@ -126,6 +126,12 @@ if ($result->num_rows > 0) {
                 sidebar.classList.toggle("minimized");
             });
         });
+
+        function confirmLogout() {
+        if (confirm("Are you sure you want to logout?")) {
+            window.location.href = "../../pages/alumni/loginpage.php";
+        }
+    }
     </script>
     <div class="right-panel">
         <h2>Friends</h2>

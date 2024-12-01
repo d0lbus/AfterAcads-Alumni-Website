@@ -202,6 +202,12 @@ if ($query) {
                 }
             });
 
+            function confirmLogout() {
+        if (confirm("Are you sure you want to logout?")) {
+            window.location.href = "../../pages/alumni/loginpage.php";
+        }
+    }
+
     </script>
 </body>
 
