@@ -1,21 +1,19 @@
 <?php
 include 'connection.php';
 
-header('Content-Type: application/json');
+$school_id = $_GET['school_id'];
+$query = "SELECT id, name FROM courses WHERE school_id = ?";
+$stmt = $conn->prepare($query);
+$stmt->bind_param("i", $school_id);
+$stmt->execute();
+$result = $stmt->get_result();
 
-// Fetch all schools from the database
-$sql = "SELECT id, name FROM schools ORDER BY name ASC";
-$result = $conn->query($sql);
-
-if ($result->num_rows > 0) {
-    $schools = [];
-    while ($row = $result->fetch_assoc()) {
-        $schools[] = $row;
-    }
-    echo json_encode($schools);
-} else {
-    echo json_encode([]);
+$courses = [];
+while ($row = $result->fetch_assoc()) {
+    $courses[] = $row;
 }
+echo json_encode($courses);
+
 
 $conn->close();
 ?>

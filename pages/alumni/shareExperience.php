@@ -245,39 +245,64 @@ $friends = $friendsManager->getFriends($user['id']);
 
     <script>
     document.addEventListener("DOMContentLoaded", function () {
-        // Function to populate dropdowns
-        function populateDropdown(endpoint, dropdownId, valueField, textField) {
+        // Populate modal dropdowns
+        function populateModalDropdown(endpoint, dropdownId, valueField, textField) {
             fetch(endpoint)
-                .then(response => response.json())
-                .then(data => {
+                .then((response) => response.json())
+                .then((data) => {
                     const dropdown = document.getElementById(dropdownId);
-                    dropdown.innerHTML = "<option value=''>Select an option</option>"; // Default placeholder
-                    data.forEach(item => {
+                    dropdown.innerHTML = "<option value=''>Select an option</option>";
+                    data.forEach((item) => {
                         const option = document.createElement("option");
                         option.value = item[valueField];
                         option.textContent = item[textField];
                         dropdown.appendChild(option);
                     });
                 })
-                .catch(error => console.error(`Error fetching ${dropdownId}:`, error));
+                .catch((error) => console.error(`Error populating ${dropdownId}:`, error));
         }
 
-        // Populate school filter
-        populateDropdown("../../config/alumni/fetchSchools.php", "filterSchool", "id", "name");
+        // Populate schools for modal
+        populateModalDropdown("../../config/alumni/fetchSchools.php", "modalSchool", "id", "name");
 
-        // Populate batch filter
-        populateDropdown("../../config/alumni/fetchBatches.php", "filterBatch", "batch_number", "batch_number");
+        // Populate batches for modal
+        populateModalDropdown("../../config/alumni/fetchBatches.php", "modalBatch", "batch_number", "batch_number");
 
-        // Fetch courses dynamically based on selected school
+        // Populate courses dynamically based on selected school in modal
+        document.getElementById("modalSchool").addEventListener("change", function () {
+            const schoolId = this.value;
+            populateModalDropdown(`../../config/alumni/fetchCourses.php?school_id=${schoolId}`, "modalCourse", "id", "name");
+        });
+
+        // Populate filter dropdowns
+    function populateFilterDropdown(endpoint, dropdownId, valueField, textField) {
+        fetch(endpoint)
+            .then((response) => response.json())
+            .then((data) => {
+                const dropdown = document.getElementById(dropdownId);
+                dropdown.innerHTML = "<option value=''>Select an option</option>";
+                data.forEach((item) => {
+                    const option = document.createElement("option");
+                    option.value = item[valueField];
+                    option.textContent = item[textField];
+                    dropdown.appendChild(option);
+                });
+            })
+            .catch((error) => console.error(`Error populating ${dropdownId}:`, error));
+        }
+
+        // Populate schools for filters
+        populateFilterDropdown("../../config/alumni/fetchSchools.php", "filterSchool", "id", "name");
+
+        // Populate batches for filters
+        populateFilterDropdown("../../config/alumni/fetchBatches.php", "filterBatch", "batch_number", "batch_number");
+
+        // Populate courses dynamically based on selected school in filters
         document.getElementById("filterSchool").addEventListener("change", function () {
             const schoolId = this.value;
-            if (schoolId) {
-                populateDropdown(`../../config/alumni/fetchCourses.php?school_id=${schoolId}`, "filterCourse", "id", "name");
-            } else {
-                // Clear the course dropdown if no school is selected
-                document.getElementById("filterCourse").innerHTML = "<option value=''>Select an option</option>";
-            }
+            populateFilterDropdown(`../../config/alumni/fetchCourses.php?school_id=${schoolId}`, "filterCourse", "id", "name");
         });
+
 
         // Fetch and display posts
         function fetchPosts(schoolId = null, courseId = null, batch = null, sort = "latest") {
