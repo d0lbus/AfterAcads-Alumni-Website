@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Log-in</title>
+  <title>Forgot Password</title>
   <link
     rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" />
@@ -18,13 +18,13 @@
             <h1>Forgot Password</h1>
             <p>Please enter your <b>email address</b> to reset your password</p>
         
-            <form action="../../config/general/forgotpassword.php" method="POST">
-                <label for="emailOrPhone"></label>
-                <input type="text" id="emailOrPhone" name="emailOrPhone" placeholder="Email or Phone" required />
+            <form action="#" method="POST">
+                <label for="Email"></label>
+                <input type="email" id="email" name="email" placeholder="Enter Your Email" required />
 
                 <div class="button-group">
-                    <a class="buttonsize cancel-btn" href="loginpage.php">Cancel</a>
-                    <button class="buttonsize send-btn" type="submit" name="resetPassword">Send</button>
+                    <button class="buttonsize cancel-btn" type="button" onclick="window.location.href='loginpage.php'">Cancel</button>
+                    <button class="buttonsize send-btn" type="submit" onclick="window.location.href='forgotPWCodePage.php'" name="sendResetCode">Send</button>
                 </div>
             </form>
         </div>

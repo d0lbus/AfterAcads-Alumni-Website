@@ -101,7 +101,7 @@ if ($friendStatus === 'not_friends') {
           <li><a href="../../pages/alumni/opportunities.php"><span><img src="../../assets/opportunities.png" width="20px" alt="Opportunities" /></span>Opportunities</a></li>
           <li><a href="../../pages/alumni/notifications.php"><span><img src="../../assets/notification-removebg-preview.png" width="20px" alt="Notifications" /></span>Notifications</a></li>
           <li><a href="../../pages/alumni/settings.php"><span><img src="../../assets/setting1.png" width="20px" alt="Settings" /></span>Settings</a></li>
-          <li><a href="../../pages/alumni/loginpage.php"><span><img src="../../assets/logout1.png" width="20px" alt="Logout" /></span>Logout</a></li>
+          <li><a href="javascript:void(0);" onclick="confirmLogout()"><span><img src="../../assets/logout1.png" width="20px" alt="Logout" /></span>Logout</a></li>
         </ul>
             </div>
         </div>
@@ -130,16 +130,6 @@ if ($friendStatus === 'not_friends') {
                         <p><?php echo isset($target_user['bio']) ? htmlspecialchars($target_user['bio']) : 'Bio not provided'; ?></p>
 
                         <?php if (!$is_current_user): ?>
-                        <!-- <form method="POST" action="<?php echo $action; ?>">
-                            <input type="hidden" name="friend_id" value="<?php echo htmlspecialchars($profile_user_id); ?>">
-                            <button type="submit" class="friend-button"><?php echo $buttonText; ?></button>
-                        </form>
-
-                        <form method="POST" action="../../config/alumni/initiateChat.php">
-                            <input type = "hidden" name="friend_id" value="<?php echo htmlspecialchars($profile_user_id); ?>">
-                            <button type="submit" class="message-button">Message</button>
-                        </form> -->
-                        
                         <div class="button-container">
                             <form method="POST" action="<?php echo $action; ?>">
                                 <input type="hidden" name="friend_id" value="<?php echo htmlspecialchars($profile_user_id); ?>">
@@ -231,8 +221,8 @@ if ($friendStatus === 'not_friends') {
         <div class="modal-content">
             <span class="close-button">&times;</span>
             <h3> User's Contact Details</h3>
-            <p><strong>Email:</strong> useremail@gmail.com</p>
-            <p><strong>Address:</strong> user address baguio city</p>
+            <p><strong>Email:</strong> <?php echo htmlspecialchars($target_user['email']); ?> </p>
+            <p><strong>Address:</strong> <?php echo isset($target_user['address']) ? htmlspecialchars($target_user['address']) : '(Not provided)'; ?> </p>
 
             <ul class="social-links">
                 <li><img src="../../assets/twitter-icon.png" alt="twitter icon" width="20px" height="20px" /></li>
@@ -310,6 +300,12 @@ if ($friendStatus === 'not_friends') {
             });
         }
     });
+
+    function confirmLogout() {
+        if (confirm("Are you sure you want to logout?")) {
+            window.location.href = "../../pages/alumni/loginpage.php";
+        }
+    }
     </script>
 
 </body>
