@@ -372,6 +372,31 @@ $friends = $friendsManager->getFriends($user['id']);
         // Initial fetch of posts
         fetchPosts();
     });
+    
+    // Create Post (expand/minimized)
+    document.addEventListener("DOMContentLoaded", function() {
+        const addPost = document.querySelector(".addPost");
+        const postContent = document.getElementById("postContent");
+
+        // Initially minimize the addPost
+        addPost.classList.add("minimized");
+
+        // Expand addPost when the textarea is clicked
+        postContent.addEventListener("click", function(event) {
+            event.stopPropagation(); // Prevent the event from bubbling up to the document
+            addPost.classList.remove("minimized");
+            addPost.classList.add("expanded");
+        });
+
+        // Collapse addPost when clicking outside
+        document.addEventListener("click", function(event) {
+            if (!addPost.contains(event.target)) {
+                addPost.classList.remove("expanded");
+                addPost.classList.add("minimized");
+            }
+        });
+    });
+
 </script>
 
 </body>

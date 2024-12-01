@@ -244,14 +244,14 @@ header {
   margin-bottom: 20px;
   transition: all 0.5s ease;
   overflow: hidden;
-  max-height: 80px; /* Minimized height */
+  max-height: 70px; /* Minimized height */
   padding: 10px;
   display: flex;
   flex-direction: column;
 }
 
 .addPost.minimized {
-  max-height: 80px; /* Show only profile image and text area */
+  max-height: 70px; /* Show only profile image and text area */
   padding: 10px;
 }
 
