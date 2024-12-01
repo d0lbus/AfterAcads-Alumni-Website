@@ -94,14 +94,14 @@ $friends = $friendsManager->getFriends($user['id']);
 
                 <!-- Dynamic Dropdowns -->
                 <div class="dropdown-container">
-                    <label for="school">School:</label>
-                    <select id="school" class="dropdown"></select>
+                    <label for="modalSchool">School:</label>
+                    <select id="modalSchool" class="dropdown"></select>
 
-                    <label for="course">Course:</label>
-                    <select id="course" class="dropdown"></select>
+                    <label for="modalCourse">Course:</label>
+                    <select id="modalCourse" class="dropdown"></select>
 
-                    <label for="batch">Batch:</label>
-                    <select id="batch" class="dropdown"></select>
+                    <label for="modalBatch">Batch:</label>
+                    <select id="modalBatch" class="dropdown"></select>
                 </div>
 
                 <!-- Tag Input -->
@@ -168,24 +168,6 @@ $friends = $friendsManager->getFriends($user['id']);
         <!-- Post Content -->
         <textarea id="modalPostContent" placeholder="What's on your mind?" class="post-input" rows="3"></textarea>
 
-        <!-- Dynamic Dropdowns -->
-        <div class="dropdown-container">
-            <label for="modalSchool">School:</label>
-            <select id="modalSchool" class="dropdown">
-                <!-- Options will be dynamically populated -->
-            </select>
-
-            <label for="modalCourse">Course:</label>
-            <select id="modalCourse" class="dropdown">
-                <!-- Options will be dynamically populated -->
-            </select>
-
-            <label for="modalBatch">Batch:</label>
-            <select id="modalBatch" class="dropdown">
-                <!-- Options will be dynamically populated -->
-            </select>
-        </div>
-
         <!-- Tag Input -->
         <div class="tag-input-container">
             <label for="modalTags">Tags:</label>
@@ -202,8 +184,6 @@ $friends = $friendsManager->getFriends($user['id']);
         <button id="modalPostButton" class="post-button">Post</button>
         </div>
         </div>
-
-
 
         </main>
     </div>
@@ -275,7 +255,7 @@ $friends = $friendsManager->getFriends($user['id']);
         });
 
         // Populate filter dropdowns
-    function populateFilterDropdown(endpoint, dropdownId, valueField, textField) {
+        function populateFilterDropdown(endpoint, dropdownId, valueField, textField) {
         fetch(endpoint)
             .then((response) => response.json())
             .then((data) => {
@@ -303,37 +283,51 @@ $friends = $friendsManager->getFriends($user['id']);
             populateFilterDropdown(`../../config/alumni/fetchCourses.php?school_id=${schoolId}`, "filterCourse", "id", "name");
         });
 
+        const sortOrderDropdown = document.getElementById("sortOrder");
 
         // Fetch and display posts
         function fetchPosts(schoolId = null, courseId = null, batch = null, sort = "latest") {
-            let url = `../../config/alumni/fetch_posts.php?sort=${sort}`;
-            if (schoolId) url += `&school_id=${schoolId}`;
-            if (courseId) url += `&course_id=${courseId}`;
-            if (batch) url += `&batch=${batch}`;
+        let url = `../../config/alumni/fetch_posts.php?sort=${sort}`;
+        if (schoolId) url += `&school_id=${schoolId}`;
+        if (courseId) url += `&course_id=${courseId}`;
+        if (batch) url += `&batch=${batch}`;
 
-            fetch(url)
-                .then(response => response.json())
-                .then(posts => {
-                    const postsContainer = document.getElementById("postsContainer");
-                    postsContainer.innerHTML = ""; // Clear previous posts
-                    posts.forEach(post => {
-                        const postElement = document.createElement("div");
-                        postElement.classList.add("post");
-                        postElement.innerHTML = `
-                            <div class="post-user">Posted by: <strong>${post.full_name}</strong></div>
-                            <div class="post-school">School: ${post.school}</div>
-                            <div class="post-course">Course: ${post.course}</div>
-                            <div class="post-batch">Batch: ${post.batch}</div>
-                            <div class="post-content">${post.content}</div>
-                            ${post.image ? `<img src="data:image/jpeg;base64,${post.image}" alt="Post Image" />` : ""}
-                            <div class="post-tags">Tags: ${post.tags?.join(", ") || "No tags"}</div>
-                            <div class="post-date">${new Date(post.created_at).toLocaleString()}</div>
-                        `;
-                        postsContainer.appendChild(postElement);
-                    });
-                })
-                .catch(error => console.error("Error fetching posts:", error));
+        fetch(url)
+            .then((response) => response.json())
+            .then((posts) => {
+                const postsContainer = document.getElementById("postsContainer");
+                postsContainer.innerHTML = ""; // Clear previous posts
+                posts.forEach((post) => {
+                    const postElement = document.createElement("div");
+                    postElement.classList.add("post");
+                    postElement.innerHTML = `
+                        <div class="post-user">Posted by: <strong>${post.full_name}</strong></div>
+                        <div class="post-school">School: ${post.school}</div>
+                        <div class="post-course">Course: ${post.course}</div>
+                        <div class="post-batch">Batch: ${post.batch}</div>
+                        <div class="post-content">${post.content}</div>
+                        ${
+                            post.image
+                                ? `<img src="data:image/jpeg;base64,${post.image}" alt="Post Image" />`
+                                : ""
+                        }
+                        <div class="post-tags">Tags: ${post.tags?.join(", ") || "No tags"}</div>
+                        <div class="post-date">${new Date(post.created_at).toLocaleString()}</div>
+                    `;
+                    postsContainer.appendChild(postElement);
+                });
+            })
+            .catch((error) => console.error("Error fetching posts:", error));
         }
+
+        // Fetch posts when sort order changes
+        sortOrderDropdown.addEventListener("change", function () {
+            const sortOrder = this.value;
+            const schoolId = document.getElementById("filterSchool").value;
+            const courseId = document.getElementById("filterCourse").value;
+            const batch = document.getElementById("filterBatch").value;
+            fetchPosts(schoolId, courseId, batch, sortOrder);
+        });
 
         // Fetch posts when filters change
         document.getElementById("filterSchool").addEventListener("change", function () {
