@@ -27,8 +27,8 @@
         <li><a href="../../pages/manager/statistics.php">Statistics</a></li>
       </ul>
       <div class="profile">
-        <li><a href="../../pages/manager/managerProfile.html"><img class="profile-img" src="../../assets/profileIcon.jpg"
-              alt="Profile" /></a>
+        <li><a href="../../pages/manager/managerProfile.html"><img class="profile-img"
+              src="../../assets/profileIcon.jpg" alt="Profile" /></a>
         </li>
       </div>
     </header>
@@ -49,7 +49,12 @@
       <thead>
         <tr>
           <th>First Name</th>
-          <th>Last Name</th>
+          <th>Last Name
+            <button class="sort-button" data-sort="asc" onclick="toggleSort(this, 2)">
+              <span class="arrow-up">&#9650;</span>
+              <span class="arrow-down">&#9660;</span>
+            </button>
+          </th>
           <th>E-mail</th>
           <th>Action</th>
         </tr>
@@ -59,11 +64,11 @@
           <td>
             <div class="user-info">
               <img class="user-avatar" src="../../assets/profileIcon.jpg" alt="user avatar" />
-              <span class="username">Joe29</span>
+              <span class="username">Chloe</span>
             </div>
           </td>
-          <td>Joe</td>
-          <td>joe@gmail.com</td>
+          <td>San Miguel</td>
+          <td>chloe@gmail.com</td>
           <td class="action-buttons">
             <button class="btn approve">Approve</button>
             <button class="btn deny">Deny</button>
@@ -73,11 +78,11 @@
           <td>
             <div class="user-info">
               <img class="user-avatar" src="../../assets/profileIcon.jpg" alt="user avatar" />
-              <span class="username">Michael</span>
+              <span class="username">Julianne</span>
             </div>
           </td>
-          <td>Michael</td>
-          <td>michael@gmail.com</td>
+          <td>Abitan</td>
+          <td>juju@gmail.com</td>
           <td class="action-buttons">
             <button class="btn approve">Approve</button>
             <button class="btn deny">Deny</button>
@@ -91,7 +96,12 @@
       <thead>
         <tr>
           <th>First Name</th>
-          <th>Last Name</th>
+          <th>Last Name
+            <button class="sort-button" data-sort="asc" onclick="toggleSort(this, 2)">
+              <span class="arrow-up">&#9650;</span>
+              <span class="arrow-down">&#9660;</span>
+            </button>
+          </th>
           <th>E-mail</th>
           <th>Action</th>
         </tr>
@@ -101,11 +111,11 @@
           <td>
             <div class="user-info">
               <img class="user-avatar" src="../../assets/profileIcon.jpg" alt="user avatar" />
-              <span class="username">Joe29</span>
+              <span class="username">Jerilyn</span>
             </div>
           </td>
-          <td>Joe</td>
-          <td>joe@gmail.com</td>
+          <td>Cahanap</td>
+          <td>jelai@gmail.com</td>
           <td class="action-buttons">
             <button class="btn deny">Deny</button>
           </td>
@@ -118,7 +128,12 @@
       <thead>
         <tr>
           <th>First Name</th>
-          <th>Last Name</th>
+          <th>Last Name
+            <button class="sort-button" data-sort="asc" onclick="toggleSort(this, 2)">
+              <span class="arrow-up">&#9650;</span>
+              <span class="arrow-down">&#9660;</span>
+            </button>
+          </th>
           <th>E-mail</th>
         </tr>
       </thead>
@@ -237,6 +252,49 @@
               : "denied";
 
           toggleTable(status);
+        });
+      });
+    });
+
+  </script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const tables = document.querySelectorAll(".user-table");
+
+      function sortTable(table, columnIndex, isAscending) {
+        const tbody = table.querySelector("tbody");
+        const rows = Array.from(tbody.rows);
+
+        rows.sort((a, b) => {
+          const cellA = a.cells[columnIndex].textContent.trim();
+          const cellB = b.cells[columnIndex].textContent.trim();
+
+          if (!isNaN(Date.parse(cellA)) && !isNaN(Date.parse(cellB))) {
+            return isAscending ? new Date(cellA) - new Date(cellB) : new Date(cellB) - new Date(cellA);
+          }
+
+          if (!isNaN(cellA) && !isNaN(cellB)) {
+            return isAscending ? cellA - cellB : cellB - cellA;
+          }
+
+          return isAscending ? cellA.localeCompare(cellB) : cellB.localeCompare(cellA);
+        });
+
+        rows.forEach(row => tbody.appendChild(row));
+      }
+
+      function toggleSort(button, table, columnIndex) {
+        const isAscending = button.dataset.sort === "asc";
+        button.dataset.sort = isAscending ? "desc" : "asc";
+        sortTable(table, columnIndex, !isAscending);
+      }
+
+      tables.forEach(table => {
+        const sortButtons = table.querySelectorAll(".sort-button");
+
+        sortButtons.forEach((button, index) => {
+          button.addEventListener("click", () => toggleSort(button, table, index));
         });
       });
     });

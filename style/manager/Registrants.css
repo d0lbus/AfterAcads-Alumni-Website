@@ -18,6 +18,12 @@
   padding: 0;
 }
 
+body {
+  line-height: 1.6;
+  background-color: #f4f4f4;
+  color: #333;
+}
+
 header {
   display: flex;
   align-items: center;
@@ -186,6 +192,28 @@ header img.afteracadstext {
 .btn.active {
   background-color: #003f91; 
   color: white;
+}
+
+.sort-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  margin-left: 5px;
+}
+
+.arrow-up,
+.arrow-down {
+  font-size: 0.8em;
+  display: none;
+}
+
+.sort-button[data-sort="asc"] .arrow-up {
+  display: inline;
+}
+
+.sort-button[data-sort="desc"] .arrow-down {
+  display: inline;
 }
 
 .user-table {
