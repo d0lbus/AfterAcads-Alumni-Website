@@ -540,7 +540,136 @@ header {
 }
 
 
+/* Container Styling */
+.dropdown-container {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+  align-items: center;
+  margin: 10px 0;
+}
 
+/* Label Styling */
+.dropdown-container label {
+  font-size: 14px;
+  font-weight: bold;
+  color: #444;
+  margin-right: 5px;
+}
+
+/* Dropdown Styling */
+.dropdown-container select {
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+  background-color: #f9f9f9;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  outline: none;
+  appearance: none; /* Removes the default arrow in some browsers */
+  cursor: pointer;
+}
+
+.dropdown-container select:hover {
+  border-color: #007bff;
+}
+
+.dropdown-container select:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 4px rgba(0, 123, 255, 0.5);
+}
+
+/* File Input Styling */
+.dropdown-container input[type="file"] {
+  margin-top: 10px;
+  padding: 5px;
+  font-size: 14px;
+  color: #444;
+}
+
+.dropdown-container input[type="text"]:hover {
+  border-color: #007bff;
+}
+
+.dropdown-container input[type="text"]:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 4px rgba(0, 123, 255, 0.5);
+}
+
+/* Tag Input Container Styling */
+.tag-input-container {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Adds space between label and input */
+  margin: 10px 0;
+}
+
+/* Label Styling */
+.tag-input-container label {
+  font-size: 14px;
+  font-weight: bold;
+  color: #444;
+}
+
+/* Input Field Styling */
+.tag-input-container .tag-input {
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+  width: 100%; /* Makes it responsive */
+  max-width: 300px; /* Optional: Limit the width */
+  background-color: #f9f9f9;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  outline: none;
+}
+
+.tag-input-container .tag-input:hover {
+  border-color: #007bff;
+}
+
+.tag-input-container .tag-input:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 4px rgba(0, 123, 255, 0.5);
+}
+
+
+/* Container for File Upload */
+.addPost-option {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin: 10px 0;
+}
+
+/* File Input Styling */
+.addPost-option input[type="file"] {
+  padding: 6px 12px;
+  font-size: 14px;
+  font-family: inherit;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  outline: none;
+}
+
+.addPost-option input[type="file"]:hover {
+  border-color: #007bff;
+}
+
+.addPost-option input[type="file"]:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 4px rgba(0, 123, 255, 0.5);
+}
+
+.addPost-option label {
+  font-size: 14px;
+  font-weight: bold;
+  color: #444;
+  margin-right: 10px; 
+}
 
 .post {
   background-color: #f9f9f9; 
@@ -692,7 +821,7 @@ header {
 .comment-user {
   font-weight: bold;
   margin-bottom: 5px;
-  color: #007bff;
+  color: #000000;
 }
 
 .comment-content {
@@ -725,7 +854,7 @@ header {
 }
 
 .submit-comment-button {
-  background-color: #007bff;
+  background-color: #5f84a2;
   color: #fff;
   border: none;
   padding: 10px 15px;
@@ -736,7 +865,7 @@ header {
 }
 
 .submit-comment-button:hover {
-  background-color: #0056b3;
+  background-color: #2f4353;
 }
 
 /* Media Query for smaller screens (tablets and phones) */

@@ -121,6 +121,7 @@ $friends = $friendsManager->getFriends($user['id']);
 
                 <!-- File Upload -->
                 <div class="addPost-option">
+                    <label for="postImage">Upload Image:</label>
                     <input type="file" id="postImage" accept="image/*">
                 </div>
 
