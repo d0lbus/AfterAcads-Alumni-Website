@@ -164,56 +164,65 @@ if (isset($_GET['chat_with']) && !empty($_GET['chat_with'])) {
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-    const chatBox = document.getElementById('chatBox');
-    const messageInput = document.getElementById('messageInput');
-    const sendButton = document.getElementById('sendButton');
-    const loggedInUserId = <?php echo json_encode($user['id']); ?>;
-    const friendId = <?php echo json_encode($friend_id); ?>;
+        const chatBox = document.getElementById('chatBox');
+        const messageInput = document.getElementById('messageInput');
+        const sendButton = document.getElementById('sendButton');
+        const loggedInUserId = <?php echo json_encode($user['id']); ?>;
+        const friendId = <?php echo json_encode($friend_id); ?>;
 
-    // Fetch messages every 2 seconds
-    function fetchMessages() {
-        fetch(`../../config/alumni/fetchMessages.php?logged_in_user_id=${loggedInUserId}&friend_id=${friendId}`)
-            .then(response => response.json())
-            .then(messages => {
-                chatBox.innerHTML = ''; // Clear chatBox
-                messages.forEach(msg => {
-                    const messageDiv = document.createElement('div');
-                    messageDiv.classList.add('message', msg.sender_id == loggedInUserId ? 'sent' : 'received');
-                    messageDiv.innerHTML = `
-                        <p>${msg.message}</p>
-                        <span class="timestamp">${new Date(msg.created_at).toLocaleTimeString()}</span>
-                    `;
-                    chatBox.appendChild(messageDiv);
+        // Fetch messages every 2 seconds
+        function fetchMessages() {
+            fetch(`../../config/alumni/fetchMessages.php?logged_in_user_id=${loggedInUserId}&friend_id=${friendId}`)
+                .then(response => response.json())
+                .then(messages => {
+                    chatBox.innerHTML = ''; // Clear chatBox
+                    messages.forEach(msg => {
+                        const messageDiv = document.createElement('div');
+                        messageDiv.classList.add('message', msg.sender_id == loggedInUserId ? 'sent' : 'received');
+                        messageDiv.innerHTML = `
+                            <p>${msg.message}</p>
+                            <span class="timestamp">${new Date(msg.created_at).toLocaleTimeString()}</span>
+                        `;
+                        chatBox.appendChild(messageDiv);
+                    });
+                    chatBox.scrollTop = chatBox.scrollHeight; // Scroll to the bottom
                 });
-                chatBox.scrollTop = chatBox.scrollHeight; // Scroll to the bottom
-            });
-    }
+        }
 
-    // Send message
-    sendButton.addEventListener('click', function () {
-        const message = messageInput.value.trim();
-        if (message) {
-            fetch('../../config/alumni/sendMessage.php', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: `sender_id=${loggedInUserId}&receiver_id=${friendId}&message=${encodeURIComponent(message)}`
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    messageInput.value = ''; // Clear input
-                    fetchMessages(); // Refresh chat
-                } else {
-                    alert(data.error || 'Failed to send message.');
-                }
+        // Send message
+        sendButton.addEventListener('click', function () {
+            const message = messageInput.value.trim();
+            if (message) {
+                fetch('../../config/alumni/sendMessage.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: `sender_id=${loggedInUserId}&receiver_id=${friendId}&message=${encodeURIComponent(message)}`
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        messageInput.value = ''; // Clear input
+                        fetchMessages(); // Refresh chat
+                    } else {
+                        alert(data.error || 'Failed to send message.');
+                    }
+                });
+            }
+        });
+
+        // Start fetching messages
+        setInterval(fetchMessages, 2000);
+        fetchMessages(); // Initial load
+
+        // Handle Sidebar Toggle
+        const sidebar = document.querySelector(".sidebar");
+        const toggleButton = document.getElementById("sidebarToggle");
+        if (sidebar && toggleButton) {
+            toggleButton.addEventListener("click", function () {
+                sidebar.classList.toggle("minimized");
             });
         }
     });
-
-    // Start fetching messages
-    setInterval(fetchMessages, 2000);
-    fetchMessages(); // Initial load
-});
 
     
 </script>
