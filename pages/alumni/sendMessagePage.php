@@ -38,8 +38,8 @@ if (isset($_GET['chat_with']) && !empty($_GET['chat_with'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet"
         href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css" />
-    <link rel="stylesheet" href="../../style/sendMessage.css" />
-    <link rel="stylesheet" href="../../style/friends-panel.css" />
+    <link rel="stylesheet" href="../../style/alumni/sendMessage.css" />
+    <link rel="stylesheet" href="../../style/alumni/friends-panel.css" />
     <title>Message</title>
 </head>
 <body>
