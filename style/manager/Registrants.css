@@ -188,6 +188,28 @@ header img.afteracadstext {
   color: white;
 }
 
+.sort-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  margin-left: 5px;
+}
+
+.arrow-up,
+.arrow-down {
+  font-size: 0.8em;
+  display: none;
+}
+
+.sort-button[data-sort="asc"] .arrow-up {
+  display: inline;
+}
+
+.sort-button[data-sort="desc"] .arrow-down {
+  display: inline;
+}
+
 .user-table {
   width: 100%;
   border-collapse: collapse;
