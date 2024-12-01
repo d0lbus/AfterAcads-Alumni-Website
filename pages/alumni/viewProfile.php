@@ -34,7 +34,7 @@ if (isset($_GET['user_id']) && !empty($_GET['user_id'])) {
     $is_current_user = true;
 }
 
-$sql_posts = "SELECT content, created_at, tag, image FROM posts WHERE user_id = ? ORDER BY created_at DESC";
+$sql_posts = "SELECT content, created_at, image FROM posts WHERE user_id = ? ORDER BY created_at DESC";
 $stmt_posts = $conn->prepare($sql_posts);
 $stmt_posts->bind_param("i", $target_user['id']);
 $stmt_posts->execute();
@@ -68,7 +68,7 @@ if ($friendStatus === 'not_friends') {
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>View Profile</title>
-    <link rel="stylesheet" href="../../style/view-profile.css" />
+    <link rel="stylesheet" href="../../style/alumni/view-profile.css" />
 </head>
 
 <body>
@@ -165,10 +165,6 @@ if ($friendStatus === 'not_friends') {
                                     <!-- Display post content -->
                                     <p><?php echo htmlspecialchars($post['content']); ?></p>
 
-                                    <!-- Display tag if available -->
-                                    <?php if (!empty($post['tag'])): ?>
-                                        <small>Tag: <?php echo htmlspecialchars($post['tag']); ?></small>
-                                    <?php endif; ?>
 
                                     <!-- Display image if available -->
                                     <?php if (!empty($post['image'])): ?>
