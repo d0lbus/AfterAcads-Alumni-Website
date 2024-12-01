@@ -14,10 +14,7 @@
 <body class="body-color2">
   <div class="login-container">
     <div class="login-box">
-      <img
-        class="logo"
-        src="../../assets/logo.png"
-        alt="logo" />
+      <img class="logo" src="../../assets/logo.png" alt="logo" />
       <h2 style="color: black">Log Into AfterAcads</h2>
       
 
@@ -28,7 +25,7 @@
         <label for="password"></label>
         <input type="password" id="password" name="password" placeholder="Password *" required />
 
-        <a href="#">Forgot Password?</a>
+        <a href="forgotPasswordPage.php">Forgot Password?</a>
         <p>New to AfterAcads? <a href="signuppage.php">Sign Up</a></p>
 
         <button class="buttonsize" type="submit" name="signIn">LOGIN</button>
