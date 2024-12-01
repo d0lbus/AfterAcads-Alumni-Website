@@ -1,6 +1,6 @@
 <?php
 session_start();
-include 'connection.php'; 
+include '../config/general/connection.php'; 
 
 // Fetch the logged-in user's ID
 $email = $_SESSION['email'];
