@@ -96,6 +96,7 @@ img.afteracadstext {
   border: 2px solid var(--color-accent);
 }
 
+/* Page header and main content */
 .posts-section {
   margin-top: 120px; 
   background-color: var(--color-light);
