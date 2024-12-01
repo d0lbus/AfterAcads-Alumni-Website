@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['user_id'] = $row['id']; 
 
             // Redirect to profile page
-            header("Location: ../pages/alumni/viewProfile.php");
+            header("Location: ../../pages/alumni/viewProfile.php");
             exit();
         } else {
             // Handle incorrect password
