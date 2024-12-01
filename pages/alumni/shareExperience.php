@@ -84,7 +84,6 @@ $friends = $friendsManager->getFriends($user['id']);
                     </button>
                 </form>
             </div>
-
             <!-- Post Creation Section -->
             <div class="addPost">
                 <div class="addPost-header">
@@ -100,8 +99,9 @@ $friends = $friendsManager->getFriends($user['id']);
                     <label for="modalCourse">Course:</label>
                     <select id="modalCourse" class="dropdown"></select>
 
-                    <label for="modalBatch">Batch:</label>
-                    <select id="modalBatch" class="dropdown"></select>
+                    <label for="batchDropdown">Batch:</label>
+                    <select id="batchDropdown" class="dropdown"></select>
+
                 </div>
 
                 <!-- Tag Input -->
@@ -118,7 +118,6 @@ $friends = $friendsManager->getFriends($user['id']);
                 <button id="postButton" class="post-button">Post</button>
             </div>
 
-            
              <!-- Filters -->
              <div class="sort-filter-container">
                 <div class="sort-dropdown">
@@ -145,46 +144,6 @@ $friends = $friendsManager->getFriends($user['id']);
             <div id="postsContainer" class="posts-container">
                 <!-- Posts will be dynamically inserted here -->
             </div>
-
-
-            <!-- Modal for Creating a Post -->
-            <div class="modal" id="postModal" style="display: none;">
-            <div class="modal-content">
-            <!-- Close Button -->
-            <span class="close-modal">&times;</span>
-
-            <!-- Modal Header -->
-            <h2 class="modal-title">Create Post</h2>
-            <div class="line"></div>
-
-            <!-- User Info -->
-            <div class="modal-header">
-                <img src="../../assets/profileIcon.jpg" alt="Profile" class="profile-pic">
-                <span><?php echo htmlspecialchars($user['first_name'] . ' ' . $user['last_name']); ?></span>
-            </div>
-
-            <div class="modal-divider"></div>
-
-        <!-- Post Content -->
-        <textarea id="modalPostContent" placeholder="What's on your mind?" class="post-input" rows="3"></textarea>
-
-        <!-- Tag Input -->
-        <div class="tag-input-container">
-            <label for="modalTags">Tags:</label>
-            <input type="text" id="modalTags" class="tag-input" placeholder="Add tags (e.g., #Experience, #Project)">
-        </div>
-
-        <!-- Image Upload -->
-        <div class="modal-add-option">
-            <label for="modalPostImage">Upload an Image:</label>
-            <input type="file" id="modalPostImage" accept="image/*">
-        </div>
-
-        <!-- Submit Button -->
-        <button id="modalPostButton" class="post-button">Post</button>
-        </div>
-        </div>
-
         </main>
     </div>
 
@@ -245,14 +204,30 @@ $friends = $friendsManager->getFriends($user['id']);
         // Populate schools for modal
         populateModalDropdown("../../config/alumni/fetchSchools.php", "modalSchool", "id", "name");
 
-        // Populate batches for modal
-        populateModalDropdown("../../config/alumni/fetchBatches.php", "modalBatch", "batch_number", "batch_number");
-
         // Populate courses dynamically based on selected school in modal
         document.getElementById("modalSchool").addEventListener("change", function () {
             const schoolId = this.value;
             populateModalDropdown(`../../config/alumni/fetchCourses.php?school_id=${schoolId}`, "modalCourse", "id", "name");
         });
+
+        function populateBatchDropdown() {
+        fetch("../../config/alumni/fetchBatches.php")
+        .then((response) => response.json())
+        .then((data) => {
+            const dropdown = document.getElementById("batchDropdown");
+            dropdown.innerHTML = "<option value=''>Select a Batch</option>";
+            data.forEach((batch) => {
+                const option = document.createElement("option");
+                option.value = batch.id; // Use the batch ID as the value
+                option.textContent = batch.batch_number; // Display the batch number
+                dropdown.appendChild(option);
+            });
+        })
+        .catch((error) => console.error("Error fetching batches:", error));
+        }
+
+        // Call this function when the page loads
+        populateBatchDropdown();
 
         // Populate filter dropdowns
         function populateFilterDropdown(endpoint, dropdownId, valueField, textField) {
@@ -365,7 +340,67 @@ $friends = $friendsManager->getFriends($user['id']);
 
         // Initial fetch of posts
         fetchPosts();
-    });
+
+        // Handle post creation
+        document.getElementById("postButton").addEventListener("click", function (e) {
+        e.preventDefault();
+
+        const content = document.getElementById("postContent").value.trim();
+        const schoolId = document.getElementById("modalSchool").value;
+        const courseId = document.getElementById("modalCourse").value;
+        const batchId = document.getElementById("batchDropdown").value;
+        const tagInput = document.getElementById("tags").value.trim();
+        const imageInput = document.getElementById("postImage");
+
+        // Validation
+        if (!content) {
+            alert("Post content cannot be empty!");
+            return;
+        }
+        if (!schoolId || !courseId || !batchId) {
+            alert("Please select School, Course, and Batch!");
+            return;
+        }
+
+        // Extract tags and validate them
+        const extractedTags = tagInput
+            .split(/\s+/) // Split by spaces
+            .filter(tag => tag.startsWith('#') && tag.length > 1) // Ensure it starts with '#' and has content
+            .map(tag => tag.substring(1)); // Remove the '#'
+
+        if (extractedTags.length === 0 && tagInput.trim() !== "") {
+            alert("All tags must start with # and cannot be empty!");
+            return;
+        }
+
+        // Prepare form data
+        const formData = new FormData();
+        formData.append("content", content);
+        formData.append("school_id", schoolId);
+        formData.append("course_id", courseId);
+        formData.append("batch_id", batchId);
+        formData.append("tags", JSON.stringify(extractedTags));
+        if (imageInput.files.length > 0) {
+            formData.append("image", imageInput.files[0]);
+        }
+
+        // Send data to backend
+        fetch("../../config/alumni/create_posts.php", {
+            method: "POST",
+            body: formData,
+        })
+        .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert("Post created successfully!");
+                    location.reload(); // Reload to display the new post
+                } else {
+                    alert(data.message || "Failed to create post.");
+                }
+            })
+                .catch(error => console.error("Error:", error));
+            });
+        });
     
     // Create Post (expand/minimized)
     document.addEventListener("DOMContentLoaded", function() {
@@ -390,7 +425,6 @@ $friends = $friendsManager->getFriends($user['id']);
             }
         });
     });
-
 </script>
 
 </body>
