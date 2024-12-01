@@ -152,7 +152,7 @@ $friends = $friendsManager->getFriends($user['id']);
             <!-- Posts Section -->
             <div id="postsContainer" class="posts-container">
                 <!-- Posts will be dynamically inserted here -->
-
+            </div>
 
             <!-- Modal for Comments -->
             <div id="commentsModal" class="modal" style="display: none;">
@@ -469,6 +469,31 @@ $friends = $friendsManager->getFriends($user['id']);
             });
     });
 
+    // Create Post Modal (expand/minimized)
+    document.addEventListener("DOMContentLoaded", function() {
+        const addPost = document.querySelector(".addPost");
+        const postContent = document.getElementById("postContent");
+
+        // Initially minimize the addPost
+        addPost.classList.add("minimized");
+
+        // Expand addPost when the textarea is clicked
+        postContent.addEventListener("click", function(event) {
+            event.stopPropagation(); // Prevent the event from bubbling up to the document
+            addPost.classList.remove("minimized");
+            addPost.classList.add("expanded");
+        });
+
+        // Collapse addPost when clicking outside
+        document.addEventListener("click", function(event) {
+            if (!addPost.contains(event.target)) {
+                addPost.classList.remove("expanded");
+                addPost.classList.add("minimized");
+            }
+        });
+    });
+
+    // View and Create Comments Modal
     function viewComments(postId) {
         console.log(`Fetching comments for post ID: ${postId}`);
         const modal = document.getElementById("commentsModal");
@@ -545,35 +570,8 @@ $friends = $friendsManager->getFriends($user['id']);
                         console.error("Error adding comment:", error);
                         alert("Error adding comment.");
                     });
-            };
-        }
-
-    
-    // Create Post (expand/minimized)
-    document.addEventListener("DOMContentLoaded", function() {
-        const addPost = document.querySelector(".addPost");
-        const postContent = document.getElementById("postContent");
-
-        // Initially minimize the addPost
-        addPost.classList.add("minimized");
-
-        // Expand addPost when the textarea is clicked
-        postContent.addEventListener("click", function(event) {
-            event.stopPropagation(); // Prevent the event from bubbling up to the document
-            addPost.classList.remove("minimized");
-            addPost.classList.add("expanded");
-        });
-
-        // Collapse addPost when clicking outside
-        document.addEventListener("click", function(event) {
-            if (!addPost.contains(event.target)) {
-                addPost.classList.remove("expanded");
-                addPost.classList.add("minimized");
-            }
-        });
-    });
-
-    
+        };
+    }   
 
     function confirmLogout() {
         if (confirm("Are you sure you want to logout?")) {
