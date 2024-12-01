@@ -1,7 +1,7 @@
 <?php
 include '../../config/alumni/header.php';
 include '../../config/alumni/friendsManager.php';
-include '../../config/alumni/connection.php';
+include '../../config/general/connection.php';
 
 $user = getAuthenticatedUser();
 
