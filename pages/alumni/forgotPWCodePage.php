@@ -12,26 +12,27 @@
 </head>
 
 <body>
-<div class="reset-container">
-    <div class="reset-box">
-      <h1>Password reset</h1>
-      <p>We sent a code to <b>your-email@example.com</b></p>
+    <div class="reset-container">
+        <div class="reset-box">
+            <img class="logo" src="../../assets/logo.png" alt="logo" />
+            <h1>Password reset</h1>
+            <p>We sent a code to <b>your-email@example.com</b></p>
 
-      <!-- Code Input -->
-      <div class="code-inputs">
-        <input type="text" maxlength="1" class="code-box" required />
-        <input type="text" maxlength="1" class="code-box" required />
-        <input type="text" maxlength="1" class="code-box" required />
-        <input type="text" maxlength="1" class="code-box" required />
-      </div>
+            <!-- Code Input -->
+            <div class="code-inputs">
+                <input type="text" maxlength="1" class="code-box" required />
+                <input type="text" maxlength="1" class="code-box" required />
+                <input type="text" maxlength="1" class="code-box" required />
+                <input type="text" maxlength="1" class="code-box" required />
+            </div>
 
-      <button class="buttonsize continue-btn" type="button">Continue</button>
-      <p>
-        Didn’t receive the email? <a href="#" class="resend-link">Click to resend</a>
-      </p>
-      <a href="loginpage.php" class="back-link">← Back to log in</a>
+            <button class="buttonsize continue-btn" type="button">Continue</button>
+            <p>
+            Didn’t receive the email? <a href="#" class="resend-link">Click to resend</a>
+            </p>
+            <a href="loginpage.php" class="back-link">← Back to log in</a>
+        </div>
     </div>
-  </div>
     
 </body>
 </html>
