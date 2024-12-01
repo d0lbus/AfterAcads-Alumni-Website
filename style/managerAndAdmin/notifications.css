@@ -136,8 +136,7 @@ img.afteracadstext {
 .button-group {
   display: flex;
   gap: 10px;
-  margin-bottom: 20px;
-  justify-content: flex-end;
+  margin-left: auto;
 }
 
 .btn {
