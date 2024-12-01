@@ -228,7 +228,7 @@ if ($friendStatus === 'not_friends') {
     <div id="contactModal" class="modal">
         <div class="modal-content">
             <span class="close-button">&times;</span>
-            <h3> User's Contact Details</h3>
+            <h3> <?php echo htmlspecialchars($target_user['first_name'] . ' ' . $target_user['last_name']); ?>'s Contact Details </h3>
             <p><strong>Email:</strong> <?php echo htmlspecialchars($target_user['email']); ?> </p>
             <p><strong>Address:</strong> <?php echo isset($target_user['address']) ? htmlspecialchars($target_user['address']) : '(Not provided)'; ?> </p>
 
