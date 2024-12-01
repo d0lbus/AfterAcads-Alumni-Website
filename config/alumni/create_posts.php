@@ -1,62 +1,85 @@
 <?php
+header('Content-Type: application/json');
 session_start();
 include '../../config/general/connection.php';
 
-$user_id = $_SESSION['user_id'];
-$content = $_POST['content'];
-$school_id = $_POST['school_id'];
-$course_id = $_POST['course_id'];
-$batch_id = $_POST['batch'];
-$tags = isset($_POST['tags']) ? explode(',', $_POST['tags']) : [];
-$image_blob = null;
-
-if (isset($_FILES['image']) && $_FILES['image']['size'] > 0) {
-    $image_blob = file_get_contents($_FILES['image']['tmp_name']);
+// Validate request method
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    echo json_encode(['success' => false, 'message' => 'Invalid request method.']);
+    exit;
 }
 
-$conn->begin_transaction();
+// Validate input
+$content = $_POST['content'] ?? null;
+$schoolId = $_POST['school_id'] ?? null;
+$courseId = $_POST['course_id'] ?? null;
+$batchId = $_POST['batch_id'] ?? null;
+$tags = json_decode($_POST['tags'] ?? "[]", true); // Parse JSON tags input
+$imageBlob = null;
+
+// Validate image upload
+if (isset($_FILES['image']) && $_FILES['image']['size'] > 0) {
+    $imageBlob = file_get_contents($_FILES['image']['tmp_name']);
+}
+
+// Check required fields
+if (!$content || !$schoolId || !$courseId || !$batchId) {
+    echo json_encode(['success' => false, 'message' => 'All fields are required.']);
+    exit;
+}
+
+// Get user ID from session
+$userId = $_SESSION['user_id'] ?? null;
+if (!$userId) {
+    echo json_encode(['success' => false, 'message' => 'User not authenticated.']);
+    exit;
+}
 
 try {
-    // Insert the post
-    $sql = "INSERT INTO posts (user_id, content, school_id, course_id, batch_id, image) VALUES (?, ?, ?, ?, ?, ?)";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("isssss", $user_id, $content, $school_id, $course_id, $batch_id, $image_blob);
-    $stmt->execute();
-    $post_id = $stmt->insert_id;
+    // Insert post into posts table
+    $stmt = $conn->prepare("INSERT INTO posts (user_id, content, school_id, course_id, batch_id, image) VALUES (?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param("isssss", $userId, $content, $schoolId, $courseId, $batchId, $imageBlob);
 
-    // Insert tags and link to post
-    foreach ($tags as $tag) {
-        $tag = trim($tag);
+    if ($stmt->execute()) {
+        $postId = $conn->insert_id;
 
-        // Check if tag already exists
-        $stmt = $conn->prepare("SELECT id FROM tags WHERE name = ?");
-        $stmt->bind_param("s", $tag);
-        $stmt->execute();
-        $result = $stmt->get_result();
+        // Handle tags
+        if (!empty($tags)) {
+            foreach ($tags as $tag) {
+                $tag = trim($tag);
 
-        if ($result->num_rows > 0) {
-            $tag_id = $result->fetch_assoc()['id'];
-        } else {
-            // Insert new tag
-            $stmt = $conn->prepare("INSERT INTO tags (name) VALUES (?)");
-            $stmt->bind_param("s", $tag);
-            $stmt->execute();
-            $tag_id = $stmt->insert_id;
+                // Check if tag already exists in tags table
+                $tagCheckStmt = $conn->prepare("SELECT id FROM tags WHERE name = ?");
+                $tagCheckStmt->bind_param("s", $tag);
+                $tagCheckStmt->execute();
+                $tagCheckResult = $tagCheckStmt->get_result();
+
+                if ($tagCheckResult->num_rows > 0) {
+                    $tagRow = $tagCheckResult->fetch_assoc();
+                    $tagId = $tagRow['id'];
+                } else {
+                    // Insert new tag if it doesn't exist
+                    $tagInsertStmt = $conn->prepare("INSERT INTO tags (name) VALUES (?)");
+                    $tagInsertStmt->bind_param("s", $tag);
+                    $tagInsertStmt->execute();
+                    $tagId = $conn->insert_id;
+                    $tagInsertStmt->close();
+                }
+                $tagCheckStmt->close();
+
+                // Insert post-tag relation into post_tags table
+                $postTagStmt = $conn->prepare("INSERT INTO post_tags (post_id, tag_id) VALUES (?, ?)");
+                $postTagStmt->bind_param("ii", $postId, $tagId);
+                $postTagStmt->execute();
+                $postTagStmt->close();
+            }
         }
 
-        // Link tag to post
-        $stmt = $conn->prepare("INSERT INTO post_tags (post_id, tag_id) VALUES (?, ?)");
-        $stmt->bind_param("ii", $post_id, $tag_id);
-        $stmt->execute();
+        echo json_encode(['success' => true, 'message' => 'Post created successfully.']);
+    } else {
+        echo json_encode(['success' => false, 'message' => 'Failed to create post.']);
     }
-
-    $conn->commit();
-    echo json_encode(['success' => true]);
 } catch (Exception $e) {
-    $conn->rollback();
-    echo json_encode(['success' => false, 'error' => $e->getMessage()]);
+    echo json_encode(['success' => false, 'message' => 'Error: ' . $e->getMessage()]);
 }
-
-$stmt->close();
-$conn->close();
 ?>

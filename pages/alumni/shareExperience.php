@@ -85,7 +85,6 @@ $friends = $friendsManager->getFriends($user['id']);
                     </button>
                 </form>
             </div>
-
             <!-- Post Creation Section -->
             <div class="addPost">
                 <div class="addPost-header">
@@ -101,8 +100,9 @@ $friends = $friendsManager->getFriends($user['id']);
                     <label for="modalCourse">Course:</label>
                     <select id="modalCourse" class="dropdown"></select>
 
-                    <label for="modalBatch">Batch:</label>
-                    <select id="modalBatch" class="dropdown"></select>
+                    <label for="batchDropdown">Batch:</label>
+                    <select id="batchDropdown" class="dropdown"></select>
+
                 </div>
 
                 <!-- Tag Input -->
@@ -119,7 +119,6 @@ $friends = $friendsManager->getFriends($user['id']);
                 <button id="postButton" class="post-button">Post</button>
             </div>
 
-            
              <!-- Filters -->
              <div class="sort-filter-container">
                 <div class="sort-dropdown">
@@ -146,46 +145,6 @@ $friends = $friendsManager->getFriends($user['id']);
             <div id="postsContainer" class="posts-container">
                 <!-- Posts will be dynamically inserted here -->
             </div>
-
-
-            <!-- Modal for Creating a Post -->
-            <div class="modal" id="postModal" style="display: none;">
-            <div class="modal-content">
-            <!-- Close Button -->
-            <span class="close-modal">&times;</span>
-
-            <!-- Modal Header -->
-            <h2 class="modal-title">Create Post</h2>
-            <div class="line"></div>
-
-            <!-- User Info -->
-            <div class="modal-header">
-                <img src="../../assets/profileIcon.jpg" alt="Profile" class="profile-pic">
-                <span><?php echo htmlspecialchars($user['first_name'] . ' ' . $user['last_name']); ?></span>
-            </div>
-
-            <div class="modal-divider"></div>
-
-        <!-- Post Content -->
-        <textarea id="modalPostContent" placeholder="What's on your mind?" class="post-input" rows="3"></textarea>
-
-        <!-- Tag Input -->
-        <div class="tag-input-container">
-            <label for="modalTags">Tags:</label>
-            <input type="text" id="modalTags" class="tag-input" placeholder="Add tags (e.g., #Experience, #Project)">
-        </div>
-
-        <!-- Image Upload -->
-        <div class="modal-add-option">
-            <label for="modalPostImage">Upload an Image:</label>
-            <input type="file" id="modalPostImage" accept="image/*">
-        </div>
-
-        <!-- Submit Button -->
-        <button id="modalPostButton" class="post-button">Post</button>
-        </div>
-        </div>
-
         </main>
     </div>
 
@@ -240,7 +199,7 @@ $friends = $friendsManager->getFriends($user['id']);
                 .then((response) => response.json())
                 .then((data) => {
                     const dropdown = document.getElementById(dropdownId);
-                    dropdown.innerHTML = "<option value=''>Select an option</option>";
+                    dropdown.innerHTML = "<option value=''>None</option>";
                     data.forEach((item) => {
                         const option = document.createElement("option");
                         option.value = item[valueField];
@@ -254,14 +213,47 @@ $friends = $friendsManager->getFriends($user['id']);
         // Populate schools for modal
         populateModalDropdown("../../config/alumni/fetchSchools.php", "modalSchool", "id", "name");
 
-        // Populate batches for modal
-        populateModalDropdown("../../config/alumni/fetchBatches.php", "modalBatch", "batch_number", "batch_number");
-
         // Populate courses dynamically based on selected school in modal
         document.getElementById("modalSchool").addEventListener("change", function () {
             const schoolId = this.value;
             populateModalDropdown(`../../config/alumni/fetchCourses.php?school_id=${schoolId}`, "modalCourse", "id", "name");
         });
+
+        function populateBatchDropdown() {
+        fetch("../../config/alumni/fetchBatches.php")
+        .then((response) => response.json())
+        .then((data) => {
+            const dropdown = document.getElementById("batchDropdown");
+            dropdown.innerHTML = "<option value=''>None</option>";
+            data.forEach((batch) => {
+                const option = document.createElement("option");
+                option.value = batch.id; 
+                option.textContent = batch.batch_number; 
+                dropdown.appendChild(option);
+            });
+        })
+        .catch((error) => console.error("Error fetching batches:", error));
+        }
+
+        populateBatchDropdown();
+
+        function populateBatchDropdownFilter() {
+        fetch("../../config/alumni/fetchBatches.php")
+        .then((response) => response.json())
+        .then((data) => {
+            const dropdown = document.getElementById("filterBatch");
+            dropdown.innerHTML = "<option value=''>None</option>";
+            data.forEach((batch) => {
+                const option = document.createElement("option");
+                option.value = batch.id; 
+                option.textContent = batch.batch_number; 
+                dropdown.appendChild(option);
+            });
+        })
+        .catch((error) => console.error("Error fetching batches:", error));
+        }
+
+        populateBatchDropdownFilter();
 
         // Populate filter dropdowns
         function populateFilterDropdown(endpoint, dropdownId, valueField, textField) {
@@ -269,7 +261,7 @@ $friends = $friendsManager->getFriends($user['id']);
             .then((response) => response.json())
             .then((data) => {
                 const dropdown = document.getElementById(dropdownId);
-                dropdown.innerHTML = "<option value=''>Select an option</option>";
+                dropdown.innerHTML = "<option value=''>None</option>";
                 data.forEach((item) => {
                     const option = document.createElement("option");
                     option.value = item[valueField];
@@ -283,9 +275,6 @@ $friends = $friendsManager->getFriends($user['id']);
         // Populate schools for filters
         populateFilterDropdown("../../config/alumni/fetchSchools.php", "filterSchool", "id", "name");
 
-        // Populate batches for filters
-        populateFilterDropdown("../../config/alumni/fetchBatches.php", "filterBatch", "batch_number", "batch_number");
-
         // Populate courses dynamically based on selected school in filters
         document.getElementById("filterSchool").addEventListener("change", function () {
             const schoolId = this.value;
@@ -295,11 +284,11 @@ $friends = $friendsManager->getFriends($user['id']);
         const sortOrderDropdown = document.getElementById("sortOrder");
 
         // Fetch and display posts
-        function fetchPosts(schoolId = null, courseId = null, batch = null, sort = "latest") {
+        function fetchPosts(schoolId = null, courseId = null, batchId = null, sort = "latest") {
         let url = `../../config/alumni/fetch_posts.php?sort=${sort}`;
-        if (schoolId) url += `&school_id=${schoolId}`;
-        if (courseId) url += `&course_id=${courseId}`;
-        if (batch) url += `&batch=${batch}`;
+        if (schoolId && schoolId !== "ALL") url += `&school_id=${schoolId}`;
+        if (courseId && courseId !== "ALL") url += `&course_id=${courseId}`;
+        if (batchId && batchId !== "ALL") url += `&batch_id=${batchId}`;
 
         fetch(url)
             .then((response) => response.json())
@@ -320,61 +309,116 @@ $friends = $friendsManager->getFriends($user['id']);
                                 ? `<img src="data:image/jpeg;base64,${post.image}" alt="Post Image" />`
                                 : ""
                         }
-                        <div class="post-tags">Tags: ${post.tags?.join(", ") || "No tags"}</div>
+                        <div class="post-tags">Tags: ${
+                            post.tags.length ? post.tags.join(", ") : "No tags"
+                        }</div>
                         <div class="post-date">${new Date(post.created_at).toLocaleString()}</div>
                     `;
                     postsContainer.appendChild(postElement);
                 });
             })
             .catch((error) => console.error("Error fetching posts:", error));
+            }
+
+            // Fetch posts when filters change
+            document.getElementById("filterSchool").addEventListener("change", function () {
+                const schoolId = this.value;
+                const courseId = document.getElementById("filterCourse").value;
+                const batchId = document.getElementById("filterBatch").value;
+                const sortOrder = document.getElementById("sortOrder").value;
+                fetchPosts(schoolId, courseId, batchId, sortOrder);
+            });
+
+            document.getElementById("filterCourse").addEventListener("change", function () {
+                const schoolId = document.getElementById("filterSchool").value;
+                const courseId = this.value;
+                const batchId = document.getElementById("filterBatch").value;
+                const sortOrder = document.getElementById("sortOrder").value;
+                fetchPosts(schoolId, courseId, batchId, sortOrder);
+            });
+
+            document.getElementById("filterBatch").addEventListener("change", function () {
+            const batchId = this.value; 
+            const schoolId = document.getElementById("filterSchool").value;
+            const courseId = document.getElementById("filterCourse").value;
+            const sortOrder = document.getElementById("sortOrder").value;
+
+            const effectiveBatchId = batchId === '' ? 'ALL' : batchId;
+
+            fetchPosts(schoolId, courseId, effectiveBatchId, sortOrder);
+            });
+
+            document.getElementById("sortOrder").addEventListener("change", function () {
+                const sortOrder = this.value;
+                const schoolId = document.getElementById("filterSchool").value;
+                const courseId = document.getElementById("filterCourse").value;
+                const batchId = document.getElementById("filterBatch").value;
+                fetchPosts(schoolId, courseId, batchId, sortOrder);
+            });
+
+         // Initial fetch of posts
+        fetchPosts();
+
+        // Handle post creation
+        document.getElementById("postButton").addEventListener("click", function (e) {
+        e.preventDefault();
+
+        const content = document.getElementById("postContent").value.trim();
+        const schoolId = document.getElementById("modalSchool").value;
+        const courseId = document.getElementById("modalCourse").value;
+        const batchId = document.getElementById("batchDropdown").value;
+        const tagInput = document.getElementById("tags").value.trim();
+        const imageInput = document.getElementById("postImage");
+
+        // Validation
+        if (!content) {
+            alert("Post content cannot be empty!");
+            return;
+        }
+        if (!schoolId || !courseId || !batchId) {
+            alert("Please select School, Course, and Batch!");
+            return;
         }
 
-        // Fetch posts when sort order changes
-        sortOrderDropdown.addEventListener("change", function () {
-            const sortOrder = this.value;
-            const schoolId = document.getElementById("filterSchool").value;
-            const courseId = document.getElementById("filterCourse").value;
-            const batch = document.getElementById("filterBatch").value;
-            fetchPosts(schoolId, courseId, batch, sortOrder);
-        });
+        // Extract tags and validate them
+        const extractedTags = tagInput
+            .split(/\s+/) // Split by spaces
+            .filter(tag => tag.startsWith('#') && tag.length > 1) // Ensure it starts with '#' and has content
+            .map(tag => tag.substring(1)); // Remove the '#'
 
-        // Fetch posts when filters change
-        document.getElementById("filterSchool").addEventListener("change", function () {
-            const schoolId = this.value;
-            const courseId = document.getElementById("filterCourse").value;
-            const batch = document.getElementById("filterBatch").value;
-            const sortOrder = document.getElementById("sortOrder").value;
-            fetchPosts(schoolId, courseId, batch, sortOrder);
-        });
+        if (extractedTags.length === 0 && tagInput.trim() !== "") {
+            alert("All tags must start with # and cannot be empty!");
+            return;
+        }
 
-        document.getElementById("filterCourse").addEventListener("change", function () {
-            const schoolId = document.getElementById("filterSchool").value;
-            const courseId = this.value;
-            const batch = document.getElementById("filterBatch").value;
-            const sortOrder = document.getElementById("sortOrder").value;
-            fetchPosts(schoolId, courseId, batch, sortOrder);
-        });
+        // Prepare form data
+        const formData = new FormData();
+        formData.append("content", content);
+        formData.append("school_id", schoolId);
+        formData.append("course_id", courseId);
+        formData.append("batch_id", batchId);
+        formData.append("tags", JSON.stringify(extractedTags));
+        if (imageInput.files.length > 0) {
+            formData.append("image", imageInput.files[0]);
+        }
 
-        document.getElementById("filterBatch").addEventListener("change", function () {
-            const schoolId = document.getElementById("filterSchool").value;
-            const courseId = document.getElementById("filterCourse").value;
-            const batch = this.value;
-            const sortOrder = document.getElementById("sortOrder").value;
-            fetchPosts(schoolId, courseId, batch, sortOrder);
+        // Send data to backend
+        fetch("../../config/alumni/create_posts.php", {
+            method: "POST",
+            body: formData,
+        })
+        .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert("Post created successfully!");
+                    location.reload(); // Reload to display the new post
+                } else {
+                    alert(data.message || "Failed to create post.");
+                }
+            })
+                .catch(error => console.error("Error:", error));
+            });
         });
-
-        // Fetch posts when sort order changes
-        document.getElementById("sortOrder").addEventListener("change", function () {
-            const sortOrder = this.value;
-            const schoolId = document.getElementById("filterSchool").value;
-            const courseId = document.getElementById("filterCourse").value;
-            const batch = document.getElementById("filterBatch").value;
-            fetchPosts(schoolId, courseId, batch, sortOrder);
-        });
-
-        // Initial fetch of posts
-        fetchPosts();
-    });
     
     // Create Post (expand/minimized)
     document.addEventListener("DOMContentLoaded", function() {
