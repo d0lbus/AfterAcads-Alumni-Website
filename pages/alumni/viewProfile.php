@@ -130,7 +130,7 @@ if ($friendStatus === 'not_friends') {
                         <p><?php echo isset($target_user['bio']) ? htmlspecialchars($target_user['bio']) : 'Bio not provided'; ?></p>
 
                         <?php if (!$is_current_user): ?>
-                        <form method="POST" action="<?php echo $action; ?>">
+                        <!-- <form method="POST" action="<?php echo $action; ?>">
                             <input type="hidden" name="friend_id" value="<?php echo htmlspecialchars($profile_user_id); ?>">
                             <button type="submit" class="friend-button"><?php echo $buttonText; ?></button>
                         </form>
@@ -138,7 +138,19 @@ if ($friendStatus === 'not_friends') {
                         <form method="POST" action="../../config/alumni/initiateChat.php">
                             <input type = "hidden" name="friend_id" value="<?php echo htmlspecialchars($profile_user_id); ?>">
                             <button type="submit" class="message-button">Message</button>
-                        </form>
+                        </form> -->
+                        
+                        <div class="button-container">
+                            <form method="POST" action="<?php echo $action; ?>">
+                                <input type="hidden" name="friend_id" value="<?php echo htmlspecialchars($profile_user_id); ?>">
+                                <button type="submit" class="friend-button"><?php echo $buttonText; ?></button>
+                            </form>
+
+                            <form method="POST" action="../../config/alumni/initiateChat.php">
+                                <input type="hidden" name="friend_id" value="<?php echo htmlspecialchars($profile_user_id); ?>">
+                                <button type="submit" class="message-button">Message</button>
+                            </form>
+                        </div>
 
                         <?php else: ?>
                             <a href="settings.php" class="edit-profile-button">Edit Profile</a>
