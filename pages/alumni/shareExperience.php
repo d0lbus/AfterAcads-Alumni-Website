@@ -77,58 +77,50 @@ $friends = $friendsManager->getFriends($user['id']);
         <main>
 
             <div class="header-search-bar">
-
                 <form action="searchResultsPage.php" method="get" style="display: flex; width: 100%;">
                     <input type="text" class="search-input" name="query" placeholder="Search..." required />
                     <button class="search-button" id="searchButton" aria-label="Search">
                         <span><img src="../../assets/search1.png" width="20px" alt="search" /></span>
                     </button>
                 </form>
-
             </div>
 
-            <!-- Post creation section -->
+            <!-- Post Creation Section -->
             <div class="addPost">
                 <div class="addPost-header">
-                    <img src="../../assets/profileIcon.jpg" alt="Profile" class="profile-pic" />
+                    <img src="../../assets/profileIcon.jpg" alt="Profile" class="profile-pic">
                     <textarea id="postContent" placeholder="What's on your mind?" class="post-input" rows="1"></textarea>
                 </div>
 
+                <!-- Dynamic Dropdowns -->
                 <div class="dropdown-container">
                     <label for="school">School:</label>
-                    <select id="school" class="dropdown">
-                        <!-- Options will be dynamically populated from the database -->
-                    </select>
+                    <select id="school" class="dropdown"></select>
 
                     <label for="course">Course:</label>
-                    <select id="course" class="dropdown">
-                        <!-- Options will be dynamically populated based on selected school -->
-                    </select>
+                    <select id="course" class="dropdown"></select>
 
                     <label for="batch">Batch:</label>
-                    <select id="batch" class="dropdown">
-                        <option value="ALL">ALL</option>
-                        <option value="223">223</option>
-                        <option value="222">222</option>
-                        <option value="221">221</option>
-                    </select>
+                    <select id="batch" class="dropdown"></select>
                 </div>
 
+                <!-- Tag Input -->
                 <div class="tag-input-container">
                     <label for="tags">Tags:</label>
-                    <input type="text" id="tags" class="tag-input" placeholder="Add tags (e.g., #Experience, #Project)" />
+                    <input type="text" id="tags" class="tag-input" placeholder="Add tags (e.g., #Experience, #Project)">
                 </div>
 
+                <!-- File Upload -->
                 <div class="addPost-option">
                     <input type="file" id="postImage" accept="image/*">
                 </div>
+
                 <button id="postButton" class="post-button">Post</button>
             </div>
 
-
             
-
-            <div class="sort-filter-container">
+             <!-- Filters -->
+             <div class="sort-filter-container">
                 <div class="sort-dropdown">
                     <label for="sortOrder" class="sort-label">Sort by:</label>
                     <select id="sortOrder" class="sort-select">
@@ -138,73 +130,79 @@ $friends = $friendsManager->getFriends($user['id']);
                 </div>
                 <div class="filter-dropdown">
                     <label for="filterSchool" class="filter-label">School:</label>
-                        <select id="filterSchool" class="filter-select">
-                            <!-- Dynamically populated -->
-                        </select>
+                    <select id="filterSchool" class="filter-select"></select>
 
-                        <label for="filterCourse" class="filter-label">Course:</label>
-                        <select id="filterCourse" class="filter-select">
-                            <!-- Dynamically populated based on selected school -->
-                        </select>
+                    <label for="filterCourse" class="filter-label">Course:</label>
+                    <select id="filterCourse" class="filter-select"></select>
 
-                        <label for="filterBatch" class="filter-label">Batch:</label>
-                        <select id="filterBatch" class="filter-select">
-                            <option value="ALL">ALL</option>
-                            <option value="223">223</option>
-                            <option value="222">222</option>
-                            <option value="221">221</option>
-                    </select>
+                    <label for="filterBatch" class="filter-label">Batch:</label>
+                    <select id="filterBatch" class="filter-select"></select>
                 </div>
             </div>
             
 
-            <!-- Dynamic posts container -->
-            <div id="postsContainer">
-                <div class="post">
-                    <div class="post-user">Posted by: <strong>User Name</strong></div>
-                    <div class="post-school">School: <span>SAMCIS</span></div>
-                    <div class="post-course">Course: <span>Computer Science</span></div>
-                    <div class="post-batch">Batch: <span>223</span></div>
-                    <div class="post-content">This is the post content...</div>
-                    <div class="post-tags">Tags: <span>#Experience</span> <span>#Success</span></div>
-                </div>
+            <!-- Posts Section -->
+            <div id="postsContainer" class="posts-container">
+                <!-- Posts will be dynamically inserted here -->
             </div>
 
 
-            <!-- Modal for creating a post -->
-            <div class="modal" id="postModal">
-                <div class="modal-content">
-                    <span class="close-modal">&times;</span>
-                    <h2 class="modal-title">Create Post</h2>
-                    <div class="line"></div>
-                    <div class="modal-header">
-                        <img src="../../assets/profile.jpg" alt="Profile" class="profile-pic" />
-                        <span>
-                            <?php echo htmlspecialchars($user['first_name'] . ' ' . $user['last_name']); ?>
-                        </span>
-                        <textarea id="modalPostContent" placeholder="What's on your mind?" class="post-input"
-                            rows="3"></textarea>
-                    </div>
+            <!-- Modal for Creating a Post -->
+        <div class="modal" id="postModal" style="display: none;">
+        <div class="modal-content">
+        <!-- Close Button -->
+        <span class="close-modal">&times;</span>
 
-                    <div class="modal-divider"></div>
+        <!-- Modal Header -->
+        <h2 class="modal-title">Create Post</h2>
+        <div class="line"></div>
 
-                    <div class="tag-dropdown">
-                        <label for="modal-tags" class="tag-label">Select a Tag:</label>
-                        <select id="modal-tags" class="tag-select">
-                            <option value="">Select a Tag</option>
-                            <option value="SAMCIS">SAMCIS</option>
-                            <option value="SOHNABS">SOHNABS</option>
-                            <option value="STELA">STELA</option>
-                            <option value="SEA">SEA</option>
-                        </select>
-                    </div>
+        <!-- User Info -->
+        <div class="modal-header">
+            <img src="../../assets/profileIcon.jpg" alt="Profile" class="profile-pic">
+            <span><?php echo htmlspecialchars($user['first_name'] . ' ' . $user['last_name']); ?></span>
+        </div>
 
-                    <div class="modal-add-option">
-                        <input type="file" id="modalPostImage" accept="image/*">
-                    </div>
-                    <button class="post-button">Post</button>
-                </div>
-            </div>
+        <div class="modal-divider"></div>
+
+        <!-- Post Content -->
+        <textarea id="modalPostContent" placeholder="What's on your mind?" class="post-input" rows="3"></textarea>
+
+        <!-- Dynamic Dropdowns -->
+        <div class="dropdown-container">
+            <label for="modalSchool">School:</label>
+            <select id="modalSchool" class="dropdown">
+                <!-- Options will be dynamically populated -->
+            </select>
+
+            <label for="modalCourse">Course:</label>
+            <select id="modalCourse" class="dropdown">
+                <!-- Options will be dynamically populated -->
+            </select>
+
+            <label for="modalBatch">Batch:</label>
+            <select id="modalBatch" class="dropdown">
+                <!-- Options will be dynamically populated -->
+            </select>
+        </div>
+
+        <!-- Tag Input -->
+        <div class="tag-input-container">
+            <label for="modalTags">Tags:</label>
+            <input type="text" id="modalTags" class="tag-input" placeholder="Add tags (e.g., #Experience, #Project)">
+        </div>
+
+        <!-- Image Upload -->
+        <div class="modal-add-option">
+            <label for="modalPostImage">Upload an Image:</label>
+            <input type="file" id="modalPostImage" accept="image/*">
+        </div>
+
+        <!-- Submit Button -->
+        <button id="modalPostButton" class="post-button">Post</button>
+        </div>
+        </div>
+
 
 
         </main>
@@ -246,198 +244,180 @@ $friends = $friendsManager->getFriends($user['id']);
     </div>
 
     <script>
-        // Modal open/close functionality
-        document.addEventListener("DOMContentLoaded", function () {
-            const modal = document.getElementById("postModal");
-            const openModalButton = document.getElementById("addPhotoVideoButton");
-            const closeModalButton = document.querySelector(".close-modal");
+    document.addEventListener("DOMContentLoaded", function () {
+        const modal = document.getElementById("postModal");
+        const openModalButton = document.getElementById("postButton"); // Replace if you have a trigger button
+        const closeModalButton = document.querySelector(".close-modal");
 
-            if (openModalButton) {
-                openModalButton.onclick = function () {
-                    modal.style.display = "block";
-                };
+        // Open modal
+        if (openModalButton) {
+            openModalButton.addEventListener("click", function () {
+                modal.style.display = "block";
+            });
+        }
+
+        // Close modal
+        if (closeModalButton) {
+            closeModalButton.addEventListener("click", function () {
+                modal.style.display = "none";
+            });
+        }
+
+        // Close modal when clicking outside
+        window.addEventListener("click", function (event) {
+            if (event.target === modal) {
+                modal.style.display = "none";
+            }
+        });
+
+        // Handle post creation
+        document.getElementById("postButton").addEventListener("click", function (e) {
+            e.preventDefault();
+
+            const content = document.getElementById("postContent").value.trim();
+            const schoolId = document.getElementById("school").value;
+            const courseId = document.getElementById("course").value;
+            const batch = document.getElementById("batch").value;
+            const imageInput = document.getElementById("postImage");
+
+            // Validate input
+            if (!content) {
+                alert("Post content cannot be empty!");
+                return;
             }
 
-            if (closeModalButton) {
-                closeModalButton.onclick = function () {
-                    modal.style.display = "none";
-                };
+            if (!schoolId || !courseId || !batch) {
+                alert("Please select school, course, and batch!");
+                return;
             }
 
-            window.onclick = function (event) {
-                if (event.target == modal) {
-                    modal.style.display = "none";
-                }
-            };
+            const formData = new FormData();
+            formData.append("content", content);
+            formData.append("school_id", schoolId);
+            formData.append("course_id", courseId);
+            formData.append("batch", batch);
+            if (imageInput.files.length > 0) {
+                formData.append("image", imageInput.files[0]);
+            }
 
-            // Handle creating a post
-            document.getElementById("postButton").addEventListener("click", function (e) {
-                e.preventDefault();
-
-                const content = document.getElementById("postContent").value;
-                const tag = document.getElementById("tags").value; // Selected tag
-                const imageInput = document.getElementById("postImage");
-
-                // Validate content
-                if (!content.trim()) {
-                    alert("Post content cannot be empty!");
-                    return;
-                }
-
-                // Validate tag selection
-                if (!tag) {
-                    alert("Please select a tag before posting.");
-                    return;
-                }
-
-                // Form data for sending the post
-                const formData = new FormData();
-                formData.append("content", content);
-                formData.append("tag", tag);
-                if (imageInput.files.length > 0) {
-                    formData.append("image", imageInput.files[0]);
-                }
-
-                fetch("../config/alumni/create_posts.php", {
-                    method: "POST",
-                    body: formData,
+            fetch("../../config/alumni/create_posts.php", {
+                method: "POST",
+                body: formData,
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    if (data.success) {
+                        alert("Post created successfully!");
+                        location.reload(); // Reload to display the new post
+                    } else {
+                        alert("Error creating post.");
+                    }
                 })
-                    .then((response) => response.json())
-                    .then((data) => {
-                        if (data.success) {
-                            alert("Post created successfully!");
-                            location.reload(); // Reload to display new post
-                        } else {
-                            alert("Error creating post.");
-                        }
-                    })
-                    .catch((error) => console.error("Error:", error));
-            });
-
-            // Fetch and display posts with optional filters (tag, search, sort)
-            function fetchPosts(tag = null, search = null, sort = 'latest') {
-                let url = `../config/alumni/fetch_posts.php?sort=${sort}`; // Add sorting to the URL
-                if (tag) {
-                    url += `&tag=${tag}`;
-                }
-                if (search) {
-                    url += `&search=${search}`;
-                }
-
-                fetch(url)
-                    .then((response) => response.json())
-                    .then((posts) => {
-                        const postsContainer = document.getElementById("postsContainer");
-                        postsContainer.innerHTML = "";
-                        posts.forEach((post) => {
-                            const postElement = document.createElement("div");
-                            postElement.classList.add("post");
-                            postElement.innerHTML = `
-                                <div class="post-user">${post.full_name}</div>
-                                <div class="post-content">${post.content}</div>
-                                ${post.image
-                                    ? `<img src="data:image/jpeg;base64,${post.image}" alt="Post Image" />`
-                                    : ""
-                                }
-                                <div class="post-tag">Tag: ${post.tag}</div>
-                                <div class="post-date">${new Date(post.created_at).toLocaleString()}</div>
-                            `;
-                            postsContainer.appendChild(postElement);
-                        });
-                    })
-                    .catch((error) => console.error("Error fetching posts:", error));
-            }
-
-            // Filter posts by tag
-            document.getElementById("filterTag").addEventListener("change", function () {
-                const selectedTag = this.value;
-                const sortOrder = document.getElementById("sortOrder").value; // Get the selected sort order
-                fetchPosts(selectedTag, null, sortOrder);
-            });
-
-            // Search posts by keyword
-            // document.getElementById("searchButton").addEventListener("click", function () {
-            //     const searchQuery = document.getElementById("searchInput").value.trim();
-            //     const sortOrder = document.getElementById("sortOrder").value; // Get the selected sort order
-            //     if (searchQuery) {
-            //         fetchPosts(null, searchQuery, sortOrder);
-            //     }
-            // });
-
-            document.addEventListener("DOMContentLoaded", function () {
-                const searchInput = document.getElementById("searchInput");
-                const searchButton = document.getElementById("searchButton");
-
-                // Handle Enter Key Press
-                searchInput.addEventListener("keypress", function (event) {
-                    if (event.key === "Enter") {
-                        event.preventDefault();
-                        redirectToSearchResults(searchInput.value.trim());
-                    }
-                });
-
-                // Handle Search Button Click
-                searchButton.addEventListener("click", function () {
-                    const searchQuery = searchInput.value.trim();
-                    if (searchQuery) {
-                        redirectToSearchResults(searchQuery);
-                    }
-                });
-
-                // Redirect to Search Results Page
-                function redirectToSearchResults(query) {
-                    window.location.href = `searchResultsPage.php?query=${encodeURIComponent(query)}`;
-                }
-            });
-      
-            
-
-            // Handle sorting by latest or oldest
-            document.getElementById("sortOrder").addEventListener("change", function () {
-                const sortOrder = this.value;
-                const selectedTag = document.getElementById("filterTag").value; // Get selected tag
-                const searchQuery = document.getElementById("searchInput").value.trim(); // Get search query
-                fetchPosts(selectedTag, searchQuery, sortOrder);
-            });
-
-            // Initial fetch of posts (default to latest)
-            fetchPosts();
+                .catch((error) => console.error("Error creating post:", error));
         });
 
-        // Responsive Sidebar
-        document.addEventListener("DOMContentLoaded", function () {
-            const sidebar = document.querySelector(".sidebar");
-            const toggleButton = document.getElementById("sidebarToggle");
+        // Fetch and display posts
+        function fetchPosts(schoolId = null, courseId = null, batch = null, sort = "latest") {
+            let url = `../../config/alumni/fetch_posts.php?sort=${sort}`;
+            if (schoolId) url += `&school_id=${schoolId}`;
+            if (courseId) url += `&course_id=${courseId}`;
+            if (batch) url += `&batch=${batch}`;
 
-            toggleButton.addEventListener("click", function () {
-                sidebar.classList.toggle("minimized");
-            });
+            fetch(url)
+                .then((response) => response.json())
+                .then((posts) => {
+                    const postsContainer = document.getElementById("postsContainer");
+                    postsContainer.innerHTML = ""; // Clear previous posts
+                    posts.forEach((post) => {
+                        const postElement = document.createElement("div");
+                        postElement.classList.add("post");
+                        postElement.innerHTML = `
+                            <div class="post-user">Posted by: <strong>${post.full_name}</strong></div>
+                            <div class="post-school">School: ${post.school}</div>
+                            <div class="post-course">Course: ${post.course}</div>
+                            <div class="post-batch">Batch: ${post.batch}</div>
+                            <div class="post-content">${post.content}</div>
+                            ${post.image ? `<img src="data:image/jpeg;base64,${post.image}" alt="Post Image" />` : ""}
+                            <div class="post-tags">Tags: ${post.tags.join(", ")}</div>
+                            <div class="post-date">${new Date(post.created_at).toLocaleString()}</div>
+                        `;
+                        postsContainer.appendChild(postElement);
+                    });
+                })
+                .catch((error) => console.error("Error fetching posts:", error));
+        }
+
+        // Dynamic dropdown population
+        function populateDropdown(endpoint, dropdownId, valueField, textField) {
+            fetch(endpoint)
+                .then((response) => response.json())
+                .then((data) => {
+                    const dropdown = document.getElementById(dropdownId);
+                    dropdown.innerHTML = ""; // Clear previous options
+                    data.forEach((item) => {
+                        const option = document.createElement("option");
+                        option.value = item[valueField];
+                        option.textContent = item[textField];
+                        dropdown.appendChild(option);
+                    });
+                })
+                .catch((error) => console.error(`Error fetching ${dropdownId}:`, error));
+        }
+
+        // Populate dropdowns
+        populateDropdown("../../config/alumni/fetchSchools.php", "school", "id", "name");
+        populateDropdown("../../config/alumni/fetchBatches.php", "batch", "batch_number", "batch_number");
+
+        // Fetch courses dynamically based on selected school
+        document.getElementById("school").addEventListener("change", function () {
+            const schoolId = this.value;
+            populateDropdown(`../../config/alumni/fetchCourses.php?school_id=${schoolId}`, "course", "id", "name");
         });
 
-        // Add Post Container
-        document.addEventListener("DOMContentLoaded", function () {
-            const addPost = document.querySelector(".addPost");
-            const postContent = document.getElementById("postContent");
-
-            // Initially minimize the addPost
-            addPost.classList.add("minimized");
-
-            // Expand addPost when the textarea is clicked
-            postContent.addEventListener("click", function (event) {
-                event.stopPropagation(); // Prevent the event from bubbling up to the document
-                addPost.classList.remove("minimized");
-                addPost.classList.add("expanded");
-            });
-
-            // Collapse addPost when clicking outside
-            document.addEventListener("click", function (event) {
-                if (!addPost.contains(event.target)) {
-                    addPost.classList.remove("expanded");
-                    addPost.classList.add("minimized");
-                }
-            });
+        // Fetch posts when filters change
+        document.getElementById("school").addEventListener("change", () => fetchPosts());
+        document.getElementById("course").addEventListener("change", () => fetchPosts());
+        document.getElementById("batch").addEventListener("change", () => fetchPosts());
+        document.getElementById("sortOrder").addEventListener("change", function () {
+            const sortOrder = this.value;
+            fetchPosts(null, null, null, sortOrder);
         });
-    </script>
+
+        // Initial posts fetch
+        fetchPosts();
+
+        // Sidebar toggle functionality
+        const sidebar = document.querySelector(".sidebar");
+        const toggleButton = document.getElementById("sidebarToggle");
+        toggleButton.addEventListener("click", () => {
+            sidebar.classList.toggle("minimized");
+        });
+
+        document.getElementById("school").addEventListener("change", function () {
+            const schoolId = this.value;
+            const courseId = document.getElementById("course").value;
+            const batch = document.getElementById("batch").value;
+            fetchPosts(schoolId, courseId, batch);
+         });
+
+        document.getElementById("course").addEventListener("change", function () {
+            const schoolId = document.getElementById("school").value;
+            const courseId = this.value;
+            const batch = document.getElementById("batch").value;
+            fetchPosts(schoolId, courseId, batch);
+         });
+
+        document.getElementById("batch").addEventListener("change", function () {
+            const schoolId = document.getElementById("school").value;
+            const courseId = document.getElementById("course").value;
+            const batch = this.value;
+            fetchPosts(schoolId, courseId, batch);
+        });
+
+    });
+</script>
+
+
 
 
 </body>

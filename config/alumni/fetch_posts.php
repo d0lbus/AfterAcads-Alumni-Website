@@ -1,58 +1,77 @@
 <?php
-include 'connection.php'; 
+include 'connection.php';
 
-$tag = isset($_GET['tag']) ? $_GET['tag'] : null;
-$search = isset($_GET['search']) ? $_GET['search'] : null;
+header('Content-Type: application/json');
 
-// Base SQL query to join posts and users tables
-$sql = "SELECT posts.*, users.first_name, users.last_name 
-        FROM posts 
-        JOIN users ON posts.user_id = users.id";
+// Fetch filters from the request
+$school_id = isset($_GET['school_id']) ? intval($_GET['school_id']) : null;
+$course_id = isset($_GET['course_id']) ? intval($_GET['course_id']) : null;
+$batch = isset($_GET['batch']) ? $_GET['batch'] : null;
+$sort = isset($_GET['sort']) && $_GET['sort'] === 'oldest' ? 'ASC' : 'DESC';
 
-// If a tag is provided, filter by tag
-if ($tag) {
-    $sql .= " WHERE posts.tag = ?";
+// Build the base SQL query
+$sql = "SELECT posts.*, users.first_name, users.last_name, schools.name AS school, courses.name AS course 
+        FROM posts
+        JOIN users ON posts.user_id = users.id
+        LEFT JOIN schools ON posts.school_id = schools.id
+        LEFT JOIN courses ON posts.course_id = courses.id";
+
+// Add filters if provided
+$conditions = [];
+$params = [];
+$types = '';
+
+if ($school_id) {
+    $conditions[] = "posts.school_id = ?";
+    $params[] = $school_id;
+    $types .= 'i';
 }
 
-// If a search query is provided, search in post content, first name, last name, or full name
-if ($search) {
-    $sql .= $tag ? " AND" : " WHERE";
-    $sql .= " (posts.content LIKE ? OR users.first_name LIKE ? OR users.last_name LIKE ? OR CONCAT(users.first_name, ' ', users.last_name) LIKE ?)";
+if ($course_id) {
+    $conditions[] = "posts.course_id = ?";
+    $params[] = $course_id;
+    $types .= 'i';
 }
 
-// Prepare the statement
+if ($batch) {
+    $conditions[] = "posts.batch = ?";
+    $params[] = $batch;
+    $types .= 's';
+}
+
+// Apply conditions to the query
+if (!empty($conditions)) {
+    $sql .= ' WHERE ' . implode(' AND ', $conditions);
+}
+
+// Add sorting
+$sql .= " ORDER BY posts.created_at $sort";
+
+// Prepare and execute the query
 $stmt = $conn->prepare($sql);
-
-// Bind parameters based on whether a tag or search query is provided
-if ($tag && $search) {
-    $search_term = '%' . $search . '%';
-    // Bind both tag and search term
-    $stmt->bind_param("sssss", $tag, $search_term, $search_term, $search_term, $search_term);
-} elseif ($tag) {
-    // Bind only the tag
-    $stmt->bind_param("s", $tag);
-} elseif ($search) {
-    // Bind only the search term
-    $search_term = '%' . $search . '%';
-    $stmt->bind_param("ssss", $search_term, $search_term, $search_term, $search_term);
+if (!empty($params)) {
+    $stmt->bind_param($types, ...$params);
 }
-
 $stmt->execute();
 $result = $stmt->get_result();
 
+// Fetch results
 $posts = [];
 while ($row = $result->fetch_assoc()) {
-    $image_data = base64_encode($row['image']); // Convert BLOB to base64 if there's an image
     $posts[] = [
+        'id' => $row['id'],
         'full_name' => $row['first_name'] . ' ' . $row['last_name'],
         'content' => $row['content'],
-        'tag' => $row['tag'],
-        'image' => $image_data,
+        'tags' => explode(',', $row['tags']), // Assuming tags are stored as comma-separated values
+        'school' => $row['school'] ?: 'N/A',
+        'course' => $row['course'] ?: 'N/A',
+        'batch' => $row['batch'] ?: 'N/A',
+        'image' => $row['image'] ? base64_encode($row['image']) : null,
         'created_at' => $row['created_at']
     ];
 }
 
-// Return posts as JSON
+// Return the posts as JSON
 echo json_encode($posts);
 
 $stmt->close();
