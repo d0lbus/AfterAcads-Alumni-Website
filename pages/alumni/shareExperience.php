@@ -367,7 +367,7 @@ $friends = $friendsManager->getFriends($user['id']);
                     window.location.href = `searchResultsPage.php?query=${encodeURIComponent(query)}`;
                 }
             });
-
+      
             
 
             // Handle sorting by latest or oldest
