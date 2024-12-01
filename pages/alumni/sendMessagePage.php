@@ -99,24 +99,30 @@ if (isset($_GET['chat_with']) && !empty($_GET['chat_with'])) {
             </div>
             
             <!-- Message Area -->
-            <div class="message-container" id="messageContainer" style="display: none;">
+            <div class="message-container" id="messageContainer">
+                <!-- Chat Header -->
                 <div class="chat-header">
-                    <img src="../../assets/profile.jpg" alt="User Profile Picture" class="chat-user-icon">
-                    <span class="chat-username"><?php echo $friend; ?></span>
+                    <?php if (!empty($friend['profile_picture'])): ?>
+                        <img src="data:image/jpeg;base64,<?php echo base64_encode($friend['profile_picture']); ?>" 
+                            alt="User Profile Picture" class="chat-user-icon">
+                    <?php else: ?>
+                        <img src="../../assets/profileIcon.jpg" 
+                            alt="Default Avatar" class="chat-user-icon">
+                    <?php endif; ?>
+                    <span class="chat-username">
+                        <?php echo htmlspecialchars($friend['first_name'] . ' ' . $friend['last_name']); ?>
+                    </span>
+            </div>
+
+                <!-- Chat Box -->
+                <div class="chat-box" id="chatBox">
+                    <!-- Messages will be dynamically inserted here -->
                 </div>
-                <div class="chat-box">
-                    <div class="message received">
-                        <p>Hey! How are you?</p>
-                        <span class="timestamp">12:00 PM</span>
-                    </div>
-                    <div class="message sent">
-                        <p>I'm good! How about you?</p>
-                        <span class="timestamp">12:01 PM</span>
-                    </div>
-                </div>
+
+                <!-- Chat Input -->
                 <div class="chat-input">
-                    <input type="text" placeholder="Type a message..." class="message-input">
-                    <button class="send-button">Send</button>
+                    <input type="text" id="messageInput" placeholder="Type a message..." class="message-input">
+                    <button class="send-button" id="sendButton">Send</button>
                 </div>
             </div>
         </main>
@@ -155,16 +161,61 @@ if (isset($_GET['chat_with']) && !empty($_GET['chat_with'])) {
     </div>
 </div>
 
-    <script>
-        // open chat
-        function openChat(friendName) {
-            const messageContainer = document.getElementById('messageContainer');
-            messageContainer.style.display = 'block';
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+    const chatBox = document.getElementById('chatBox');
+    const messageInput = document.getElementById('messageInput');
+    const sendButton = document.getElementById('sendButton');
+    const loggedInUserId = <?php echo json_encode($user['id']); ?>;
+    const friendId = <?php echo json_encode($friend_id); ?>;
 
-            const chatUsername = document.querySelector('.chat-username');
-            chatUsername.textContent = friendName;
+    // Fetch messages every 2 seconds
+    function fetchMessages() {
+        fetch(`../../config/fetchMessages.php?logged_in_user_id=${loggedInUserId}&friend_id=${friendId}`)
+            .then(response => response.json())
+            .then(messages => {
+                chatBox.innerHTML = ''; // Clear chatBox
+                messages.forEach(msg => {
+                    const messageDiv = document.createElement('div');
+                    messageDiv.classList.add('message', msg.sender_id == loggedInUserId ? 'sent' : 'received');
+                    messageDiv.innerHTML = `
+                        <p>${msg.message}</p>
+                        <span class="timestamp">${new Date(msg.created_at).toLocaleTimeString()}</span>
+                    `;
+                    chatBox.appendChild(messageDiv);
+                });
+                chatBox.scrollTop = chatBox.scrollHeight; // Scroll to the bottom
+            });
+    }
+
+    // Send message
+    sendButton.addEventListener('click', function () {
+        const message = messageInput.value.trim();
+        if (message) {
+            fetch('../../config/sendMessage.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: `sender_id=${loggedInUserId}&receiver_id=${friendId}&message=${encodeURIComponent(message)}`
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    messageInput.value = ''; // Clear input
+                    fetchMessages(); // Refresh chat
+                } else {
+                    alert(data.error || 'Failed to send message.');
+                }
+            });
         }
-  </script>
+    });
+
+    // Start fetching messages
+    setInterval(fetchMessages, 2000);
+    fetchMessages(); // Initial load
+});
+
+    
+</script>
     
 </body>
 </html>
