@@ -1,4 +1,4 @@
-<?php include '../../config/header.php'; ?>
+<?php include '../../config/alumni/header.php'; ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Settings</title>
     <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css" />
-    <link rel="stylesheet" href="../../style/settings.css" />
+    <link rel="stylesheet" href="../../style/alumni/settings.css" />
 </head>
 
 <body>
@@ -67,7 +67,7 @@
                 <small>Supported formats: JPG, PNG. Max size: 2MB.</small>
             </div>
 
-            <form class="settings-form" method="post" action="../config/update_settings.php">
+            <form class="settings-form" method="post" action="../config/alumni/update_settings.php">
                 <h2>Profile Settings</h2>
                 <div class="form-group">
                     <label for="first-name">First Name</label>
