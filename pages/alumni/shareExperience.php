@@ -148,22 +148,22 @@ $friends = $friendsManager->getFriends($user['id']);
 
 
             <!-- Modal for Creating a Post -->
-        <div class="modal" id="postModal" style="display: none;">
-        <div class="modal-content">
-        <!-- Close Button -->
-        <span class="close-modal">&times;</span>
+            <div class="modal" id="postModal" style="display: none;">
+            <div class="modal-content">
+            <!-- Close Button -->
+            <span class="close-modal">&times;</span>
 
-        <!-- Modal Header -->
-        <h2 class="modal-title">Create Post</h2>
-        <div class="line"></div>
+            <!-- Modal Header -->
+            <h2 class="modal-title">Create Post</h2>
+            <div class="line"></div>
 
-        <!-- User Info -->
-        <div class="modal-header">
-            <img src="../../assets/profileIcon.jpg" alt="Profile" class="profile-pic">
-            <span><?php echo htmlspecialchars($user['first_name'] . ' ' . $user['last_name']); ?></span>
-        </div>
+            <!-- User Info -->
+            <div class="modal-header">
+                <img src="../../assets/profileIcon.jpg" alt="Profile" class="profile-pic">
+                <span><?php echo htmlspecialchars($user['first_name'] . ' ' . $user['last_name']); ?></span>
+            </div>
 
-        <div class="modal-divider"></div>
+            <div class="modal-divider"></div>
 
         <!-- Post Content -->
         <textarea id="modalPostContent" placeholder="What's on your mind?" class="post-input" rows="3"></textarea>
@@ -245,75 +245,38 @@ $friends = $friendsManager->getFriends($user['id']);
 
     <script>
     document.addEventListener("DOMContentLoaded", function () {
-        const modal = document.getElementById("postModal");
-        const openModalButton = document.getElementById("postButton"); // Replace if you have a trigger button
-        const closeModalButton = document.querySelector(".close-modal");
-
-        // Open modal
-        if (openModalButton) {
-            openModalButton.addEventListener("click", function () {
-                modal.style.display = "block";
-            });
-        }
-
-        // Close modal
-        if (closeModalButton) {
-            closeModalButton.addEventListener("click", function () {
-                modal.style.display = "none";
-            });
-        }
-
-        // Close modal when clicking outside
-        window.addEventListener("click", function (event) {
-            if (event.target === modal) {
-                modal.style.display = "none";
-            }
-        });
-
-        // Handle post creation
-        document.getElementById("postButton").addEventListener("click", function (e) {
-            e.preventDefault();
-
-            const content = document.getElementById("postContent").value.trim();
-            const schoolId = document.getElementById("school").value;
-            const courseId = document.getElementById("course").value;
-            const batch = document.getElementById("batch").value;
-            const imageInput = document.getElementById("postImage");
-
-            // Validate input
-            if (!content) {
-                alert("Post content cannot be empty!");
-                return;
-            }
-
-            if (!schoolId || !courseId || !batch) {
-                alert("Please select school, course, and batch!");
-                return;
-            }
-
-            const formData = new FormData();
-            formData.append("content", content);
-            formData.append("school_id", schoolId);
-            formData.append("course_id", courseId);
-            formData.append("batch", batch);
-            if (imageInput.files.length > 0) {
-                formData.append("image", imageInput.files[0]);
-            }
-
-            fetch("../../config/alumni/create_posts.php", {
-                method: "POST",
-                body: formData,
-            })
-                .then((response) => response.json())
-                .then((data) => {
-                    if (data.success) {
-                        alert("Post created successfully!");
-                        location.reload(); // Reload to display the new post
-                    } else {
-                        alert("Error creating post.");
-                    }
+        // Function to populate dropdowns
+        function populateDropdown(endpoint, dropdownId, valueField, textField) {
+            fetch(endpoint)
+                .then(response => response.json())
+                .then(data => {
+                    const dropdown = document.getElementById(dropdownId);
+                    dropdown.innerHTML = "<option value=''>Select an option</option>"; // Default placeholder
+                    data.forEach(item => {
+                        const option = document.createElement("option");
+                        option.value = item[valueField];
+                        option.textContent = item[textField];
+                        dropdown.appendChild(option);
+                    });
                 })
-                .catch((error) => console.error("Error creating post:", error));
+                .catch(error => console.error(`Error fetching ${dropdownId}:`, error));
+        }
+
+        // Populate school filter
+        populateDropdown("../../config/alumni/fetchSchools.php", "filterSchool", "id", "name");
+
+        // Populate batch filter
+        populateDropdown("../../config/alumni/fetchBatches.php", "filterBatch", "batch_number", "batch_number");
+
+        // Fetch courses dynamically based on selected school
+        document.getElementById("filterSchool").addEventListener("change", function () {
+            const schoolId = this.value;
+            if (schoolId) {
+                populateDropdown(`../../config/alumni/fetchCourses.php?school_id=${schoolId}`, "filterCourse", "id", "name");
+            } else {
+                // Clear the course dropdown if no school is selected
+                document.getElementById("filterCourse").innerHTML = "<option value=''>Select an option</option>";
+            }
         });
 
         // Fetch and display posts
@@ -324,11 +287,11 @@ $friends = $friendsManager->getFriends($user['id']);
             if (batch) url += `&batch=${batch}`;
 
             fetch(url)
-                .then((response) => response.json())
-                .then((posts) => {
+                .then(response => response.json())
+                .then(posts => {
                     const postsContainer = document.getElementById("postsContainer");
                     postsContainer.innerHTML = ""; // Clear previous posts
-                    posts.forEach((post) => {
+                    posts.forEach(post => {
                         const postElement = document.createElement("div");
                         postElement.classList.add("post");
                         postElement.innerHTML = `
@@ -338,87 +301,53 @@ $friends = $friendsManager->getFriends($user['id']);
                             <div class="post-batch">Batch: ${post.batch}</div>
                             <div class="post-content">${post.content}</div>
                             ${post.image ? `<img src="data:image/jpeg;base64,${post.image}" alt="Post Image" />` : ""}
-                            <div class="post-tags">Tags: ${post.tags.join(", ")}</div>
+                            <div class="post-tags">Tags: ${post.tags?.join(", ") || "No tags"}</div>
                             <div class="post-date">${new Date(post.created_at).toLocaleString()}</div>
                         `;
                         postsContainer.appendChild(postElement);
                     });
                 })
-                .catch((error) => console.error("Error fetching posts:", error));
+                .catch(error => console.error("Error fetching posts:", error));
         }
-
-        // Dynamic dropdown population
-        function populateDropdown(endpoint, dropdownId, valueField, textField) {
-            fetch(endpoint)
-                .then((response) => response.json())
-                .then((data) => {
-                    const dropdown = document.getElementById(dropdownId);
-                    dropdown.innerHTML = ""; // Clear previous options
-                    data.forEach((item) => {
-                        const option = document.createElement("option");
-                        option.value = item[valueField];
-                        option.textContent = item[textField];
-                        dropdown.appendChild(option);
-                    });
-                })
-                .catch((error) => console.error(`Error fetching ${dropdownId}:`, error));
-        }
-
-        // Populate dropdowns
-        populateDropdown("../../config/alumni/fetchSchools.php", "school", "id", "name");
-        populateDropdown("../../config/alumni/fetchBatches.php", "batch", "batch_number", "batch_number");
-
-        // Fetch courses dynamically based on selected school
-        document.getElementById("school").addEventListener("change", function () {
-            const schoolId = this.value;
-            populateDropdown(`../../config/alumni/fetchCourses.php?school_id=${schoolId}`, "course", "id", "name");
-        });
 
         // Fetch posts when filters change
-        document.getElementById("school").addEventListener("change", () => fetchPosts());
-        document.getElementById("course").addEventListener("change", () => fetchPosts());
-        document.getElementById("batch").addEventListener("change", () => fetchPosts());
+        document.getElementById("filterSchool").addEventListener("change", function () {
+            const schoolId = this.value;
+            const courseId = document.getElementById("filterCourse").value;
+            const batch = document.getElementById("filterBatch").value;
+            const sortOrder = document.getElementById("sortOrder").value;
+            fetchPosts(schoolId, courseId, batch, sortOrder);
+        });
+
+        document.getElementById("filterCourse").addEventListener("change", function () {
+            const schoolId = document.getElementById("filterSchool").value;
+            const courseId = this.value;
+            const batch = document.getElementById("filterBatch").value;
+            const sortOrder = document.getElementById("sortOrder").value;
+            fetchPosts(schoolId, courseId, batch, sortOrder);
+        });
+
+        document.getElementById("filterBatch").addEventListener("change", function () {
+            const schoolId = document.getElementById("filterSchool").value;
+            const courseId = document.getElementById("filterCourse").value;
+            const batch = this.value;
+            const sortOrder = document.getElementById("sortOrder").value;
+            fetchPosts(schoolId, courseId, batch, sortOrder);
+        });
+
+        // Fetch posts when sort order changes
         document.getElementById("sortOrder").addEventListener("change", function () {
             const sortOrder = this.value;
-            fetchPosts(null, null, null, sortOrder);
+            const schoolId = document.getElementById("filterSchool").value;
+            const courseId = document.getElementById("filterCourse").value;
+            const batch = document.getElementById("filterBatch").value;
+            fetchPosts(schoolId, courseId, batch, sortOrder);
         });
 
-        // Initial posts fetch
+        // Initial fetch of posts
         fetchPosts();
-
-        // Sidebar toggle functionality
-        const sidebar = document.querySelector(".sidebar");
-        const toggleButton = document.getElementById("sidebarToggle");
-        toggleButton.addEventListener("click", () => {
-            sidebar.classList.toggle("minimized");
-        });
-
-        document.getElementById("school").addEventListener("change", function () {
-            const schoolId = this.value;
-            const courseId = document.getElementById("course").value;
-            const batch = document.getElementById("batch").value;
-            fetchPosts(schoolId, courseId, batch);
-         });
-
-        document.getElementById("course").addEventListener("change", function () {
-            const schoolId = document.getElementById("school").value;
-            const courseId = this.value;
-            const batch = document.getElementById("batch").value;
-            fetchPosts(schoolId, courseId, batch);
-         });
-
-        document.getElementById("batch").addEventListener("change", function () {
-            const schoolId = document.getElementById("school").value;
-            const courseId = document.getElementById("course").value;
-            const batch = this.value;
-            fetchPosts(schoolId, courseId, batch);
-        });
-
     });
 </script>
-
-
-
 
 </body>
 
