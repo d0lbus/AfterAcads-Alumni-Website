@@ -1,4 +1,4 @@
-<?php include '../../config/header.php'; ?>
+<?php include '../../config/alumni/header.php'; ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -67,7 +67,7 @@
                 <small>Supported formats: JPG, PNG. Max size: 2MB.</small>
             </div>
 
-            <form class="settings-form" method="post" action="../config/update_settings.php">
+            <form class="settings-form" method="post" action="../config/alumni/update_settings.php">
                 <h2>Profile Settings</h2>
                 <div class="form-group">
                     <label for="first-name">First Name</label>

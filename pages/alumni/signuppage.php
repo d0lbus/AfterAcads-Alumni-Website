@@ -22,7 +22,7 @@
         alt="logo" />
       <h2 style="color: black">Create an Account</h2>
 
-      <form action="../../config/signup.php" method="POST">
+      <form action="../../config/alumni/signup.php" method="POST">
         <div class="name-fields">
           <div class="name-field">
             <label for="firstName">First Name</label>

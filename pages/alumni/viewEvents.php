@@ -7,7 +7,7 @@ if (!isset($_SESSION['email'])) {
     exit();
 }
 
-include '../../config/connection.php';
+include '../../config/alumni/connection.php';
 
 // Fetch the logged-in user's details from the database
 $email = $_SESSION['email'];
@@ -104,7 +104,7 @@ if ($result->num_rows > 0) {
                     </div>
                     <div class="button-container">
                         <a href="interested.php?event_id=<?php echo $event_id; ?>" class="button">INTERESTED</a>
-                        <a href="going.php?event_id=<?php echo $event_id; ?>" class="button">GOING</a>
+                        <a href="../../config/alumni/going.php?event_id=<?php echo $event_id; ?>" class="button">GOING</a>
                     </div>
                 </div>
                 <div class="background-image">

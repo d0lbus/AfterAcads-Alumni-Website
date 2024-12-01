@@ -1,7 +1,7 @@
 <?php
-include '../../config/header.php';
-include '../../config/friendsManager.php';
-include '../../config/connection.php';
+include '../../config/alumni/header.php';
+include '../../config/alumni/friendsManager.php';
+include '../../config/alumni/connection.php';
 
 $user = getAuthenticatedUser();
 
@@ -172,7 +172,7 @@ if (isset($_GET['chat_with']) && !empty($_GET['chat_with'])) {
 
     // Fetch messages every 2 seconds
     function fetchMessages() {
-        fetch(`../../config/fetchMessages.php?logged_in_user_id=${loggedInUserId}&friend_id=${friendId}`)
+        fetch(`../../config/alumni/fetchMessages.php?logged_in_user_id=${loggedInUserId}&friend_id=${friendId}`)
             .then(response => response.json())
             .then(messages => {
                 chatBox.innerHTML = ''; // Clear chatBox
@@ -193,7 +193,7 @@ if (isset($_GET['chat_with']) && !empty($_GET['chat_with'])) {
     sendButton.addEventListener('click', function () {
         const message = messageInput.value.trim();
         if (message) {
-            fetch('../../config/sendMessage.php', {
+            fetch('../../config/alumni/sendMessage.php', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                 body: `sender_id=${loggedInUserId}&receiver_id=${friendId}&message=${encodeURIComponent(message)}`

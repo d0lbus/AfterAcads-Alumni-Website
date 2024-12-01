@@ -1,7 +1,7 @@
 <?php
-include '../../config/header.php';
-include '../../config/friendsManager.php';
-include '../../config/connection.php';
+include '../../config/alumni/header.php';
+include '../../config/alumni/friendsManager.php';
+include '../../config/alumni/connection.php';
 
 $user = getAuthenticatedUser();
 
@@ -277,7 +277,7 @@ $friends = $friendsManager->getFriends($user['id']);
                     formData.append("image", imageInput.files[0]);
                 }
 
-                fetch("../config/create_posts.php", {
+                fetch("../config/alumni/create_posts.php", {
                     method: "POST",
                     body: formData,
                 })
@@ -295,7 +295,7 @@ $friends = $friendsManager->getFriends($user['id']);
 
             // Fetch and display posts with optional filters (tag, search, sort)
             function fetchPosts(tag = null, search = null, sort = 'latest') {
-                let url = `../config/fetch_posts.php?sort=${sort}`; // Add sorting to the URL
+                let url = `../config/alumni/fetch_posts.php?sort=${sort}`; // Add sorting to the URL
                 if (tag) {
                     url += `&tag=${tag}`;
                 }

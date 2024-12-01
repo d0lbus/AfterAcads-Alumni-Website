@@ -1,7 +1,7 @@
 <?php
-include '../../config/header.php'; 
-include '../../config/connection.php';
-include '../../config/friendsManager.php';
+include '../../config/alumni/header.php'; 
+include '../../config/alumni/connection.php';
+include '../../config/alumni/friendsManager.php';
 
 $user = getAuthenticatedUser();
 
@@ -46,16 +46,16 @@ $friendStatus = $friendsManager->checkFriendStatus($logged_in_user_id, $profile_
 // Set button text and action based on friendship status
 if ($friendStatus === 'not_friends') {
     $buttonText = "Add Friend";
-    $action = "../../config/addFriend.php";
+    $action = "../../config/alumni/addFriend.php";
 } elseif ($friendStatus === 'request_sent') {
     $buttonText = "Cancel Friend Request";
-    $action = "../../config/cancelFriendRequest.php";
+    $action = "../../config/alumni/cancelFriendRequest.php";
 } elseif ($friendStatus === 'pending_request') {
     $buttonText = "Accept Request";
-    $action = "../../config/acceptFriend.php";
+    $action = "../../config/alumni/acceptFriend.php";
 } elseif ($friendStatus === 'friends') {
     $buttonText = "Unfriend";
-    $action = "../../config/unfriend.php";
+    $action = "../../config/alumni/unfriend.php";
 }
 ?>
 
@@ -135,7 +135,7 @@ if ($friendStatus === 'not_friends') {
                             <button type="submit" class="friend-button"><?php echo $buttonText; ?></button>
                         </form>
 
-                        <form method="POST" action="../../config/initiateChat.php">
+                        <form method="POST" action="../../config/alumni/initiateChat.php">
                             <input type = "hidden" name="friend_id" value="<?php echo htmlspecialchars($profile_user_id); ?>">
                             <button type="submit" class="message-button">Message</button>
                         </form>
