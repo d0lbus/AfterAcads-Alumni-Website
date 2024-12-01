@@ -231,8 +231,8 @@ if ($friendStatus === 'not_friends') {
         <div class="modal-content">
             <span class="close-button">&times;</span>
             <h3> User's Contact Details</h3>
-            <p><strong>Email:</strong> useremail@gmail.com</p>
-            <p><strong>Address:</strong> user address baguio city</p>
+            <p><strong>Email:</strong> <?php echo htmlspecialchars($target_user['email']); ?> </p>
+            <p><strong>Address:</strong> <?php echo isset($target_user['address']) ? htmlspecialchars($target_user['address']) : '(Not provided)'; ?> </p>
 
             <ul class="social-links">
                 <li><img src="../../assets/twitter-icon.png" alt="twitter icon" width="20px" height="20px" /></li>
