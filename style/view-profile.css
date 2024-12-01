@@ -450,6 +450,69 @@ a {
     background: #c8c8c7;
     margin: 50px auto;
   }
+
+  /* CSS for Friend Button */
+.friend-button {
+  background-color: var(--color-accent);
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.friend-button:hover {
+  background-color: #729bbd;
+  transform: scale(1.05);
+}
+
+.friend-button:active {
+  transform: scale(0.98);
+  box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.2);
+}
+
+.friend-button[disabled], .friend-button[disabled]:hover {
+  background-color: #cccccc;
+  color: #666666;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* CSS for Message Button */
+.message-button {
+  background-color: var(--color-main);
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.message-button:hover {
+  background-color: #2c394d;
+  transform: scale(1.05);
+}
+
+.message-button:active {
+  transform: scale(0.98);
+  box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.2);
+}
+
+.message-button[disabled], .message-button[disabled]:hover {
+  background-color: #cccccc;
+  color: #666666;
+  cursor: not-allowed;
+  transform: none;
+}
+
   
   /* Responsiveness */
   
