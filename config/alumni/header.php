@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-include 'connection.php'; 
+include '../../config/general/connection.php';
 
 if (!isset($_SESSION['email'])) {
     header("Location: ../../pages/alumni/loginpage.php");
@@ -33,7 +33,7 @@ function getAuthenticatedUser() {
         session_start();
     }
 
-    include 'connection.php';
+    include '../../config/general/connection.php';
 
     if (!isset($_SESSION['email'])) {
         header("Location: ../pages/alumni/loginpage.php");
