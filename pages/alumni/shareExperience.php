@@ -91,20 +91,32 @@ $friends = $friendsManager->getFriends($user['id']);
             <div class="addPost">
                 <div class="addPost-header">
                     <img src="../../assets/profileIcon.jpg" alt="Profile" class="profile-pic" />
-                    <textarea id="postContent"
-                        placeholder="What's on your mind, <?php echo htmlspecialchars($user['first_name']); ?>?"
-                        class="post-input" rows="1"></textarea>
+                    <textarea id="postContent" placeholder="What's on your mind?" class="post-input" rows="1"></textarea>
                 </div>
 
-                <div class="tag-dropdown">
-                    <label for="tags" class="tag-label">Select a Tag:</label>
-                    <select id="tags" class="tag-select">
-                        <option value="GENERAL">GENERAL</option>
-                        <option value="SAMCIS">SAMCIS</option>
-                        <option value="SOHNABS">SOHNABS</option>
-                        <option value="STELA">STELA</option>
-                        <option value="SEA">SEA</option>
+                <div class="dropdown-container">
+                    <label for="school">School:</label>
+                    <select id="school" class="dropdown">
+                        <!-- Options will be dynamically populated from the database -->
                     </select>
+
+                    <label for="course">Course:</label>
+                    <select id="course" class="dropdown">
+                        <!-- Options will be dynamically populated based on selected school -->
+                    </select>
+
+                    <label for="batch">Batch:</label>
+                    <select id="batch" class="dropdown">
+                        <option value="ALL">ALL</option>
+                        <option value="223">223</option>
+                        <option value="222">222</option>
+                        <option value="221">221</option>
+                    </select>
+                </div>
+
+                <div class="tag-input-container">
+                    <label for="tags">Tags:</label>
+                    <input type="text" id="tags" class="tag-input" placeholder="Add tags (e.g., #Experience, #Project)" />
                 </div>
 
                 <div class="addPost-option">
@@ -112,6 +124,7 @@ $friends = $friendsManager->getFriends($user['id']);
                 </div>
                 <button id="postButton" class="post-button">Post</button>
             </div>
+
 
             
 
@@ -124,31 +137,39 @@ $friends = $friendsManager->getFriends($user['id']);
                     </select>
                 </div>
                 <div class="filter-dropdown">
-                    <label class="filter-label">Filter by:</label>
-                    <select id="filterSchool" class="filter-select">
-                        <option value="">School</option>
-                        <option value="SAMCIS">SAMCIS</option>
-                        <option value="SEA">SEA</option>
-                        <option value="SOHNABS">SOHNABS</option>
-                    </select>
-                    <select id="filterCourse" class="filter-select">
-                        <option value="">Course</option>
-                        <option value="Computer Science">Computer Science</option>
-                        <option value="Information Technology">Information Technology</option>
-                        <option value="Nursing">Nursing</option>
-                    </select>
-                    <select id="filterBatch" class="filter-select">
-                        <option value="">Batch</option>
-                        <option value="223">223</option>
-                        <option value="222">222</option>
-                        <option value="221">221</option>
+                    <label for="filterSchool" class="filter-label">School:</label>
+                        <select id="filterSchool" class="filter-select">
+                            <!-- Dynamically populated -->
+                        </select>
+
+                        <label for="filterCourse" class="filter-label">Course:</label>
+                        <select id="filterCourse" class="filter-select">
+                            <!-- Dynamically populated based on selected school -->
+                        </select>
+
+                        <label for="filterBatch" class="filter-label">Batch:</label>
+                        <select id="filterBatch" class="filter-select">
+                            <option value="ALL">ALL</option>
+                            <option value="223">223</option>
+                            <option value="222">222</option>
+                            <option value="221">221</option>
                     </select>
                 </div>
             </div>
             
 
             <!-- Dynamic posts container -->
-            <div id="postsContainer"></div>
+            <div id="postsContainer">
+                <div class="post">
+                    <div class="post-user">Posted by: <strong>User Name</strong></div>
+                    <div class="post-school">School: <span>SAMCIS</span></div>
+                    <div class="post-course">Course: <span>Computer Science</span></div>
+                    <div class="post-batch">Batch: <span>223</span></div>
+                    <div class="post-content">This is the post content...</div>
+                    <div class="post-tags">Tags: <span>#Experience</span> <span>#Success</span></div>
+                </div>
+            </div>
+
 
             <!-- Modal for creating a post -->
             <div class="modal" id="postModal">

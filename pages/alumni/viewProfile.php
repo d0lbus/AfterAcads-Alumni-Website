@@ -140,7 +140,6 @@ if ($friendStatus === 'not_friends') {
                             <button type="submit" class="message-button">Message</button>
                         </form>
 
-
                         <?php else: ?>
                             <a href="settings.php" class="edit-profile-button">Edit Profile</a>
                         <?php endif; ?>
