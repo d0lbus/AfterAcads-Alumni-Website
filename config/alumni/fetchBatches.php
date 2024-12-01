@@ -1,5 +1,5 @@
 <?php
-include '../config/general/connection.php';
+include '../../config/general/connection.php';
 
 $sql = "SELECT id, batch_number FROM batches";
 $result = $conn->query($sql);

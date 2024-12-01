@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-include '../config/general/connection.php'; // Database connection
+include '../ ../config/general/connection.php'; // Database connection
 
 // Get the search and tag filter inputs
 $search = isset($_GET['search']) ? $_GET['search'] : null;

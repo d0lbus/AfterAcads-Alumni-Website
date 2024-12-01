@@ -1,6 +1,6 @@
 <?php
 include '../../config/header.php';
-include '../config/general/connection.php';
+include '../../config/general/connection.php';
 include '../../config/friendsManager.php';
 
 $user = getAuthenticatedUser();

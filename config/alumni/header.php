@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-include '../config/general/connection.php';
+include '../../config/general/connection.php'; 
 
 if (!isset($_SESSION['email'])) {
     header("Location: ../../pages/alumni/loginpage.php");

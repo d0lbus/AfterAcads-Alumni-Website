@@ -1,5 +1,5 @@
 <?php
-include '../config/general/connection.php';
+include '../../config/general/connection.php';
 
 $school_id = isset($_GET['school_id']) ? intval($_GET['school_id']) : null;
 $course_id = isset($_GET['course_id']) ? intval($_GET['course_id']) : null;

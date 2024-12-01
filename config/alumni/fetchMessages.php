@@ -1,5 +1,5 @@
 <?php
-include '../config/general/connection.php';
+include '../../config/general/connection.php';
 
 $logged_in_user_id = $_GET['logged_in_user_id'];
 $friend_id = $_GET['friend_id'];

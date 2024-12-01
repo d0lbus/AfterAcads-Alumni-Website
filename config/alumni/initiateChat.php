@@ -3,7 +3,7 @@
 //source: https://www.youtube.com/watch?v=G9lnP3ZTjkU&list=PLY3j36HMSHNWdM1oRHmFIOLxneqSZ6byi
 
 include 'header.php';
-include '../config/general/connection.php';
+include '../../config/general/connection.php';
 
 $user = getAuthenticatedUser();
 $logged_in_user_id = $user['id'];

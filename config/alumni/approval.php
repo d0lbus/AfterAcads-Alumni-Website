@@ -1,7 +1,7 @@
 // approve_user.php
 <?php
 session_start();
-include '../config/general/connection.php';
+include '../../config/general/connection.php';
 
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['user_id'], $_POST['action'])) {
     $userId = intval($_POST['user_id']);

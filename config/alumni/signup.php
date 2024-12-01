@@ -1,5 +1,5 @@
 <?php
-include '../config/general/connection.php';
+include '../../config/general/connection.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $firstName = upperCaseFirstLetter($_POST['firstName']);

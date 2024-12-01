@@ -1,5 +1,5 @@
 <?php
-include '../alumni/connection.php';
+include '../general/connection.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = trim($_POST['email']);

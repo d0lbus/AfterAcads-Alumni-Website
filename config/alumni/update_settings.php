@@ -1,5 +1,5 @@
 <?php
-include 'header.php';
+include '../../config/header.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $newPassword = $_POST['change-password'];

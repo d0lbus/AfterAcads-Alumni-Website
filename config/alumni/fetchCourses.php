@@ -1,5 +1,5 @@
 <?php
-include '../config/general/connection.php';
+include '../../config/general/connection.php';
 
 $school_id = $_GET['school_id'];
 $query = "SELECT id, name FROM courses WHERE school_id = ?";
