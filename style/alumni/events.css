@@ -324,7 +324,6 @@ small {
 }
 
 
-
 .event-participation {
   display: flex;
   gap: 15px; /* Adjusted spacing for better alignment */
@@ -360,9 +359,8 @@ small {
 
 
 .event-button.active {
-  background-color: #5f84a2; 
-  color: #ffffff; 
-  transform: scale(1.05); 
+  background-color: #006bc3; 
+  color: white; 
 }
 
 

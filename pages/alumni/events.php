@@ -305,9 +305,9 @@ $total_pages = 0;
     // Toggle active state for the clicked button
     const parentContainer = button.parentNode;
     parentContainer.querySelectorAll(".event-button").forEach((btn) => {
-      btn.classList.remove("active"); // Remove active class from all buttons in the same container
+      btn.classList.remove("active"); 
     });
-    button.classList.add("active"); // Add active class to the clicked button
+    button.classList.add("active"); 
 
     // Send participation data to the backend
     fetch("../../config/alumni/participate_in_event.php", {
@@ -319,7 +319,7 @@ $total_pages = 0;
       .then((data) => {
         if (data.success) {
           alert(`You are marked as '${status}' for this event!`);
-          fetchEvents(currentPage, currentSchoolId, currentSearchQuery, currentFilter); // Refresh events to update counts
+          fetchEvents(currentPage, currentSchoolId, currentSearchQuery, currentFilter); 
         } else {
           alert(data.message || "Failed to update participation status.");
         }
