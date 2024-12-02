@@ -219,49 +219,34 @@ $total_pages = 0;
       const paginationContainer = document.getElementById("paginationContainer");
       const schoolFilter = document.getElementById("filter-events");
       const searchInput = document.getElementById("searchInput");
-      const filterButtons = document.querySelectorAll(".filter-button"); // Add this line to handle filter buttons
 
       // Track current filters
       let currentSchoolId = schoolFilter.value || null;
       let currentSearchQuery = searchInput.value || null;
       let currentPage = 1;
-      let currentFilter = "all"; // Track the current filter (all, going, interested)
+      let activeStatuses = {}; // Store active states for events
 
-      function fetchEvents(page = 1, schoolId = null, search = null, filter = "all") {
+      function fetchEvents(page = 1, schoolId = null, search = null) {
         // Update state variables
         currentSchoolId = schoolId;
         currentSearchQuery = search;
         currentPage = page;
-        currentFilter = filter;
 
-        let url = `../../config/alumni/events_controller.php?ajax=true&page=${page}&filter=${filter}`;
+        let url = `../../config/alumni/events_controller.php?ajax=true&page=${page}`;
         if (schoolId) url += `&school_id=${schoolId}`;
         if (search) url += `&search=${encodeURIComponent(search)}`;
 
         fetch(url)
           .then((response) => response.json())
           .then((data) => {
-            // Ignore stale responses
-            if (
-              schoolId !== currentSchoolId ||
-              search !== currentSearchQuery ||
-              filter !== currentFilter
-            ) {
-              console.log("Stale fetch ignored.");
-              return;
-            }
-
             renderEvents(data.events);
-            renderPagination(data.pagination, schoolId, search, filter);
+            renderPagination(data.pagination, schoolId, search);
           })
           .catch((error) => console.error("Error fetching events:", error));
       }
 
-      let activeStatuses = {};
-
       function renderEvents(events) {
         eventsContainer.innerHTML = ""; // Clear previous events
-
         if (events.length === 0) {
           eventsContainer.innerHTML = "<p>No events found.</p>";
           return;
@@ -271,6 +256,7 @@ $total_pages = 0;
           const eventCard = document.createElement("div");
           eventCard.classList.add("event-card");
 
+          // Determine the active state based on previously stored statuses
           const isGoing = activeStatuses[event.id] === "going";
           const isInterested = activeStatuses[event.id] === "interested";
 
@@ -286,13 +272,13 @@ $total_pages = 0;
             </div>
             <div class="event-participation">
               <button class="event-button going-button ${isGoing ? "active" : ""}" 
-                    data-event-id="${event.id}" data-status="going">
-                    Going (${event.going_count || 0})
-                </button>
-                <button class="event-button interested-button ${isInterested ? "active" : ""}" 
-                    data-event-id="${event.id}" data-status="interested">
-                    Interested (${event.interested_count || 0})
-                </button>
+                  data-event-id="${event.id}" data-status="going">
+                  Going (${event.going_count || 0})
+              </button>
+              <button class="event-button interested-button ${isInterested ? "active" : ""}" 
+                  data-event-id="${event.id}" data-status="interested">
+                  Interested (${event.interested_count || 0})
+              </button>
             </div>
           `;
           eventsContainer.appendChild(eventCard);
@@ -306,29 +292,46 @@ $total_pages = 0;
 
       function handleParticipation(event) {
         const button = event.target;
+        const parentContainer = button.parentNode;
         const eventId = button.getAttribute("data-event-id");
         const status = button.getAttribute("data-status");
 
-        activeStatuses[eventId] = status;
+        // Check if the button is already active
+        const isCurrentlyActive = button.classList.contains("active");
 
-        // Toggle active state for the clicked button
-        const parentContainer = button.parentNode;
+        // Determine the new status (if active, reset to null)
+        const newStatus = isCurrentlyActive ? null : status;
+
+        // Update active state
+        if (newStatus === null) {
+          delete activeStatuses[eventId];
+        } else {
+          activeStatuses[eventId] = newStatus;
+        }
+
+        // Update button styles
         parentContainer.querySelectorAll(".event-button").forEach((btn) => {
-          btn.classList.remove("active"); 
+          btn.classList.remove("active"); // Reset all buttons in the group
         });
-        button.classList.add("active"); 
+        if (newStatus) {
+          button.classList.add("active"); // Activate the clicked button if not null
+        }
 
         // Send participation data to the backend
         fetch("../../config/alumni/participate_in_event.php", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ event_id: eventId, status: status }),
+          body: JSON.stringify({ event_id: eventId, status: newStatus }),
         })
           .then((response) => response.json())
           .then((data) => {
             if (data.success) {
-              alert(`You are marked as '${status}' for this event!`);
-              fetchEvents(currentPage, currentSchoolId, currentSearchQuery, currentFilter); 
+              if (newStatus) {
+                alert(`You are marked as '${newStatus}' for this event!`);
+              } else {
+                alert(`You have canceled your status for this event.`);
+              }
+              fetchEvents(currentPage, currentSchoolId, currentSearchQuery); // Refresh events to update counts
             } else {
               alert(data.message || "Failed to update participation status.");
             }
@@ -336,7 +339,7 @@ $total_pages = 0;
           .catch((error) => console.error("Error updating participation:", error));
       }
 
-      function renderPagination(pagination, schoolId, search, filter) {
+      function renderPagination(pagination, schoolId, search) {
         paginationContainer.innerHTML = ""; // Clear previous pagination
         if (pagination.total_pages <= 1) return;
 
@@ -345,45 +348,26 @@ $total_pages = 0;
           button.classList.add("pagination-button");
           button.textContent = i;
           if (i === pagination.current_page) button.classList.add("active");
-          button.addEventListener("click", () => fetchEvents(i, schoolId, search, filter));
+          button.addEventListener("click", () => fetchEvents(i, schoolId, search));
           paginationContainer.appendChild(button);
         }
       }
 
-      // Handle filter button clicks
-      filterButtons.forEach((button) => {
-        button.addEventListener("click", function () {
-          // Remove active state from all buttons
-          filterButtons.forEach((btn) => btn.classList.remove("active"));
-
-          // Add active state to the clicked button
-          this.classList.add("active");
-
-          // Fetch events based on the selected filter
-          const selectedFilter = this.getAttribute("data-filter");
-          fetchEvents(1, currentSchoolId, currentSearchQuery, selectedFilter);
-        });
-      });
-
       // Handle school filter change
       schoolFilter.addEventListener("change", function () {
         const schoolId = this.value || null;
-        fetchEvents(1, schoolId, currentSearchQuery, currentFilter);
+        fetchEvents(1, schoolId, currentSearchQuery);
       });
 
       // Handle search input
       searchInput.addEventListener("input", function () {
         const searchQuery = this.value || null;
-        fetchEvents(1, currentSchoolId, searchQuery, currentFilter);
+        fetchEvents(1, currentSchoolId, searchQuery);
       });
 
       // Initial fetch
-      fetchEvents(currentPage, currentSchoolId, currentSearchQuery, currentFilter);
+      fetchEvents(currentPage, currentSchoolId, currentSearchQuery);
     });
-
-
-
-
 
     function confirmLogout() {
         if (confirm("Are you sure you want to logout?")) {
