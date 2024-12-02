@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Opportunities</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap">
+    <link rel="stylesheet" href="../../style/managerAndAdmin/add-opportunities.css">
+</head>
+
+<body>
+    <section>
+        <header>
+            <img class="afteracadstext" src="../../assets/logo.png" alt="AfterAcads Logo">
+            <ul class="nav-links">
+                <li><a href="../../pages/managerAndAdmin/home.html">Home</a></li>
+                <li><a href="../../pages/managerAndAdmin/Registrants.html">Registrants</a></li>
+                <li><a href="../../pages/managerAndAdmin/approvePost.html">Posts</a></li>
+                <li><a href="../../pages/managerAndAdmin/eventsDashboard.html">Events</a></li>
+                <li><a href="../../pages/managerAndAdmin/opportunities.html">Opportunities</a></li>
+                <li><a href="../../pages/managerAndAdmin/notifications.html">Notifications</a></li>
+                <li><a href="../../pages/managerAndAdmin/statistics.php">Statistics</a></li>
+                <li><a href="../../pages/managerAndAdmin/user.html">Users</a></li>
+            </ul>
+            <div class="profile">
+                <a href="../../pages/managerAndAdmin/managerProfile.html">
+                    <img class="profile-img" src="../../assets/profileIcon.jpg" alt="Profile">
+                </a>
+            </div>
+        </header>
+    </section>
+
+    <div class="opportunities-section container">
+
+        <h2>Add Opportunities Form</h2>
+        <form class="add-Opportunities-form">
+            <div>
+                <label for="event-title">Job Title</label>
+                <input type="text" id="opportunities-title" placeholder="Enter job name">
+            </div>
+
+            <div>
+                <label for="company">Company</label>
+                <input type="text" id="host" placeholder="Enter Company name">
+            </div>
+
+            <div>
+                <label for="location">Location</label>
+                <input type="text" id="location" placeholder="Enter location">
+            </div>
+
+            <div style="grid-column: span 2;">
+                <label for="description">Description</label>
+                <textarea id="description" rows="4" placeholder="Enter job description"></textarea>
+            </div>
+
+            <div style="grid-column: span 2;">
+                <label for="requirements">Requirements</label>
+                <textarea id="requirements" rows="4" placeholder="Enter job requirements"></textarea>
+            </div>
+
+            <div class="upload-section">
+                <label class="upload-label">
+                    <img src="../../assets/uploadimage-removebg-preview.png" alt="Upload Event Image"
+                        class="upload-icon">
+                </label>
+
+                <p>Drag and Drop image here or</p>
+                <label class="btn" for="upload-image">Browse Files</label>
+                <input type="file" id="upload-image">
+            </div>
+
+            <button type="submit" class="btn-submit">Add Opportunity</button>
+        </form>
+    </div>
+</body>
+
+</html>
