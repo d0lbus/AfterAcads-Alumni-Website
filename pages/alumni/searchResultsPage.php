@@ -166,6 +166,7 @@ if ($query) {
                         <div class="result-item">
                             <?php if ($result['type'] === 'user') : ?>
                                 
+                                <h1>USERS</h1>
                                 <!-- Display User Information -->
                                 <h3>
                                     <a href="viewProfile.php?user_id=<?php echo urlencode($result['id']); ?>">
@@ -175,8 +176,9 @@ if ($query) {
                                 <p>Email: <?php echo htmlspecialchars($result['email']); ?></p>
                             
                             <?php elseif ($result['type'] === 'post') : ?>
+                                <h1>POSTS</h1>
                                 <!-- Display Post Information -->
-                                <!-- <h3>Posted by: <?php echo htmlspecialchars($result['full_name']); ?></h3> -->
+                                <h3>Posted by: <?php echo htmlspecialchars($result['name']); ?></h3>
                                 <p>School: <?php echo htmlspecialchars($result['school']); ?></p>
                                 <p>Course: <?php echo htmlspecialchars($result['course']); ?></p>
                                 <p>Batch: <?php echo htmlspecialchars($result['batch']); ?></p>
