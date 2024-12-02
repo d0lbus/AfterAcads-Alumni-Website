@@ -146,8 +146,14 @@ header img.afteracadstext {
   font-size: 1.2rem;
   margin-bottom: 15px;
   margin: 0; 
-  margin-left: 10px;           
+  margin-left: 10px;    
+  transition: font-size 0.3s ease;       
 }
+
+.box:hover h3 {
+  font-size: 1.5rem;
+}
+
 
 .box span {
   font-size: 1.4rem;
@@ -171,10 +177,6 @@ header img.afteracadstext {
   right: 10px;
   text-decoration: none;
   transition: background 0.3s ease;
-}
-
-.icon-link:hover {
-  background: #0056b3;
 }
 
 .icon-link:hover {

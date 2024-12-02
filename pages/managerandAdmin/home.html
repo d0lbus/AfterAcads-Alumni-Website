@@ -115,5 +115,22 @@
         </div>
       </div>
     </section>
+
+    <script>
+    document.querySelectorAll('.icon-link').forEach(icon => {
+  icon.addEventListener('click', function(e) {
+    e.preventDefault(); // Prevent the default link behavior
+
+    // Apply fade and zoom-out effect on the current page
+    document.body.classList.add('fade-zoom-out');
+
+    // After the transition, navigate to the new page
+    setTimeout(() => {
+      const link = this.href; // Get the destination link
+      window.location.href = link; // Navigate to the next page
+    }, 500); // Wait for the transition to complete (500ms)
+  });
+});
+    </script>
   </body>
 </html>
