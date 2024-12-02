@@ -214,8 +214,20 @@ $total_pages = 0;
     document.addEventListener("DOMContentLoaded", function () {
     const eventsContainer = document.getElementById("eventsContainer");
     const paginationContainer = document.getElementById("paginationContainer");
+    const schoolFilter = document.getElementById("filter-events");
+    const searchInput = document.getElementById("searchInput");
+
+    // Track current filters
+    let currentSchoolId = schoolFilter.value || null;
+    let currentSearchQuery = searchInput.value || null;
+    let currentPage = 1;
 
     function fetchEvents(page = 1, schoolId = null, search = null) {
+        // Update state variables
+        currentSchoolId = schoolId;
+        currentSearchQuery = search;
+        currentPage = page;
+
         let url = `../../config/alumni/events_controller.php?ajax=true&page=${page}`;
         if (schoolId) url += `&school_id=${schoolId}`;
         if (search) url += `&search=${encodeURIComponent(search)}`;
@@ -223,6 +235,12 @@ $total_pages = 0;
         fetch(url)
             .then(response => response.json())
             .then(data => {
+                // Ignore stale responses
+                if (schoolId !== currentSchoolId || search !== currentSearchQuery) {
+                    console.log("Stale fetch ignored.");
+                    return;
+                }
+
                 renderEvents(data.events);
                 renderPagination(data.pagination, schoolId, search);
             })
@@ -268,22 +286,21 @@ $total_pages = 0;
         }
     }
 
-    // Fetch events on page load
-    fetchEvents();
-
-      // Add filter logic
-      const schoolFilter = document.getElementById("filter-events");
-      schoolFilter.addEventListener("change", function () {
-          const schoolId = this.value;
-          fetchEvents(1, schoolId);
-      });
-
-      const searchInput = document.getElementById("searchInput");
-      searchInput.addEventListener("input", function () {
-          const searchQuery = this.value;
-          fetchEvents(1, null, searchQuery);
-      });
+    // Handle school filter change
+    schoolFilter.addEventListener("change", function () {
+        const schoolId = this.value || null;
+        fetchEvents(1, schoolId, currentSearchQuery);
     });
+
+    // Handle search input
+    searchInput.addEventListener("input", function () {
+        const searchQuery = this.value || null;
+        fetchEvents(1, currentSchoolId, searchQuery);
+    });
+
+    // Initial fetch
+    fetchEvents(currentPage, currentSchoolId, currentSearchQuery);
+});
 
 
     function confirmLogout() {
