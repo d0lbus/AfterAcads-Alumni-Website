@@ -129,10 +129,17 @@ header img.afteracadstext {
   padding: 20px;
   flex: 1;
   position: relative;
-  display: flex;         
-  align-items: center;  
-  gap: 15px;               
-  border: 1px solid #dbecfa;  
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  border: 1px solid #dbecfa;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+.box:hover {
+  background-color: #f0f0f0;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); 
+  transform: scale(1.05);
 }
 
 .box h3 {
@@ -164,6 +171,10 @@ header img.afteracadstext {
   right: 10px;
   text-decoration: none;
   transition: background 0.3s ease;
+}
+
+.icon-link:hover {
+  background: #0056b3;
 }
 
 .icon-link:hover {
