@@ -9,8 +9,10 @@ $friendsManager = new FriendsManager($conn);
 
 $friends = $friendsManager->getFriends($user['id']);
 
+
 $search = isset($_GET['search']) ? $_GET['search'] : '';
-$tag = isset($_GET['tag']) ? $_GET['tag'] : '';
+$school_id = isset($_GET['school_id']) ? $_GET['school_id'] : ''; 
+$activeTab = isset($_GET['tab']) ? $_GET['tab'] : ''; 
 $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 $total_pages = 0; 
 
@@ -90,14 +92,18 @@ $total_pages = 0;
             <div id="suggestions" class="suggestions-list"></div>
           </form>
 
-          <form method="GET" action="events.php" class="tag-dropdown">
-            <select id="filter-events" name="tag" onchange="this.form.submit()">
-              <option value="">All Tags</option>
-              <option value="GENERAL" <?php if ($tag === 'GENERAL') echo 'selected'; ?>>General</option>
-              <option value="SAMCIS" <?php if ($tag === 'SAMCIS') echo 'selected'; ?>>SAMCIS</option>
-              <option value="SOHNABS" <?php if ($tag === 'SOHNABS') echo 'selected'; ?>>SOHNABS</option>
-              <option value="STELA" <?php if ($tag === 'STELA') echo 'selected'; ?>>STELA</option>
-              <option value="SEA" <?php if ($tag === 'SEA') echo 'selected'; ?>>SEA</option>
+          <form method="GET" action="events.php" class="school-dropdown">
+            <select id="filter-events" name="school_id" onchange="this.form.submit()">
+                <option value="">Select School</option>
+                <?php
+                $schools_query = "SELECT id, name FROM schools";
+                $schools_result = $conn->query($schools_query);
+                while ($school = $schools_result->fetch_assoc()):
+                ?>
+                    <option value="<?php echo $school['id']; ?>" <?php if ($school_id == $school['id']) echo 'selected'; ?>>
+                        <?php echo htmlspecialchars($school['name']); ?>
+                    </option>
+                <?php endwhile; ?>
             </select>
           </form>
         </div>
@@ -112,20 +118,29 @@ $total_pages = 0;
         </div>
 
         <div class="card-container">
-          <?php while ($event = $result->fetch_assoc()): ?>
-            <div class="card">
-              <img src="<?php echo $event['image_path']; ?>" alt="<?php echo htmlspecialchars($event['alt_text']); ?>">
-              <div class="container">
-                <h2><b><?php echo htmlspecialchars($event['title']); ?></b></h2>
-                <p><?php echo htmlspecialchars($event['description']); ?></p>
+          <?php while ($event = $result->fetch_assoc()): 
+              $school_query = "SELECT name FROM schools WHERE id = ?";
+              $school_stmt = $conn->prepare($school_query);
+              $school_stmt->bind_param("i", $event['school_id']);
+              $school_stmt->execute();
+              $school_result = $school_stmt->get_result();
+              $school = $school_result->fetch_assoc();
+          ?>
+              <div class="card">
+                  <img src="<?php echo $event['image_path']; ?>" alt="<?php echo htmlspecialchars($event['alt_text']); ?>">
+                  <div class="container">
+                      <h2><b><?php echo htmlspecialchars($event['title']); ?></b></h2>
+                      <p><?php echo htmlspecialchars($event['description']); ?></p>
+                      <p><b>School:</b> <?php echo htmlspecialchars($school['name']); ?></p>
+                  </div>
+                  <div class="button-container">
+                      <a href="viewEvents.php?event_id=<?php echo $event['id']; ?>" class="button">View</a>
+                      <a href="interested.php?event_id=<?php echo $event['id']; ?>" class="button">Interested</a>
+                  </div>
               </div>
-              <div class="button-container">
-                <a href="viewEvents.php?event_id=<?php echo $event['id']; ?>" class="button">View</a>
-                <a href="interested.php?event_id=<?php echo $event['id']; ?>" class="button">Interested</a>
-              </div>
-            </div>
           <?php endwhile; ?>
         </div>
+
 
         <div class="pagination">
           <?php if ($page > 1): ?>

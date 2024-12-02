@@ -4,8 +4,8 @@ session_start();
 
 // Redirect to login page if the user is not logged in
 if (!isset($_SESSION['email'])) {
-  header("Location: loginpage.php");
-  exit();
+    header("Location: loginpage.php");
+    exit();
 }
 
 include '../../config/general/connection.php'; // Database connection
@@ -19,25 +19,25 @@ $stmt->execute();
 $result = $stmt->get_result();
 
 if ($result->num_rows > 0) {
-  $user = $result->fetch_assoc(); // Fetch user data
+    $user = $result->fetch_assoc(); // Fetch user data
 } else {
-  echo "Error: User not found.";
-  exit();
+    echo "Error: User not found.";
+    exit();
 }
 
 // Pagination and Filter Variables
 $events_per_page = 5;
 $page = isset($_GET['page']) && is_numeric($_GET['page']) ? intval($_GET['page']) : 1;
 $search = isset($_GET['search']) ? $_GET['search'] : null;
-$tag = isset($_GET['tag']) ? $_GET['tag'] : null;
+$school_id = isset($_GET['school_id']) ? $_GET['school_id'] : null;
 $offset = ($page - 1) * $events_per_page;
 
 // Base SQL query
-$sql = "SELECT id, title, description, image_path, alt_text, tag FROM events WHERE 1=1";
+$sql = "SELECT id, title, description, image_path, alt_text, school_id FROM events WHERE 1=1";
 
-// Append tag filter if selected
-if ($tag) {
-    $sql .= " AND tag = ?";
+// Append school_id filter if selected
+if ($school_id) {
+    $sql .= " AND school_id = ?";
 }
 
 // Append search filter if provided
@@ -46,13 +46,13 @@ if ($search) {
 }
 
 // Count total number of events for pagination
-$sql_count = str_replace("id, title, description, image_path, alt_text, tag", "COUNT(*) AS total_events", $sql);
+$sql_count = str_replace("id, title, description, image_path, alt_text, school_id", "COUNT(*) AS total_events", $sql);
 $stmt_count = $conn->prepare($sql_count);
-if ($tag && $search) {
+if ($school_id && $search) {
     $search_term = '%' . $search . '%';
-    $stmt_count->bind_param("sss", $tag, $search_term, $search_term);
-} elseif ($tag) {
-    $stmt_count->bind_param("s", $tag);
+    $stmt_count->bind_param("sss", $school_id, $search_term, $search_term);
+} elseif ($school_id) {
+    $stmt_count->bind_param("s", $school_id);
 } elseif ($search) {
     $search_term = '%' . $search . '%';
     $stmt_count->bind_param("ss", $search_term, $search_term);
@@ -66,10 +66,10 @@ $total_pages = ceil($total_events / $events_per_page);
 // Append pagination using LIMIT and OFFSET
 $sql .= " LIMIT ? OFFSET ?";
 $stmt = $conn->prepare($sql);
-if ($tag && $search) {
-    $stmt->bind_param('ssiii', $tag, $search_term, $search_term, $events_per_page, $offset);
-} elseif ($tag) {
-    $stmt->bind_param('sii', $tag, $events_per_page, $offset);
+if ($school_id && $search) {
+    $stmt->bind_param('ssiii', $school_id, $search_term, $search_term, $events_per_page, $offset);
+} elseif ($school_id) {
+    $stmt->bind_param('sii', $school_id, $events_per_page, $offset);
 } elseif ($search) {
     $stmt->bind_param('ssii', $search_term, $search_term, $events_per_page, $offset);
 } else {
@@ -77,3 +77,5 @@ if ($tag && $search) {
 }
 $stmt->execute();
 $result = $stmt->get_result();
+
+?>
