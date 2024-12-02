@@ -27,7 +27,8 @@
                 <li><a href="../../pages/managerAndAdmin/user.html">Users</a></li>
             </ul>
             <div class="profile">
-                <a href="../../pages/managerAndAdmin/managerProfile.html"><img class="profile-img" src="../../assets/profileIcon.jpg" alt="Profile" /></a>
+                <a href="../../pages/managerAndAdmin/managerProfile.html"><img class="profile-img"
+                        src="../../assets/profileIcon.jpg" alt="Profile" /></a>
             </div>
         </header>
     </section>
@@ -38,50 +39,80 @@
             <div class="button-group">
                 <button class="btn add">Add Opportunity</button>
                 <button class="btn delete">Delete Opportunity</button>
-            </div>  
+            </div>
         </div>
 
         <!-- Table for Upcoming Events -->
         <table class="opportunities-table">
             <thead>
-              <tr>
-                <th><input type="checkbox" class="opportunities-checkbox"></th>
-                <th>Job Title</th>
-                <th>Company</th>
-                <th>Location</th>
-                <th>Description</th>
-                <th>Date Created</th>
-                <th>Time Created</th>
-              </tr>
+                <tr>
+                    <th><input type="checkbox" class="opportunities-checkbox"></th>
+                    <th>Job Title</th>
+                    <th>Company</th>
+                    <th>Location</th>
+                    <th>Description</th>
+                    <th>Date Created</th>
+                    <th>Time Created</th>
+                </tr>
             </thead>
             <tbody>
-              <tr>
-                <td><input type="checkbox" class="opportunities-checkbox"></td>
-                <td>Web Developer</td>
-                <td>SLU</td>
-                <td>Baguio City</td>
-                <td>We are hiring!!</td>
-                <td>Nov 28, 2024</td>
-                <td>12:00 am</td>
-              </tr>
-              <tr>
-                <td><input type="checkbox" class="opportunities-checkbox"></td>
-                <td>Frontend</td>
-                <td>SLU</td>
-                <td>Baguio City</td>
-                <td>We are hiring!!</td>
-                <td>Nov 28, 2024</td>
-                <td>12:00 am</td>
-              </tr>
+                <tr>
+                    <td><input type="checkbox" class="opportunities-checkbox"></td>
+                    <td>Web Developer</td>
+                    <td>SLU</td>
+                    <td>Baguio City</td>
+                    <td>We are hiring!!</td>
+                    <td>Nov 28, 2024</td>
+                    <td>12:00 am</td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox" class="opportunities-checkbox"></td>
+                    <td>Frontend</td>
+                    <td>SLU</td>
+                    <td>Baguio City</td>
+                    <td>We are hiring!!</td>
+                    <td>Nov 28, 2024</td>
+                    <td>12:00 am</td>
+                </tr>
             </tbody>
-          </table>    
+        </table>
 
-          <!-- Buttons outside the table -->
-          <div class="button-container">
-              <button class="btn post">Post</button>
-              <!-- <button class="btn edit">Edit</button> -->
-          </div>
+        <!-- Buttons outside the table -->
+        <div class="button-container">
+            <button class="btn post">Post</button>
+            <!-- <button class="btn edit">Edit</button> -->
+        </div>
     </div>
+
+    <!-- Script for Search Input -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const searchInput = document.querySelector(".search-input");
+            const tables = document.querySelectorAll(".opportunities-table");
+
+            const filterRows = (searchValue) => {
+                tables.forEach((table) => {
+                    const rows = table.querySelectorAll("tbody tr");
+                    rows.forEach((row) => {
+                        const cells = row.querySelectorAll("td");
+                        const rowText = Array.from(cells)
+                            .map((cell) => cell.textContent.toLowerCase())
+                            .join(" ");
+                        if (rowText.includes(searchValue.toLowerCase())) {
+                            row.style.display = "";
+                        } else {
+                            row.style.display = "none";
+                        }
+                    });
+                });
+            };
+
+            searchInput.addEventListener("input", (event) => {
+                const searchValue = event.target.value.trim();
+                filterRows(searchValue);
+            });
+        });
+    </script>
 </body>
 
 </html>
