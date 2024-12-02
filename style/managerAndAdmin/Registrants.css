@@ -206,6 +206,7 @@ header img.afteracadstext {
 .arrow-down {
   font-size: 0.8em;
   display: none;
+  color: white;
 }
 
 .sort-button[data-sort="asc"] .arrow-up {

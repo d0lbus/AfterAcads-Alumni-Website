@@ -58,6 +58,7 @@ $result = $stmt->get_result();
 $posts = [];
 while ($row = $result->fetch_assoc()) {
     $posts[] = [
+        'id' => $row['id'],
         'full_name' => $row['first_name'] . ' ' . $row['last_name'],
         'content' => $row['content'],
         'school' => $row['school_name'] ?: 'ALL',

@@ -55,15 +55,23 @@ $friends = $friendsManager->getFriends($user['id']);
             </div>
 
             <div class="sidebar-menu">
-            <ul>
-          <li><a href="../../pages/alumni/shareExperience.php"><span><img src="../../assets/home1.png" width="20px" alt="Home" /></span>Home</a></li>
-          <li><a href="../../pages/alumni/events.php"><span><img src="../../assets/event1.png" width="20px" alt="Events" /></span>Events</a></li>
-          <li><a href="../../pages/alumni/opportunities.php"><span><img src="../../assets/opportunities.png" width="20px" alt="Opportunities" /></span>Opportunities</a></li>
-          <li><a href="../../pages/alumni/notifications.php"><span><img src="../../assets/notification-removebg-preview.png" width="20px" alt="Notifications" /></span>Notifications</a></li>
-          <li><a href="../../pages/alumni/settings.php"><span><img src="../../assets/setting1.png" width="20px" alt="Settings" /></span>Settings</a></li>
-          <!-- <li><a href="javascript:void(0);" onclick="confirmLogout()"><span><img src="../../assets/logout1.png" width="20px" alt="Logout" /></span>Logout</a></li> -->
-          <li><a href="../../config/general/logout.php"><span><img src="../../assets/logout1.png" width="20px" alt="Logout" /></span>Logout</a></li>
-        </ul>
+                <ul>
+                    <li><a href="../../pages/alumni/shareExperience.php"><span><img src="../../assets/home1.png" width="20px" alt="Home" /></span>Home</a></li>
+                    <li><a href="../../pages/alumni/events.php"><span><img src="../../assets/event1.png" width="20px" alt="Events" /></span>Events</a></li>
+                    <li><a href="../../pages/alumni/opportunities.php"><span><img src="../../assets/opportunities.png" width="20px" alt="Opportunities" /></span>Opportunities</a></li>
+                    <li><a href="../../pages/alumni/notifications.php"><span><img src="../../assets/notification-removebg-preview.png" width="20px" alt="Notifications" /></span>Notifications</a></li>
+                    <li><a href="../../pages/alumni/settings.php"><span><img src="../../assets/setting1.png" width="20px" alt="Settings" /></span>Settings</a></li>
+                    <!-- <li><a href="javascript:void(0);" onclick="confirmLogout()"><span><img src="../../assets/logout1.png" width="20px" alt="Logout" /></span>Logout</a></li> -->
+                    <li>
+                    <form action="../../config/general/logout.php" method="post" onclick="confirmLogout()" style="margin: 0;">
+                        <button type="submit" class="logout-button">
+                            <span>
+                                <img src="../../assets/logout1.png" width="20px" alt="Logout" />
+                            </span>Logout
+                        </button>
+                    </form>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
@@ -113,6 +121,7 @@ $friends = $friendsManager->getFriends($user['id']);
 
                 <!-- File Upload -->
                 <div class="addPost-option">
+                    <label for="postImage">Upload Image:</label>
                     <input type="file" id="postImage" accept="image/*">
                 </div>
 
@@ -133,7 +142,7 @@ $friends = $friendsManager->getFriends($user['id']);
                     <select id="filterSchool" class="filter-select"></select>
 
                     <label for="filterCourse" class="filter-label">Course:</label>
-                    <select id="filterCourse" class="filter-select"></select>
+                    <select id="filterCourse" class="filter-select" disabled></select>
 
                     <label for="filterBatch" class="filter-label">Batch:</label>
                     <select id="filterBatch" class="filter-select"></select>
@@ -145,6 +154,22 @@ $friends = $friendsManager->getFriends($user['id']);
             <div id="postsContainer" class="posts-container">
                 <!-- Posts will be dynamically inserted here -->
             </div>
+
+            <!-- Modal for Comments -->
+            <div id="commentsModal" class="modal" style="display: none;">
+                <div class="modal-content">
+                    <span class="close-modal" onclick="document.getElementById('commentsModal').style.display='none'">&times;</span>
+                    <h2 class="modal-title">Comments</h2>
+                    <div class="comments-container" id="commentsContainer">
+                        <!-- Comments will be dynamically loaded here -->
+                    </div>
+                    <div class="comment-input-section">
+                        <textarea id="commentInput" class="comment-input" placeholder="Write a comment..."></textarea>
+                        <button id="submitCommentButton" class="submit-comment-button">Submit</button>
+                    </div>
+                </div>
+            </div>
+
         </main>
     </div>
 
@@ -185,7 +210,6 @@ $friends = $friendsManager->getFriends($user['id']);
 
     <script>
     document.addEventListener("DOMContentLoaded", function () {
-
         const sidebar = document.querySelector(".sidebar");
         const toggleButton = document.getElementById("sidebarToggle");
 
@@ -283,61 +307,85 @@ $friends = $friendsManager->getFriends($user['id']);
 
         const sortOrderDropdown = document.getElementById("sortOrder");
 
+        const schoolDropdown = document.getElementById("filterSchool");
+        const courseDropdown = document.getElementById("filterCourse");
+
+        // Initially disable the course dropdown
+        courseDropdown.disabled = true;
+
+        // Enable course dropdown when a school is selected
+        schoolDropdown.addEventListener("change", function () {
+            if (schoolDropdown.value) {
+                courseDropdown.disabled = false; 
+            } else {
+                courseDropdown.disabled = true; 
+            }
+        });
+
+        // Show error message when trying to click the disabled course dropdown
+        courseDropdown.addEventListener("click", function (event) {
+            if (courseDropdown.disabled) {
+                event.preventDefault(); 
+                alert("Please select a school first."); 
+            }
+        });
+
         // Fetch and display posts
         function fetchPosts(schoolId = null, courseId = null, batchId = null, sort = "latest") {
-        let url = `../../config/alumni/fetch_posts.php?sort=${sort}`;
-        if (schoolId && schoolId !== "ALL") url += `&school_id=${schoolId}`;
-        if (courseId && courseId !== "ALL") url += `&course_id=${courseId}`;
-        if (batchId && batchId !== "ALL") url += `&batch_id=${batchId}`;
+            let url = `../../config/alumni/fetch_posts.php?sort=${sort}`;
+            if (schoolId && schoolId !== "ALL") url += `&school_id=${schoolId}`;
+            if (courseId && courseId !== "ALL") url += `&course_id=${courseId}`;
+            if (batchId && batchId !== "ALL") url += `&batch_id=${batchId}`;
 
-        fetch(url)
-            .then((response) => response.json())
-            .then((posts) => {
-                const postsContainer = document.getElementById("postsContainer");
-                postsContainer.innerHTML = ""; // Clear previous posts
-                posts.forEach((post) => {
-                    const postElement = document.createElement("div");
-                    postElement.classList.add("post");
-                    postElement.innerHTML = `
-                        <div class="post-user">Posted by: <strong>${post.full_name}</strong></div>
-                        <div class="post-school">School: ${post.school}</div>
-                        <div class="post-course">Course: ${post.course}</div>
-                        <div class="post-batch">Batch: ${post.batch}</div>
-                        <div class="post-content">${post.content}</div>
-                        ${
-                            post.image
-                                ? `<img src="data:image/jpeg;base64,${post.image}" alt="Post Image" />`
-                                : ""
-                        }
-                        <div class="post-tags">Tags: ${
-                            post.tags.length ? post.tags.join(", ") : "No tags"
-                        }</div>
-                        <div class="post-date">${new Date(post.created_at).toLocaleString()}</div>
-                    `;
-                    postsContainer.appendChild(postElement);
-                });
-            })
-            .catch((error) => console.error("Error fetching posts:", error));
-            }
+            fetch(url)
+                .then((response) => response.json())
+                .then((posts) => {
+                    const postsContainer = document.getElementById("postsContainer");
+                    postsContainer.innerHTML = ""; // Clear previous posts
+                    posts.forEach((post) => {
+                        const postElement = document.createElement("div");
+                        postElement.classList.add("post");
+                        postElement.innerHTML = `
+                            <div class="post-user">Posted by: <strong>${post.full_name}</strong></div>
+                            <div class="post-school">School: ${post.school}</div>
+                            <div class="post-course">Course: ${post.course}</div>
+                            <div class="post-batch">Batch: ${post.batch}</div>
+                            <div class="post-content">${post.content}</div>
+                            ${
+                                post.image
+                                    ? `<img src="data:image/jpeg;base64,${post.image}" alt="Post Image" />`
+                                    : ""
+                            }
+                            <div class="post-tags">Tags: ${
+                                post.tags.length ? post.tags.join(", ") : "No tags"
+                            }</div>
+                            <div class="post-date">${new Date(post.created_at).toLocaleString()}</div>
+                            <button class="view-comments-button" onclick="viewComments(${post.id})">View Comments</button>
+                        `;
+                        postsContainer.appendChild(postElement);
+                    });
+                })
+                .catch((error) => console.error("Error fetching posts:", error));
+        }
 
-            // Fetch posts when filters change
-            document.getElementById("filterSchool").addEventListener("change", function () {
-                const schoolId = this.value;
-                const courseId = document.getElementById("filterCourse").value;
-                const batchId = document.getElementById("filterBatch").value;
-                const sortOrder = document.getElementById("sortOrder").value;
-                fetchPosts(schoolId, courseId, batchId, sortOrder);
-            });
+        // Fetch posts when filters change
+        document.getElementById("filterSchool").addEventListener("change", function () {
+            const schoolId = this.value;
+            const courseId = document.getElementById("filterCourse").value;
+            const batchId = document.getElementById("filterBatch").value;
+            const sortOrder = document.getElementById("sortOrder").value;
+            fetchPosts(schoolId, courseId, batchId, sortOrder);
+        });
 
-            document.getElementById("filterCourse").addEventListener("change", function () {
-                const schoolId = document.getElementById("filterSchool").value;
-                const courseId = this.value;
-                const batchId = document.getElementById("filterBatch").value;
-                const sortOrder = document.getElementById("sortOrder").value;
-                fetchPosts(schoolId, courseId, batchId, sortOrder);
-            });
+        document.getElementById("filterCourse").addEventListener("change", function () {
+            const schoolId = document.getElementById("filterSchool").value;
+            const courseId = this.value;
+            const batchId = document.getElementById("filterBatch").value;
+            const sortOrder = document.getElementById("sortOrder").value;
+            fetchPosts(schoolId, courseId, batchId, sortOrder);
+        });
 
-            document.getElementById("filterBatch").addEventListener("change", function () {
+        document.getElementById("filterBatch").addEventListener("change", function () {
             const batchId = this.value; 
             const schoolId = document.getElementById("filterSchool").value;
             const courseId = document.getElementById("filterCourse").value;
@@ -346,18 +394,19 @@ $friends = $friendsManager->getFriends($user['id']);
             const effectiveBatchId = batchId === '' ? 'ALL' : batchId;
 
             fetchPosts(schoolId, courseId, effectiveBatchId, sortOrder);
-            });
+        });
 
-            document.getElementById("sortOrder").addEventListener("change", function () {
-                const sortOrder = this.value;
-                const schoolId = document.getElementById("filterSchool").value;
-                const courseId = document.getElementById("filterCourse").value;
-                const batchId = document.getElementById("filterBatch").value;
-                fetchPosts(schoolId, courseId, batchId, sortOrder);
-            });
+        document.getElementById("sortOrder").addEventListener("change", function () {
+            const sortOrder = this.value;
+            const schoolId = document.getElementById("filterSchool").value;
+            const courseId = document.getElementById("filterCourse").value;
+            const batchId = document.getElementById("filterBatch").value;
+            fetchPosts(schoolId, courseId, batchId, sortOrder);
+        });
 
-         // Initial fetch of posts
+        // Initial fetch of posts
         fetchPosts();
+
 
         // Handle post creation
         document.getElementById("postButton").addEventListener("click", function (e) {
@@ -418,9 +467,9 @@ $friends = $friendsManager->getFriends($user['id']);
             })
                 .catch(error => console.error("Error:", error));
             });
-        });
-    
-    // Create Post (expand/minimized)
+    });
+
+    // Create Post Modal (expand/minimized)
     document.addEventListener("DOMContentLoaded", function() {
         const addPost = document.querySelector(".addPost");
         const postContent = document.getElementById("postContent");
@@ -443,6 +492,82 @@ $friends = $friendsManager->getFriends($user['id']);
             }
         });
     });
+
+    // View and Create Comments Modal
+    function viewComments(postId) {
+        const modal = document.getElementById("commentsModal");
+        const commentsContainer = document.getElementById("commentsContainer");
+
+        // Check if commentsContainer exists
+        if (!commentsContainer) {
+            console.error("commentsContainer element not found");
+            return;
+        }
+
+        const commentInput = document.getElementById("commentInput");
+
+        // Clear previous comments
+        commentsContainer.innerHTML = "Loading comments...";
+
+        // Fetch comments for the selected post
+        fetch(`../../config/alumni/fetch_comments.php?post_id=${postId}`)
+            .then((response) => response.json())
+            .then((comments) => {
+                commentsContainer.innerHTML = ""; // Clear loading text
+                if (comments.length > 0) {
+                    comments.forEach((comment) => {
+                        const commentElement = document.createElement("div");
+                        commentElement.classList.add("comment");
+                        commentElement.innerHTML = `
+                            <div class="comment-user">${comment.user_name}</div>
+                            <div class="comment-content">${comment.comment}</div>
+                            <div class="comment-date">${new Date(comment.created_at).toLocaleString()}</div>
+                        `;
+                        commentsContainer.appendChild(commentElement);
+                    });
+                } else {
+                        commentsContainer.innerHTML = "<p>No comments yet.</p>";
+                }
+            })
+            .catch((error) => {
+                console.error("Error fetching comments:", error);
+                commentsContainer.innerHTML = "<p>Error loading comments.</p>";
+            });
+
+            // Show the modal
+            modal.style.display = "block";
+
+            // Handle comment submission
+            const submitButton = document.getElementById("submitCommentButton");
+            submitButton.onclick = () => {
+                const comment = commentInput.value.trim();
+                if (!comment) {
+                    alert("Comment cannot be empty!");
+                    return;
+                }
+
+                // Send the comment to the server
+                fetch("../../config/alumni/create_comment.php", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ post_id: postId, comment }),
+                })
+                    .then((response) => response.json())
+                    .then((data) => {
+                        if (data.success) {
+                            alert("Comment added successfully!");
+                            commentInput.value = ""; 
+                            viewComments(postId); 
+                        } else {
+                            alert("Error adding comment.");
+                        }
+                    })
+                    .catch((error) => {
+                        console.error("Error adding comment:", error);
+                        alert("Error adding comment.");
+                    });
+        };
+    }   
 
     function confirmLogout() {
         if (confirm("Are you sure you want to logout?")) {

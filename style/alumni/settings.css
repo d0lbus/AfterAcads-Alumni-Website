@@ -169,6 +169,34 @@
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); 
 }
 
+.logout-button {
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+  color: var(--color-sidebar-text);
+  background: none;
+  border: none;
+  cursor: pointer;
+  border-radius: 6px;
+  width: 100%; /* Ensure it spans the menu width */
+  text-align: left;
+  transition: background-color 0.3s ease;
+}
+
+.logout-button span {
+  margin-right: 0.8rem;
+}
+
+.logout-button img {
+  vertical-align: middle;
+}
+
+.logout-button:hover {
+  background-color: var(--color-accent);
+  color: #fff;
+}
+
 /* Main content styles */
 .main-content {
   margin-left: 320px;
