@@ -128,11 +128,6 @@ $total_pages = 0;
         <div class="events-container" id="eventsContainer">
           <!-- Events will be dynamically loaded here -->
         </div>
-
-        <!-- Pagination -->
-        <div class="pagination" id="paginationContainer">
-          <!-- Pagination buttons will be dynamically loaded here -->
-        </div>
       </div>
     </main>
 
@@ -226,145 +221,123 @@ $total_pages = 0;
 
     // Fetch Events
     document.addEventListener("DOMContentLoaded", function () {
-    const eventsContainer = document.getElementById("eventsContainer");
-    const paginationContainer = document.getElementById("paginationContainer");
-    const schoolFilter = document.getElementById("filter-events");
-    const filterButtons = document.querySelectorAll(".filter-button");
+  const eventsContainer = document.getElementById("eventsContainer");
+  const schoolFilter = document.getElementById("filter-events");
+  const filterButtons = document.querySelectorAll(".filter-button");
 
-    // State variables
-    let currentPage = 1;
-    let currentSchoolId = null;
-    let currentFilter = null;
+  let currentSchoolId = null;
+  let currentFilter = null;
 
-    // Fetch events from the backend
-    function fetchEvents() {
-      let url = `../../config/alumni/events_controller.php?ajax=true&page=${currentPage}`;
+  // Fetch events from the backend
+  function fetchEvents() {
+    let url = `../../config/alumni/events_controller.php?ajax=true`;
 
-      if (currentSchoolId) url += `&school_id=${currentSchoolId}`;
-      if (currentFilter) url += `&filter=${currentFilter}`;
+    if (currentSchoolId) url += `&school_id=${currentSchoolId}`;
+    if (currentFilter) url += `&filter=${currentFilter}`;
 
-      fetch(url)
-        .then((response) => response.json())
-        .then((data) => {
-          renderEvents(data.events);
-          renderPagination(data.pagination);
-        })
-        .catch((error) => console.error("Error fetching events:", error));
+    fetch(url)
+      .then((response) => response.json())
+      .then((data) => {
+        renderEvents(data.events);
+      })
+      .catch((error) => console.error("Error fetching events:", error));
+  }
+
+  // Render event cards dynamically
+  function renderEvents(events) {
+    eventsContainer.innerHTML = "";
+
+    if (events.length === 0) {
+      eventsContainer.innerHTML = "<p>No events found.</p>";
+      return;
     }
 
-    // Render event cards dynamically
-    function renderEvents(events) {
-      eventsContainer.innerHTML = "";
+    events.forEach((event) => {
+      const eventCard = document.createElement("div");
+      eventCard.classList.add("event-card");
 
-      if (events.length === 0) {
-        eventsContainer.innerHTML = "<p>No events found.</p>";
-        return;
-      }
+      eventCard.innerHTML = `
+        <div class="event-details">
+          <h3>${event.title}</h3>
+          <p>${event.description}</p>
+          <p><strong>Date:</strong> ${event.date}</p>
+          <p><strong>Time:</strong> ${event.time}</p>
+          <p><strong>Location:</strong> ${event.location}</p>
+          <p><strong>School:</strong> ${event.school_name || "General"}</p>
+        </div>
+        <div class="event-participation">
+          <button class="event-button going-button ${event.user_status === 'going' ? 'active' : ''}" 
+                  data-event-id="${event.id}" data-status="going">
+            Going (${event.going_count || 0})
+          </button>
+          <button class="event-button interested-button ${event.user_status === 'interested' ? 'active' : ''}" 
+                  data-event-id="${event.id}" data-status="interested">
+            Interested (${event.interested_count || 0})
+          </button>
+        </div>
+      `;
+      eventsContainer.appendChild(eventCard);
+    });
 
-      events.forEach((event) => {
-        const eventCard = document.createElement("div");
-        eventCard.classList.add("event-card");
+    document.querySelectorAll(".event-button").forEach((button) => {
+      button.addEventListener("click", handleParticipation);
+    });
+  }
 
-        eventCard.innerHTML = `
-          <div class="event-details">
-            <h3>${event.title}</h3>
-            <p>${event.description}</p>
-            <p><strong>Date:</strong> ${event.date}</p>
-            <p><strong>Time:</strong> ${event.time}</p>
-            <p><strong>Location:</strong> ${event.location}</p>
-            <p><strong>School:</strong> ${event.school_name || "General"}</p>
-          </div>
-          <div class="event-participation">
-            <button class="event-button going-button ${event.user_status === 'going' ? 'active' : ''}" 
-                    data-event-id="${event.id}" data-status="going">
-              Going (${event.going_count || 0})
-            </button>
-            <button class="event-button interested-button ${event.user_status === 'interested' ? 'active' : ''}" 
-                    data-event-id="${event.id}" data-status="interested">
-              Interested (${event.interested_count || 0})
-            </button>
-          </div>
-        `;
-        eventsContainer.appendChild(eventCard);
-      });
+  // Handle participation (Going/Interested/Cancel)
+  function handleParticipation(event) {
+    const button = event.target;
+    const eventId = button.dataset.eventId;
+    const status = button.dataset.status;
 
-      document.querySelectorAll(".event-button").forEach((button) => {
-        button.addEventListener("click", handleParticipation);
-      });
+    const isActive = button.classList.contains("active");
+    const parentContainer = button.parentElement;
+    parentContainer.querySelectorAll(".event-button").forEach((btn) => btn.classList.remove("active"));
+    if (!isActive) {
+      button.classList.add("active");
     }
 
-    // Handle participation (Going/Interested/Cancel)
-    function handleParticipation(event) {
-      const button = event.target;
-      const eventId = button.dataset.eventId;
-      const status = button.dataset.status;
+    fetch("../../config/alumni/participate_in_event.php", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        event_id: eventId,
+        status: isActive ? null : status, // Null to cancel participation
+      }),
+    })
+      .then((response) => response.json())
+      .then(() => {
+        fetchEvents(); // Refresh events
+      })
+      .catch((error) => console.error("Error updating participation:", error));
+  }
 
+  // Filter by Going, Interested
+  filterButtons.forEach((button) => {
+    button.addEventListener("click", () => {
       const isActive = button.classList.contains("active");
-      const parentContainer = button.parentElement;
-      parentContainer.querySelectorAll(".event-button").forEach((btn) => btn.classList.remove("active"));
+      filterButtons.forEach((btn) => btn.classList.remove("active"));
+
       if (!isActive) {
         button.classList.add("active");
+        currentFilter = button.dataset.filter;
+      } else {
+        currentFilter = null; // Reset filter
       }
-
-      fetch("../../config/alumni/participate_in_event.php", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          event_id: eventId,
-          status: isActive ? null : status, // Null to cancel participation
-        }),
-      })
-        .then((response) => response.json())
-        .then(() => {
-          fetchEvents(); // Refresh events
-        })
-        .catch((error) => console.error("Error updating participation:", error));
-    }
-
-    // Render pagination
-    function renderPagination(pagination) {
-      paginationContainer.innerHTML = "";
-      if (pagination.total_pages <= 1) return;
-
-      for (let i = 1; i <= pagination.total_pages; i++) {
-        const button = document.createElement("button");
-        button.textContent = i;
-        button.classList.add("pagination-button", i === pagination.current_page ? "active" : "");
-        button.addEventListener("click", () => {
-          currentPage = i;
-          fetchEvents();
-        });
-        paginationContainer.appendChild(button);
-      }
-    }
-
-    // Filter by Going, Interested
-    filterButtons.forEach((button) => {
-      button.addEventListener("click", () => {
-        const isActive = button.classList.contains("active");
-        filterButtons.forEach((btn) => btn.classList.remove("active"));
-
-        if (!isActive) {
-          button.classList.add("active");
-          currentFilter = button.dataset.filter;
-        } else {
-          currentFilter = null; // Reset filter
-        }
-        currentPage = 1;
-        fetchEvents();
-      });
-    });
-
-    // Filter by School
-    schoolFilter.addEventListener("change", () => {
-      currentSchoolId = schoolFilter.value || null;
-      currentPage = 1;
       fetchEvents();
     });
+  });
 
-    // Initial fetch
+  // Filter by School
+  schoolFilter.addEventListener("change", () => {
+    currentSchoolId = schoolFilter.value || null;
     fetchEvents();
   });
+
+  // Initial fetch
+  fetchEvents();
+});
+
 
     function confirmLogout() {
         if (confirm("Are you sure you want to logout?")) {
