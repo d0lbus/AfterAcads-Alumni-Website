@@ -176,6 +176,7 @@
     </div>
   </div>
 
+  <!-- Script for the tables -->
   <script>
 
     document.addEventListener("DOMContentLoaded", () => {
@@ -259,6 +260,7 @@
 
   </script>
 
+  <!-- Script for Sorting -->
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       const tables = document.querySelectorAll(".user-table");
@@ -301,6 +303,38 @@
     });
 
   </script>
+
+  <!-- Script for Search Input -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const searchInput = document.querySelector(".search-input");
+      const tables = document.querySelectorAll(".user-table");
+
+      const filterRows = (searchValue) => {
+        tables.forEach((table) => {
+          const rows = table.querySelectorAll("tbody tr");
+          rows.forEach((row) => {
+            const cells = row.querySelectorAll("td");
+            const rowText = Array.from(cells)
+              .map((cell) => cell.textContent.toLowerCase())
+              .join(" ");
+            if (rowText.includes(searchValue.toLowerCase())) {
+              row.style.display = "";
+            } else {
+              row.style.display = "none";
+            }
+          });
+        });
+      };
+
+      searchInput.addEventListener("input", (event) => {
+        const searchValue = event.target.value.trim();
+        filterRows(searchValue);
+      });
+    });
+
+  </script>
+
 </body>
 
 </html>
