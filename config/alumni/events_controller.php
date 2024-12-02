@@ -1,9 +1,7 @@
 <?php
-// events_controller.php
 session_start();
 include '../../config/general/connection.php';
 
-// Check if the user is authenticated
 if (!isset($_SESSION['email'])) {
     header("Location: loginpage.php");
     exit();
@@ -11,10 +9,11 @@ if (!isset($_SESSION['email'])) {
 
 header('Content-Type: application/json');
 
-// Pagination and Filters
+$user_id = $_SESSION['user_id']; 
 $page = isset($_GET['page']) && is_numeric($_GET['page']) ? intval($_GET['page']) : 1;
 $school_id = isset($_GET['school_id']) ? $_GET['school_id'] : null;
 $search = isset($_GET['search']) ? $_GET['search'] : null;
+$filter = isset($_GET['filter']) ? $_GET['filter'] : 'all';
 $events_per_page = 5;
 $offset = ($page - 1) * $events_per_page;
 
@@ -30,6 +29,25 @@ $sql = "
     WHERE 1=1
 ";
 
+// Apply filter for "going" or "interested"
+if ($filter === 'going') {
+    $sql .= " AND EXISTS (
+        SELECT 1 
+        FROM event_participants 
+        WHERE event_participants.event_id = events.id 
+        AND event_participants.user_id = ? 
+        AND event_participants.status = 'going'
+    )";
+} elseif ($filter === 'interested') {
+    $sql .= " AND EXISTS (
+        SELECT 1 
+        FROM event_participants 
+        WHERE event_participants.event_id = events.id 
+        AND event_participants.user_id = ? 
+        AND event_participants.status = 'interested'
+    )";
+}
+
 // Apply school filter
 if ($school_id) {
     $sql .= " AND events.school_id = ?";
@@ -40,54 +58,53 @@ if ($search) {
     $sql .= " AND (events.title LIKE ? OR events.description LIKE ?)";
 }
 
-// Count total events for pagination
-$count_sql = "SELECT COUNT(*) AS total FROM events LEFT JOIN schools ON events.school_id = schools.id WHERE 1=1";
-
-// Add school filter to count query
-if ($school_id) {
-    $count_sql .= " AND events.school_id = ?";
-}
-
-// Add search filter to count query
-if ($search) {
-    $count_sql .= " AND (events.title LIKE ? OR events.description LIKE ?)";
-}
+// Remove LIMIT and OFFSET for count query
+$count_sql = preg_replace("/SELECT .*? FROM/", "SELECT COUNT(*) AS total FROM", $sql);
+$count_sql = preg_replace("/LIMIT \d+ OFFSET \d+/", "", $count_sql); // Ensure pagination is removed
 
 $count_stmt = $conn->prepare($count_sql);
 
+$params = [];
+$types = "";
+
+if ($filter !== 'all') {
+    $params[] = $user_id;
+    $types .= "i";
+}
+
+if ($school_id) {
+    $params[] = $school_id;
+    $types .= "i";
+}
+
+if ($search) {
+    $search_param = '%' . $search . '%';
+    $params[] = $search_param;
+    $params[] = $search_param;
+    $types .= "ss";
+}
+
 // Bind parameters for count query
-if ($school_id && $search) {
-    $search_param = '%' . $search . '%';
-    $count_stmt->bind_param("iss", $school_id, $search_param, $search_param);
-} elseif ($school_id) {
-    $count_stmt->bind_param("i", $school_id);
-} elseif ($search) {
-    $search_param = '%' . $search . '%';
-    $count_stmt->bind_param("ss", $search_param, $search_param);
+if (!empty($params)) {
+    $count_stmt->bind_param($types, ...$params);
 }
 
 $count_stmt->execute();
 $count_result = $count_stmt->get_result();
 $count_row = $count_result->fetch_assoc();
 
-$total_events = $count_row['total'] ?? 0; // Default to 0 if total is not found
+// Check if the total key exists
+$total_events = isset($count_row['total']) ? $count_row['total'] : 0;
 $total_pages = ceil($total_events / $events_per_page);
 
 // Add pagination to main query
 $sql .= " LIMIT ? OFFSET ?";
+$params[] = $events_per_page;
+$params[] = $offset;
+$types .= "ii";
+
 $stmt = $conn->prepare($sql);
-
-// Bind parameters for main query
-if ($school_id && $search) {
-    $stmt->bind_param("issii", $school_id, $search_param, $search_param, $events_per_page, $offset);
-} elseif ($school_id) {
-    $stmt->bind_param("iii", $school_id, $events_per_page, $offset);
-} elseif ($search) {
-    $stmt->bind_param("ssii", $search_param, $search_param, $events_per_page, $offset);
-} else {
-    $stmt->bind_param("ii", $events_per_page, $offset);
-}
-
+$stmt->bind_param($types, ...$params);
 $stmt->execute();
 $result = $stmt->get_result();
 

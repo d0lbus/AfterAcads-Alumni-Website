@@ -110,10 +110,13 @@ $total_pages = 0;
         <h1>Events</h1>
         <small>See upcoming events and mark those you are interested in</small>
 
-        <!-- Buttons for All Events and Interested Events -->
-        <div class="event-buttons-container">
-      
+        <div class="filter-buttons-container">
+          <button class="filter-button active" id="allEventsButton" data-filter="all">All Events</button>
+          <button class="filter-button" id="goingEventsButton" data-filter="going">Going</button>
+          <button class="filter-button" id="interestedEventsButton" data-filter="interested">Interested</button>
         </div>
+
+
 
         <div class="events-container" id="eventsContainer">
             <!-- Events will be dynamically loaded here -->
@@ -211,25 +214,28 @@ $total_pages = 0;
     });
 
     // Fetch Events Functionality
-// Fetch Events Functionality
-document.addEventListener("DOMContentLoaded", function () {
+
+    document.addEventListener("DOMContentLoaded", function () {
   const eventsContainer = document.getElementById("eventsContainer");
   const paginationContainer = document.getElementById("paginationContainer");
   const schoolFilter = document.getElementById("filter-events");
   const searchInput = document.getElementById("searchInput");
+  const filterButtons = document.querySelectorAll(".filter-button"); // Add this line to handle filter buttons
 
   // Track current filters
   let currentSchoolId = schoolFilter.value || null;
   let currentSearchQuery = searchInput.value || null;
   let currentPage = 1;
+  let currentFilter = "all"; // Track the current filter (all, going, interested)
 
-  function fetchEvents(page = 1, schoolId = null, search = null) {
+  function fetchEvents(page = 1, schoolId = null, search = null, filter = "all") {
     // Update state variables
     currentSchoolId = schoolId;
     currentSearchQuery = search;
     currentPage = page;
+    currentFilter = filter;
 
-    let url = `../../config/alumni/events_controller.php?ajax=true&page=${page}`;
+    let url = `../../config/alumni/events_controller.php?ajax=true&page=${page}&filter=${filter}`;
     if (schoolId) url += `&school_id=${schoolId}`;
     if (search) url += `&search=${encodeURIComponent(search)}`;
 
@@ -237,13 +243,17 @@ document.addEventListener("DOMContentLoaded", function () {
       .then((response) => response.json())
       .then((data) => {
         // Ignore stale responses
-        if (schoolId !== currentSchoolId || search !== currentSearchQuery) {
+        if (
+          schoolId !== currentSchoolId ||
+          search !== currentSearchQuery ||
+          filter !== currentFilter
+        ) {
           console.log("Stale fetch ignored.");
           return;
         }
 
         renderEvents(data.events);
-        renderPagination(data.pagination, schoolId, search);
+        renderPagination(data.pagination, schoolId, search, filter);
       })
       .catch((error) => console.error("Error fetching events:", error));
   }
@@ -309,7 +319,7 @@ document.addEventListener("DOMContentLoaded", function () {
       .then((data) => {
         if (data.success) {
           alert(`You are marked as '${status}' for this event!`);
-          fetchEvents(currentPage, currentSchoolId, currentSearchQuery); // Refresh events to update counts
+          fetchEvents(currentPage, currentSchoolId, currentSearchQuery, currentFilter); // Refresh events to update counts
         } else {
           alert(data.message || "Failed to update participation status.");
         }
@@ -317,7 +327,7 @@ document.addEventListener("DOMContentLoaded", function () {
       .catch((error) => console.error("Error updating participation:", error));
   }
 
-  function renderPagination(pagination, schoolId, search) {
+  function renderPagination(pagination, schoolId, search, filter) {
     paginationContainer.innerHTML = ""; // Clear previous pagination
     if (pagination.total_pages <= 1) return;
 
@@ -326,26 +336,42 @@ document.addEventListener("DOMContentLoaded", function () {
       button.classList.add("pagination-button");
       button.textContent = i;
       if (i === pagination.current_page) button.classList.add("active");
-      button.addEventListener("click", () => fetchEvents(i, schoolId, search));
+      button.addEventListener("click", () => fetchEvents(i, schoolId, search, filter));
       paginationContainer.appendChild(button);
     }
   }
 
+  // Handle filter button clicks
+  filterButtons.forEach((button) => {
+    button.addEventListener("click", function () {
+      // Remove active state from all buttons
+      filterButtons.forEach((btn) => btn.classList.remove("active"));
+
+      // Add active state to the clicked button
+      this.classList.add("active");
+
+      // Fetch events based on the selected filter
+      const selectedFilter = this.getAttribute("data-filter");
+      fetchEvents(1, currentSchoolId, currentSearchQuery, selectedFilter);
+    });
+  });
+
   // Handle school filter change
   schoolFilter.addEventListener("change", function () {
     const schoolId = this.value || null;
-    fetchEvents(1, schoolId, currentSearchQuery);
+    fetchEvents(1, schoolId, currentSearchQuery, currentFilter);
   });
 
   // Handle search input
   searchInput.addEventListener("input", function () {
     const searchQuery = this.value || null;
-    fetchEvents(1, currentSchoolId, searchQuery);
+    fetchEvents(1, currentSchoolId, searchQuery, currentFilter);
   });
 
   // Initial fetch
-  fetchEvents(currentPage, currentSchoolId, currentSearchQuery);
-  });
+  fetchEvents(currentPage, currentSchoolId, currentSearchQuery, currentFilter);
+});
+
 
 
 
