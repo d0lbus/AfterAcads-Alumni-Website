@@ -468,7 +468,7 @@ a {
     padding: 16px; 
     margin-top: 20px; 
     overflow: auto;
-    max-height: 300px;
+    max-height: 1000px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); 
   }
 
@@ -546,6 +546,17 @@ a {
     transform: none;
 }
 
+.photo-item {
+  margin-bottom: 10px;
+  max-width: 100%; /* Ensure the image container takes up the full width available */
+  overflow: hidden; /* Prevent overflow if needed */
+}
+
+.user-photo {
+  width: 100%; /* Ensure the image stretches to fit the container width */
+  height: auto; /* Maintain the image's aspect ratio */
+  object-fit: contain; /* Prevent cropping while ensuring the entire image fits inside the container */
+}
   
   /* Responsiveness */
   
@@ -572,6 +583,8 @@ a {
       padding: 0 0 30px;
     }
   }
+
+
   
   @media (min-width: 1017px) {
     .header-wrapper .col-container .left-col {

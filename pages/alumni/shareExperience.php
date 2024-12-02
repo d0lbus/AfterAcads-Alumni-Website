@@ -350,14 +350,20 @@ $friends = $friendsManager->getFriends($user['id']);
 
                             
                             <div class="post-content">
+                                <div>
+                                    ${post.content}
+                                </div>
                                 
-                                ${post.content}
                             </div>
-                            ${
-                                post.image
-                                    ? `<img src="data:image/jpeg;base64,${post.image}" alt="Post Image" />`
-                                    : ""
-                            }
+
+                            <div class="post-image">
+                                ${
+                                    post.image
+                                        ? `<img src="data:image/jpeg;base64,${post.image}" alt="Post Image" />`
+                                        : ""
+                                }
+                            </div>
+
                             <div class="post-tags">
                                 <div class="post-filter">
                                     <div class="post-filters">

@@ -209,7 +209,7 @@ if ($friendStatus === 'not_friends') {
                             while ($photo = $result_photos->fetch_assoc()):
                                 // Display each image
                                 echo '<div class="photo-item">';
-                                echo '<img src="data:image/jpeg;base64,' . base64_encode($photo['image']) . '" alt="User Photo" style="max-width: 100%; height: auto; margin-bottom: 10px;" />';
+                                echo '<img src="data:image/jpeg;base64,' . base64_encode($photo['image']) . '" alt="User Photo" class="user-photo" />';
                                 echo '</div>';
                             endwhile;
                         else:
