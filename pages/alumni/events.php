@@ -213,161 +213,154 @@ $total_pages = 0;
       });
     });
 
-    // Fetch Events Functionality
+    // Fetch Events
     document.addEventListener("DOMContentLoaded", function () {
-      const eventsContainer = document.getElementById("eventsContainer");
-      const paginationContainer = document.getElementById("paginationContainer");
-      const schoolFilter = document.getElementById("filter-events");
-      const searchInput = document.getElementById("searchInput");
+  const eventsContainer = document.getElementById("eventsContainer");
+  const paginationContainer = document.getElementById("paginationContainer");
+  const schoolFilter = document.getElementById("filter-events");
+  const searchInput = document.getElementById("searchInput");
+  const filterButtons = document.querySelectorAll(".filter-button");
 
-      // Track current filters
-      let currentSchoolId = schoolFilter.value || null;
-      let currentSearchQuery = searchInput.value || null;
-      let currentPage = 1;
-      let activeStatuses = {}; // Store active states for events
+  // State variables
+  let currentPage = 1;
+  let currentSchoolId = null;
+  let currentSearchQuery = null;
+  let currentFilter = "all"; // Default to 'all'
 
-      function fetchEvents(page = 1, schoolId = null, search = null) {
-        // Update state variables
-        currentSchoolId = schoolId;
-        currentSearchQuery = search;
-        currentPage = page;
+  // Fetch events from the backend
+  function fetchEvents() {
+    let url = `../../config/alumni/events_controller.php?ajax=true&page=${currentPage}`;
 
-        let url = `../../config/alumni/events_controller.php?ajax=true&page=${page}`;
-        if (schoolId) url += `&school_id=${schoolId}`;
-        if (search) url += `&search=${encodeURIComponent(search)}`;
+    if (currentSchoolId) url += `&school_id=${currentSchoolId}`;
+    if (currentSearchQuery) url += `&search=${encodeURIComponent(currentSearchQuery)}`;
+    if (currentFilter) url += `&filter=${currentFilter}`;
 
-        fetch(url)
-          .then((response) => response.json())
-          .then((data) => {
-            renderEvents(data.events);
-            renderPagination(data.pagination, schoolId, search);
-          })
-          .catch((error) => console.error("Error fetching events:", error));
-      }
+    fetch(url)
+      .then((response) => response.json())
+      .then((data) => {
+        renderEvents(data.events);
+        renderPagination(data.pagination);
+      })
+      .catch((error) => console.error("Error fetching events:", error));
+  }
 
-      function renderEvents(events) {
-        eventsContainer.innerHTML = ""; // Clear previous events
-        if (events.length === 0) {
-          eventsContainer.innerHTML = "<p>No events found.</p>";
-          return;
-        }
+  // Render event cards dynamically
+  function renderEvents(events) {
+    eventsContainer.innerHTML = "";
 
-        events.forEach((event) => {
-          const eventCard = document.createElement("div");
-          eventCard.classList.add("event-card");
+    if (events.length === 0) {
+      eventsContainer.innerHTML = "<p>No events found.</p>";
+      return;
+    }
 
-          // Determine the active state based on previously stored statuses
-          const isGoing = activeStatuses[event.id] === "going";
-          const isInterested = activeStatuses[event.id] === "interested";
+    events.forEach((event) => {
+      const eventCard = document.createElement("div");
+      eventCard.classList.add("event-card");
 
-          eventCard.innerHTML = `
-            <img src="${event.image_path}" alt="${event.alt_text}" class="event-image">
-            <div class="event-details">
-              <h3>${event.title}</h3>
-              <p>${event.description}</p>
-              <p><strong>Date:</strong> ${event.date}</p>
-              <p><strong>Time:</strong> ${event.time}</p>
-              <p><strong>Location:</strong> ${event.location}</p>
-              <p><strong>School:</strong> ${event.school_name || "General"}</p>
-            </div>
-            <div class="event-participation">
-              <button class="event-button going-button ${isGoing ? "active" : ""}" 
+      eventCard.innerHTML = `
+        <div class="event-details">
+          <h3>${event.title}</h3>
+          <p>${event.description}</p>
+          <p><strong>Date:</strong> ${event.date}</p>
+          <p><strong>Time:</strong> ${event.time}</p>
+          <p><strong>Location:</strong> ${event.location}</p>
+          <p><strong>School:</strong> ${event.school_name || "General"}</p>
+        </div>
+        <div class="event-participation">
+          <button class="event-button going-button ${event.user_status === 'going' ? 'active' : ''}" 
                   data-event-id="${event.id}" data-status="going">
-                  Going (${event.going_count || 0})
-              </button>
-              <button class="event-button interested-button ${isInterested ? "active" : ""}" 
+            Going (${event.going_count || 0})
+          </button>
+          <button class="event-button interested-button ${event.user_status === 'interested' ? 'active' : ''}" 
                   data-event-id="${event.id}" data-status="interested">
-                  Interested (${event.interested_count || 0})
-              </button>
-            </div>
-          `;
-          eventsContainer.appendChild(eventCard);
-        });
-
-        // Attach event listeners after rendering
-        document.querySelectorAll(".event-button").forEach((button) => {
-          button.addEventListener("click", handleParticipation);
-        });
-      }
-
-      function handleParticipation(event) {
-        const button = event.target;
-        const parentContainer = button.parentNode;
-        const eventId = button.getAttribute("data-event-id");
-        const status = button.getAttribute("data-status");
-
-        // Check if the button is already active
-        const isCurrentlyActive = button.classList.contains("active");
-
-        // Determine the new status (if active, reset to null)
-        const newStatus = isCurrentlyActive ? null : status;
-
-        // Update active state
-        if (newStatus === null) {
-          delete activeStatuses[eventId];
-        } else {
-          activeStatuses[eventId] = newStatus;
-        }
-
-        // Update button styles
-        parentContainer.querySelectorAll(".event-button").forEach((btn) => {
-          btn.classList.remove("active"); // Reset all buttons in the group
-        });
-        if (newStatus) {
-          button.classList.add("active"); // Activate the clicked button if not null
-        }
-
-        // Send participation data to the backend
-        fetch("../../config/alumni/participate_in_event.php", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ event_id: eventId, status: newStatus }),
-        })
-          .then((response) => response.json())
-          .then((data) => {
-            if (data.success) {
-              if (newStatus) {
-                alert(`You are marked as '${newStatus}' for this event!`);
-              } else {
-                alert(`You have canceled your status for this event.`);
-              }
-              fetchEvents(currentPage, currentSchoolId, currentSearchQuery); // Refresh events to update counts
-            } else {
-              alert(data.message || "Failed to update participation status.");
-            }
-          })
-          .catch((error) => console.error("Error updating participation:", error));
-      }
-
-      function renderPagination(pagination, schoolId, search) {
-        paginationContainer.innerHTML = ""; // Clear previous pagination
-        if (pagination.total_pages <= 1) return;
-
-        for (let i = 1; i <= pagination.total_pages; i++) {
-          const button = document.createElement("button");
-          button.classList.add("pagination-button");
-          button.textContent = i;
-          if (i === pagination.current_page) button.classList.add("active");
-          button.addEventListener("click", () => fetchEvents(i, schoolId, search));
-          paginationContainer.appendChild(button);
-        }
-      }
-
-      // Handle school filter change
-      schoolFilter.addEventListener("change", function () {
-        const schoolId = this.value || null;
-        fetchEvents(1, schoolId, currentSearchQuery);
-      });
-
-      // Handle search input
-      searchInput.addEventListener("input", function () {
-        const searchQuery = this.value || null;
-        fetchEvents(1, currentSchoolId, searchQuery);
-      });
-
-      // Initial fetch
-      fetchEvents(currentPage, currentSchoolId, currentSearchQuery);
+            Interested (${event.interested_count || 0})
+          </button>
+        </div>
+      `;
+      eventsContainer.appendChild(eventCard);
     });
+
+    // Attach event listeners for participation buttons
+    document.querySelectorAll(".event-button").forEach((button) => {
+      button.addEventListener("click", handleParticipation);
+    });
+  }
+
+  // Handle participation changes
+  function handleParticipation(event) {
+    const button = event.target;
+    const eventId = button.dataset.eventId;
+    const status = button.dataset.status;
+
+    const isActive = button.classList.contains("active");
+    const parentContainer = button.parentElement;
+    parentContainer.querySelectorAll(".event-button").forEach((btn) => btn.classList.remove("active"));
+    if (!isActive) {
+      button.classList.add("active");
+    }
+
+    fetch("../../config/alumni/participate_in_event.php", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        event_id: eventId,
+        status: isActive ? null : status, // Null to cancel participation
+      }),
+    })
+      .then((response) => response.json())
+      .then(() => {
+        fetchEvents(); // Refresh events
+      })
+      .catch((error) => console.error("Error updating participation:", error));
+  }
+
+  // Render pagination
+  function renderPagination(pagination) {
+    paginationContainer.innerHTML = "";
+    if (pagination.total_pages <= 1) return;
+
+    for (let i = 1; i <= pagination.total_pages; i++) {
+      const button = document.createElement("button");
+      button.textContent = i;
+      button.classList.add("pagination-button", i === pagination.current_page ? "active" : "");
+      button.addEventListener("click", () => {
+        currentPage = i;
+        fetchEvents();
+      });
+      paginationContainer.appendChild(button);
+    }
+  }
+
+  // Filter by All Events, Going, Interested
+  filterButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      filterButtons.forEach((btn) => btn.classList.remove("active"));
+      button.classList.add("active");
+      currentFilter = button.dataset.filter;
+      currentPage = 1;
+      fetchEvents();
+    });
+  });
+
+  // Filter by school
+  schoolFilter.addEventListener("change", () => {
+    currentSchoolId = schoolFilter.value || null;
+    currentPage = 1;
+    fetchEvents();
+  });
+
+  // Search functionality
+  searchInput.addEventListener("input", () => {
+    currentSearchQuery = searchInput.value || null;
+    currentPage = 1;
+    fetchEvents();
+  });
+
+  // Initial fetch
+  fetchEvents();
+});
+
+
 
     function confirmLogout() {
         if (confirm("Are you sure you want to logout?")) {
