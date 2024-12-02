@@ -129,7 +129,12 @@ $friends = $friendsManager->getFriends($user['id']);
                         <?php endif; ?>
                     </div>
                     <div class="friend-info">
-                        <h4><?php echo htmlspecialchars($friend['first_name'] . ' ' . $friend['last_name']); ?></h4>
+                        <h4>
+                          <!-- Make the name a clickable link -->
+                          <a href="viewProfile.php?user_id=<?php echo $friend['id']; ?>">
+                            <?php echo htmlspecialchars($friend['first_name'] . ' ' . $friend['last_name']); ?>
+                          </a>
+                        </h4>
                         <p><?php echo htmlspecialchars($friend['email']); ?></p>
                     </div>
                 </div>
