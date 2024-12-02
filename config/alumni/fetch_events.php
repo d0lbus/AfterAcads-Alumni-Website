@@ -10,18 +10,30 @@ $tag = isset($_GET['tag']) ? $_GET['tag'] : null;
 // Base SQL query
 $sql = "SELECT * FROM events WHERE 1=1";
 
+// Initialize variables for parameters
+$params = [];
+$types = '';
+
 // Append tag filter if selected
 if ($tag) {
     $sql .= " AND tag = ?";
+    $params[] = $tag;
+    $types .= 's';
 }
 
 // Append search filter if provided
 if ($search) {
     $sql .= " AND (title LIKE ? OR description LIKE ?)";
+    $params[] = '%' . $search . '%';
+    $params[] = '%' . $search . '%';
+    $types .= 'ss';
 }
 
 // Prepare the SQL statement
 $stmt = $conn->prepare($sql);
+if ($types) {
+    $stmt->bind_param($types, ...$params);
+}
 
 // Bind the parameters based on filtering and search criteria
 if ($tag && $search) {

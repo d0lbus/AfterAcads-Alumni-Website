@@ -9,6 +9,10 @@ $friendsManager = new FriendsManager($conn);
 
 $friends = $friendsManager->getFriends($user['id']);
 
+$search = isset($_GET['search']) ? $_GET['search'] : '';
+$tag = isset($_GET['tag']) ? $_GET['tag'] : '';
+$page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+$total_pages = 0; 
 
 ?>
 
