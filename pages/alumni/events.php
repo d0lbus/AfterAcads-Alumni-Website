@@ -81,8 +81,7 @@ $total_pages = 0;
 
     <main>
       <div class="page-header">
-        
-
+      
         <div class="header-actions-container">
           <form method="GET" action="events.php" class="header-search-bar">
             <input type="text" class="search-input" name="search" id="searchInput" placeholder="Search..." value="<?php echo htmlspecialchars($search); ?>" />
@@ -117,43 +116,11 @@ $total_pages = 0;
           <a href="interested.php" class="event-button <?php echo $activeTab === 'interested' ? 'active' : ''; ?>">Interested Events</a>
         </div>
 
-        <div class="card-container">
-          <?php while ($event = $result->fetch_assoc()): 
-              $school_query = "SELECT name FROM schools WHERE id = ?";
-              $school_stmt = $conn->prepare($school_query);
-              $school_stmt->bind_param("i", $event['school_id']);
-              $school_stmt->execute();
-              $school_result = $school_stmt->get_result();
-              $school = $school_result->fetch_assoc();
-          ?>
-              <div class="card">
-                  <img src="<?php echo $event['image_path']; ?>" alt="<?php echo htmlspecialchars($event['alt_text']); ?>">
-                  <div class="container">
-                      <h2><b><?php echo htmlspecialchars($event['title']); ?></b></h2>
-                      <p><?php echo htmlspecialchars($event['description']); ?></p>
-                      <p><b>School:</b> <?php echo htmlspecialchars($school['name']); ?></p>
-                  </div>
-                  <div class="button-container">
-                      <a href="viewEvents.php?event_id=<?php echo $event['id']; ?>" class="button">View</a>
-                      <a href="interested.php?event_id=<?php echo $event['id']; ?>" class="button">Interested</a>
-                  </div>
-              </div>
-          <?php endwhile; ?>
+        <div class="events-container" id="eventsContainer">
+            <!-- Events will be dynamically loaded here -->
         </div>
-
-
-        <div class="pagination">
-          <?php if ($page > 1): ?>
-            <a href="events.php?page=<?php echo $page - 1; ?>&search=<?php echo htmlspecialchars($search); ?>&tag=<?php echo htmlspecialchars($tag); ?>" class="button">&laquo; Previous</a>
-          <?php endif; ?>
-          <?php for ($i = 1; $i <= $total_pages; $i++): ?>
-            <a href="events.php?page=<?php echo $i; ?>&search=<?php echo htmlspecialchars($search); ?>&tag=<?php echo htmlspecialchars($tag); ?>" class="button <?php if ($i == $page) echo 'active'; ?>">
-              <?php echo $i; ?>
-            </a>
-          <?php endfor; ?>
-          <?php if ($page < $total_pages): ?>
-            <a href="events.php?page=<?php echo $page + 1; ?>&search=<?php echo htmlspecialchars($search); ?>&tag=<?php echo htmlspecialchars($tag); ?>" class="button">Next &raquo;</a>
-          <?php endif; ?>
+        <div class="pagination" id="paginationContainer">
+            <!-- Pagination buttons will be dynamically loaded here -->
         </div>
       </div>
     </main>
@@ -242,6 +209,82 @@ $total_pages = 0;
           sidebar.classList.toggle("minimized");
       });
     });
+
+    // Fetch Events Functionality
+    document.addEventListener("DOMContentLoaded", function () {
+    const eventsContainer = document.getElementById("eventsContainer");
+    const paginationContainer = document.getElementById("paginationContainer");
+
+    function fetchEvents(page = 1, schoolId = null, search = null) {
+        let url = `../../config/alumni/events_controller.php?ajax=true&page=${page}`;
+        if (schoolId) url += `&school_id=${schoolId}`;
+        if (search) url += `&search=${encodeURIComponent(search)}`;
+
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                renderEvents(data.events);
+                renderPagination(data.pagination, schoolId, search);
+            })
+            .catch(error => console.error("Error fetching events:", error));
+    }
+
+    function renderEvents(events) {
+        eventsContainer.innerHTML = ""; // Clear previous events
+        if (events.length === 0) {
+            eventsContainer.innerHTML = "<p>No events found.</p>";
+            return;
+        }
+
+        events.forEach(event => {
+            const eventCard = document.createElement("div");
+            eventCard.classList.add("event-card");
+            eventCard.innerHTML = `
+                <img src="${event.image_path}" alt="${event.alt_text}" class="event-image">
+                <div class="event-details">
+                    <h3>${event.title}</h3>
+                    <p>${event.description}</p>
+                    <p><strong>Date:</strong> ${event.date}</p>
+                    <p><strong>Time:</strong> ${event.time}</p>
+                    <p><strong>Location:</strong> ${event.location}</p>
+                    <p><strong>School:</strong> ${event.school_name || "General"}</p>
+                </div>
+            `;
+            eventsContainer.appendChild(eventCard);
+        });
+    }
+
+    function renderPagination(pagination, schoolId, search) {
+        paginationContainer.innerHTML = ""; // Clear previous pagination
+        if (pagination.total_pages <= 1) return;
+
+        for (let i = 1; i <= pagination.total_pages; i++) {
+            const button = document.createElement("button");
+            button.classList.add("pagination-button");
+            button.textContent = i;
+            if (i === pagination.current_page) button.classList.add("active");
+            button.addEventListener("click", () => fetchEvents(i, schoolId, search));
+            paginationContainer.appendChild(button);
+        }
+    }
+
+    // Fetch events on page load
+    fetchEvents();
+
+      // Add filter logic
+      const schoolFilter = document.getElementById("filter-events");
+      schoolFilter.addEventListener("change", function () {
+          const schoolId = this.value;
+          fetchEvents(1, schoolId);
+      });
+
+      const searchInput = document.getElementById("searchInput");
+      searchInput.addEventListener("input", function () {
+          const searchQuery = this.value;
+          fetchEvents(1, null, searchQuery);
+      });
+    });
+
 
     function confirmLogout() {
         if (confirm("Are you sure you want to logout?")) {

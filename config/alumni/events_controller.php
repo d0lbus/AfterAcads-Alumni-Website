@@ -1,81 +1,81 @@
 <?php
 // events_controller.php
 session_start();
+include '../../config/general/connection.php';
 
-// Redirect to login page if the user is not logged in
+// Check if the user is authenticated
 if (!isset($_SESSION['email'])) {
     header("Location: loginpage.php");
     exit();
 }
 
-include '../../config/general/connection.php'; // Database connection
-
-// Fetch the logged-in user's details from the database
-$email = $_SESSION['email'];
-$sql = "SELECT * FROM users WHERE email = ?";
-$stmt = $conn->prepare($sql);
-$stmt->bind_param("s", $email);
-$stmt->execute();
-$result = $stmt->get_result();
-
-if ($result->num_rows > 0) {
-    $user = $result->fetch_assoc(); // Fetch user data
-} else {
-    echo "Error: User not found.";
-    exit();
-}
-
-// Pagination and Filter Variables
+// Pagination and Filters
 $events_per_page = 5;
 $page = isset($_GET['page']) && is_numeric($_GET['page']) ? intval($_GET['page']) : 1;
 $search = isset($_GET['search']) ? $_GET['search'] : null;
-$school_id = isset($_GET['school_id']) ? $_GET['school_id'] : null;
+$school_id = isset($_GET['school_id']) ? intval($_GET['school_id']) : null;
 $offset = ($page - 1) * $events_per_page;
 
-// Base SQL query
-$sql = "SELECT id, title, description, image_path, alt_text, school_id FROM events WHERE 1=1";
+// Build the base query
+$sql = "SELECT events.id, events.title, events.description, events.date, events.time, events.location, events.image_path, events.alt_text, schools.name AS school_name
+        FROM events
+        LEFT JOIN schools ON events.school_id = schools.id
+        WHERE 1=1";
 
-// Append school_id filter if selected
-if ($school_id) {
-    $sql .= " AND school_id = ?";
+// Apply filters
+$params = [];
+if ($search) {
+    $sql .= " AND (events.title LIKE ? OR events.description LIKE ?)";
+    $params[] = '%' . $search . '%';
+    $params[] = '%' . $search . '%';
 }
 
-// Append search filter if provided
-if ($search) {
-    $sql .= " AND (title LIKE ? OR description LIKE ?)";
+if ($school_id) {
+    $sql .= " AND events.school_id = ?";
+    $params[] = $school_id;
+}
+
+// Add pagination
+$sql .= " ORDER BY events.date ASC LIMIT ? OFFSET ?";
+$params[] = $events_per_page;
+$params[] = $offset;
+
+// Prepare and execute the query
+$stmt = $conn->prepare($sql);
+$stmt->execute($params);
+$result = $stmt->get_result();
+
+// Fetch all events
+$events = [];
+while ($row = $result->fetch_assoc()) {
+    $events[] = $row;
 }
 
 // Count total number of events for pagination
-$sql_count = str_replace("id, title, description, image_path, alt_text, school_id", "COUNT(*) AS total_events", $sql);
+$sql_count = "SELECT COUNT(*) AS total FROM events WHERE 1=1";
+if ($school_id) {
+    $sql_count .= " AND school_id = ?";
+}
 $stmt_count = $conn->prepare($sql_count);
-if ($school_id && $search) {
-    $search_term = '%' . $search . '%';
-    $stmt_count->bind_param("sss", $school_id, $search_term, $search_term);
-} elseif ($school_id) {
-    $stmt_count->bind_param("s", $school_id);
-} elseif ($search) {
-    $search_term = '%' . $search . '%';
-    $stmt_count->bind_param("ss", $search_term, $search_term);
+if ($school_id) {
+    $stmt_count->bind_param("i", $school_id);
 }
 $stmt_count->execute();
-$result_count = $stmt_count->get_result();
-$row_count = $result_count->fetch_assoc();
-$total_events = $row_count['total_events'];
+$total_events = $stmt_count->get_result()->fetch_assoc()['total'];
 $total_pages = ceil($total_events / $events_per_page);
 
-// Append pagination using LIMIT and OFFSET
-$sql .= " LIMIT ? OFFSET ?";
-$stmt = $conn->prepare($sql);
-if ($school_id && $search) {
-    $stmt->bind_param('ssiii', $school_id, $search_term, $search_term, $events_per_page, $offset);
-} elseif ($school_id) {
-    $stmt->bind_param('sii', $school_id, $events_per_page, $offset);
-} elseif ($search) {
-    $stmt->bind_param('ssii', $search_term, $search_term, $events_per_page, $offset);
-} else {
-    $stmt->bind_param('ii', $events_per_page, $offset);
+// Return JSON response if requested (for AJAX)
+if (isset($_GET['ajax']) && $_GET['ajax'] == 'true') {
+    header('Content-Type: application/json');
+    echo json_encode([
+        'events' => $events,
+        'pagination' => [
+            'total_pages' => $total_pages,
+            'current_page' => $page
+        ]
+    ]);
+    exit();
 }
-$stmt->execute();
-$result = $stmt->get_result();
 
+$conn->close();
 ?>

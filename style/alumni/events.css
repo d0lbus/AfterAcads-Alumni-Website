@@ -275,12 +275,12 @@ small {
   color: #007bff;
 }
 
-/* Tag Dropdown Styling */
-.tag-dropdown {
+/* School Dropdown Styling */
+.school-dropdown {
   width: 200px;
 }
 
-.tag-dropdown select {
+.school-dropdown select {
   padding: 10px;
   font-size: 1rem;
   border-radius: 5px;
@@ -290,7 +290,7 @@ small {
   transition: border-color 0.3s ease;
 }
 
-.tag-dropdown select:focus {
+.school-dropdown select:focus {
   outline: none;
   border-color: var(--color-accent);
 }
@@ -324,55 +324,48 @@ small {
 }
 
 /* Card Styles */
-.card-container {
+.event-card {
   display: flex;
   flex-direction: column;
-  gap: 16px;
-}
-
-.card {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  background: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin-bottom: 16px;
   padding: 16px;
-  border-radius: 12px;
-  background-color: #dbecf4;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.card img {
-  max-width: 150px;
-  margin-right: 16px;
-  border-radius: 12px;
+.event-image {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin-bottom: 12px;
 }
 
-.container {
-  flex-grow: 1;
+.event-details h3 {
+  margin: 0;
+  font-size: 1.25rem;
+  color: #333;
 }
 
-.button-container {
-  display: flex;
-  flex-direction: column;
+.event-details p {
+  margin: 8px 0;
+  color: #555;
 }
 
-.button-container .button {
-  display: block;
-  padding: 8px;
-  background-color: #5f84a2;
-  text-decoration: none;
-  border-radius: 12px;
-  margin-top: 8px;
+.pagination-button {
+  padding: 8px 12px;
+  margin: 0 4px;
+  border: 1px solid #ddd;
+  background: #fff;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.pagination-button.active {
+  background: #007bff;
   color: #fff;
-  text-align: center;
-  transition: background-color 0.3s ease;
-}
-
-.button:hover {
-  background-color: #91aec4;
-}
-
-.button-container .button:first-child {
-  margin-top: 0;
+  border-color: #007bff;
 }
 
 
