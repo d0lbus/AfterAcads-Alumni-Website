@@ -15,19 +15,51 @@ $query = isset($_GET['query']) ? trim($_GET['query']) : '';
 $searchResults = [];
 
 if ($query) {
+    // Search for users and their details
     $stmt = $conn->prepare("
-        SELECT 'user' AS type, id, CONCAT(first_name, ' ', last_name) AS name, email 
+        SELECT 
+            'user' AS type, 
+            users.id, 
+            CONCAT(users.first_name, ' ', users.last_name) AS name, 
+            users.email, 
+            NULL AS school, 
+            NULL AS course, 
+            NULL AS batch, 
+            NULL AS content, 
+            NULL AS tags, 
+            NULL AS image, 
+            NULL AS created_at
         FROM users 
-        WHERE first_name LIKE ? OR last_name LIKE ? OR email LIKE ?
+        WHERE users.first_name LIKE ? OR users.last_name LIKE ? OR users.email LIKE ?
+        
         UNION
-        SELECT 'post' AS type, id, content AS name, '' AS email 
-        FROM posts 
-        WHERE content LIKE ?
+        
+        SELECT 
+            'post' AS type, 
+            posts.id, 
+            CONCAT(users.first_name, ' ', users.last_name) AS name, 
+            users.email,
+            schools.name AS school, 
+            courses.name AS course, 
+            batches.batch_number AS batch, 
+            posts.content AS content, 
+            COALESCE(GROUP_CONCAT(DISTINCT tags.name), '') AS tags, 
+            NULL AS image, 
+            posts.created_at
+        FROM posts
+        LEFT JOIN users ON posts.user_id = users.id
+        LEFT JOIN schools ON posts.school_id = schools.id
+        LEFT JOIN courses ON posts.course_id = courses.id
+        LEFT JOIN batches ON posts.batch_id = batches.id
+        LEFT JOIN post_tags ON posts.id = post_tags.post_id
+        LEFT JOIN tags ON post_tags.tag_id = tags.id
+        WHERE users.first_name LIKE ? OR users.last_name LIKE ? OR posts.content LIKE ?
+        GROUP BY posts.id
     ");
     
     if ($stmt) {
         $likeQuery = "%{$query}%";
-        $stmt->bind_param("ssss", $likeQuery, $likeQuery, $likeQuery, $likeQuery);
+        $stmt->bind_param("ssssss", $likeQuery, $likeQuery, $likeQuery, $likeQuery, $likeQuery, $likeQuery);
         $stmt->execute();
         $result = $stmt->get_result();
         $searchResults = $result->fetch_all(MYSQLI_ASSOC);
@@ -36,6 +68,7 @@ if ($query) {
         echo "SQL Error: " . $conn->error;
     }
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -127,6 +160,7 @@ if ($query) {
                     <?php foreach ($searchResults as $result) : ?>
                         <div class="result-item">
                             <?php if ($result['type'] === 'user') : ?>
+                                <!-- Display User Information -->
                                 <h3>
                                     <a href="viewProfile.php?user_id=<?php echo urlencode($result['id']); ?>">
                                         <?php echo htmlspecialchars($result['name']); ?>
@@ -134,7 +168,26 @@ if ($query) {
                                 </h3>
                                 <p>Email: <?php echo htmlspecialchars($result['email']); ?></p>
                             <?php elseif ($result['type'] === 'post') : ?>
-                                <p><?php echo htmlspecialchars($result['name']); ?></p>
+                                <!-- Display Post Information -->
+                                <!-- <h3>Posted by: <?php echo htmlspecialchars($result['full_name']); ?></h3> -->
+                                <p>School: <?php echo htmlspecialchars($result['school']); ?></p>
+                                <p>Course: <?php echo htmlspecialchars($result['course']); ?></p>
+                                <p>Batch: <?php echo htmlspecialchars($result['batch']); ?></p>
+                                <p><?php echo htmlspecialchars($result['content']); ?></p>
+
+                                <!-- Display Tags -->
+                                <?php if (!empty($result['tags'])) : ?>
+                                    <p>Tags: <?php echo htmlspecialchars($result['tags']); ?></p>
+                                <?php endif; ?>
+
+                                <!-- Display Image -->
+                                <!-- <p><?php echo htmlspecialchars($result['name']); ?></p> -->
+                                <?php if (!empty($result['image'])) : ?>
+                                    <img src="data:image/jpeg;base64,<?php echo $result['image']; ?>" alt="Post Image" class="post-image">
+                                <?php endif; ?>
+
+                                <!-- Display Timestamp -->
+                                <p><?php echo htmlspecialchars($result['created_at']); ?></p>
                             <?php endif; ?>
                         </div>
                     <?php endforeach; ?>
