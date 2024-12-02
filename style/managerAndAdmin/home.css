@@ -129,17 +129,36 @@ header img.afteracadstext {
   padding: 20px;
   flex: 1;
   position: relative;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  border: 1px solid #dbecfa;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+.box:hover {
+  background-color: #f0f0f0;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); 
+  transform: scale(1.05);
 }
 
 .box h3 {
   font-size: 1.2rem;
   margin-bottom: 15px;
+  margin: 0; 
+  margin-left: 10px;    
+  transition: font-size 0.3s ease;       
 }
+
+.box:hover h3 {
+  font-size: 1.5rem;
+}
+
 
 .box span {
   font-size: 1.4rem;
   padding-left: 5px;
-  color: rgb(244, 96, 96);
+  color: #194569;
   margin-bottom: 15px;
 }
 
@@ -164,6 +183,15 @@ header img.afteracadstext {
   background: #0056b3;
 }
 
+.container-number {
+  border: 1px solid #91aec4; 
+  background-color: #cadeed;
+  padding: 5px 10px;      
+  border-radius: 5px;    
+  text-align: center;
+  max-width: auto;
+  min-width: 50px; 
+}
 
 /* Right side (Statistics Box) */
 .statistics {
@@ -172,6 +200,17 @@ header img.afteracadstext {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   padding: 20px;
   flex: 4;
+  position: relative;
+}
+
+.statistics h3 {
+  margin: 0;
+  position: absolute; 
+  top: 10px; 
+  left: 10px;
+  font-size: 1.2rem;
+  color: #333; 
+  padding: 20px;
 }
 
 /* Responsive Layout for Small Screens */

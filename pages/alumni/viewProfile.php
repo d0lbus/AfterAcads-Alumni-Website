@@ -196,6 +196,7 @@ if ($friendStatus === 'not_friends') {
 
 
                     <!-- TO DO: Display user's uploaded photos DYNAMICALLY  -->
+                    <h2 style="margin-bottom: 30px">PHOTOS</h2>
                     <div class="photos" id="photos">
                         <?php
                         // Fetch all user images from the database
@@ -209,7 +210,7 @@ if ($friendStatus === 'not_friends') {
                             while ($photo = $result_photos->fetch_assoc()):
                                 // Display each image
                                 echo '<div class="photo-item">';
-                                echo '<img src="data:image/jpeg;base64,' . base64_encode($photo['image']) . '" alt="User Photo" style="max-width: 100%; height: auto; margin-bottom: 10px;" />';
+                                echo '<img src="data:image/jpeg;base64,' . base64_encode($photo['image']) . '" alt="User Photo" class="user-photo" />';
                                 echo '</div>';
                             endwhile;
                         else:

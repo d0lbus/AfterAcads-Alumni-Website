@@ -346,18 +346,38 @@ $friends = $friendsManager->getFriends($user['id']);
                         const postElement = document.createElement("div");
                         postElement.classList.add("post");
                         postElement.innerHTML = `
-                            <div class="post-user">Posted by: <strong>${post.full_name}</strong></div>
-                            <div class="post-school">School: ${post.school}</div>
-                            <div class="post-course">Course: ${post.course}</div>
-                            <div class="post-batch">Batch: ${post.batch}</div>
-                            <div class="post-content">${post.content}</div>
-                            ${
-                                post.image
-                                    ? `<img src="data:image/jpeg;base64,${post.image}" alt="Post Image" />`
-                                    : ""
-                            }
-                            <div class="post-tags">Tags: ${
-                                post.tags.length ? post.tags.join(", ") : "No tags"
+                            <div class="post-user"><strong>${post.full_name}</strong></div>
+
+                            
+                            <div class="post-content">
+                                <div>
+                                    ${post.content}
+                                </div>
+                                
+                            </div>
+
+                            <div class="post-image">
+                                ${
+                                    post.image
+                                        ? `<img src="data:image/jpeg;base64,${post.image}" alt="Post Image" />`
+                                        : ""
+                                }
+                            </div>
+
+                            <div class="post-tags">
+                                <div class="post-filter">
+                                    <div class="post-filters">
+                                        School: ${post.school} 
+                                    </div>
+                                    <div class="post-filters">
+                                        Course: ${post.course} 
+                                    </div>
+                                    <div class="post-filters">
+                                        Batch: ${post.batch}  
+                                    </div>
+                                </div>
+                                Tags: ${
+                                    post.tags.length ? post.tags.join(", ") : "No tags"
                             }</div>
                             <div class="post-date">${new Date(post.created_at).toLocaleString()}</div>
                             <button class="view-comments-button" onclick="viewComments(${post.id})">View Comments</button>

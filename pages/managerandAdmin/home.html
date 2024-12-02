@@ -44,8 +44,10 @@
           <div class="box-wrapper">
             <div class="left-side">
               <div class="box registrants">
+                <div class="container-number">
+                  <span>2</span>
+                </div>
                 <h3>Registrants</h3>
-                <p>Pending Registrations: <span>2</span></p>
                 <a
                   href="../../pages/managerAndAdmin/Registrants.html"
                   class="icon-link"
@@ -54,8 +56,10 @@
                 </a>
               </div>
               <div class="box posts">
+                <div class="container-number">
+                  <span>2</span>
+                </div>
                 <h3>Posts</h3>
-                <p>Pending posts: <span>0</span></p>
                 <a
                   href="../../pages/managerAndAdmin/approvePost.html"
                   class="icon-link"
@@ -64,8 +68,10 @@
                 </a>
               </div>
               <div class="box events">
+                <div class="container-number">
+                  <span>4</span>
+                </div>
                 <h3>Events</h3>
-                <p>Total events: <span>4</span></p>
                 <a
                   href="../../pages/managerAndAdmin/eventsDashboard.html"
                   class="icon-link"
@@ -74,8 +80,10 @@
                 </a>
               </div>
               <div class="box opportunities">
+                <div class="container-number">
+                  <span>9</span>
+                </div>
                 <h3>Opportunities</h3>
-                <p>Total opportunities: <span>9</span></p>
                 <a
                   href="../../pages/managerAndAdmin/opportunities.html"
                   class="icon-link"
@@ -84,8 +92,10 @@
                 </a>
               </div>
               <div class="box opportunities">
-                <h3>User</h3>
-                <p>Total User: <span>9</span></p>
+                <div class="container-number">
+                  <span>1</span>
+                </div>
+                <h3>Users</h3>
                 <a
                   href="../../pages/managerAndAdmin/user.html"
                   class="icon-link"
@@ -105,5 +115,22 @@
         </div>
       </div>
     </section>
+
+    <script>
+    document.querySelectorAll('.icon-link').forEach(icon => {
+  icon.addEventListener('click', function(e) {
+    e.preventDefault(); // Prevent the default link behavior
+
+    // Apply fade and zoom-out effect on the current page
+    document.body.classList.add('fade-zoom-out');
+
+    // After the transition, navigate to the new page
+    setTimeout(() => {
+      const link = this.href; // Get the destination link
+      window.location.href = link; // Navigate to the next page
+    }, 500); // Wait for the transition to complete (500ms)
+  });
+});
+    </script>
   </body>
 </html>
