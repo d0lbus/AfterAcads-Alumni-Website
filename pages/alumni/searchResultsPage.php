@@ -53,13 +53,18 @@ if ($query) {
         LEFT JOIN batches ON posts.batch_id = batches.id
         LEFT JOIN post_tags ON posts.id = post_tags.post_id
         LEFT JOIN tags ON post_tags.tag_id = tags.id
-        WHERE users.first_name LIKE ? OR users.last_name LIKE ? OR posts.content LIKE ?
+        WHERE users.first_name LIKE ? 
+            OR users.last_name LIKE ? 
+            OR posts.content LIKE ? 
+            OR tags.name LIKE ? 
+            OR schools.name LIKE ? 
+            OR courses.name LIKE ?
         GROUP BY posts.id
     ");
     
     if ($stmt) {
         $likeQuery = "%{$query}%";
-        $stmt->bind_param("ssssss", $likeQuery, $likeQuery, $likeQuery, $likeQuery, $likeQuery, $likeQuery);
+        $stmt->bind_param("sssssssss",$likeQuery, $likeQuery, $likeQuery, $likeQuery, $likeQuery, $likeQuery, $likeQuery, $likeQuery, $likeQuery);
         $stmt->execute();
         $result = $stmt->get_result();
         $searchResults = $result->fetch_all(MYSQLI_ASSOC);
@@ -160,6 +165,7 @@ if ($query) {
                     <?php foreach ($searchResults as $result) : ?>
                         <div class="result-item">
                             <?php if ($result['type'] === 'user') : ?>
+                                
                                 <!-- Display User Information -->
                                 <h3>
                                     <a href="viewProfile.php?user_id=<?php echo urlencode($result['id']); ?>">
@@ -167,6 +173,7 @@ if ($query) {
                                     </a>
                                 </h3>
                                 <p>Email: <?php echo htmlspecialchars($result['email']); ?></p>
+                            
                             <?php elseif ($result['type'] === 'post') : ?>
                                 <!-- Display Post Information -->
                                 <!-- <h3>Posted by: <?php echo htmlspecialchars($result['full_name']); ?></h3> -->
@@ -179,6 +186,19 @@ if ($query) {
                                 <?php if (!empty($result['tags'])) : ?>
                                     <p>Tags: <?php echo htmlspecialchars($result['tags']); ?></p>
                                 <?php endif; ?>
+
+                                <!-- Highlight Matching Words in Tags, Content, and Other Fields -->
+                                <?php 
+                                $highlightedContent = preg_replace('/(' . preg_quote($query, '/') . ')/i', '<span class="highlight">$1</span>', $result['content']);
+                                $highlightedTags = preg_replace('/(' . preg_quote($query, '/') . ')/i', '<span class="highlight">$1</span>', $result['tags']);
+                                $highlightedSchool = preg_replace('/(' . preg_quote($query, '/') . ')/i', '<span class="highlight">$1</span>', $result['school']);
+                                $highlightedCourse = preg_replace('/(' . preg_quote($query, '/') . ')/i', '<span class="highlight">$1</span>', $result['course']);
+                                ?>
+
+                                <p>Content: <?php echo $highlightedContent; ?></p>
+                                <p>Tags: <?php echo $highlightedTags; ?></p>
+                                <p>School: <?php echo $highlightedSchool; ?></p>
+                                <p>Course: <?php echo $highlightedCourse; ?></p>
 
                                 <!-- Display Image -->
                                 <!-- <p><?php echo htmlspecialchars($result['name']); ?></p> -->
