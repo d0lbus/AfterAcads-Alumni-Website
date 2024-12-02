@@ -196,6 +196,7 @@ if ($friendStatus === 'not_friends') {
 
 
                     <!-- TO DO: Display user's uploaded photos DYNAMICALLY  -->
+                    <h2 style="margin-bottom: 30px">PHOTOS</h2>
                     <div class="photos" id="photos">
                         <?php
                         // Fetch all user images from the database
