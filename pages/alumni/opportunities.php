@@ -74,39 +74,36 @@ $friends = $friendsManager->getFriends($user['id']);
     </header>
 
     <main>
-    <div class="header-search-bar">
-
-      <form action="searchResultsPage.php" method="get" style="display: flex; width: 100%;">
-          <input type="text" class="search-input" name="query" placeholder="Search..." required />
-          <button class="search-button" id="searchButton" aria-label="Search">
-              <span><img src="../../assets/search1.png" width="20px" alt="search" /></span>
-          </button>
-      </form>
-
+      <div class="header-search-bar">
+        <form action="searchResultsPage.php" method="get" style="display: flex; width: 100%;">
+            <input type="text" class="search-input" name="query" placeholder="Search..." required />
+            <button class="search-button" id="searchButton" aria-label="Search">
+                <span><img src="../../assets/search1.png" width="20px" alt="search" /></span>
+            </button>
+        </form>
       </div>
 
-        <h1>Opportunities</h1>
-        <small>Find available job openings and internships provided by our partners</small>
+      <div class="page-header">
+            <h1>Opportunities</h1>
+                <small>Browse job opportunities and apply directly</small>
 
-        <div class="card-container">
-          <div class="card">
-            <div class="company-logo">
-              <img src="../../assets/company-logo.png" alt="Company Logo">
-            </div>
-            <div class="container">
-              <h2><b>{Job Title}</b></h2>
-              <p><strong>Company:</strong> {Company Name}</p>
-              <p><strong>Location:</strong> {Location}</p>
-              <p>{Description of the opportunity goes here. This is a brief summary of what the job entails and any key details.}</p>
-            </div>
-            <div class="button-container">
-              <a href="../../pages/alumni/viewOpportunities.php" class="button">View</a>
-              <a href="apply.php?job_id=1" class="button">Apply</a>
-            </div>
-          </div>
-          <!-- Additional job cards would go here -->
+                <!-- Filters -->
+                <div class="filters-container">
+                    <select id="filter-school" name="school_id">
+                        <option value="">Select School</option>
+                    </select>
+
+                    <select id="filter-course" name="course_id" disabled>
+                        <option value="">Select Course</option>
+                    </select>
+                </div>
+
+                <!-- Opportunities List -->
+              <div class="opportunities-container" id="opportunitiesContainer">
+                  <!-- Opportunities will be dynamically loaded here -->
+              </div>
         </div>
-      </div>
+      
     </main>
   </div>
 
@@ -200,6 +197,106 @@ $friends = $friendsManager->getFriends($user['id']);
           dropdownContainer.style.display = 'none';
         }
       });
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+      const opportunitiesContainer = document.getElementById("opportunitiesContainer");
+      const schoolFilter = document.getElementById("filter-school");
+      const courseFilter = document.getElementById("filter-course");
+
+      // Fetch schools and populate dropdown
+      fetch('../../config/alumni/opportunities_controller.php?load=schools')
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            data.schools.forEach(school => {
+              const option = document.createElement("option");
+              option.value = school.id;
+              option.textContent = school.name;
+              schoolFilter.appendChild(option);
+                        });
+                    }
+                })
+                .catch(error => console.error("Error fetching schools:", error));
+
+      // Fetch courses dynamically based on selected school
+      schoolFilter.addEventListener("change", function () {
+                const schoolId = schoolFilter.value;
+
+                if (schoolId) {
+                    fetch(`../../config/alumni/opportunities_controller.php?load=courses&school_id=${schoolId}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                courseFilter.disabled = false;
+                                courseFilter.innerHTML = "<option value=''>Select Course</option>";
+
+                                data.courses.forEach(course => {
+                                    const option = document.createElement("option");
+                                    option.value = course.id;
+                                    option.textContent = course.name;
+                                    courseFilter.appendChild(option);
+                                });
+                            }
+                        })
+                        .catch(error => console.error("Error fetching courses:", error));
+                } else {
+                    courseFilter.disabled = true;
+                    courseFilter.innerHTML = "<option value=''>Select Course</option>";
+                }
+
+                fetchOpportunities(schoolId, courseFilter.value);
+            });
+
+            // Fetch opportunities
+            function fetchOpportunities(schoolId = null, courseId = null) {
+                let url = `../../config/alumni/opportunities_controller.php?load=opportunities`;
+                if (schoolId) url += `&school_id=${schoolId}`;
+                if (courseId) url += `&course_id=${courseId}`;
+
+                fetch(url)
+                    .then(response => response.json())
+                    .then(data => renderOpportunities(data.opportunities))
+                    .catch(error => console.error("Error fetching opportunities:", error));
+            }
+
+            // Render opportunities dynamically
+            function renderOpportunities(opportunities) {
+                opportunitiesContainer.innerHTML = "";
+
+                if (!opportunities || opportunities.length === 0) {
+                    opportunitiesContainer.innerHTML = "<p>No opportunities found.</p>";
+                    return;
+                }
+
+                opportunities.forEach(opportunity => {
+                    const opportunityCard = document.createElement("div");
+                    opportunityCard.classList.add("opportunity-card");
+
+                    opportunityCard.innerHTML = `
+                        <div class="opportunity-details">
+                            <h3>${opportunity.title}</h3>
+                            <p>${opportunity.description}</p>
+                            <p><strong>Company:</strong> ${opportunity.company_name}</p>
+                            <p><strong>Location:</strong> ${opportunity.location}</p>
+                            <p><strong>Posted on:</strong> ${opportunity.posted_date}</p>
+                            <p><strong>Recommended related field:</strong> ${opportunity.course_name || "General"}</p>
+                        </div>
+                        <div class="opportunity-actions">
+                            <a href="${opportunity.company_link}" target="_blank" class="apply-button">Apply</a>
+                        </div>
+                    `;
+                    opportunitiesContainer.appendChild(opportunityCard);
+                });
+            }
+
+            // Course filter listener
+            courseFilter.addEventListener("change", function () {
+                fetchOpportunities(schoolFilter.value, courseFilter.value);
+            });
+
+            // Initial fetch
+            fetchOpportunities();
     });
 
     function confirmLogout() {

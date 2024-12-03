@@ -344,6 +344,101 @@ small {
   pointer-events: none;
 }
 
+/* Filters */
+.filters-container {
+  display: flex;
+  gap: 15px;
+  margin: 20px 0;
+}
+
+.filters-container select {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 14px;
+  background-color: #fff;
+  color: #333;
+}
+
+.filters-container select:disabled {
+  background-color: #f5f5f5;
+  color: #aaa;
+}
+
+/* Opportunities Container */
+.opportunities-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* Opportunity Card */
+.opportunity-card {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center; /* Center vertically */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.opportunity-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+}
+
+/* Opportunity Details */
+.opportunity-details {
+  max-width: 70%;
+}
+
+.opportunity-details h3 {
+  font-size: 20px;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+.opportunity-details p {
+  font-size: 14px;
+  color: #555;
+  margin: 5px 0;
+}
+
+/* Recommended Field */
+.opportunity-details p strong {
+  color: #444;
+}
+
+/* Apply Button */
+.opportunity-actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  flex-grow: 1;
+  text-align: right;
+}
+
+/* Larger Apply Button */
+.apply-button {
+  padding: 15px 20px;
+  font-size: 16px; /* Larger font */
+  color: #fff;
+  background-color: #5f84a2;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.apply-button:hover {
+  background-color: #4b6d8a;
+}
+
+
 @media (max-width: 1024px) {
   .sidebar {
     width: 200px;
