@@ -21,14 +21,14 @@
                     <img class="afteracadstext" src="../../assets/logo.png" alt="afteracads" />
                 </div>
                 <ul class="nav-links">
-                <li><a href="../../pages/managerAndAdmin/home.html">Home</a></li>
-                <li><a href="../../pages/managerAndAdmin/Registrants.html">Registrants</a></li>
-                <li><a href="../../pages/managerAndAdmin/approvePost.html">Posts</a></li>
-                <li><a href="../../pages/managerAndAdmin/eventsDashboard.html">Events</a></li>
-                <li><a href="../../pages/managerAndAdmin/opportunities.html">Opportunities</a></li>
-                <li><a href="../../pages/managerAndAdmin/notifications.html">Notifications</a></li>
-                <li><a href="../../pages/managerAndAdmin/statistics.php">Statistics</a></li>
-                </ul>
+            <li><a href="../../pages/managerAndAdmin/home.html">Home</a></li>
+            <li><a href="../../pages/managerAndAdmin/Registrants.html">Registrants</a></li>
+            <li><a href="../../pages/managerAndAdmin/approvePost.html">Posts</a></li>
+            <li><a href="../../pages/managerAndAdmin/eventsDashboard.html">Events</a></li>
+            <li><a href="../../pages/managerAndAdmin/opportunities.html">Opportunities</a></li>
+            <li><a href="../../pages/managerAndAdmin/statistics.php">Statistics</a></li>
+            <li><a href="../../pages/managerAndAdmin/user.html">Users</a></li>
+        </ul>
                 <div class="profile">
                     <li><a href="../../pages/managerAndAdmin/managerProfile.html"><img class="profile-img" src="../../assets/display-photo.png"
                                 alt="Profile" /></a></li>
