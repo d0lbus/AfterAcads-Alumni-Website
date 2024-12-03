@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 01, 2024 at 10:39 PM
+-- Generation Time: Dec 03, 2024 at 03:31 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -97,8 +97,8 @@ CREATE TABLE `events` (
   `id` int(11) NOT NULL,
   `title` varchar(255) NOT NULL,
   `description` text NOT NULL,
-  `tag` varchar(255) DEFAULT NULL,
-  `host` varchar(255) NOT NULL,
+  `school_id` int(11) DEFAULT NULL,
+  `host` int(11) NOT NULL,
   `date` date NOT NULL,
   `time` time NOT NULL,
   `location` varchar(255) NOT NULL,
@@ -111,12 +111,13 @@ CREATE TABLE `events` (
 -- Dumping data for table `events`
 --
 
-INSERT INTO `events` (`id`, `title`, `description`, `tag`, `host`, `date`, `time`, `location`, `image_path`, `alt_text`, `created_at`) VALUES
-(6, 'General Event 1', 'Description of the general event 1', 'GENERAL', 'Host 1', '2024-11-10', '14:00:00', 'Location 1', '/images/event1.jpg', 'General Event 1 Image', '2024-10-23 10:03:13'),
-(7, 'SAMCIS Conference', 'SAMCIS Annual Conference Description', 'SAMCIS', 'SAMCIS Host', '2024-11-12', '10:00:00', 'Conference Hall 2', '/images/samcis_event.jpg', 'SAMCIS Conference Image', '2024-10-23 10:03:13'),
-(8, 'SOHNABS Health Workshop', 'SOHNABS Health Workshop Event Description', 'SOHNABS', 'SOHNABS Host', '2024-11-14', '09:00:00', 'Health Center 5', '/images/sohnabs_event.jpg', 'SOHNABS Workshop Image', '2024-10-23 10:03:13'),
-(9, 'STELA Leadership Summit', 'STELA Leadership Summit Event Description', 'STELA', 'STELA Host', '2024-11-20', '11:00:00', 'Leadership Center', '/images/stela_event.jpg', 'STELA Summit Image', '2024-10-23 10:03:13'),
-(10, 'SEA Environmental Conference', 'SEA Environmental Conference Description', 'SEA', 'SEA Host', '2024-11-22', '08:00:00', 'Environment Hall', '/images/sea_event.jpg', 'SEA Conference Image', '2024-10-23 10:03:13');
+INSERT INTO `events` (`id`, `title`, `description`, `school_id`, `host`, `date`, `time`, `location`, `image_path`, `alt_text`, `created_at`) VALUES
+(51, 'Tech Innovation Summit', 'A summit focusing on the latest in technology and innovation.', 1, 1, '2024-12-10', '10:00:00', 'Tech Hall, Building A', '/images/tech_summit.jpg', 'Tech Summit', '2024-12-02 22:59:23'),
+(52, 'Cultural Fest', 'Celebrating diversity with cultural performances and food stalls.', 2, 1, '2024-12-12', '18:00:00', 'Main Auditorium', '/images/cultural_fest.jpg', 'Cultural Fest', '2024-12-02 22:59:23'),
+(53, 'Startup Pitching Event', 'An event where startups present their ideas to investors.', 3, 1, '2024-12-15', '15:00:00', 'Conference Room B', '/images/startup_event.jpg', 'Startup Event', '2024-12-02 22:59:23'),
+(54, 'Environmental Awareness Workshop', 'A workshop on how we can contribute to a greener planet.', 1, 1, '2024-12-17', '09:00:00', 'Room 204, Science Block', '/images/environment_workshop.jpg', 'Environmental Workshop', '2024-12-02 22:59:23'),
+(55, 'Sports Carnival', 'A day full of sports activities and competitions.', 4, 1, '2024-12-20', '08:00:00', 'Sports Complex', '/images/sports_carnival.jpg', 'Sports Carnival', '2024-12-02 22:59:23'),
+(56, 'Art Exhibition', 'Showcasing the best artwork from students and alumni.', 2, 1, '2024-12-22', '11:00:00', 'Art Gallery', '/images/art_exhibition.jpg', 'Art Exhibition', '2024-12-02 22:59:23');
 
 -- --------------------------------------------------------
 
@@ -176,6 +177,36 @@ INSERT INTO `messages` (`id`, `sender_id`, `receiver_id`, `message`, `created_at
 (1, 10, 5, 'hi', '2024-12-01 08:26:34'),
 (2, 5, 10, 'Hello', '2024-12-01 08:28:11'),
 (3, 10, 5, 'Test', '2024-12-01 20:26:28');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `opportunities`
+--
+
+CREATE TABLE `opportunities` (
+  `id` int(11) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `description` text NOT NULL,
+  `company_name` varchar(255) NOT NULL,
+  `company_link` varchar(255) DEFAULT NULL,
+  `location` varchar(255) NOT NULL,
+  `posted_date` date NOT NULL,
+  `school_id` int(11) DEFAULT NULL,
+  `course_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `opportunities`
+--
+
+INSERT INTO `opportunities` (`id`, `title`, `description`, `company_name`, `company_link`, `location`, `posted_date`, `school_id`, `course_id`) VALUES
+(1, 'Software Developer', 'Develop cutting-edge applications.', 'TechCorp', 'https://www.techcorp.com', 'New York', '2024-12-01', 4, 4),
+(2, 'IT Support Specialist', 'Provide technical support for clients.', 'GlobalIT', 'https://www.globalit.com', 'San Francisco', '2024-11-28', 4, 5),
+(3, 'Marketing Manager', 'Lead marketing campaigns.', 'BizGroup', 'https://www.bizgroup.com', 'Chicago', '2024-12-03', 3, NULL),
+(4, 'Mechanical Engineer', 'Design and optimize machinery.', 'MechPro', 'https://www.mechpro.com', 'Detroit', '2024-11-30', 1, 1),
+(5, 'Graphic Designer', 'Create stunning visuals for clients.', 'DesignStudio', 'https://www.designstudio.com', 'Los Angeles', '2024-11-25', 2, 2),
+(6, 'Data Analyst', 'Analyze and visualize data for business insights.', 'DataMinds', 'https://www.dataminds.com', 'Austin', '2024-12-04', 3, 3);
 
 -- --------------------------------------------------------
 
@@ -282,6 +313,7 @@ INSERT INTO `tags` (`id`, `name`) VALUES
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
   `first_name` varchar(100) NOT NULL,
+  `middle_name` varchar(100) DEFAULT NULL,
   `last_name` varchar(100) NOT NULL,
   `email` varchar(255) NOT NULL,
   `password_hash` varchar(255) NOT NULL,
@@ -292,24 +324,28 @@ CREATE TABLE `users` (
   `employment_status` enum('Employed','Unemployed') DEFAULT 'Unemployed',
   `status` enum('pending','approved','rejected') DEFAULT 'pending',
   `profile_picture` blob DEFAULT NULL,
-  `userType` enum('alumni','admin','manager') NOT NULL DEFAULT 'alumni'
+  `alumni_photo_validation` blob DEFAULT NULL,
+  `userType` enum('alumni','admin','manager') NOT NULL DEFAULT 'alumni',
+  `batch_id` int(11) DEFAULT NULL,
+  `school_id` int(11) DEFAULT NULL,
+  `course_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `first_name`, `last_name`, `email`, `password_hash`, `agreed_to_terms`, `created_at`, `address`, `bio`, `employment_status`, `status`, `profile_picture`, `userType`) VALUES
-(1, 'Jan Dolby', 'Aquino', 'jandolbyaquino19@slu.edu.ph', '$2y$10$cPu4zpF/tM36emW9fIHrReZue5zzcvAMv1Nq5TdPxc/Gwr8SJKg0m', 1, '2024-10-15 00:33:08', '83 Malabago Mangaldan Pangasinan', 'Hi my name is Jan Dolby', 'Unemployed', 'pending', NULL, 'alumni'),
-(2, 'Jan Dolby', 'Aquino', 'jandolbyaquino20@slu.edu.ph', '$2y$10$w4l8..AW/0jm6UUBNYI16eOx/17aJf66VwYNnaPzG/P1WoqWBP6V.', 1, '2024-10-15 00:34:02', NULL, NULL, 'Unemployed', 'pending', NULL, 'alumni'),
-(3, 'Jan Dolby', 'Aquino', 'jandolbyaquino21@slu.edu.ph', '$2y$10$IhalskFjVnbHekNUtj3CzedWp2UqLm3gCZNe.uNJclfsba4wNXGi.', 1, '2024-10-15 00:35:46', NULL, NULL, 'Unemployed', 'pending', NULL, 'alumni'),
-(4, 'arvin', 'dela cruz', 'arvin@gmail.com', '$2y$10$rfp98rtASqWKPmnaa36o2edm2mRlk3TObt7qM0WgE2/oXzNzcn.9u', 1, '2024-11-07 01:03:28', 'Baguio CIty', 'My name is Mark Arvin', 'Unemployed', 'pending', NULL, 'alumni'),
-(5, 'Jerilyn', 'Cahanap', '2233913@slu.edu.ph', '$2y$10$8ciN820DhyUEuLik3J3O7uS0/.oUfpqw3cAijkeTXHcOcm2Nayi/C', 1, '2024-11-07 01:52:06', NULL, NULL, 'Unemployed', 'pending', NULL, 'alumni'),
-(6, 'Chloe', 'San Miguel', 'chloe@gmail.com', '$2y$10$ui1f.yWS4nhFPg/b/ENrnOVYJr8n77ixWiYBf7su/dgCwmcnTBAxq', 1, '2024-11-07 01:52:10', NULL, NULL, 'Unemployed', 'pending', NULL, 'alumni'),
-(7, 'Julianne Therese', 'Abitan', 'julianneabitan@gmail.com', '$2y$10$DqJiBrhBqQ9kD.X6AQlsYebQToQh7/IH0YgkPjMFzzrP7OH8B/H6i', 1, '2024-11-07 01:52:11', 'apt', '', 'Unemployed', 'pending', NULL, 'alumni'),
-(8, 'marvin', '908u87y79', '0999999@google.com', '$2y$10$VFF4spsp6irhT3SF4H.L3e0yE0.ssgwJ05Mp4/aQyFxiSAyQhG0.G', 1, '2024-11-07 01:58:06', NULL, NULL, 'Unemployed', 'pending', NULL, 'alumni'),
-(9, 'qwerty', 'cruz', 'qwerty@slu.edu.ph', '$2y$10$rKScj4PvbsnFjiZK4m7D8OEEqP9Z495Dey1byJ5cjv2acW1.Eh3tu', 1, '2024-11-07 02:00:00', 'Baguio City', 'Hi ', 'Unemployed', 'pending', NULL, 'alumni'),
-(10, 'Dummy', 'Account', 'totoongslu@slu.edu.ph', '$2y$10$sYYhnd40PHfTh98P30VoPegfkLqcGdW1N2nybRUhVt.rw4UbTUlP2', 1, '2024-11-27 19:59:52', NULL, NULL, 'Unemployed', 'pending', NULL, 'alumni');
+INSERT INTO `users` (`id`, `first_name`, `middle_name`, `last_name`, `email`, `password_hash`, `agreed_to_terms`, `created_at`, `address`, `bio`, `employment_status`, `status`, `profile_picture`, `alumni_photo_validation`, `userType`, `batch_id`, `school_id`, `course_id`) VALUES
+(1, 'Jan Dolby', NULL, 'Aquino', 'jandolbyaquino19@slu.edu.ph', '$2y$10$cPu4zpF/tM36emW9fIHrReZue5zzcvAMv1Nq5TdPxc/Gwr8SJKg0m', 1, '2024-10-15 00:33:08', '83 Malabago Mangaldan Pangasinan', 'Hi my name is Jan Dolby', 'Unemployed', 'pending', NULL, NULL, 'alumni', NULL, NULL, NULL),
+(2, 'Jan Dolby', NULL, 'Aquino', 'jandolbyaquino20@slu.edu.ph', '$2y$10$w4l8..AW/0jm6UUBNYI16eOx/17aJf66VwYNnaPzG/P1WoqWBP6V.', 1, '2024-10-15 00:34:02', NULL, NULL, 'Unemployed', 'pending', NULL, NULL, 'alumni', NULL, NULL, NULL),
+(3, 'Jan Dolby', NULL, 'Aquino', 'jandolbyaquino21@slu.edu.ph', '$2y$10$IhalskFjVnbHekNUtj3CzedWp2UqLm3gCZNe.uNJclfsba4wNXGi.', 1, '2024-10-15 00:35:46', NULL, NULL, 'Unemployed', 'pending', NULL, NULL, 'alumni', NULL, NULL, NULL),
+(4, 'arvin', NULL, 'dela cruz', 'arvin@gmail.com', '$2y$10$rfp98rtASqWKPmnaa36o2edm2mRlk3TObt7qM0WgE2/oXzNzcn.9u', 1, '2024-11-07 01:03:28', 'Baguio CIty', 'My name is Mark Arvin', 'Unemployed', 'pending', NULL, NULL, 'alumni', NULL, NULL, NULL),
+(5, 'Jerilyn', 'tEST', 'Cahanap', '2233913@slu.edu.ph', '$2y$10$8ciN820DhyUEuLik3J3O7uS0/.oUfpqw3cAijkeTXHcOcm2Nayi/C', 1, '2024-11-07 01:52:06', NULL, NULL, 'Unemployed', 'pending', '', NULL, 'alumni', NULL, 2, NULL),
+(6, 'Chloe', NULL, 'San Miguel', 'chloe@gmail.com', '$2y$10$ui1f.yWS4nhFPg/b/ENrnOVYJr8n77ixWiYBf7su/dgCwmcnTBAxq', 1, '2024-11-07 01:52:10', NULL, NULL, 'Unemployed', 'pending', NULL, NULL, 'alumni', NULL, NULL, NULL),
+(7, 'Julianne Therese', NULL, 'Abitan', 'julianneabitan@gmail.com', '$2y$10$DqJiBrhBqQ9kD.X6AQlsYebQToQh7/IH0YgkPjMFzzrP7OH8B/H6i', 1, '2024-11-07 01:52:11', 'apt', '', 'Unemployed', 'pending', NULL, NULL, 'alumni', NULL, NULL, NULL),
+(8, 'marvin', NULL, '908u87y79', '0999999@google.com', '$2y$10$VFF4spsp6irhT3SF4H.L3e0yE0.ssgwJ05Mp4/aQyFxiSAyQhG0.G', 1, '2024-11-07 01:58:06', NULL, NULL, 'Unemployed', 'pending', NULL, NULL, 'alumni', NULL, NULL, NULL),
+(9, 'qwerty', NULL, 'cruz', 'qwerty@slu.edu.ph', '$2y$10$rKScj4PvbsnFjiZK4m7D8OEEqP9Z495Dey1byJ5cjv2acW1.Eh3tu', 1, '2024-11-07 02:00:00', 'Baguio City', 'Hi ', 'Unemployed', 'pending', NULL, NULL, 'alumni', NULL, NULL, NULL),
+(10, 'Dummy', NULL, 'Account', 'totoongslu@slu.edu.ph', '$2y$10$sYYhnd40PHfTh98P30VoPegfkLqcGdW1N2nybRUhVt.rw4UbTUlP2', 1, '2024-11-27 19:59:52', NULL, NULL, 'Unemployed', 'pending', NULL, NULL, 'alumni', NULL, NULL, NULL);
 
 --
 -- Indexes for dumped tables
@@ -342,7 +378,9 @@ ALTER TABLE `courses`
 -- Indexes for table `events`
 --
 ALTER TABLE `events`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_user_id` (`host`),
+  ADD KEY `fk_school_id` (`school_id`);
 
 --
 -- Indexes for table `event_participants`
@@ -366,6 +404,14 @@ ALTER TABLE `messages`
   ADD PRIMARY KEY (`id`),
   ADD KEY `sender_id` (`sender_id`),
   ADD KEY `receiver_id` (`receiver_id`);
+
+--
+-- Indexes for table `opportunities`
+--
+ALTER TABLE `opportunities`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `school_id` (`school_id`),
+  ADD KEY `course_id` (`course_id`);
 
 --
 -- Indexes for table `posts`
@@ -404,7 +450,10 @@ ALTER TABLE `tags`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `email` (`email`);
+  ADD UNIQUE KEY `email` (`email`),
+  ADD KEY `fk_batch` (`batch_id`),
+  ADD KEY `fk_users_schools` (`school_id`),
+  ADD KEY `fk_users_courses` (`course_id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -432,13 +481,13 @@ ALTER TABLE `courses`
 -- AUTO_INCREMENT for table `events`
 --
 ALTER TABLE `events`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
 
 --
 -- AUTO_INCREMENT for table `event_participants`
 --
 ALTER TABLE `event_participants`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=86;
 
 --
 -- AUTO_INCREMENT for table `friends`
@@ -451,6 +500,12 @@ ALTER TABLE `friends`
 --
 ALTER TABLE `messages`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `opportunities`
+--
+ALTER TABLE `opportunities`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `posts`
@@ -500,6 +555,13 @@ ALTER TABLE `courses`
   ADD CONSTRAINT `courses_ibfk_1` FOREIGN KEY (`school_id`) REFERENCES `schools` (`id`) ON DELETE CASCADE;
 
 --
+-- Constraints for table `events`
+--
+ALTER TABLE `events`
+  ADD CONSTRAINT `fk_school_id` FOREIGN KEY (`school_id`) REFERENCES `schools` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_user_id` FOREIGN KEY (`host`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Constraints for table `event_participants`
 --
 ALTER TABLE `event_participants`
@@ -512,6 +574,13 @@ ALTER TABLE `event_participants`
 ALTER TABLE `messages`
   ADD CONSTRAINT `messages_ibfk_1` FOREIGN KEY (`sender_id`) REFERENCES `users` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `messages_ibfk_2` FOREIGN KEY (`receiver_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `opportunities`
+--
+ALTER TABLE `opportunities`
+  ADD CONSTRAINT `opportunities_ibfk_1` FOREIGN KEY (`school_id`) REFERENCES `schools` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `opportunities_ibfk_2` FOREIGN KEY (`course_id`) REFERENCES `courses` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `posts`
@@ -528,6 +597,14 @@ ALTER TABLE `posts`
 ALTER TABLE `post_tags`
   ADD CONSTRAINT `post_tags_ibfk_1` FOREIGN KEY (`post_id`) REFERENCES `posts` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `post_tags_ibfk_2` FOREIGN KEY (`tag_id`) REFERENCES `tags` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `users`
+--
+ALTER TABLE `users`
+  ADD CONSTRAINT `fk_batch` FOREIGN KEY (`batch_id`) REFERENCES `batches` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_users_courses` FOREIGN KEY (`course_id`) REFERENCES `courses` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_users_schools` FOREIGN KEY (`school_id`) REFERENCES `schools` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
