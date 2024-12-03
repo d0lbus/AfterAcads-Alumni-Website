@@ -2,6 +2,8 @@ const express = require('express');
 const session = require('express-session');
 const bodyParser = require('body-parser');
 const path = require('path');
+const authMiddleware = require('./middlewares/authMiddleware');
+
 
 const app = express();
 const PORT = 3000;
@@ -21,6 +23,11 @@ app.use(
 // Serve static files
 app.use(express.static(path.join(__dirname, '../../pages')));
 app.use('/style', express.static(path.join(__dirname, '../../style')));
+
+// Protect routes with the authMiddleware
+app.get('/adminAndManager/home.html', authMiddleware, (req, res) => {
+  res.sendFile(path.join(__dirname, '../../pages/adminAndManager/home.html'));
+});
 
 // Routes
 const userRoutes = require('./routes/users');

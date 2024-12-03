@@ -6,6 +6,6 @@ const userController = require('../controllers/userController');
 router.post('/login', userController.login);
 
 // Get logged-in user's details
-router.get('/getUserDetails', userController.getUserDetails);
+router.get('/details', userController.getUserDetails);
 
 module.exports = router;

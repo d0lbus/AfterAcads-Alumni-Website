@@ -29,7 +29,7 @@
           <li><a href="../../pages/managerAndAdmin/eventsDashboard.html">Events</a></li>
           <li><a href="../../pages/managerAndAdmin/opportunities.html">Opportunities</a></li>
           <li><a href="../../pages/managerAndAdmin/statistics.php">Statistics</a></li>
-          <li><a href="../../pages/managerAndAdmin/user.html">Users</a></li>
+          <li id = "usersNav"><a href="../../pages/managerAndAdmin/user.html">Users</a></li>
       </ul>
       <div class="profile">
           <li><a href="../../pages/managerAndAdmin/managerProfile.html"><img class="profile-img" src="../../assets/profileIcon.jpg"
@@ -90,7 +90,7 @@
                   <i class="las la-arrow-right"></i>
                 </a>
               </div>
-              <div class="box opportunities">
+              <div class="box opportunities" id="usersBox">
                 <div class="container-number">
                   <span>1</span>
                 </div>
@@ -117,19 +117,42 @@
 
     <script>
     document.querySelectorAll('.icon-link').forEach(icon => {
-  icon.addEventListener('click', function(e) {
-    e.preventDefault(); // Prevent the default link behavior
+        icon.addEventListener('click', function(e) {
+        e.preventDefault(); // Prevent the default link behavior
 
-    // Apply fade and zoom-out effect on the current page
-    document.body.classList.add('fade-zoom-out');
+        // Apply fade and zoom-out effect on the current page
+        document.body.classList.add('fade-zoom-out');
 
-    // After the transition, navigate to the new page
-    setTimeout(() => {
-      const link = this.href; // Get the destination link
-      window.location.href = link; // Navigate to the next page
-    }, 500); // Wait for the transition to complete (500ms)
+        // After the transition, navigate to the new page
+        setTimeout(() => {
+          const link = this.href; // Get the destination link
+          window.location.href = link; // Navigate to the next page
+        }, 500); // Wait for the transition to complete (500ms)
+      });
   });
-});
+    
+    // Fetch user details from the backend
+    fetch('/api/users/details')
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Failed to fetch user details');
+        }
+        return response.json();
+      })
+      .then(user => {
+        console.log(user); // Debugging: Check the user object
+        // Hide the "Users" section if the user is a manager
+        if (user.userType === 'manager') {
+          document.getElementById('usersNav').style.display = 'none'; // Hide nav link
+          document.getElementById('usersBox').style.display = 'none'; // Hide box
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        // Redirect to login page if not logged in
+        window.location.href = '/adminAndManager/login.html';
+      });
+    
     </script>
   </body>
 </html>

@@ -34,7 +34,14 @@ exports.login = (req, res) => {
 };
 
 exports.getUserDetails = (req, res) => {
-    res.json({ message: 'User details retrieved successfully' });
+    if (!req.session || !req.session.email) {
+        return res.status(401).json({ error: 'User not logged in' });
+    }
+
+    res.json({
+        email: req.session.email,
+        userType: req.session.userType, 
+    });
 };
 
 
