@@ -57,6 +57,16 @@ if ($friendStatus === 'not_friends') {
     $buttonText = "Unfriend";
     $action = "../../config/alumni/unfriend.php";
 }
+
+// Retrieve Profile Picture
+$profile_picture = !$is_current_user 
+    ? (!empty($target_user['profile_picture']) 
+        ? 'data:image/' . ($target_user['profile_picture_type'] ?? 'jpeg') . ';base64,' . base64_encode($target_user['profile_picture']) 
+        : '../../assets/profileIcon.jpg')
+    : (!empty($user['profile_picture']) 
+        ? 'data:image/' . ($user['profile_picture_type'] ?? 'jpeg') . ';base64,' . base64_encode($user['profile_picture']) 
+        : '../../assets/profileIcon.jpg');
+
 ?>
 
 
@@ -86,7 +96,11 @@ if ($friendStatus === 'not_friends') {
         <div class="sidebar-content">
             <div class="sidebar-user">
                 <a href="viewProfile.php">
-                    <img src="../../assets/profileIcon.jpg" alt="Profile Picture" />
+                <img src="<?= !empty($user['profile_picture']) 
+                            ? 'data:image/jpeg;base64,' . base64_encode($user['profile_picture']) 
+                            : '../../assets/profileIcon.jpg'; ?>" 
+                            alt="Profile" 
+                            id="profile-picture-preview" />
                 </a>
                 <div>
                     <h3><?php echo htmlspecialchars($user['first_name'] . ' ' . $user['last_name']); ?></h3>
@@ -120,10 +134,11 @@ if ($friendStatus === 'not_friends') {
             <div class="header"></div>
             <div class="cols-container">
                 <div class="left-col">
-                    <div class="img-container">
-                        <img src="../../assets/profileIcon.jpg" alt="Display Photo" />
-                        <span></span>
-                    </div>
+                <div class="img-container">
+                    <img src="<?= $profile_picture; ?>" alt="Profile" id="profile-picture-preview" />
+                    <span></span>
+                </div>
+
                     <!-- Display user details dynamically -->
                     <h2><?php echo htmlspecialchars($target_user['first_name'] . ' ' . $target_user['last_name']); ?></h2>
                     <p><?php echo htmlspecialchars($target_user['email']); ?></p>
