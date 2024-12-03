@@ -36,6 +36,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $school_id = !empty($_POST['school']) ? intval($_POST['school']) : null;
     $course_id = !empty($_POST['course']) ? intval($_POST['course']) : null;
     $batch_number = !empty($_POST['batch']) ? intval($_POST['batch']) : null;
+    $employment_status = $_POST['employment-status'] ?? null;
+
 
     // Map batch number to batch ID
     $batch_id = null;
@@ -52,14 +54,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
-    // Debugging: Log the received input
-        error_log("Received values:");
-        error_log("Bio: $bio");
-        error_log("Address: $address");
-        error_log("Batch ID: $batch_id");
-        error_log("Course ID: $course_id");
-        error_log("School ID: $school_id");
-
     // Handle password change
     $new_password = $_POST['new-password'] ?? null;
     $confirm_password = $_POST['confirm-password'] ?? null;
@@ -72,18 +66,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
-    // Update the database
     $query = "UPDATE users SET 
-                first_name = ?, 
-                middle_name = ?, 
-                last_name = ?, 
-                bio = ?, 
-                address = ?, 
-                school_id = ?, 
-                course_id = ?, 
-                batch_id = ?";
-    $params = [$first_name, $middle_name, $last_name, $bio, $address, $school_id, $course_id, $batch_id];
-    $types = "ssssiiii";
+            first_name = ?, 
+            middle_name = ?, 
+            last_name = ?, 
+            bio = ?, 
+            user_address = ?, 
+            school_id = ?, 
+            course_id = ?, 
+            batch_id = ?, 
+            employment_status = ?"; 
+    $params = [$first_name, $middle_name, $last_name, $bio, $address, $school_id, $course_id, $batch_id, $employment_status];
+    $types = "sssssiiis"; 
 
     if ($profilePicture) {
         $query .= ", profile_picture = ?";
@@ -111,6 +105,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     array_unshift($bind_names, $types);
     call_user_func_array([$stmt, 'bind_param'], $bind_names);
+
+
 
     if ($stmt->execute()) {
         header("Location: ../../pages/alumni/settings.php?success=true");

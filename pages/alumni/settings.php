@@ -98,7 +98,7 @@ $user = getAuthenticatedUser();
                 </div>
                 <div class="form-group">
                     <label>Address</label>
-                    <input type="text" name="address" id ="address" value="<?= htmlspecialchars($user['address']) ?>" required>
+                    <input type="text" name="address" id ="address" value="<?= htmlspecialchars($user['user_address']) ?>">
                 </div>
 
                 <!-- School, Course, and Batch -->
@@ -119,6 +119,20 @@ $user = getAuthenticatedUser();
                     <label>Batch</label>
                     <input type="text" id="batch" name="batch" list="batch-list" value="<?= htmlspecialchars($user['batch_number'] ?? '') ?>" placeholder="Type your batch (e.g., 223)" />
                     <datalist id="batch-list"></datalist>
+                </div>
+
+                <!-- Employment Status -->
+                <h2>Employment Status</h2>
+                <div class="form-group">
+                    <label for="employment-status">Employment Status</label>
+                    <select id="employment-status" name="employment-status" required>
+                        <option value="">Select Employment Status</option>
+                        <option value="Employed" <?= ($user['employment_status'] === 'Employed' ? 'selected' : '') ?>>Employed</option>
+                        <option value="Unemployed" <?= ($user['employment_status'] === 'Unemployed' ? 'selected' : '') ?>>Unemployed</option>
+                        <option value="Not Looking For Work" <?= ($user['employment_status'] === 'Not Looking For Work' ? 'selected' : '') ?>>Not Looking For Work</option>
+                        <option value="Retired" <?= ($user['employment_status'] === 'Retired' ? 'selected' : '') ?>>Retired</option>
+                        <option value="Studying" <?= ($user['employment_status'] === 'Studying' ? 'selected' : '') ?>>Studying</option>
+                    </select>
                 </div>
 
                 <!-- Password -->
