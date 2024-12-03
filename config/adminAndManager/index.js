@@ -1,23 +1,32 @@
 const express = require('express');
-const cors = require('cors');
+const session = require('express-session');
+const bodyParser = require('body-parser');
+const path = require('path');
 
 const app = express();
-const port = 3000;
+const PORT = 3000;
 
-// Enable CORS
-app.use(cors());
+// Middleware
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(
+    session({
+        secret: 'your_secret_key', // Replace with a strong secret key
+        resave: false,
+        saveUninitialized: true,
+        cookie: { secure: false }, // Use true if HTTPS is enabled
+    })
+);
 
-// Import routes
+// Serve static files
+app.use(express.static(path.join(__dirname, '../../pages')));
+app.use('/style', express.static(path.join(__dirname, '../../style')));
+
+// Routes
 const userRoutes = require('./routes/users');
-const postRoutes = require('./routes/posts');
-const eventRoutes = require('./routes/events');
-
-// Mount routes
 app.use('/api/users', userRoutes);
-app.use('/api/posts', postRoutes);
-app.use('/api/events', eventRoutes);
 
-// Start the server
-app.listen(port, () => {
-  console.log(`Node.js server is running on port ${port}`);
-});
+// Start server
+app.listen(PORT, () => {
+    console.log(`Server is running on http://localhost:${PORT}`);
+   });

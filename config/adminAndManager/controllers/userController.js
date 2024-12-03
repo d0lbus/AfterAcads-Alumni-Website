@@ -1,18 +1,40 @@
 const db = require('../db');
 
-exports.getUserStatistics = (req, res) => {
-  db.query(
-    `SELECT 
-       COUNT(*) AS totalUsers,
-       SUM(CASE WHEN employment_status = 'employed' THEN 1 ELSE 0 END) AS employedUsers,
-       SUM(CASE WHEN employment_status = 'unemployed' THEN 1 ELSE 0 END) AS unemployedUsers,
-       SUM(CASE WHEN status = 'pending' THEN 1 ELSE 0 END) AS pendingUsers
-     FROM users`,
-    (error, results) => {
-      if (error) {
-        return res.status(500).json({ error: error.message });
-      }
-      res.json(results[0]);
+exports.login = (req, res) => {
+    const { email, password } = req.body;
+
+    // Validate input
+    if (!email || !password) {
+        return res.status(400).json({ error: 'Email and password are required.' });
     }
-  );
+
+    // Query to validate the user credentials
+    const sql = `
+        SELECT * FROM users 
+        WHERE email = ? AND password_hash = ? AND userType IN ('admin', 'manager')
+    `;
+    db.query(sql, [email, password], (err, results) => {
+        if (err) {
+            return res.status(500).json({ error: 'Database error: ' + err.message });
+        }
+
+        if (results.length > 0) {
+            const user = results[0];
+
+            // Store session data
+            req.session.email = user.email;
+            req.session.userType = user.userType;
+
+            // Redirect to home.html (correct path)
+            return res.redirect('/adminAndManager/home.html');
+        } else {
+            return res.status(401).json({ error: 'Invalid email or password.' });
+        }
+    });
 };
+
+exports.getUserDetails = (req, res) => {
+    res.json({ message: 'User details retrieved successfully' });
+};
+
+
