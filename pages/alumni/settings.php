@@ -1,5 +1,8 @@
 <?php
 include '../../config/alumni/header.php';
+include '../../config/general/connection.php';
+
+$user = getAuthenticatedUser();
 ?>
 
 <!DOCTYPE html>
@@ -64,78 +67,77 @@ include '../../config/alumni/header.php';
         </header>
         <main>
             <h1>Settings</h1>
-            <small>Update your account settings below</small>
-
-            <!-- Settings Form -->
-            <form id="settingsForm" class="settings-form" method="POST" action="../../config/alumni/update_settings_backend.php" enctype="multipart/form-data">
-                
+            <form id="settings-form" method="post" action="../../config/alumni/update_settings.php" enctype="multipart/form-data">
                 <!-- Profile Picture -->
-                <div class="form-group profile-picture-group">
+                <div class="profile-picture-group">
                     <h2>Profile Picture</h2>
                     <div class="profile-picture-preview">
-                        <img id="profile-picture-preview" src="../../assets/profileIcon.jpg" alt="Profile Picture">
+                        <img src="<?= htmlspecialchars($user['profile_picture'] ?? '../../assets/profileIcon.jpg') ?>" alt="Profile" id="profile-picture-preview" />
                     </div>
                     <label for="profile-picture">Upload New Profile Picture</label>
-                    <input type="file" name="profile-picture" id="profile-picture" accept="image/jpeg, image/png" onchange="previewImage(event)">
+                    <input type="file" id="profile-picture" name="profile-picture" accept="image/jpeg, image/png" onchange="previewImage(event)">
                     <small>Supported formats: JPG, PNG. Max size: 2MB.</small>
                 </div>
 
-                <!-- Name Fields -->
+                <!-- Personal Information -->
                 <h2>Profile Settings</h2>
                 <div class="form-group">
-                    <label for="first-name">First Name</label>
-                    <input type="text" id="first-name" name="first-name" required>
+                    <label>First Name</label>
+                    <input type="text" name="first-name" value="<?= htmlspecialchars($user['first_name']) ?>" required>
                 </div>
                 <div class="form-group">
-                    <label for="middle-name">Middle Name</label>
-                    <input type="text" id="middle-name" name="middle-name">
+                    <label>Last Name</label>
+                    <input type="text" name="last-name" value="<?= htmlspecialchars($user['last_name']) ?>" required>
                 </div>
                 <div class="form-group">
-                    <label for="last-name">Last Name</label>
-                    <input type="text" id="last-name" name="last-name" required>
+                    <label>Middle Name</label>
+                    <input type="text" name="middle-name" value="<?= htmlspecialchars($user['middle_name']) ?>">
+                </div>
+                <div class="form-group">
+                    <label>Bio</label>
+                    <textarea name="bio" rows="4"><?= htmlspecialchars($user['bio']) ?></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Address</label>
+                    <input type="text" name="address" value="<?= htmlspecialchars($user['address']) ?>" required>
                 </div>
 
-                <!-- School and Course -->
+                <!-- School, Course, and Batch -->
                 <h2>School and Course</h2>
                 <div class="form-group">
-                    <label for="school">School</label>
+                    <label>School</label>
                     <select id="school" name="school" required>
                         <option value="">Select School</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="course">Course</label>
+                    <label>Course</label>
                     <select id="course" name="course" disabled required>
                         <option value="">Select Course</option>
                     </select>
                 </div>
-
-                <!-- Batch -->
                 <div class="form-group">
-                    <label for="batch">Batch</label>
-                    <input type="text" id="batch" name="batch" placeholder="Type your batch (e.g., 223)" list="batch-list">
+                    <label>Batch</label>
+                    <input type="text" id="batch" name="batch" list="batch-list" value="<?= htmlspecialchars($user['batch_number'] ?? '') ?>" placeholder="Type your batch (e.g., 223)" />
                     <datalist id="batch-list"></datalist>
                 </div>
 
-                <!-- Change Password -->
+                <!-- Password -->
                 <h2>Change Password</h2>
                 <div class="form-group">
-                    <label for="old-password">Old Password</label>
-                    <input type="password" id="old-password" name="old-password">
+                    <label>Old Password</label>
+                    <input type="password" name="old-password">
                 </div>
                 <div class="form-group">
-                    <label for="new-password">New Password</label>
-                    <input type="password" id="new-password" name="new-password">
+                    <label>New Password</label>
+                    <input type="password" name="new-password">
                 </div>
                 <div class="form-group">
-                    <label for="confirm-password">Confirm Password</label>
-                    <input type="password" id="confirm-password" name="confirm-password">
+                    <label>Confirm Password</label>
+                    <input type="password" name="confirm-password">
                 </div>
 
-                <!-- Submit -->
-                <div class="button-container">
-                    <button type="submit" class="button">Save Changes</button>
-                </div>
+                <button type="submit">Save Changes</button>
             </form>
         </main>
     </div>
@@ -150,59 +152,61 @@ include '../../config/alumni/header.php';
             });
         });
 
-       // Fetch settings options
-       fetch('../../config/alumni/fetchSettingsOptions.php')
-            .then(response => response.json())
-            .then(data => {
-                // Populate user fields
-                const user = data.user;
-                document.getElementById('profile-picture-preview').src = user.profile_picture || '../../assets/profileIcon.jpg';
-                document.getElementById('first-name').value = user.first_name || '';
-                document.getElementById('middle-name').value = user.middle_name || '';
-                document.getElementById('last-name').value = user.last_name || '';
-
-                // Populate school dropdown
-                const schoolDropdown = document.getElementById('school');
-                data.schools.forEach(school => {
-                    const option = document.createElement('option');
-                    option.value = school.id;
-                    option.textContent = school.name;
-                    if (user.school_id == school.id) option.selected = true;
-                    schoolDropdown.appendChild(option);
-                });
-
-                // Populate course dropdown
-                const courseDropdown = document.getElementById('course');
-                data.courses.forEach(course => {
-                    const option = document.createElement('option');
-                    option.value = course.id;
-                    option.textContent = course.name;
-                    if (user.course_id == course.id) option.selected = true;
-                    courseDropdown.appendChild(option);
-                });
-
-                // Populate batch suggestions
-                const batchList = document.getElementById('batch-list');
-                data.batches.forEach(batch => {
-                    const option = document.createElement('option');
-                    option.value = batch.batch_number;
-                    batchList.appendChild(option);
-                });
-            });
-
-        // Enable course dropdown based on school selection
-        document.getElementById('school').addEventListener('change', function () {
-            document.getElementById('course').disabled = !this.value;
-        });
-
-        // Preview profile picture
         function previewImage(event) {
             const reader = new FileReader();
-            reader.onload = () => {
-                document.getElementById('profile-picture-preview').src = reader.result;
+            reader.onload = function () {
+                const output = document.getElementById('profile-picture-preview');
+                output.src = reader.result;
             };
             reader.readAsDataURL(event.target.files[0]);
         }
+
+        // Fetch settings options
+        document.addEventListener('DOMContentLoaded', () => {
+            fetch("../../config/alumni/fetchSettingsOptions.php")
+                .then(response => response.json())
+                .then(data => {
+                    // Populate schools
+                    const schoolSelect = document.getElementById('school');
+                    data.schools.forEach(school => {
+                        const option = document.createElement('option');
+                        option.value = school.id;
+                        option.textContent = school.name;
+                        if (school.id == <?= $user['school_id'] ?? 'null' ?>) option.selected = true;
+                        schoolSelect.appendChild(option);
+                    });
+
+                    // Populate batches
+                    const batchList = document.getElementById('batch-list');
+                    data.batches.forEach(batch => {
+                        const option = document.createElement('option');
+                        option.value = batch.batch_number;
+                        batchList.appendChild(option);
+                    });
+                });
+
+            // Fetch courses dynamically
+            document.getElementById('school').addEventListener('change', function () {
+                const schoolId = this.value;
+                const courseSelect = document.getElementById('course');
+                courseSelect.innerHTML = '<option value="">Select Course</option>';
+                if (schoolId) {
+                    fetch(`../../config/alumni/fetchCourses.php?school_id=${schoolId}`)
+                        .then(response => response.json())
+                        .then(courses => {
+                            courses.forEach(course => {
+                                const option = document.createElement('option');
+                                option.value = course.id;
+                                option.textContent = course.name;
+                                courseSelect.appendChild(option);
+                            });
+                            courseSelect.disabled = false;
+                        });
+                } else {
+                    courseSelect.disabled = true;
+                }
+            });
+        });
 
         function confirmLogout() {
         if (confirm("Are you sure you want to logout?")) {
