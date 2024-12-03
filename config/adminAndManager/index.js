@@ -4,7 +4,6 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const authMiddleware = require('./middlewares/authMiddleware');
 
-
 const app = express();
 const PORT = 3000;
 
