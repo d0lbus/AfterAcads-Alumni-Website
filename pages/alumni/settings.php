@@ -71,7 +71,11 @@ $user = getAuthenticatedUser();
                 <div class="profile-picture-group">
                     <h2>Profile Picture</h2>
                     <div class="profile-picture-preview">
-                        <img src="<?= htmlspecialchars($user['profile_picture'] ?? '../../assets/profileIcon.jpg') ?>" alt="Profile" id="profile-picture-preview" />
+                        <img src="<?= !empty($user['profile_picture']) 
+                            ? 'data:image/jpeg;base64,' . base64_encode($user['profile_picture']) 
+                            : '../../assets/profileIcon.jpg'; ?>" 
+                            alt="Profile" 
+                            id="profile-picture-preview" />
                     </div>
                     <label for="profile-picture">Upload New Profile Picture</label>
                     <input type="file" id="profile-picture" name="profile-picture" accept="image/jpeg, image/png" onchange="previewImage(event)">

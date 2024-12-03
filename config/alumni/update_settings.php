@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!empty($_FILES['profile-picture']['tmp_name'])) {
         $file = $_FILES['profile-picture'];
         $allowedTypes = ['image/jpeg', 'image/png'];
-
+    
         if (in_array($file['type'], $allowedTypes)) {
             if ($file['size'] <= 2 * 1024 * 1024) { // 2MB max
                 $profilePicture = file_get_contents($file['tmp_name']);
@@ -25,6 +25,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } else {
             die(json_encode(['success' => false, 'message' => 'Invalid file format. Only JPG and PNG are allowed.']));
         }
+    }
+    
+    if ($profilePicture) {
+        error_log('Profile picture received: ' . substr(base64_encode($profilePicture), 0, 100)); // Log part of the encoded image
+    } else {
+        error_log('Profile picture is null.');
     }
 
     // Get other form fields
@@ -94,7 +100,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $params[] = $user_id;
     $types .= "i";
 
+
     $stmt = $conn->prepare($query);
+
+    error_log("Query: $query");
+    error_log("Params: " . json_encode($params));
+
 
     // Bind parameters dynamically
     $bind_names = [];
@@ -106,7 +117,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     array_unshift($bind_names, $types);
     call_user_func_array([$stmt, 'bind_param'], $bind_names);
 
-
+    // Bind binary data for the profile picture explicitly
+    if ($profilePicture) {
+        $stmt->send_long_data(count($params) - 2, $profilePicture); // Position of profile_picture
+    }
 
     if ($stmt->execute()) {
         header("Location: ../../pages/alumni/settings.php?success=true");
