@@ -2,6 +2,7 @@
 include '../../config/general/connection.php';
 include '../../config/alumni/header.php';
 
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Get user ID from the session
     if (!isset($_SESSION['user_id'])) {
@@ -30,8 +31,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $first_name = $_POST['first-name'] ?? null;
     $middle_name = $_POST['middle-name'] ?? null;
     $last_name = $_POST['last-name'] ?? null;
-    $bio = $_POST['add-bio'] ?? null;
-    $address = $_POST['change-address'] ?? null;
+    $bio = $_POST['bio'] ?? null;
+    $address = $_POST['address'] ?? null;
     $school_id = !empty($_POST['school']) ? intval($_POST['school']) : null;
     $course_id = !empty($_POST['course']) ? intval($_POST['course']) : null;
     $batch_number = !empty($_POST['batch']) ? intval($_POST['batch']) : null;
@@ -50,6 +51,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             die(json_encode(['success' => false, 'message' => 'Invalid batch number.']));
         }
     }
+
+    // Debugging: Log the received input
+        error_log("Received values:");
+        error_log("Bio: $bio");
+        error_log("Address: $address");
+        error_log("Batch ID: $batch_id");
+        error_log("Course ID: $course_id");
+        error_log("School ID: $school_id");
 
     // Handle password change
     $new_password = $_POST['new-password'] ?? null;
@@ -93,7 +102,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $stmt = $conn->prepare($query);
 
-    // Handle binary data for BLOB fields
+    // Bind parameters dynamically
     $bind_names = [];
     foreach ($params as $key => $value) {
         $bind_name = 'bind' . $key;
@@ -107,7 +116,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         header("Location: ../../pages/alumni/settings.php?success=true");
         exit();
     } else {
-        die(json_encode(['success' => false, 'message' => 'Failed to update settings.']));
+        die(json_encode(['success' => false, 'message' => 'Failed to update settings: ' . $stmt->error]));
     }
 }
 ?>
