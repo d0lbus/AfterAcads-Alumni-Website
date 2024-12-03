@@ -144,10 +144,23 @@ $profile_picture = !$is_current_user
                     <p><?php echo htmlspecialchars($target_user['email']); ?></p>
 
                     <ul class="about">
-                        <li><span>Joined <?php echo date('F d, Y', strtotime($target_user['created_at'])); ?></span></li>
-                        <li><span>Address: <?php echo isset($target_user['address']) ? htmlspecialchars($target_user['address']) : '(Not provided)'; ?></span></li>
+                        <li><span>Joined: <?php echo date('F d, Y', strtotime($target_user['created_at'])); ?></span></li>
+                        <li><span>Address: <?php echo isset($target_user['user_address']) && !empty($target_user['user_address']) 
+                            ? htmlspecialchars($target_user['user_address']) 
+                            : '(Not provided)'; ?></span></li>
+                        <li><span>Gender: <?php echo isset($target_user['gender']) && !empty($target_user['gender']) 
+                            ? htmlspecialchars($target_user['gender']) 
+                            : '(Not provided)'; ?></span></li>
+                        <li><span>Employment Status: <?php echo isset($target_user['employment_status']) && !empty($target_user['employment_status']) 
+                            ? htmlspecialchars($target_user['employment_status']) 
+                            : '(Not provided)'; ?></span></li>
+                        <li><span>Batch: <?php echo isset($target_user['batch_number']) ? htmlspecialchars($target_user['batch_number']) 
+                            : '(Not provided)'; ?></span></li>
+                        <li><span>School: <?php echo isset($target_user['school_name']) ? htmlspecialchars($target_user['school_name']) 
+                            : '(Not provided)'; ?></span></li>
+                        <li><span>Course: <?php echo isset($target_user['course_name']) ? htmlspecialchars($target_user['course_name']) 
+                            : '(Not provided)'; ?></span></li>
                     </ul>
-
                     <div class="content">
                         <p><?php echo isset($target_user['bio']) ? htmlspecialchars($target_user['bio']) : 'Bio not provided'; ?></p>
 
