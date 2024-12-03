@@ -99,8 +99,6 @@ img.afteracadstext {
   border: 2px solid var(--color-accent);
 }
 
-
-
 /* Page Header */
 .page-header {
   background-color: #fff;
@@ -111,7 +109,7 @@ img.afteracadstext {
 
 .page-header h1 {
   font-size: 28px;
-  color: var(--color-main);  /* Ensure there's no margin pushing the table further down */
+  color: var(--color-main);
 }
 
 /* Event Table */
@@ -143,16 +141,43 @@ img.afteracadstext {
   background-color: #f0f0f0;
 }
 
-/* Button Group */
-.button-group {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-    margin-top: 0; 
-    margin-bottom: 20px;
-    justify-content: flex-end;
+/* Search and Buttons Layout */
+.search-and-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 80px 20px 20px 20px; /* Top margin adjusted for space below header */
+  gap: 10px;
+  position: relative;
+  z-index: 1; /* Ensures it appears above content */
 }
 
+/* Search Input */
+.search-input {
+  border: none;
+  outline: none;
+  padding: 10px;
+  font-size: 1rem;
+  border-radius: 12px;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+  width: 200px; /* Adjust as needed */
+  position: relative;
+  z-index: 2; /* Higher z-index to appear above other content */
+}
+
+/* Button Group Styling */
+.button-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 20px; /* Adds space between the search/filter and buttons */
+  justify-content: flex-end;
+  position: relative;
+  z-index: 1; /* Ensures it appears above content */
+}
+
+/* Common Button Styling */
 .button-group .btn {
   padding: 10px 20px;
   border-radius: 5px;
@@ -167,7 +192,7 @@ img.afteracadstext {
   opacity: 0.9;
 }
 
-/* Specific button styles */
+/* Specific Button Styles */
 .button-group .btn.upcoming {
   background-color: #003f91; /* Blue for Upcoming Events */
   color: white;
@@ -188,42 +213,50 @@ img.afteracadstext {
   color: white;
 }
 
+/* Button Container */
 .button-container {
-    display: flex;
-    gap: 10px;
-    justify-content: flex-end; /* Aligns buttons to the right */
-    position: relative;
-    margin-top: 20px; /* Adds space between the table and buttons */
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end; /* Aligns buttons to the right */
+  position: relative;
+  margin-top: 20px; /* Adds space between the table and buttons */
 }
 
 .button-container .btn {
-    padding: 10px 20px;
-    border-radius: 5px;
-    font-size: 14px;
-    cursor: pointer;
-    transition: background-color 0.3s, opacity 0.3s;
-    border: none;
-    flex-shrink: 0; /* Prevent buttons from shrinking */
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s, opacity 0.3s;
+  border: none;
+  flex-shrink: 0; /* Prevent buttons from shrinking */
+  margin-right: 20px;
 }
 
 .button-container .btn:hover {
-    opacity: 0.9;
+  opacity: 0.9;
 }
 
 .button-container .btn.mark-done {
-    background-color: #003f91; /* Blue for Mark as Done */
-    color: white;
+  background-color: #003f91; /* Blue for Mark as Done */
+  color: white;
 }
 
 .button-container .btn.archive {
-    background-color: #8da2fb; /* Lighter blue for Archive */
-    color: white;
+  background-color: #8da2fb; /* Lighter blue for Archive */
+  color: white;
 }
 
 .button-container .btn.edit {
-    background-color: #f0a500; /* Amber for Edit */
-    color: white;
+  background-color: #f0a500; /* Amber for Edit */
+  color: white;
 }
+
+.button-container .btn.delete {
+  background-color: red; /* Amber for Edit */
+  color: white;
+}
+
 
 .sort-button {
   background: none;
@@ -248,17 +281,44 @@ img.afteracadstext {
   display: inline;
 }
 
+/* Dropdown Menu */
 .filter-dropdown {
-  margin-right: 20px;
+  position: relative;
+  display: inline-block;
+  width: 200px; /* Adjust as needed */
 }
 
-.button-group {
-  display: flex;
-  align-items: center;
+.filter-dropdown select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  background-color: #fff;
+  color: #333;
+  outline: none;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: border-color 0.3s, box-shadow 0.3s;
 }
 
-.filter-dropdown {
-  margin-right: auto;
+.filter-dropdown select:hover {
+  border-color: var(--color-accent);
+  box-shadow: inset 0 1px 5px rgba(0, 0, 0, 0.2);
 }
 
+.filter-dropdown select:focus {
+  border-color: var(--color-main);
+  box-shadow: 0 0 5px var(--color-main);
+}
 
+.filter-dropdown option {
+  padding: 8px;
+  background-color: #fff;
+  color: #333;
+  transition: background-color 0.2s;
+}
+
+.filter-dropdown option:hover {
+  background-color: var(--color-accent);
+  color: #fff;
+}

@@ -8,7 +8,6 @@
     <link rel="stylesheet"
         href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css" />
     <link rel="stylesheet" href="../../style/managerAndAdmin/events-dashboard.css" />
-    
 </head>
 
 <body>
@@ -35,7 +34,8 @@
     </section>
 
     <div class="events-section container">
-        <div class="posts-section container">
+        <div class="search-and-buttons">
+            <input type="text" class="search-input" placeholder="Search..." />
             <div class="button-group">
                 <select class="filter-dropdown">
                     <option value="">Filter by School</option>
@@ -45,98 +45,107 @@
                     <option value="School 4">SON</option>
                     <option value="School 5">SOL</option>
                     <option value="School 6">STELA</option>
-                    
                 </select>
                 <a href="#" class="btn upcoming">Upcoming Events</a>
                 <a href="#" class="btn finished">Finished Events</a>
                 <a href="#" class="btn archived">Archived Events</a>
                 <a href="addEvents.html" class="btn add">Add Events</a>
             </div>
-
-            <!-- Table for Upcoming Events -->
-            <table class="event-table">
-                <thead>
-                    <tr>
-                        <th>Event</th>
-                        <th>Host</th>
-                        <th>
-                            Date
-                            <button class="sort-button" data-sort="asc" onclick="toggleSort(this, 2)">
-                                <span class="arrow-up">&#9650;</span>
-                                <span class="arrow-down">&#9660;</span>
-                            </button>
-                        </th>
-                        <th>
-                            Time
-                            <button class="sort-button" data-sort="asc" onclick="toggleSort(this, 3)">
-                                <span class="arrow-up">&#9650;</span>
-                                <span class="arrow-down">&#9660;</span>
-                            </button>
-                        </th>
-                        <th>Location</th>
-                        <th>Description</th>
-                        <th>School</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><input type="checkbox" class="event-checkbox"> Event 1</td>
-                        <td>Host 1</td>
-                        <td>2024-12-01</td>
-                        <td>10:00 AM</td>
-                        <td>Location 1</td>
-                        <td>Description 1</td>
-                        <td>School 1</td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox" class="event-checkbox"> Event 2</td>
-                        <td>Host 2</td>
-                        <td>2024-12-05</td>
-                        <td>2:00 PM</td>
-                        <td>Location 2</td>
-                        <td>Description 2</td>
-                        <td>School 2</td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <!-- Buttons outside the table -->
-            <div class="button-container">
-                <button class="btn mark-done">Mark as Done</button>
-                <button class="btn archive">Archive</button>
-                <button class="btn edit">Edit</button>
-            </div>
         </div>
+
+        <!-- Table for Upcoming Events -->
+        <table class="event-table">
+            <thead>
+                <tr>
+                    <th>Event</th>
+                    <th>Host</th>
+                    <th>
+                        Date
+                        <button class="sort-button" data-sort="asc" onclick="toggleSort(this, 2)">
+                            <span class="arrow-up">&#9650;</span>
+                            <span class="arrow-down">&#9660;</span>
+                        </button>
+                    </th>
+                    <th>
+                        Time
+                        <button class="sort-button" data-sort="asc" onclick="toggleSort(this, 3)">
+                            <span class="arrow-up">&#9650;</span>
+                            <span class="arrow-down">&#9660;</span>
+                        </button>
+                    </th>
+                    <th>Location</th>
+                    <th>Description</th>
+                    <th>School</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Sample Event</td>
+                    <td>Sample Host</td>
+                    <td>2024-12-15</td>
+                    <td>10:00 AM</td>
+                    <td>Sample Location</td>
+                    <td>Sample Description</td>
+                    <td>SAMCIS</td>
+                </tr>
+                <tr>
+                    <td>Another Event</td>
+                    <td>Another Host</td>
+                    <td>2024-12-20</td>
+                    <td>2:00 PM</td>
+                    <td>Another Location</td>
+                    <td>Another Description</td>
+                    <td>SEA</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 
+    <!-- Buttons outside the table -->
+    <div class="button-container">
+        <button class="btn mark-done">Mark as Done</button>
+        <button class="btn archive">Archive</button>
+        <button class="btn edit">Edit</button>
+    </div>
+
+    <!-- Buttons for finished events -->
+    <!-- <div class="button-container">
+        <button class="btn archive">Archive</button>
+    </div> -->
+
+    <!-- Buttons for archived events -->
+    <!-- <div class="button-container">
+        <button class="btn delete">Delete</button>
+    </div> -->
+
+
+
+    <!-- Script for Search Input -->
     <script>
-        function sortTable(columnIndex, isAscending) {
-            const table = document.querySelector(".event-table tbody");
-            const rows = Array.from(table.rows);
+        document.addEventListener("DOMContentLoaded", () => {
+            const searchInput = document.querySelector(".search-input");
+            const table = document.querySelector(".event-table");
 
-            rows.sort((a, b) => {
-                const cellA = a.cells[columnIndex].textContent.trim();
-                const cellB = b.cells[columnIndex].textContent.trim();
+            const filterRows = (searchValue) => {
+                const rows = table.querySelectorAll("tbody tr");
+                rows.forEach((row) => {
+                    const cells = row.querySelectorAll("td");
+                    const rowText = Array.from(cells)
+                        .map((cell) => cell.textContent.toLowerCase())
+                        .join(" ");
+                    if (rowText.includes(searchValue.toLowerCase())) {
+                        row.style.display = "";
+                    } else {
+                        row.style.display = "none";
+                    }
+                });
+            };
 
-                if (!isNaN(Date.parse(cellA)) && !isNaN(Date.parse(cellB))) {
-                    return isAscending ? new Date(cellA) - new Date(cellB) : new Date(cellB) - new Date(cellA);
-                }
-
-                if (!isNaN(cellA) && !isNaN(cellB)) {
-                    return isAscending ? cellA - cellB : cellB - cellA;
-                }
-
-                return isAscending ? cellA.localeCompare(cellB) : cellB.localeCompare(cellA);
+            searchInput.addEventListener("input", (event) => {
+                const searchValue = event.target.value.trim();
+                filterRows(searchValue);
             });
-
-            rows.forEach(row => table.appendChild(row));
-        }
-
-        function toggleSort(button, columnIndex) {
-            const isAscending = button.dataset.sort === "asc";
-            button.dataset.sort = isAscending ? "desc" : "asc";
-            sortTable(columnIndex, !isAscending);
-        }
+        });
     </script>
 </body>
 
