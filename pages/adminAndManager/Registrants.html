@@ -7,7 +7,7 @@
   <title>Registrants</title>
   <link rel="stylesheet"
     href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css" />
-  <link rel="stylesheet" href="../../style/managerAndAdmin/Registrants.css" />
+  <link rel="stylesheet" href="../../style/adminAndManager/Registrants.css" />
   <script src="script.js" defer></script>
 </head>
 
@@ -49,45 +49,13 @@
       <thead>
         <tr>
           <th>First Name</th>
-          <th>Last Name
-            <button class="sort-button" data-sort="asc" onclick="toggleSort(this, 2)">
-              <span class="arrow-up">&#9650;</span>
-              <span class="arrow-down">&#9660;</span>
-            </button>
-          </th>
+          <th>Last Name</th>
           <th>E-mail</th>
           <th>Action</th>
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>
-            <div class="user-info">
-              <img class="user-avatar" src="../../assets/profileIcon.jpg" alt="user avatar" />
-              <span class="username">Chloe</span>
-            </div>
-          </td>
-          <td>San Miguel</td>
-          <td>chloe@gmail.com</td>
-          <td class="action-buttons">
-            <button class="btn approve">Approve</button>
-            <button class="btn deny">Deny</button>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <div class="user-info">
-              <img class="user-avatar" src="../../assets/profileIcon.jpg" alt="user avatar" />
-              <span class="username">Julianne</span>
-            </div>
-          </td>
-          <td>Abitan</td>
-          <td>juju@gmail.com</td>
-          <td class="action-buttons">
-            <button class="btn approve">Approve</button>
-            <button class="btn deny">Deny</button>
-          </td>
-        </tr>
+        <!-- Dynamic Rows Here -->
       </tbody>
     </table>
 
@@ -96,30 +64,12 @@
       <thead>
         <tr>
           <th>First Name</th>
-          <th>Last Name
-            <button class="sort-button" data-sort="asc" onclick="toggleSort(this, 2)">
-              <span class="arrow-up">&#9650;</span>
-              <span class="arrow-down">&#9660;</span>
-            </button>
-          </th>
+          <th>Last Name</th>
           <th>E-mail</th>
-          <th>Action</th>
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>
-            <div class="user-info">
-              <img class="user-avatar" src="../../assets/profileIcon.jpg" alt="user avatar" />
-              <span class="username">Jerilyn</span>
-            </div>
-          </td>
-          <td>Cahanap</td>
-          <td>jelai@gmail.com</td>
-          <td class="action-buttons">
-            <button class="btn deny">Deny</button>
-          </td>
-        </tr>
+        <!-- Dynamic Rows Here -->
       </tbody>
     </table>
 
@@ -128,36 +78,12 @@
       <thead>
         <tr>
           <th>First Name</th>
-          <th>Last Name
-            <button class="sort-button" data-sort="asc" onclick="toggleSort(this, 2)">
-              <span class="arrow-up">&#9650;</span>
-              <span class="arrow-down">&#9660;</span>
-            </button>
-          </th>
+          <th>Last Name</th>
           <th>E-mail</th>
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>
-            <div class="user-info">
-              <img class="user-avatar" src="../../assets/profileIcon.jpg" alt="user avatar" />
-              <span class="username">Joe29</span>
-            </div>
-          </td>
-          <td>Joe</td>
-          <td>joe@gmail.com</td>
-        </tr>
-        <tr>
-          <td>
-            <div class="user-info">
-              <img class="user-avatar" src="../../assets/profileIcon.jpg" alt="user avatar" />
-              <span class="username">Michael</span>
-            </div>
-          </td>
-          <td>Michael</td>
-          <td>michael@gmail.com</td>
-        </tr>
+        <!-- Dynamic Rows Here -->
       </tbody>
     </table>
   </div>
@@ -177,7 +103,6 @@
 
   <!-- Script for the Tables -->
   <script>
-
     document.addEventListener("DOMContentLoaded", () => {
       const rows = document.querySelectorAll(".user-table tbody tr");
       const modal = document.getElementById("userDetailsModal");
@@ -333,6 +258,107 @@
     });
 
   </script>
+
+  <!-- Script for Populating Tables-->
+   <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Fetch users from the backend
+        fetch('/api/users/status') 
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to fetch users');
+                }
+                return response.json();
+            })
+            .then(data => {
+                populateTable('pending-table', data.pending);
+                populateTable('approved-table', data.approved);
+                populateTable('denied-table', data.denied);
+            })
+            .catch(error => {
+                console.error('Error fetching users:', error);
+            });
+    });
+
+    // Populate a table with user data
+    function populateTable(tableClass, users) {
+        const tableBody = document.querySelector(`.${tableClass} tbody`);
+        tableBody.innerHTML = ''; 
+
+        users.forEach(user => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>
+                    <div class="user-info">
+                        <img class="user-avatar" src="../../assets/profileIcon.jpg" alt="user avatar" />
+                        <span class="username">${user.first_name}</span>
+                    </div>
+                </td>
+                <td>${user.last_name}</td>
+                <td>${user.email}</td>
+                <td class="action-buttons">
+                    ${tableClass === 'pending-table' ? `
+                        <button class="btn approve">Approve</button>
+                        <button class="btn deny">Deny</button>
+                    ` : ''}
+                </td>
+            `;
+            tableBody.appendChild(row);
+        });
+      }
+   </script>
+
+   <!--Script for Approve and Deny Buttons Functionality-->
+   <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Event listener for approve/deny buttons
+        document.addEventListener('click', event => {
+            if (event.target.classList.contains('approve')) {
+                const row = event.target.closest('tr');
+                moveToTable(row, 'approved-table');
+                updateUserStatus(getEmailFromRow(row), 'approved');
+            } else if (event.target.classList.contains('deny')) {
+                const row = event.target.closest('tr');
+                moveToTable(row, 'denied-table');
+                updateUserStatus(getEmailFromRow(row), 'denied');
+            }
+        });
+    });
+    
+    // Move a row to a different table
+    function moveToTable(row, targetTableClass) {
+        const targetTableBody = document.querySelector(`.${targetTableClass} tbody`);
+        row.querySelector('.action-buttons').innerHTML = ''; // Clear action buttons for the new table
+        targetTableBody.appendChild(row); // Append row to the new table
+    }
+    
+    // Extract email from the row
+    function getEmailFromRow(row) {
+        return row.querySelector('td:nth-child(3)').innerText.trim();
+    }
+    
+    // Call API to update user status in the database
+    function updateUserStatus(email, status) {
+        fetch('/api/users/updateStatus', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, status }),
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to update status');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log(data.message); 
+            })
+            .catch(error => {
+                console.error('Error updating user status:', error);
+            });
+    }
+    </script>
+    
 
 </body>
 

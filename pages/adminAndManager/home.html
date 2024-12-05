@@ -8,7 +8,7 @@
       rel="stylesheet"
       href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css"
     />
-    <link rel="stylesheet" href="../../style/managerAndAdmin/home.css" />
+    <link rel="stylesheet" href="../../style/adminAndManager/home.css" />
     <script src="script.js" defer></script>
   </head>
 
@@ -23,16 +23,16 @@
           />
         </div>
         <ul class="nav-links">
-          <li><a href="../../pages/managerAndAdmin/home.html">Home</a></li>
-          <li><a href="../../pages/managerAndAdmin/Registrants.html">Registrants</a></li>
-          <li><a href="../../pages/managerAndAdmin/approvePost.html">Posts</a></li>
-          <li><a href="../../pages/managerAndAdmin/eventsDashboard.html">Events</a></li>
-          <li><a href="../../pages/managerAndAdmin/opportunities.html">Opportunities</a></li>
-          <li><a href="../../pages/managerAndAdmin/statistics.php">Statistics</a></li>
-          <li id = "usersNav"><a href="../../pages/managerAndAdmin/user.html">Users</a></li>
+          <li><a href="home.html">Home</a></li>
+          <li><a href="Registrants.html">Registrants</a></li>
+          <li><a href="approvePost.html">Posts</a></li>
+          <li><a href="eventsDashboard.html">Events</a></li>
+          <li><a href="opportunities.html">Opportunities</a></li>
+          <li><a href="statistics.html">Statistics</a></li>
+          <li id = "usersNav"><a href="user.html">Users</a></li>
       </ul>
       <div class="profile">
-          <li><a href="../../pages/managerAndAdmin/managerProfile.html"><img class="profile-img" src="../../assets/profileIcon.jpg"
+          <li><a href="managerProfile.html"><img class="profile-img" src="../../assets/profileIcon.jpg"
                       alt="Profile" /></a></li>
       </div>
       </header>
@@ -48,7 +48,7 @@
                 </div>
                 <h3>Registrants</h3>
                 <a
-                  href="../../pages/managerAndAdmin/Registrants.html"
+                  href="../../pages/adminAndManager/Registrants.html"
                   class="icon-link"
                 >
                   <i class="las la-arrow-right"></i>
@@ -60,7 +60,7 @@
                 </div>
                 <h3>Posts</h3>
                 <a
-                  href="../../pages/managerAndAdmin/approvePost.html"
+                  href="../../pages/adminAndManager/approvePost.html"
                   class="icon-link"
                 >
                   <i class="las la-arrow-right"></i>
@@ -72,7 +72,7 @@
                 </div>
                 <h3>Events</h3>
                 <a
-                  href="../../pages/managerAndAdmin/eventsDashboard.html"
+                  href="../../pages/adminAndManager/eventsDashboard.html"
                   class="icon-link"
                 >
                   <i class="las la-arrow-right"></i>
@@ -84,7 +84,7 @@
                 </div>
                 <h3>Opportunities</h3>
                 <a
-                  href="../../pages/managerAndAdmin/opportunities.html"
+                  href="../../pages/adminAndManager/opportunities.html"
                   class="icon-link"
                 >
                   <i class="las la-arrow-right"></i>
@@ -96,7 +96,7 @@
                 </div>
                 <h3>Users</h3>
                 <a
-                  href="../../pages/managerAndAdmin/user.html"
+                  href="../../pages/adminAndManager/user.html"
                   class="icon-link"
                 >
                   <i class="las la-arrow-right"></i>
@@ -106,7 +106,7 @@
 
             <div class="box statistics">
               <h3>Statistics</h3>
-              <a href="../../pages/managerAndAdmin/statistics.html" class="icon-link">
+              <a href="../../pages/adminAndManager/statistics.html" class="icon-link">
                 <i class="las la-arrow-right"></i>
               </a>
             </div>
@@ -140,7 +140,6 @@
         return response.json();
       })
       .then(user => {
-        console.log(user); // Debugging: Check the user object
         // Hide the "Users" section if the user is a manager
         if (user.userType === 'manager') {
           document.getElementById('usersNav').style.display = 'none'; // Hide nav link

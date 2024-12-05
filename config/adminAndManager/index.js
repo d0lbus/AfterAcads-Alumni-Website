@@ -28,6 +28,10 @@ app.get('/adminAndManager/home.html', authMiddleware, (req, res) => {
   res.sendFile(path.join(__dirname, '../../pages/adminAndManager/home.html'));
 });
 
+app.get('/adminAndManager/Registrants.html', authMiddleware, (req, res) => {
+    res.sendFile(path.join(__dirname, '../../pages/adminAndManager/Registrants.html'));
+  });
+
 // Routes
 const userRoutes = require('./routes/users');
 app.use('/api/users', userRoutes);

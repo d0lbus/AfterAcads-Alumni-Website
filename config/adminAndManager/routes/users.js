@@ -24,9 +24,13 @@ router.post('/logout', (req, res) => {
     });
 });
 
-
-
 // Get logged-in user's details
 router.get('/details', userController.getUserDetails);
+
+// Get Users By Status
+router.get('/status', userController.getUsersByStatus);
+
+// Update User Status
+router.get('/updateStatus', userController.updateStatus);
 
 module.exports = router;

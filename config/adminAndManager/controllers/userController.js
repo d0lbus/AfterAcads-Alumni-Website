@@ -44,4 +44,45 @@ exports.getUserDetails = (req, res) => {
     });
 };
 
+exports.getUsersByStatus = (req, res) => {
+    const sql = `
+        SELECT first_name, last_name, email, status
+        FROM users
+    `;
+
+    db.query(sql, (err, results) => {
+        if (err) {
+            console.error('Database error:', err);
+            return res.status(500).json({ error: 'Failed to fetch users.' });
+        }
+
+        // Group users by their status
+        const groupedUsers = {
+            pending: results.filter(user => user.status === 'pending'),
+            approved: results.filter(user => user.status === 'approved'),
+            denied: results.filter(user => user.status === 'denied'),
+        };
+
+        res.json(groupedUsers);
+    });
+}
+
+exports.updateStatus = (req, res) => {
+    const { email, status } = req.body;
+    const sql = `
+        UPDATE users
+        SET status = ?
+        WHERE email = ?
+    `;
+
+    db.query(sql, [status, email], (err, results) => {
+        if (err) {
+            console.error('Database error:', err);
+            return res.status(500).json({ error: 'Failed to update status.' });
+        }
+        res.json({ message: `User status updated to ${status}.` });
+    });
+}
+
+
 
