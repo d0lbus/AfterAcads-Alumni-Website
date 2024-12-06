@@ -4,7 +4,7 @@ const userController = require('../controllers/userController');
 const authMiddleware = require('../middlewares/authMiddleware');
 
 // Apply authMiddleware to all routes in this router except for login
-router.use(authMiddleware);
+//router.use(authMiddleware);
 
 // Login route
 router.post('/login', userController.login);
@@ -35,7 +35,7 @@ router.get('/registrantdetails/:email', userController.getUserDetailsByEmail);
 router.get('/status', userController.getUsersByStatus);
 
 // Update User Status
-router.get('/updateStatus', userController.updateStatus);
+router.post('/updateStatus', userController.updateUserStatus);
 
 
 module.exports = router;

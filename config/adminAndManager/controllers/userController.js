@@ -67,7 +67,7 @@ exports.getUsersByStatus = (req, res) => {
     });
 }
 
-exports.updateStatus = (req, res) => {
+exports.updateUserStatus = (req, res) => {
     const { email, status } = req.body;
 
     if (!email || !status) {
