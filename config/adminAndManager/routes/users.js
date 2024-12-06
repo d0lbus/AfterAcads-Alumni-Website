@@ -37,4 +37,5 @@ router.get('/status', userController.getUsersByStatus);
 // Update User Status
 router.get('/updateStatus', userController.updateStatus);
 
+
 module.exports = router;

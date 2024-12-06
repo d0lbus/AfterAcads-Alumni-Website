@@ -264,68 +264,128 @@
   <!-- Script for Populating Tables-->
    <script>
     document.addEventListener('DOMContentLoaded', () => {
-        // Fetch users from the backend
-        fetch('/api/users/status') 
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Failed to fetch users');
-                }
-                return response.json();
-            })
-            .then(data => {
-                populateTable('pending-table', data.pending);
-                populateTable('approved-table', data.approved);
-                populateTable('denied-table', data.denied);
-            })
-            .catch(error => {
-                console.error('Error fetching users:', error);
-            });
-    });
+      // Fetch and populate users
+      fetch('/api/users/status') 
+          .then(response => {
+              if (!response.ok) {
+                  throw new Error('Failed to fetch users');
+              }
+              return response.json();
+          })
+          .then(data => {
+              populateTable('pending-table', data.pending);
+              populateTable('approved-table', data.approved);
+              populateTable('denied-table', data.denied);
+          })
+          .catch(error => {
+              console.error('Error fetching users:', error);
+          });
+
+      // Attach event listener for "View Details" buttons
+      document.addEventListener('click', event => {
+          if (event.target.classList.contains('view-details')) {
+              const email = event.target.dataset.email;
+              openUserDetailsModal(email);
+          }
+      });
+  });
+
+    // Function to open the modal and fetch user details
+    function openUserDetailsModal(email) {
+      const modal = document.getElementById('userDetailsModal');
+      const alumniPhotoElement = document.getElementById('alumniPhoto');
+
+      console.log('Fetching details for email:', email);
+
+      // Fetch user details
+      fetch(`/api/users/registrantdetails/${encodeURIComponent(email)}`)
+          .then(response => {
+              if (!response.ok) {
+                  throw new Error('Failed to fetch user details');
+              }
+              return response.json();
+          })
+          .then(data => {
+              console.log('User data received:', data);
+
+              // Populate modal fields
+              document.getElementById('firstName').innerText = data.firstName || 'N/A';
+              document.getElementById('middleName').innerText = data.middleName || 'N/A';
+              document.getElementById('lastName').innerText = data.lastName || 'N/A';
+              document.getElementById('email').innerText = data.email || 'N/A';
+              document.getElementById('gender').innerText = data.gender || 'N/A';
+
+              if (data.alumniPhotoValidation) {
+                  alumniPhotoElement.src = `data:image/jpeg;base64,${data.alumniPhotoValidation}`;
+                  alumniPhotoElement.style.display = 'block';
+              } else {
+                  alumniPhotoElement.style.display = 'none';
+              }
+
+              // Show the modal
+              modal.style.display = 'block';
+          })
+          .catch(error => console.error('Error fetching user details:', error));
+  }
+
+    // Close modal functionality
+    document.getElementById('closeModal').addEventListener('click', () => {
+      const modal = document.getElementById('userDetailsModal');
+      modal.style.display = 'none';
+  });
+
+    window.addEventListener('click', (event) => {
+      const modal = document.getElementById('userDetailsModal');
+      if (event.target === modal) {
+          modal.style.display = 'none';
+      }
+  });
 
     // Populate a table with user data
     function populateTable(tableClass, users) {
-        const tableBody = document.querySelector(`.${tableClass} tbody`);
-        tableBody.innerHTML = ''; 
+      const tableBody = document.querySelector(`.${tableClass} tbody`);
+      tableBody.innerHTML = ''; 
 
-        users.forEach(user => {
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                <td>
-                    <div class="user-info">
-                        <img class="user-avatar" src="../../assets/profileIcon.jpg" alt="user avatar" />
-                        <span class="username">${user.first_name}</span>
-                    </div>
-                </td>
-                <td>${user.last_name}</td>
-                <td>${user.email}</td>
-                <td class="action-buttons">
-                    ${tableClass === 'pending-table' ? `
-                        <button class="btn approve">Approve</button>
-                        <button class="btn deny">Deny</button>
-                    ` : ''}
-                </td>
-            `;
-            tableBody.appendChild(row);
-        });
-      }
+      users.forEach(user => {
+          const row = document.createElement('tr');
+          row.innerHTML = `
+              <td>
+                  <div class="user-info">
+                      <img class="user-avatar" src="../../assets/profileIcon.jpg" alt="user avatar" />
+                      <span class="username">${user.first_name}</span>
+                  </div>
+              </td>
+              <td>${user.last_name}</td>
+              <td>${user.email}</td>
+              <td class="action-buttons">
+                  ${tableClass === 'pending-table' ? `
+                      <button class="btn approve">Approve</button>
+                      <button class="btn deny">Deny</button>
+                  ` : ''}
+                  <button class="btn view-details" data-email="${user.email}">View Details</button>
+              </td>
+          `;
+          tableBody.appendChild(row);
+      });
+  }
    </script>
 
    <!--Script for Approve and Deny Buttons Functionality-->
    <script>
     document.addEventListener('DOMContentLoaded', () => {
-        // Event listener for approve/deny buttons
-        document.addEventListener('click', event => {
-            if (event.target.classList.contains('approve')) {
-                const row = event.target.closest('tr');
-                moveToTable(row, 'approved-table');
-                updateUserStatus(getEmailFromRow(row), 'approved');
-            } else if (event.target.classList.contains('deny')) {
-                const row = event.target.closest('tr');
-                moveToTable(row, 'denied-table');
-                updateUserStatus(getEmailFromRow(row), 'denied');
-            }
-        });
-    });
+      document.addEventListener('click', event => {
+          if (event.target.classList.contains('approve')) {
+              const row = event.target.closest('tr');
+              moveToTable(row, 'approved-table');
+              updateUserStatus(getEmailFromRow(row), 'approved');
+          } else if (event.target.classList.contains('deny')) {
+              const row = event.target.closest('tr');
+              moveToTable(row, 'denied-table');
+              updateUserStatus(getEmailFromRow(row), 'rejected'); 
+          }
+      });
+  });
+
     
     // Move a row to a different table
     function moveToTable(row, targetTableClass) {
@@ -360,84 +420,7 @@
             });
     }
     </script>
-    
-  <!--Script for Rendering User Details-->
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const modal = document.getElementById('userDetailsModal');
-        const closeModalButton = document.getElementById('closeModal');
-        const alumniPhotoElement = document.getElementById('alumniPhoto');
-
-        if (!modal || !closeModalButton) {
-            console.error('Modal or close button not found!');
-            return;
-        }
-
-        // Attach event listener to the <tbody> element
-        const tableBody = document.querySelector('.user-table tbody');
-        if (!tableBody) {
-            console.error('Table body not found!');
-            return;
-        }
-
-        tableBody.addEventListener('click', (event) => {
-            // Check if the clicked element is a table row
-            const row = event.target.closest('tr');
-            if (!row) return;
-
-            console.log('Row clicked:', row);
-
-            const email = row.querySelector('td:nth-child(3)').innerText.trim();
-            console.log('Fetching details for email:', email);
-
-            // Fetch user details
-            fetch(`/api/users/registrantdetails/${encodeURIComponent(email)}`)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Failed to fetch user details');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    console.log('User data received:', data);
-
-                    // Populate modal fields
-                    document.getElementById('firstName').innerText = data.firstName || 'N/A';
-                    document.getElementById('middleName').innerText = data.middleName || 'N/A';
-                    document.getElementById('lastName').innerText = data.lastName || 'N/A';
-                    document.getElementById('email').innerText = data.email || 'N/A';
-                    document.getElementById('gender').innerText = data.gender || 'N/A';
-
-                    if (data.alumniPhotoValidation) {
-                        alumniPhotoElement.src = `data:image/jpeg;base64,${data.alumniPhotoValidation}`;
-                        alumniPhotoElement.style.display = 'block';
-                    } else {
-                        alumniPhotoElement.style.display = 'none';
-                    }
-
-                    // Show the modal
-                    modal.style.display = 'block';
-                })
-                .catch(error => console.error('Error fetching user details:', error));
-        });
-
-        // Close modal when clicking the close button
-        closeModalButton.addEventListener('click', () => {
-            console.log('Closing modal');
-            modal.style.display = 'none';
-        });
-
-        // Close modal when clicking outside the modal content
-        window.addEventListener('click', (event) => {
-            if (event.target === modal) {
-                console.log('Outside modal clicked');
-                modal.style.display = 'none';
-            }
-        });
-    });
-  </script>
-
-
+  
       
 </body>
 

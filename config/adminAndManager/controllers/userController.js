@@ -69,6 +69,16 @@ exports.getUsersByStatus = (req, res) => {
 
 exports.updateStatus = (req, res) => {
     const { email, status } = req.body;
+
+    if (!email || !status) {
+        return res.status(400).json({ error: 'Email and status are required.' });
+    }
+
+    const allowedStatuses = ['approved', 'rejected', 'pending'];
+    if (!allowedStatuses.includes(status)) {
+        return res.status(400).json({ error: 'Invalid status value.' });
+    }
+
     const sql = `
         UPDATE users
         SET status = ?
