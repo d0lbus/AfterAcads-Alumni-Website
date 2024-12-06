@@ -84,5 +84,46 @@ exports.updateStatus = (req, res) => {
     });
 }
 
+exports.getUserDetailsByEmail = (req, res) => {
+    const email = req.params.email; 
+
+    if (!email) {
+        return res.status(400).json({ error: 'Email is required.' });
+    }
+
+    const sql = `
+        SELECT first_name, middle_name, last_name, email, gender, alumni_photo_validation
+        FROM users
+        WHERE email = ?
+    `;
+
+    db.query(sql, [email], (err, results) => {
+        if (err) {
+            console.error('Database error:', err);
+            return res.status(500).json({ error: 'Failed to fetch user details.' });
+        }
+
+        if (results.length === 0) {
+            return res.status(404).json({ error: 'User not found.' });
+        }
+
+        const user = results[0];
+
+        const base64Photo = user.alumni_photo_validation
+        ? Buffer.from(user.alumni_photo_validation).toString('base64')
+        : null;
+
+        res.json({
+            firstName: user.first_name,
+            middleName: user.middle_name,
+            lastName: user.last_name,
+            email: user.email,
+            gender: user.gender,
+            alumniPhotoValidation: base64Photo,
+        });
+    });
+};
+
+
 
 

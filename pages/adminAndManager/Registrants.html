@@ -88,16 +88,18 @@
     </table>
   </div>
 
-  <div class="user-details-modal" id="userDetailsModal">
+  <div class="user-details-modal" id="userDetailsModal" style="display: none;"> 
     <div class="modal-content">
-      <span class="close-btn" id="closeModal">&times;</span>
-      <h2>User Details</h2>
-      <hr class="modal-divider">
-      <p><strong>First Name:</strong> <span id="firstName"></span></p>
-      <p><strong>Middle Name:</strong> <span id="middleName"></span></p>
-      <p><strong>Last Name:</strong> <span id="lastName"></span></p>
-      <p><strong>Gender:</strong> <span id="gender"></span></p>
-      <p><strong>E-mail:</strong> <span id="email"></span></p>
+        <span class="close-btn" id="closeModal">&times;</span>
+        <h2>User Details</h2>
+        <hr class="modal-divider">
+        <p><strong>First Name:</strong> <span id="firstName"></span></p>
+        <p><strong>Middle Name:</strong> <span id="middleName"></span></p>
+        <p><strong>Last Name:</strong> <span id="lastName"></span></p>
+        <p><strong>Gender:</strong> <span id="gender"></span></p>
+        <p><strong>E-mail:</strong> <span id="email"></span></p>
+        <p><strong>Alumni Photo for Validation:</strong></p>
+        <img id="alumniPhoto" style="display: none; max-width: 100%;"/>
     </div>
   </div>
 
@@ -359,7 +361,84 @@
     }
     </script>
     
+  <!--Script for Rendering User Details-->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const modal = document.getElementById('userDetailsModal');
+        const closeModalButton = document.getElementById('closeModal');
+        const alumniPhotoElement = document.getElementById('alumniPhoto');
 
+        if (!modal || !closeModalButton) {
+            console.error('Modal or close button not found!');
+            return;
+        }
+
+        // Attach event listener to the <tbody> element
+        const tableBody = document.querySelector('.user-table tbody');
+        if (!tableBody) {
+            console.error('Table body not found!');
+            return;
+        }
+
+        tableBody.addEventListener('click', (event) => {
+            // Check if the clicked element is a table row
+            const row = event.target.closest('tr');
+            if (!row) return;
+
+            console.log('Row clicked:', row);
+
+            const email = row.querySelector('td:nth-child(3)').innerText.trim();
+            console.log('Fetching details for email:', email);
+
+            // Fetch user details
+            fetch(`/api/users/registrantdetails/${encodeURIComponent(email)}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Failed to fetch user details');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('User data received:', data);
+
+                    // Populate modal fields
+                    document.getElementById('firstName').innerText = data.firstName || 'N/A';
+                    document.getElementById('middleName').innerText = data.middleName || 'N/A';
+                    document.getElementById('lastName').innerText = data.lastName || 'N/A';
+                    document.getElementById('email').innerText = data.email || 'N/A';
+                    document.getElementById('gender').innerText = data.gender || 'N/A';
+
+                    if (data.alumniPhotoValidation) {
+                        alumniPhotoElement.src = `data:image/jpeg;base64,${data.alumniPhotoValidation}`;
+                        alumniPhotoElement.style.display = 'block';
+                    } else {
+                        alumniPhotoElement.style.display = 'none';
+                    }
+
+                    // Show the modal
+                    modal.style.display = 'block';
+                })
+                .catch(error => console.error('Error fetching user details:', error));
+        });
+
+        // Close modal when clicking the close button
+        closeModalButton.addEventListener('click', () => {
+            console.log('Closing modal');
+            modal.style.display = 'none';
+        });
+
+        // Close modal when clicking outside the modal content
+        window.addEventListener('click', (event) => {
+            if (event.target === modal) {
+                console.log('Outside modal clicked');
+                modal.style.display = 'none';
+            }
+        });
+    });
+  </script>
+
+
+      
 </body>
 
 </html>

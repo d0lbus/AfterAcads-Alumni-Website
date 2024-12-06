@@ -5,7 +5,6 @@ const authenticateUser = (req, res, next) => {
             return next();
         }
 
-
     if (!req.session || !req.session.email) {
         // If the user is not logged in, redirect to the login page
         return res.redirect('/adminAndManager/login.html');

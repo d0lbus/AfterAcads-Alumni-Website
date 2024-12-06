@@ -27,6 +27,10 @@ router.post('/logout', (req, res) => {
 // Get logged-in user's details
 router.get('/details', userController.getUserDetails);
 
+// Get User Details By Email
+router.get('/registrantdetails/:email', userController.getUserDetailsByEmail);
+
+
 // Get Users By Status
 router.get('/status', userController.getUsersByStatus);
 
