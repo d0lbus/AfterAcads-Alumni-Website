@@ -19,18 +19,15 @@ app.use(
     })
 );
 
-// Serve static files
-app.use(express.static(path.join(__dirname, '../../pages')));
+// Protect /adminAndManager routes but exclude login.html
+app.use('/adminAndManager', (req, res, next) => {
+    if (req.path === '/login.html' || req.path === '/register.html') {
+        return next(); 
+    }
+    authMiddleware(req, res, next);
+}, express.static(path.join(__dirname, '../../pages/adminAndManager')));
+
 app.use('/style', express.static(path.join(__dirname, '../../style')));
-
-// Protect routes with the authMiddleware
-app.get('/adminAndManager/home.html', authMiddleware, (req, res) => {
-  res.sendFile(path.join(__dirname, '../../pages/adminAndManager/home.html'));
-});
-
-app.get('/adminAndManager/Registrants.html', authMiddleware, (req, res) => {
-    res.sendFile(path.join(__dirname, '../../pages/adminAndManager/Registrants.html'));
-  });
 
 // Routes
 const userRoutes = require('./routes/users');
