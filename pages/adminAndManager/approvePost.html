@@ -46,6 +46,7 @@
         <table class="post-table pending-table">
             <thead>
             <tr>
+                <th>Post ID</th>
                 <th>Email</th>
                 <th>Author</th>
                 <th>Content</th>
@@ -67,6 +68,7 @@
         <table class="post-table approved-table" style="display: none;">
             <thead>
             <tr>
+                <th>Post ID</th>
                 <th>Email</th>
                 <th>Author</th>
                 <th>Content</th>
@@ -87,6 +89,7 @@
         <table class="post-table denied-table" style="display: none;">
             <thead>
             <tr>
+                <th>Post ID</th>
                 <th>Email</th>
                 <th>Author</th>
                 <th>Content</th>
@@ -244,7 +247,6 @@
                 });
             });
         });
-
     </script>
 
     <!-- Script for Search Input -->
@@ -333,38 +335,45 @@
       
         // Function to populate a table with post data
         function populateTable(tableClass, posts) {
-          const tableBody = document.querySelector(`.${tableClass} tbody`);
-          tableBody.innerHTML = '';
-      
-          posts.forEach((post) => {
-            const row = document.createElement('tr');
-            row.innerHTML = `
-              <td>${post.email}</td>
-              <td>${post.author}</td>
-              <td>${post.content}</td>
-              <td>${new Date(post.date).toLocaleDateString()}</td>
-              <td class="action-buttons">
-                ${tableClass === 'pending-table' ? `
-                  <button class="btn approve">Approve</button>
-                  <button class="btn deny">Deny</button>
-                ` : ''}
-                <button class="btn view-details" data-id="${post.post_id}">View Details</button>
-              </td>
-            `;
-            tableBody.appendChild(row);
-          });
+            const tableBody = document.querySelector(`.${tableClass} tbody`);
+            tableBody.innerHTML = '';
+
+            posts.forEach(post => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${post.post_id}</td>
+                    <td>${post.email}</td>
+                    <td>${post.author}</td>
+                    <td>${post.content}</td>
+                    <td>${new Date(post.date).toLocaleDateString()}</td>
+                    <td class="action-buttons">
+                        ${tableClass === 'pending-table' ? `
+                            <button class="btn approve" data-id="${post.post_id}">Approve</button>
+                            <button class="btn deny" data-id="${post.post_id}">Deny</button>
+                        ` : ''}
+                        <button class="btn view-details" data-id="${post.post_id}">View Details</button>
+                    </td>
+                `;
+                tableBody.appendChild(row);
+            });
         }
+
       
         // Function to move a row to a different table
         function moveToTable(row, targetTableClass) {
           const targetTableBody = document.querySelector(`.${targetTableClass} tbody`);
-          row.querySelector('.action-buttons').innerHTML = ''; // Clear action buttons for the new table
-          targetTableBody.appendChild(row); // Append row to the new table
+          row.querySelector('.action-buttons').innerHTML = ''; 
+          targetTableBody.appendChild(row); 
         }
       
         // Function to extract post ID from the row
         function getPostIdFromRow(row) {
-          return row.querySelector('.view-details').dataset.id;
+            const viewDetailsButton = row.querySelector('.view-details');
+            if (!viewDetailsButton) {
+                console.error('No data-id found for row:', row);
+                return null;
+            }
+            return viewDetailsButton.dataset.id;
         }
       
         // Function to update post status in the database
