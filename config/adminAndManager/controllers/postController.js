@@ -3,44 +3,27 @@ const db = require('../db');
 
 // Retrieve posts grouped by status
 exports.getPostsByStatus = (req, res) => {
-  const status = req.query.status;
-
-  if (!status) {
-      return res.status(400).json({ error: 'Status is required.' });
-  }
-
-  const validStatuses = ['pending', 'approved', 'rejected'];
-  if (!validStatuses.includes(status)) {
-      return res.status(400).json({ error: `Invalid status. Allowed values are ${validStatuses.join(', ')}.` });
-  }
-
   const sql = `
-    SELECT 
-      posts.id AS post_id,
-      posts.content,
-      posts.created_at AS date,
-      posts.status,
-      users.email,
-      CONCAT(users.first_name, ' ', users.last_name) AS author
-    FROM posts
-    JOIN users ON posts.user_id = users.id
+      SELECT p.id AS post_id, p.content, p.created_at AS date,
+             u.email, CONCAT(u.first_name, ' ', u.last_name) AS author, p.status
+      FROM posts p
+      JOIN users u ON p.user_id = u.id
   `;
-
   db.query(sql, (err, results) => {
-    if (err) {
-      console.error('Database error:', err);
-      return res.status(500).json({ error: 'Failed to fetch posts.' });
-    }
-
-    const groupedPosts = {
-      pending: results.filter(post => post.status === 'pending'),
-      approved: results.filter(post => post.status === 'approved'),
-      rejected: results.filter(post => post.status === 'rejected'),
-    };
-
-    res.json(groupedPosts);
+      if (err) {
+          console.error('Database error:', err);
+          return res.status(500).json({ error: 'Failed to fetch posts.' });
+      }
+      // Group by status
+      const groupedPosts = {
+          pending: results.filter(post => post.status === 'pending'),
+          approved: results.filter(post => post.status === 'approved'),
+          rejected: results.filter(post => post.status === 'rejected'),
+      };
+      res.json(groupedPosts);
   });
 };
+
 
 // Retrives posts details by ID
 exports.getPostDetailsByID = (req, res) =>{
