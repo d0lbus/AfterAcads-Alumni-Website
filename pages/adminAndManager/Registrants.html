@@ -48,9 +48,25 @@
     <table class="user-table pending-table">
       <thead>
         <tr>
-          <th>First Name</th>
-          <th>Last Name</th>
-          <th>E-mail</th>
+          <th>First Name
+              <button class="sort-button" data-sort="asc" onclick="toggleSort(this, 2)">
+                  <span class="arrow-up">&#9650;</span>
+                  <span class="arrow-down">&#9660;</span>
+              </button>
+          </th>
+          </th>
+          <th>Last Name
+            <button class="sort-button" data-sort="asc" onclick="toggleSort(this, 2)">
+              <span class="arrow-up">&#9650;</span>
+              <span class="arrow-down">&#9660;</span>
+            </button>
+          </th>
+          <th>E-mail
+            <button class="sort-button" data-sort="asc" onclick="toggleSort(this, 2)">
+              <span class="arrow-up">&#9650;</span>
+              <span class="arrow-down">&#9660;</span>
+            </button>
+          </th>
           <th>Action</th>
         </tr>
       </thead>

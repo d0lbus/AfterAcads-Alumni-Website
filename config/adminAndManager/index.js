@@ -31,6 +31,9 @@ app.use('/style', express.static(path.join(__dirname, '../../style')));
 
 // Routes
 const userRoutes = require('./routes/users');
+const postRoutes = require('./routes/posts');
+
+app.use('/api/posts', postRoutes);
 app.use('/api/users', userRoutes);
 
 // Start server
