@@ -310,8 +310,9 @@
               moveToTable(row, 'denied-table');
               updatePostStatus(getPostIdFromRow(row), 'rejected');
             } else if (event.target.classList.contains('view-details')) {
-              const postId = event.target.dataset.id;
-              openPostDetailsModal(postId);
+                const row = event.target.closest('tr'); // Get the closest parent <tr>
+                const postId = getPostIdFromRow(row); // Use the revised getPostIdFromRow function
+                openPostDetailsModal(postId); // Pass the postId to the modal function
             }
           });
       
@@ -340,18 +341,19 @@
 
             posts.forEach(post => {
                 const row = document.createElement('tr');
+                row.setAttribute('data-id', post.post_id);
                 row.innerHTML = `
-                    <td>${post.post_id}</td>
+                    <td data-id="${post.post_id}">${post.post_id}</td>
                     <td>${post.email}</td>
                     <td>${post.author}</td>
                     <td>${post.content}</td>
                     <td>${new Date(post.date).toLocaleDateString()}</td>
                     <td class="action-buttons">
                         ${tableClass === 'pending-table' ? `
-                            <button class="btn approve" data-id="${post.post_id}">Approve</button>
-                            <button class="btn deny" data-id="${post.post_id}">Deny</button>
+                            <button class="btn approve">Approve</button>
+                            <button class="btn deny">Deny</button>
                         ` : ''}
-                        <button class="btn view-details" data-id="${post.post_id}">View Details</button>
+                        <button class="btn view-details">View Details</button>
                     </td>
                 `;
                 tableBody.appendChild(row);
@@ -368,35 +370,34 @@
       
         // Function to extract post ID from the row
         function getPostIdFromRow(row) {
-            const viewDetailsButton = row.querySelector('.view-details');
-            if (!viewDetailsButton) {
-                console.error('No data-id found for row:', row);
-                return null;
-            }
-            return viewDetailsButton.dataset.id;
+            return row.dataset.id; 
         }
       
         // Function to update post status in the database
         function updatePostStatus(postId, status) {
-          fetch('/api/posts/updateStatus', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ id: postId, status }),
-          })
+            if (!postId) {
+                console.error('Invalid postId:', postId);
+                return;
+            }
+            fetch('/api/posts/updateStatus', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id: postId, status }), // Ensure the payload matches the backend requirements
+            })
             .then((response) => {
-              if (!response.ok) {
-                throw new Error('Failed to update post status');
-              }
-              return response.json();
+                if (!response.ok) {
+                    throw new Error('Failed to update post status');
+                }
+                return response.json();
             })
             .then((data) => {
-              console.log(data.message);
+                console.log(data.message);
             })
             .catch((error) => {
-              console.error('Error updating post status:', error);
+                console.error('Error updating post status:', error);
             });
         }
-      
+    
         // Function to open the modal and fetch post details
         function openPostDetailsModal(postId) {
           const modal = document.getElementById('postDetailsModal');

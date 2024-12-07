@@ -88,6 +88,7 @@ exports.updatePostStatus = (req, res) => {
       SET status = ?
       WHERE id = ?
   `;
+  
   db.query(sql, [status, id], (err, results) => {
       if (err) {
           console.error('Database error:', err);
