@@ -5,7 +5,7 @@ const postController = require('../controllers/postController');
 // Retrieve posts by status
 router.get('/status', postController.getPostsByStatus);
 
-router.get('/details/:id', postController.updatePostStatus);
+router.get('/details/:id', postController.getPostDetailsByID);
 
 router.post('/updateStatus', postController.updatePostStatus);
 

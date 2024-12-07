@@ -104,18 +104,20 @@
         </table>
     </div>
 
-    <div class="post-details-modal" id="postDetailsModal">
+    <div class="post-details-modal" id="postDetailsModal" style="display: none;">
         <div class="modal-content">
-            <div class="modal-content-pending">
-                <span class="close-btn" id="closeModal">&times;</span>
-                <h2>Post Details</h2>
-                <hr class="modal-divider">
-                <p><strong>Username:</strong> <span id="postName"></span></p>
-                <p><strong>Content:</strong> <span id="postContent"></span></p>
-                <p><strong>Image:</strong> <span id="postImage"></span></p>
-                <p><strong>Tag:</strong> <span id="postTag"></span></p>
-                <p><strong>Date:</strong> <span id="postDate"></span></p>
-            </div>
+          <span class="close-btn" id="closeModal">&times;</span>
+          <h2>Post Details</h2>
+          <hr class="modal-divider">
+          <p><strong>Email:</strong> <span id="postEmail"></span></p>
+          <p><strong>Author:</strong> <span id="postAuthor"></span></p>
+          <p><strong>Content:</strong> <span id="postContent"></span></p>
+          <p><strong>Date:</strong> <span id="postDate"></span></p>
+          <p><strong>School:</strong> <span id="postSchool"></span></p>
+          <p><strong>Course:</strong> <span id="postCourse"></span></p>
+          <p><strong>Batch:</strong> <span id="postBatch"></span></p>
+          <p><strong>Image:</strong></p>
+          <img id="postImage" style="display: none; max-width: 100%;" />
         </div>
     </div>
 
@@ -277,31 +279,31 @@
 
     <!-- Script for Populating Tables and Button Functionalities-->
     <script>
-        document.addEventListener("DOMContentLoaded", () => {
+        document.addEventListener('DOMContentLoaded', () => {
           // Fetch and populate posts
           fetch('/api/posts/status')
-            .then(response => {
+            .then((response) => {
               if (!response.ok) {
                 throw new Error('Failed to fetch posts');
               }
               return response.json();
             })
-            .then(data => {
+            .then((data) => {
               populateTable('pending-table', data.pending);
               populateTable('approved-table', data.approved);
               populateTable('denied-table', data.rejected);
             })
-            .catch(error => {
+            .catch((error) => {
               console.error('Error fetching posts:', error);
             });
       
           // Event listeners for approve/reject/view-details buttons
-          document.addEventListener('click', event => {
+          document.addEventListener('click', (event) => {
             if (event.target.classList.contains('approve')) {
               const row = event.target.closest('tr');
               moveToTable(row, 'approved-table');
               updatePostStatus(getPostIdFromRow(row), 'approved');
-            } else if (event.target.classList.contains('reject')) {
+            } else if (event.target.classList.contains('deny')) {
               const row = event.target.closest('tr');
               moveToTable(row, 'denied-table');
               updatePostStatus(getPostIdFromRow(row), 'rejected');
@@ -321,7 +323,7 @@
           }
       
           // Close modal when clicking outside
-          window.addEventListener('click', event => {
+          window.addEventListener('click', (event) => {
             const modal = document.getElementById('postDetailsModal');
             if (event.target === modal) {
               modal.style.display = 'none';
@@ -334,7 +336,7 @@
           const tableBody = document.querySelector(`.${tableClass} tbody`);
           tableBody.innerHTML = '';
       
-          posts.forEach(post => {
+          posts.forEach((post) => {
             const row = document.createElement('tr');
             row.innerHTML = `
               <td>${post.email}</td>
@@ -344,7 +346,7 @@
               <td class="action-buttons">
                 ${tableClass === 'pending-table' ? `
                   <button class="btn approve">Approve</button>
-                  <button class="btn denied">Reject</button>
+                  <button class="btn deny">Deny</button>
                 ` : ''}
                 <button class="btn view-details" data-id="${post.post_id}">View Details</button>
               </td>
@@ -372,16 +374,16 @@
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ id: postId, status }),
           })
-            .then(response => {
+            .then((response) => {
               if (!response.ok) {
                 throw new Error('Failed to update post status');
               }
               return response.json();
             })
-            .then(data => {
+            .then((data) => {
               console.log(data.message);
             })
-            .catch(error => {
+            .catch((error) => {
               console.error('Error updating post status:', error);
             });
         }
@@ -391,23 +393,35 @@
           const modal = document.getElementById('postDetailsModal');
       
           fetch(`/api/posts/details/${postId}`)
-            .then(response => {
+            .then((response) => {
               if (!response.ok) {
                 throw new Error('Failed to fetch post details');
               }
               return response.json();
             })
-            .then(data => {
+            .then((data) => {
               document.getElementById('postEmail').innerText = data.email || 'N/A';
               document.getElementById('postAuthor').innerText = data.author || 'N/A';
               document.getElementById('postContent').innerText = data.content || 'N/A';
               document.getElementById('postDate').innerText = new Date(data.date).toLocaleDateString() || 'N/A';
+              document.getElementById('postSchool').innerText = data.school || 'N/A';
+              document.getElementById('postCourse').innerText = data.course || 'N/A';
+              document.getElementById('postBatch').innerText = data.batch || 'N/A';
+      
+              const postImage = document.getElementById('postImage');
+              if (data.image) {
+                postImage.src = `data:image/jpeg;base64,${data.image}`;
+                postImage.style.display = 'block';
+              } else {
+                postImage.style.display = 'none';
+              }
       
               modal.style.display = 'block';
             })
-            .catch(error => console.error('Error fetching post details:', error));
+            .catch((error) => console.error('Error fetching post details:', error));
         }
     </script>
+      
 </body>
 
 </html>
