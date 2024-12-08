@@ -105,7 +105,18 @@ exports.updateEvent = (req, res) => {
     WHERE id = ?
   `;
 
-  const values = [title, description, date, time, location, host, school_id, altText, imagePath, eventId];
+  const values = [
+    title || null,
+    description || null,
+    date || null,
+    time || null,
+    location || null,
+    host || null,
+    school_id || null,
+    altText || null,
+    imagePath || null,
+    eventId,
+  ];
 
   // Log the SQL query and the values being passed
   console.log('SQL Query:', sql);
