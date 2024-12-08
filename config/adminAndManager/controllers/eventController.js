@@ -1,8 +1,5 @@
 const db = require('../db');
-const multer = require('multer');
-
-// Multer setup for parsing FormData
-const upload = multer();
+const path = require('path');
 
 // Retrieve events grouped by status
 exports.getEventsByStatus = (req, res) => {
@@ -96,82 +93,27 @@ exports.getEventDetailsById = (req, res) => {
 
 // Update Event Functionality
 exports.updateEvent = (req, res) => {
-  upload.none()(req, res, (err) => {
-      if (err) {
-          console.error('Multer error:', err);
-          return res.status(500).json({ error: 'Failed to process form data' });
-      }
-
-      const {
-          eventId,
-          eventTitle,
-          eventDescription,
-          eventDate,
-          eventTime,
-          eventLocation,
-          eventHost,
-          eventSchool,
-          altText,
-      } = req.body;
-
-      const eventImage = req.file ? req.file.filename : null;
-
-      // Validation
-      if (
-          !eventId ||
-          !eventTitle ||
-          !eventDescription ||
-          !eventDate ||
-          !eventTime ||
-          !eventLocation ||
-          !eventHost ||
-          !eventSchool
-      ) {
-          return res.status(400).json({ error: 'Missing required fields' });
-      }
+  try {
+      const { eventId, title, description, date, time, location, host, school } = req.body;
+      const imagePath = req.file ? req.file.filename : null;
 
       // Update query
       const query = `
-          UPDATE events
-          SET 
-              title = ?, 
-              description = ?, 
-              date = ?, 
-              time = ?, 
-              location = ?, 
-              host = ?, 
-              school_id = ?, 
-              image_path = ?, 
-              alt_text = ?
+          UPDATE events 
+          SET title = ?, description = ?, date = ?, time = ?, location = ?, host = ?, school_id = ?, image_path = ? 
           WHERE id = ?
       `;
 
-      const params = [
-          eventTitle,
-          eventDescription,
-          eventDate,
-          eventTime,
-          eventLocation,
-          eventHost,
-          eventSchool,
-          eventImage || null, // Handle optional file upload
-          altText || null,
-          eventId,
-      ];
+      const values = [title, description, date, time, location, host, school, imagePath, eventId];
 
-      db.query(query, params, (err, results) => {
-          if (err) {
-              console.error('Database error:', err);
-              return res.status(500).json({ error: 'Failed to update event' });
-          }
+      // Execute query
+      db.query(query, values);
 
-          if (results.affectedRows === 0) {
-              return res.status(404).json({ error: 'Event not found' });
-          }
-
-          res.json({ message: 'Event updated successfully' });
-      });
-  });
+      res.json({ message: 'Event updated successfully' });
+  } catch (error) {
+      console.error('Error updating event:', error);
+      res.status(500).json({ error: 'Failed to update event' });
+  }
 };
 
 
