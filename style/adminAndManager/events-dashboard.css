@@ -178,7 +178,7 @@ img.afteracadstext {
 }
 
 /* Common Button Styling */
-.button-group .btn {
+.button-group .btn{
   padding: 10px 20px;
   border-radius: 5px;
   font-size: 14px;
@@ -193,7 +193,7 @@ img.afteracadstext {
 }
 
 /* Specific Button Styles */
-.button-group .btn.upcoming {
+.button-group .btn-upcoming {
   background-color: #003f91; /* Blue for Upcoming Events */
   color: white;
 }

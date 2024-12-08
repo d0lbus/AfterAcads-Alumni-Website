@@ -1,8 +1,5 @@
 const db = require('../db');
 
-
-
-
 // Retrieve events grouped by status
 exports.getEventsByStatus = (req, res) => {
   const sql = `
@@ -65,6 +62,78 @@ exports.getSchools = (req, res) => {
       res.json(results);
   });
 };
+
+// Get event details by ID
+exports.getEventDetailsById = (req, res) => {
+  const eventId = req.params.id;
+
+  const sql = `
+      SELECT e.id AS event_id, e.title, e.description, e.date, e.time, e.location,
+             e.host, e.image_path, e.alt_text, s.name AS school
+      FROM events e
+      LEFT JOIN schools s ON e.school_id = s.id
+      WHERE e.id = ?
+  `;
+
+  db.query(sql, [eventId], (err, results) => {
+      if (err) {
+          console.error("Database error:", err);
+          return res.status(500).json({ error: "Failed to fetch event details." });
+      }
+
+      if (results.length === 0) {
+          return res.status(404).json({ error: "Event not found." });
+      }
+
+      const event = results[0];
+      res.json(event);
+  });
+};
+
+// Update event details
+exports.updateEvent = (req, res) => {
+  const {
+      event_id,
+      title,
+      description,
+      date,
+      time,
+      location,
+      host,
+      school_id,
+      alt_text,
+      image_path,
+  } = req.body;
+
+  const sql = `
+      UPDATE events
+      SET 
+          title = ?, 
+          description = ?, 
+          date = ?, 
+          time = ?, 
+          location = ?, 
+          host = ?, 
+          school_id = ?, 
+          alt_text = ?, 
+          image_path = ?
+      WHERE id = ?
+  `;
+
+  db.query(
+      sql,
+      [title, description, date, time, location, host, school_id, alt_text, image_path, event_id],
+      (err, results) => {
+          if (err) {
+              console.error("Database error:", err);
+              return res.status(500).json({ error: "Failed to update event." });
+          }
+
+          res.json({ message: "Event updated successfully." });
+      }
+  );
+};
+
 
 
 exports.getEventStatistics = (req, res) => {
