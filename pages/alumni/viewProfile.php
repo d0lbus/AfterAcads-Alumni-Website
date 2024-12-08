@@ -15,7 +15,12 @@ $logged_in_user_id = $user['id'];
 if (isset($_GET['user_id']) && !empty($_GET['user_id'])) {
     $profile_user_id = intval($_GET['user_id']); // Set profile_user_id for viewing another user's profile
 
-    $stmt = $conn->prepare("SELECT * FROM users WHERE id = ?");
+    $stmt = $conn->prepare("SELECT u.*, s.name AS school_name, c.name AS course_name, b.batch_number
+                        FROM users u
+                        LEFT JOIN schools s ON u.school_id = s.id
+                        LEFT JOIN courses c ON u.course_id = c.id
+                        LEFT JOIN batches b ON u.batch_id = b.id
+                        WHERE u.id = ?");
     $stmt->bind_param("i", $profile_user_id); // Use profile_user_id for the query
     $stmt->execute();
     $result = $stmt->get_result();
