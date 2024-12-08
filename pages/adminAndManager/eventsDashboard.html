@@ -463,6 +463,17 @@
             }
         });
     </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const addButton = document.querySelector(".btn-add");
+            addButton.addEventListener("click", (event) => {
+                event.preventDefault(); 
+                window.location.href = "addEvents.html"; 
+            });
+        });
+
+    </script>
 </body>
 
 </html>
