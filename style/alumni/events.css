@@ -1,5 +1,7 @@
+/* Font sourced from Google Fonts: Poppins - https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap */
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap");
 
+/* Citation: Variables and Design Tokens - ChatGPT (2024) */
 :root {
   --color-main: #1a202e;
   --color-light: #f5f5f5;
@@ -9,6 +11,7 @@
   --color-sidebar-text: #000000;
 }
 
+/* Citation: Universal Reset for CSS - ChatGPT (2024) */
 * {
   font-family: "Poppins", sans-serif;
   box-sizing: border-box;
@@ -18,6 +21,7 @@
   padding: 0;
 }
 
+/* Citation: Sidebar Design - YouTube (Channel: Coding Addict, Video: "Responsive Sidebar Navigation") */
 .sidebar {
   width: 280px;
   position: fixed;
@@ -33,12 +37,14 @@
   z-index: 100;
 }
 
+/* Citation: Fixed Sidebar with Transition - ChatGPT (2024) */
 .sidebar.minimized {
   width: 60px;
   padding-left: 0.5rem;
   overflow-y: hidden;
 }
 
+/* Citation: Flexbox Centering Techniques - Stack Overflow: https://stackoverflow.com/questions/39223594/ */
 .sidebar-brand {
   height: 100px;
   display: flex;
@@ -101,6 +107,7 @@
   overflow: hidden;
 }
 
+/* Citation: Image Hover Effects - W3Schools: https://www.w3schools.com/css/css_image_gallery.asp */
 .sidebar-user a img {
   width: 110px;
   height: 110px;
@@ -167,6 +174,7 @@
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
 }
 
+/* Citation: CSS Styling for Buttons - ChatGPT (2024) */
 .logout-button {
   display: flex;
   align-items: center;
@@ -526,7 +534,7 @@ small {
   pointer-events: none;
 }
 
-/* Media Query for smaller screens */
+/* Citation: Responsive Design Media Queries - W3Schools: https://www.w3schools.com/css/css_rwd_mediaqueries.asp */
 @media (max-width: 1024px) {
   .sidebar {
     width: 220px;
@@ -547,6 +555,7 @@ small {
   }
 }
 
+/* Citation: Responsive Design Adjustments for Smaller Screens - ChatGPT (2024) */
 @media (max-width: 768px) {
   .sidebar {
     width: 100px;

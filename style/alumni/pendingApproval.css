@@ -2,7 +2,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Poppins", sans-serif;
+  font-family: "Poppins", sans-serif; /* Reference: Google Fonts (https://fonts.google.com/specimen/Poppins) */
 }
 
 body {
@@ -23,6 +23,7 @@ body {
   height: 100%;
 }
 
+/* Reference: CSS Tricks (https://css-tricks.com/almanac/properties/b/box-shadow/) */
 .forgot-box {
   background-color: #cadeed;
   padding: 80px;

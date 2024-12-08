@@ -1,3 +1,4 @@
+/* Citation: Google Fonts - Poppins Font - https://fonts.google.com/ */
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap");
 
 :root {
@@ -9,6 +10,8 @@
   --color-sidebar-text: #000000;
 }
 
+/* Citation: CSS Universal Selector - MDN Web Docs: https://developer.mozilla.org/en-US/docs/Web/CSS/* */
+  /* Citation: CSS Box Model - MDN Web Docs: https://developer.mozilla.org/en-US/docs/Web/CSS/box-sizing */
 * {
   font-family: "Poppins", sans-serif;
   box-sizing: border-box;
@@ -27,6 +30,7 @@
 }
 
 /* Sidebar styles */
+/* Citation: CSS Transition Property - MDN Web Docs: https://developer.mozilla.org/en-US/docs/Web/CSS/transition */
 .sidebar {
   width: 280px;
   position: fixed;
@@ -76,6 +80,7 @@
   display: block;
 }
 
+/* Citation: CSS Object Fit Property - MDN Web Docs: https://developer.mozilla.org/en-US/docs/Web/CSS/object-fit */
 .sidebar-user {
   margin: 1rem 0rem;
   text-align: center;
@@ -110,6 +115,7 @@
   overflow: hidden;
 }
 
+/* Citation: CSS Transform Property - MDN Web Docs: https://developer.mozilla.org/en-US/docs/Web/CSS/transform */
 .sidebar-user a img {
   width: 110px;
   height: 110px;
@@ -157,6 +163,7 @@
   margin-right: 0.8rem;
 }
 
+/* Citation: CSS Hover Effects - MDN Web Docs: https://developer.mozilla.org/en-US/docs/Web/CSS/:hover */
 .sidebar-menu li a:hover {
   background-color: var(--color-accent);
   color: #fff;
@@ -176,6 +183,7 @@
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
 }
 
+/* Citation: CSS Cursor Property - MDN Web Docs: https://developer.mozilla.org/en-US/docs/Web/CSS/cursor */
 .logout-button {
   display: flex;
   align-items: center;
@@ -241,6 +249,7 @@ small {
 }
 
 /* Search Bar Styling */
+/* Citation: CSS Box Shadow - MDN Web Docs: https://developer.mozilla.org/en-US/docs/Web/CSS/box-shadow */
 .header-search-bar {
   display: flex;
   align-items: center;
@@ -281,6 +290,7 @@ small {
   gap: 16px;
 }
 
+/* Citation: CSS Border Radius - W3Schools: https://www.w3schools.com/css/css_border_radius.asp */
 .card {
   display: flex;
   align-items: center;
@@ -374,6 +384,7 @@ small {
 }
 
 /* Opportunity Card */
+/* Citation: CSS Box Shadow - MDN Web Docs: https://developer.mozilla.org/en-US/docs/Web/CSS/box-shadow */
 .opportunity-card {
   background-color: #fff;
   border: 1px solid #ddd;
@@ -386,6 +397,7 @@ small {
   transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 }
 
+/* Citation: CSS Transform Property - MDN Web Docs: https://developer.mozilla.org/en-US/docs/Web/CSS/transform */
 .opportunity-card:hover {
   transform: translateY(-3px);
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
@@ -435,6 +447,7 @@ small {
   cursor: pointer;
 }
 
+/* Citation: CSS Hover Effects - MDN Web Docs: https://developer.mozilla.org/en-US/docs/Web/CSS/:hover */
 .apply-button:hover {
   background-color: #4b6d8a;
 }

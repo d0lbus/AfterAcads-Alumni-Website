@@ -1,5 +1,7 @@
+/* Font sourced from Google Fonts: Poppins - https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap */
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap");
 
+/* Citation: CSS Custom Properties (Variables) - MDN Web Docs: https://developer.mozilla.org/en-US/docs/Web/CSS/--* */
 :root {
   --color-main: #1a202e;
   --color-light: #f5f5f5;
@@ -9,6 +11,7 @@
   --color-sidebar-text: #000000;
 }
 
+/* Citation: General CSS Resets - W3Schools: https://www.w3schools.com/css/css_reset.asp */
 * {
   font-family: "Poppins", sans-serif;
   box-sizing: border-box;
@@ -18,6 +21,7 @@
   padding: 0;
 }
 
+/* Citation: CSS for Circular Elements - W3Schools: https://www.w3schools.com/css/css_images.asp */
 .logocircle {
   width: 40px;
   height: 40px;
@@ -27,6 +31,8 @@
 }
 
 /* Sidebar styles */
+
+/* Citation: Fixed Positioning - MDN Web Docs: https://developer.mozilla.org/en-US/docs/Web/CSS/position */
 .sidebar {
   width: 280px;
   position: fixed;
@@ -42,12 +48,14 @@
   z-index: 100;
 }
 
+/* Citation: CSS Transitions - W3Schools: https://www.w3schools.com/css/css3_transitions.asp */
 .sidebar.minimized {
   width: 60px;
   padding-left: 0.5rem;
   overflow-y: hidden;
 }
 
+/* Citation: Flexbox Layout - MDN Web Docs: https://developer.mozilla.org/en-US/docs/Web/CSS/flex */
 .sidebar-brand {
   height: 100px;
   display: flex;
@@ -55,23 +63,27 @@
   align-items: center;
 }
 
+/* Citation: Flexbox Layout - MDN Web Docs: https://developer.mozilla.org/en-US/docs/Web/CSS/flex */
 .brand-flex {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
+/* Citation: Styling Links - W3Schools: https://www.w3schools.com/css/css_links.asp */
 .brand-icon a {
   margin-left: 7px;
   display: inline-block;
   text-decoration: none;
 }
 
+/* Citation: CSS Font Styling - MDN Web Docs: https://developer.mozilla.org/en-US/docs/Web/CSS/font-size */
 .brand-icon span {
   font-size: 1.8rem;
   color: var(--color-sidebar-text);
 }
 
+/* Citation: CSS Display Property - MDN Web Docs: https://developer.mozilla.org/en-US/docs/Web/CSS/display */
 .sidebar-content {
   display: block;
 }
@@ -81,10 +93,12 @@
   text-align: center;
 }
 
+/* Citation: CSS for Hiding Elements - MDN Web Docs: https://developer.mozilla.org/en-US/docs/Web/CSS/display */
 .sidebar.minimized .sidebar-content {
   display: none;
 }
 
+/* Citation: CSS for Circular Images and Object Fit - MDN Web Docs: https://developer.mozilla.org/en-US/docs/Web/CSS/object-fit */
 .sidebar-user img {
   width: 110px;
   height: 110px;
@@ -93,22 +107,25 @@
   object-fit: cover; 
 }
 
-
+/* Citation: CSS Font Weight - MDN Web Docs: https://developer.mozilla.org/en-US/docs/Web/CSS/font-weight */
 .sidebar-user h3 {
   font-size: 1.1rem;
   font-weight: 600;
   margin: 0.5rem 0;
 }
 
+/* Citation: CSS Color Property - W3Schools: https://www.w3schools.com/css/css_colors.asp */
 .sidebar-user span {
   font-size: 0.85rem;
   color: #000000;
 }
 
+/* Citation: CSS Margin Property - W3Schools: https://www.w3schools.com/css/css_margin.asp */
 .sidebar-menu {
   margin-top: 2rem;
 }
 
+/* Citation: CSS Text Transform Property - MDN Web Docs: https://developer.mozilla.org/en-US/docs/Web/CSS/text-transform */
 .menu-head {
   text-transform: uppercase;
   color: var(--color-accent);
@@ -117,15 +134,18 @@
   margin-bottom: 1rem;
 }
 
+/* Citation: CSS Margin Property - W3Schools: https://www.w3schools.com/css/css_margin.asp */
 .sidebar-menu ul {
   margin-bottom: 1.5rem;
   padding-left: 0;
 }
 
+/* Citation: CSS Margin Property - W3Schools: https://www.w3schools.com/css/css_margin.asp */
 .sidebar-menu li {
   margin-bottom: 1rem;
 }
 
+/* Citation: CSS Flexbox Layout - MDN Web Docs: https://developer.mozilla.org/en-US/docs/Web/CSS/flex */
 .sidebar-menu li a {
   color: var(--color-sidebar-text);
   display: flex;
@@ -136,30 +156,36 @@
   border-radius: 6px;
 }
 
+/* Citation: CSS Margin Property - W3Schools: https://www.w3schools.com/css/css_margin.asp */
 .sidebar-menu li a span {
   font-size: 1.5rem;
   margin-right: 0.8rem;
 }
 
+/* Citation: CSS Hover Effects - MDN Web Docs: https://developer.mozilla.org/en-US/docs/Web/CSS/:hover */
 .sidebar-menu li a:hover {
   background-color: var(--color-accent);
   color: #fff;
 }
 
+/* Citation: Responsive Font Size - MDN Web Docs: https://developer.mozilla.org/en-US/docs/Web/CSS/font-size */
 .sidebar.minimized .sidebar-menu li a {
   justify-content: center;
   padding: 0.5rem 0;
   font-size: 1.2rem;
 }
 
+/* Citation: CSS Margin Property - W3Schools: https://www.w3schools.com/css/css_margin.asp */
 .sidebar.minimized .sidebar-menu li a span {
   margin-right: 0;
 }
 
+/* Citation: CSS Box Shadow Property - MDN Web Docs: https://developer.mozilla.org/en-US/docs/Web/CSS/box-shadow */
 .sidebar {
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
 }
 
+/* Citation: CSS Display and Transition Properties - W3Schools: https://www.w3schools.com/css/css_display.asp, https://www.w3schools.com/css/css3_transitions.asp */
 .logout-button {
   display: flex;
   align-items: center;
@@ -175,20 +201,25 @@
   transition: background-color 0.3s ease;
 }
 
+/* Citation: CSS Margin Property - W3Schools: https://www.w3schools.com/css/css_margin.asp */
 .logout-button span {
   margin-right: 0.8rem;
 }
 
+/* Citation: CSS Vertical Alignment - MDN Web Docs: https://developer.mozilla.org/en-US/docs/Web/CSS/vertical-align */
 .logout-button img {
   vertical-align: middle;
 }
 
+/* Citation: CSS Hover Effects - MDN Web Docs: https://developer.mozilla.org/en-US/docs/Web/CSS/:hover */
 .logout-button:hover {
   background-color: var(--color-accent);
   color: #fff;
 }
 
 /* Main content styles */
+
+/* Citation: CSS Margin and Transition Properties - W3Schools: https://www.w3schools.com/css/css_margin.asp, https://www.w3schools.com/css/css3_transitions.asp */
 .main-content {
   margin-left: 320px;
   margin-right: 350px;
@@ -197,6 +228,7 @@
   transition: margin-left 0.3s ease, margin-right 0.3s ease;
 }
 
+/* Citation: General Sibling Selector - MDN Web Docs: https://developer.mozilla.org/en-US/docs/Web/CSS/~ */
 .sidebar.minimized ~ .main-content {
   margin-left: 60px;
 }
@@ -205,11 +237,13 @@
   width: 290px;
 }
 
+/* Citation: CSS Height and Width - MDN Web Docs: https://developer.mozilla.org/en-US/docs/Web/CSS/width */
 .logo-header {
   width: 60px;
   height: 50px;
 }
 
+/* Citation: CSS Margin Property - W3Schools: https://www.w3schools.com/css/css_margin.asp */
 header {
   margin-top: 30px;
   position: relative;
@@ -235,6 +269,8 @@ small {
 }
 
 /* Search Bar Styling */
+
+/* Citation: CSS Flexbox and Box Shadow - MDN Web Docs: https://developer.mozilla.org/en-US/docs/Web/CSS/flex, https://developer.mozilla.org/en-US/docs/Web/CSS/box-shadow */
 .header-search-bar {
   display: flex;
   align-items: center;
@@ -245,6 +281,7 @@ small {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+/* Citation: CSS Outline Property - MDN Web Docs: https://developer.mozilla.org/en-US/docs/Web/CSS/outline, CSS Flexbox - MDN Web Docs */
 .search-input {
   border: none;
   outline: none;
@@ -252,6 +289,7 @@ small {
   flex-grow: 1;
 }
 
+/* Citation: CSS for Buttons - W3Schools: https://www.w3schools.com/css/css_buttons.asp */
 .header-search-bar .search-button {
   border: none;
   background: transparent;
@@ -261,6 +299,7 @@ small {
   margin-left: 8px;
 }
 
+/* Citation: CSS Hover Effects - MDN Web Docs: https://developer.mozilla.org/en-US/docs/Web/CSS/:hover */
 .header-search-bar .search-button:hover {
   color: #007bff;
 }

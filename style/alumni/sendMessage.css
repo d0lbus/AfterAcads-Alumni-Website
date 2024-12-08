@@ -1,3 +1,4 @@
+/* Font sourced from Google Fonts: Poppins - https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap */
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap");
 
 :root {
@@ -46,6 +47,7 @@ body {
   z-index: 100;
 }
 
+/* Citation: Stack Overflow for using class toggling for responsive behavior - [Stack Overflow](https://stackoverflow.com/questions/21125950/how-to-toggle-class-in-javascript) */
 .sidebar.minimized {
   width: 60px; 
   padding-left: 0.5rem; 
@@ -122,6 +124,7 @@ body {
   transition: transform 0.3s ease; 
 }
 
+/* Citation: ChatGPT for hover effects and transitions */
 .sidebar-user a:hover img {
   transform: scale(1.05);
 }
@@ -167,6 +170,7 @@ body {
   color: #fff;
 }
 
+/* Citation: ChatGPT for using `:hover` effects to change background and text color */
 .sidebar.minimized .sidebar-menu li a {
   justify-content: center; 
   padding: 0.5rem 0;
@@ -223,6 +227,7 @@ body {
   transition: margin-left 0.3s ease, margin-right 0.3s ease;
 }
 
+/* Citation: w3schools for responsive layout adjustments - [w3schools](https://www.w3schools.com/css/css_responsive.asp) */
 .sidebar.minimized ~ .main-content {
   margin-left: 60px;
 }
@@ -277,6 +282,7 @@ header {
 
 
   /* Chat Styles */
+  /* Citation: ChatGPT for creating a visually consistent chat component */
 .message-container {
     background-color: #fff;
     border-radius: 8px;
