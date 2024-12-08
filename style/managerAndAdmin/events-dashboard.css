@@ -171,7 +171,7 @@ img.afteracadstext {
   align-items: center;
   gap: 10px;
   flex-wrap: wrap;
-  margin-top: 20px; /* Adds space between the search/filter and buttons */
+  margin-top: 5px; /* Adds space between the search/filter and buttons */
   justify-content: flex-end;
   position: relative;
   z-index: 1; /* Ensures it appears above content */
