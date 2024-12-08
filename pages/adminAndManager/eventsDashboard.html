@@ -52,6 +52,7 @@
         <table class="event-table upcoming-table">
                 <thead>
                 <tr>
+                    <th>Event ID</th>
                     <th>Event</th>
                     <th>Host</th>
                     <th>
@@ -75,6 +76,7 @@
         <table class="event-table finished-table" style="display: none;">
                 <thead>
                 <tr>
+                    <th>Event ID</th>
                     <th>Event</th>
                     <th>Host</th>
                     <th>Date</th>
@@ -91,6 +93,7 @@
         <table class="event-table archived-table" style="display: none;">
                 <thead>
                 <tr>
+                    <th>Event ID</th>
                     <th>Event</th>
                     <th>Host</th>
                     <th>Date</th>
@@ -114,8 +117,9 @@
                 <label for="eventImagePreview">Event Image Preview:</label>
                 <img id="eventImagePreview" style="display: none; max-width: 100%; height: auto;" alt="Event Image Preview">                
 
-                <!-- Hidden Event ID-->
-                <input type="hidden" id="eventId" name="eventId" />
+                <!-- Event ID-->
+                <label for="eventID">ID:</label>
+                <input type="text" id="eventId" name="eventId" readonly />
 
                 <!-- Title -->
                 <label for="eventTitle">Title:</label>
@@ -199,26 +203,18 @@
                 })
                 .catch(error => console.error('Error fetching events:', error));
     
-             // Fetch and populate schools for both dropdowns
+             // Fetch and populate schools 
             fetch('/api/events/schools')
                 .then(response => {
                     if (!response.ok) throw new Error('Failed to fetch schools');
                     return response.json();
                 })
                 .then(data => {
-                    // Populate the first dropdown
+                    // Populate Dropdown in Dashboard
                     if (mainDropdown) {
                         mainDropdown.innerHTML = `<option value="">Filter by School</option>`;
                         data.forEach(school => {
                             mainDropdown.innerHTML += `<option value="${school.name}">${school.name}</option>`;
-                        });
-                    }
-
-                    // Populate the second dropdown (eventSchool)
-                    if (eventSchoolDropdown) {
-                        eventSchoolDropdown.innerHTML = `<option value="">Select School</option>`;
-                        data.forEach(school => {
-                            eventSchoolDropdown.innerHTML += `<option value="${school.id}">${school.name}</option>`;
                         });
                     }
                 })
@@ -271,6 +267,7 @@
                 events.forEach(event => {
                     const row = document.createElement("tr");
                     row.innerHTML = `
+                        <td>${event.event_id}</td>
                         <td>${event.title}</td>
                         <td>${event.host}</td>
                         <td>${new Date(event.date).toLocaleDateString()}</td>
@@ -317,34 +314,64 @@
                     .then(data => console.log(data.message))
                     .catch(error => console.error("Error updating event status:", error));
             }
-    
-            // Open modal and populate fields
-            function openEditEventModal(eventId) {
-                fetch(`/api/events/details/${eventId}`)
+
+            // Populate schools dropdown in Modal
+            function populateSchoolsDropdown() {
+                return fetch('/api/events/schools')
                     .then(response => {
-                        if (!response.ok) throw new Error("Failed to fetch event details");
+                        if (!response.ok) throw new Error("Failed to fetch schools");
                         return response.json();
                     })
                     .then(data => {
-                        document.getElementById("eventTitle").value = data.title || "";
-                        document.getElementById("eventDescription").value = data.description || "";
-                        document.getElementById("eventDate").value = data.date || "";
-                        document.getElementById("eventTime").value = data.time || "";
-                        document.getElementById("eventLocation").value = data.location || "";
-                        document.getElementById("eventHost").value = data.host || "";
-                        document.getElementById("eventSchool").value = data.school || "";
-    
-                        const eventImagePreview = document.getElementById("eventImagePreview");
-                        if (data.image_path) {
-                            eventImagePreview.src = `/uploads/${data.image_path}`;
-                            eventImagePreview.style.display = "block";
-                        } else {
-                            eventImagePreview.style.display = "none";
-                        }
-    
-                        modal.style.display = "block";
+                        const schoolDropdown = document.getElementById("eventSchool");
+                        schoolDropdown.innerHTML = `<option value="">Select School</option>`;
+                        data.forEach(school => {
+                            schoolDropdown.innerHTML += `<option value="${school.id}">${school.name}</option>`;
+                        });
                     })
-                    .catch(error => console.error("Error fetching event details:", error));
+                    .catch(error => console.error("Error fetching schools:", error));
+            }
+
+    
+            // Open modal and populate fields
+            async function openEditEventModal(eventId) {
+                try {
+                    // Ensure schools dropdown is populated before setting the value
+                    await populateSchoolsDropdown();
+
+                    // Fetch event details
+                    const response = await fetch(`/api/events/details/${eventId}`);
+                    if (!response.ok) throw new Error("Failed to fetch event details");
+                    const data = await response.json();
+
+                    // Populate modal fields
+                    document.getElementById("eventId").value = data.event_id || "";
+                    document.getElementById("eventTitle").value = data.title || "";
+                    document.getElementById("eventDescription").value = data.description || "";
+                    document.getElementById("eventDate").value = data.date || "";
+                    document.getElementById("eventTime").value = data.time || "";
+                    document.getElementById("eventLocation").value = data.location || "";
+                    document.getElementById("eventHost").value = data.host || "";
+
+                    // Set selected school
+                    const schoolDropdown = document.getElementById("eventSchool");
+                    schoolDropdown.value = data.school_id || ""; // Ensure `data.school_id` matches the `value` of dropdown options
+
+                    // Handle image preview
+                    const eventImagePreview = document.getElementById("eventImagePreview");
+                    if (data.image_path) {
+                        eventImagePreview.src = `/uploads/${data.image_path}`;
+                        eventImagePreview.style.display = "block";
+                    } else {
+                        eventImagePreview.style.display = "none";
+                    }
+
+                    // Show modal
+                    const modal = document.getElementById("eventDetailsModal");
+                    modal.style.display = "block";
+                } catch (error) {
+                    console.error("Error opening edit modal:", error);
+                }
             }
     
 

@@ -70,7 +70,7 @@ exports.getEventDetailsById = (req, res) => {
 
   const sql = `
       SELECT e.id AS event_id, e.title, e.description, e.date, e.time, e.location,
-             e.host, e.image_path, e.alt_text, s.name AS school
+            e.host, e.image_path, e.alt_text, e.school_id, s.name AS school
       FROM events e
       LEFT JOIN schools s ON e.school_id = s.id
       WHERE e.id = ?

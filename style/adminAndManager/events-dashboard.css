@@ -402,6 +402,11 @@ img.afteracadstext {
   min-height: 100px;
 }
 
+input[readonly] {
+  background-color: #f5f5f5; 
+  cursor: not-allowed;     
+}
+
 /* Save Button */
 .event-details-modal #saveChanges {
   background-color: #4CAF50;
