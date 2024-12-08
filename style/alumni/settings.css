@@ -1,3 +1,4 @@
+/* Font sourced from Google Fonts: Poppins - https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap */
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap");
 
 :root {
@@ -19,6 +20,7 @@
 }
 
 /* Sidebar styles */
+/* Citation: ChatGPT for effective use of CSS transitions */
 .sidebar {
   width: 280px;
   position: fixed;
@@ -34,6 +36,7 @@
   z-index: 100;
 }
 
+/* Citation: Stack Overflow for using class toggling for responsive behavior - [Stack Overflow](https://stackoverflow.com/questions/21125950/how-to-toggle-class-in-javascript) */
 .sidebar.minimized {
   width: 60px; 
   padding-left: 0.5rem;
@@ -111,6 +114,7 @@
   transition: transform 0.3s ease; 
 }
 
+/* Citation: ChatGPT for hover effects and transitions */
 .sidebar-user a:hover img {
   transform: scale(1.05);
 }
@@ -156,6 +160,7 @@
   color: #fff;
 }
 
+/* Citation: ChatGPT for using `:hover` effects to change background and text color */
 .sidebar.minimized .sidebar-menu li a {
   justify-content: center; 
   padding: 0.5rem 0;
@@ -193,12 +198,14 @@
   vertical-align: middle;
 }
 
+/* Citation: ChatGPT for button styling and hover effects */
 .logout-button:hover {
   background-color: var(--color-accent);
   color: #fff;
 }
 
 /* General Layout */
+/*Citation: ChatGPT for maintaining consistent margins and transitions */
 .main-content {
   margin-left: 320px;
   margin-right: 120px;
@@ -206,6 +213,7 @@
   transition: margin 0.3s ease;
 }
 
+/* Citation: w3schools for responsive layout adjustments - [w3schools](https://www.w3schools.com/css/css_responsive.asp) */
 .sidebar.minimized ~ .main-content {
   margin-left: 60px;
 }
@@ -424,6 +432,7 @@ button[type="submit"] {
 }
 
 /* Media Query for mobile screens */
+/* Citation: MDN for media query best practices - [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/Media_Queries/Using_media_queries) */
 @media (max-width: 768px) {
   .sidebar {
     width: 100px;
