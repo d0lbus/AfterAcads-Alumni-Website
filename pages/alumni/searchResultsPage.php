@@ -228,6 +228,24 @@ if ($query) {
 
                                 <!-- Display Timestamp -->
                                 <p><?php echo htmlspecialchars($result['created_at']); ?></p>
+
+                                <?php elseif ($result['type'] === 'event') : ?>
+                            <h1>EVENTS</h1>
+                            <!-- Display Event Information -->
+                            <h3>
+                                <a href="viewEvent.php?event_id=<?php echo urlencode($result['id']); ?>">
+                                    <?php echo htmlspecialchars($result['name']); ?>
+                                </a>
+                            </h3>
+                            <p>Description: <?php echo htmlspecialchars($result['content']); ?></p>
+
+                            <!-- Display Event Image -->
+                            <?php if (!empty($result['image'])) : ?>
+                                <img src="../../uploads/<?php echo htmlspecialchars($result['image']); ?>" alt="Event Image" class="event-image">
+                            <?php endif; ?>
+
+                            <!-- Display Timestamp -->
+                            <p>Posted on: <?php echo htmlspecialchars($result['created_at']); ?></p>
                             <?php endif; ?>
                         </div>
                     <?php endforeach; ?>
