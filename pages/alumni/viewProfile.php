@@ -260,11 +260,11 @@ $profile_picture = !$is_current_user
             <p><strong>Email:</strong> <?php echo htmlspecialchars($target_user['email']); ?> </p>
             <p><strong>Address:</strong> <?php echo isset($target_user['address']) ? htmlspecialchars($target_user['address']) : '(Not provided)'; ?> </p>
 
-            <ul class="social-links">
+            <!-- <ul class="social-links">
                 <li><img src="../../assets/twitter-icon.png" alt="twitter icon" width="20px" height="20px" /></li>
                 <li><img src="../../assets/fb-icon.png" alt="fb icon" width="20px" height="20px" /></li>
                 <li><img src="../../assets/instagram-icon.png" alt="ig icon" width="20px" height="20px"></li>
-            </ul>
+            </ul> -->
         </div>
     </div>
 
