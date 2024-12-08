@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap");
 
+/* Citation: ChatGPT for using CSS custom properties (variables) for consistent color management */
 :root {
   --color-main: #1a202e;
   --color-light: #f5f5f5;
@@ -9,6 +10,7 @@
   --color-sidebar-text: #000000;
 }
 
+/* Citation: ChatGPT for global CSS reset best practices */
 * {
   font-family: "Poppins", sans-serif;
   box-sizing: border-box;
@@ -20,6 +22,7 @@
 
 
 /* Sidebar styles */
+/* Citation: ChatGPT for effective use of CSS transitions */
 .sidebar {
   width: 280px;
   position: fixed;
@@ -35,6 +38,7 @@
   z-index: 100;
 }
 
+/* Citation: Stack Overflow for using class toggling for responsive behavior - [Stack Overflow](https://stackoverflow.com/questions/21125950/how-to-toggle-class-in-javascript) */
 .sidebar.minimized {
   width: 60px; 
   padding-left: 0.5rem; 
@@ -60,6 +64,7 @@
   text-decoration: none;
 }
 
+/* Citation: ChatGPT for styling icons */
 .brand-icon span {
   font-size: 1.8rem;
   color: var(--color-sidebar-text);
@@ -111,6 +116,7 @@
   transition: transform 0.3s ease; 
 }
 
+/* Citation: ChatGPT for hover effects and transitions */
 .sidebar-user a:hover img {
   transform: scale(1.05);
 }
@@ -151,6 +157,7 @@
   margin-right: 0.8rem;
 }
 
+/* Citation: ChatGPT for using `:hover` effects to change background and text color */
 .sidebar-menu li a:hover {
   background-color: var(--color-accent);
   color: #fff;
@@ -162,6 +169,7 @@
   font-size: 1.2rem;
 }
 
+/* Citation: ChatGPT for creating responsive, compact layouts */
 .sidebar.minimized .sidebar-menu li a span {
   margin-right: 0; 
 }
@@ -212,6 +220,7 @@
     transition: margin-left 0.3s ease, margin-right 0.3s ease;
   }
   
+  /* Citation: w3schools for responsive layout adjustments - [w3schools](https://www.w3schools.com/css/css_responsive.asp) */
   .sidebar.minimized ~ .main-content {
     margin-left: 60px;
   }
@@ -260,6 +269,7 @@
     margin-left: 8px; 
   }
   
+  /* Citation: ChatGPT for search bar design */
   .header-search-bar .search-button:hover {
     color: #007bff; 
   }
@@ -316,6 +326,7 @@
     margin-top: 8px;
 }
 
+/* Citation: ChatGPT for designing result cards with hover effects and responsiveness */
 .result-item img {
     width: 100%;
     max-height: 200px;
@@ -324,6 +335,7 @@
     margin-top: 10px;
 }
 /* Responsive layout */
+/* Citation: ChatGPT and w3schools for responsive design principles */
 @media screen and (max-width: 768px) {
     .sidebar {
         width: 200px;
