@@ -30,7 +30,9 @@ if ($query) {
             NULL AS image, 
             NULL AS created_at
         FROM users 
-        WHERE users.first_name LIKE ? OR users.last_name LIKE ? OR users.email LIKE ?
+        WHERE users.first_name LIKE ? 
+            OR users.last_name LIKE ? 
+            OR users.email LIKE ?
         
         UNION
         
@@ -79,11 +81,37 @@ if ($query) {
         WHERE events.title LIKE ? 
             OR events.description LIKE ? 
             OR events.location LIKE ?
+
+        UNION
+
+        SELECT 
+            'opportunity' AS type,
+            opportunities.id,
+            opportunities.title AS name,
+            NULL AS email,
+            NULL AS school,
+            NULL AS course,
+            NULL AS batch,
+            opportunities.description AS content,
+            NULL AS tags,
+            NULL AS image,
+            opportunities.posted_date AS created_at
+        FROM opportunities
+        WHERE opportunities.title LIKE ? 
+            OR opportunities.description LIKE ? 
+            OR opportunities.company_name LIKE ? 
+            OR opportunities.location LIKE ?
     ");
     
     if ($stmt) {
         $likeQuery = "%{$query}%";
-        $stmt->bind_param("ssssssssssss", $likeQuery, $likeQuery, $likeQuery, $likeQuery, $likeQuery, $likeQuery, $likeQuery, $likeQuery, $likeQuery, $likeQuery, $likeQuery, $likeQuery);
+        $stmt->bind_param(
+            "ssssssssssssssss", 
+            $likeQuery, $likeQuery, $likeQuery, // users
+                $likeQuery, $likeQuery, $likeQuery, $likeQuery, $likeQuery, $likeQuery, // posts
+                $likeQuery, $likeQuery, $likeQuery, // events
+                $likeQuery, $likeQuery, $likeQuery, $likeQuery // opportunities
+            );
         $stmt->execute();
         $result = $stmt->get_result();
         $searchResults = $result->fetch_all(MYSQLI_ASSOC);
@@ -229,23 +257,46 @@ if ($query) {
                                 <!-- Display Timestamp -->
                                 <p><?php echo htmlspecialchars($result['created_at']); ?></p>
 
-                                <?php elseif ($result['type'] === 'event') : ?>
-                            <h1>EVENTS</h1>
-                            <!-- Display Event Information -->
-                            <h3>
-                                <a href="viewEvent.php?event_id=<?php echo urlencode($result['id']); ?>">
-                                    <?php echo htmlspecialchars($result['name']); ?>
-                                </a>
-                            </h3>
-                            <p>Description: <?php echo htmlspecialchars($result['content']); ?></p>
+                            <?php elseif ($result['type'] === 'event') : ?>
+                                <h1>EVENTS</h1>
+                                <!-- Display Event Information -->
+                                <h3>
+                                    <a href="viewEvent.php?event_id=<?php echo urlencode($result['id']); ?>">
+                                        <?php echo htmlspecialchars($result['name']); ?>
+                                    </a>
+                                </h3>
+                                <p>Description: <?php echo htmlspecialchars($result['content']); ?></p>
 
-                            <!-- Display Event Image -->
-                            <?php if (!empty($result['image'])) : ?>
-                                <img src="../../uploads/<?php echo htmlspecialchars($result['image']); ?>" alt="Event Image" class="event-image">
-                            <?php endif; ?>
+                                <!-- Display Event Image -->
+                                <?php if (!empty($result['image'])) : ?>
+                                    <img src="../../uploads/<?php echo htmlspecialchars($result['image']); ?>" alt="Event Image" class="event-image">
+                                <?php endif; ?>
 
-                            <!-- Display Timestamp -->
-                            <p>Posted on: <?php echo htmlspecialchars($result['created_at']); ?></p>
+                                <!-- Display Timestamp -->
+                                <p>Posted on: <?php echo htmlspecialchars($result['created_at']); ?></p>
+
+                            <?php elseif ($result['type'] === 'opportunity') : ?>
+                                <!-- <h1>OPPORTUNITIES</h1> -->
+                                <!-- Display Opportunity Information -->
+                                <!-- <h3>
+                                    <a href="<?php echo htmlspecialchars($result['company_link']); ?>" target="_blank">
+                                        <?php echo htmlspecialchars($result['title']); ?>
+                                    </a>
+                                </h3>
+                                <p>Company: <?php echo htmlspecialchars($result['company_name']); ?></p>
+                                <p>Description: <?php echo htmlspecialchars($result['description']); ?></p>
+                                <p>Location: <?php echo htmlspecialchars($result['location']); ?></p> -->
+
+                                <h1>OPPORTUNITIES</h1>
+                                <h3>
+                                    <a href="<?php echo htmlspecialchars($result['company_link']); ?>" target="_blank">
+                                        <?php echo htmlspecialchars($result['name']); ?>
+                                    </a>
+                                </h3>
+                                <p>Company: <?php echo htmlspecialchars($result['company_name']); ?></p>
+                                <p>Description: <?php echo htmlspecialchars($result['description']); ?></p>
+                                <p>Location: <?php echo htmlspecialchars($result['location']); ?></p>
+                                <p>Posted Date: <?php echo htmlspecialchars($result['created_at']); ?></p>
                             <?php endif; ?>
                         </div>
                     <?php endforeach; ?>
