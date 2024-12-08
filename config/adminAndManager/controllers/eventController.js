@@ -114,7 +114,7 @@ exports.updateEvent = (req, res) => {
     host || null,
     school_id || null,
     altText || null,
-    imagePath || null,
+    imagePath,
     eventId,
   ];
 
@@ -128,7 +128,7 @@ exports.updateEvent = (req, res) => {
       return res.status(500).json({ error: 'Failed to update event.' });
     }
 
-    console.log('Query Result:', result); // Log successful execution details
+    console.log('Query Result:', result); 
     console.log('Database Update Result:', result);
     res.json({ message: 'Event updated successfully.' });
   });

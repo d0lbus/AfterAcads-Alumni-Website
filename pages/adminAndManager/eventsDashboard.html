@@ -237,6 +237,7 @@
             // Filter events by school
             mainDropdown.addEventListener("change", (event) => {
                 const selectedSchool = event.target.value.toLowerCase();
+                console.log("Selected School:", selectedSchool);
                 filterRowsBySchool(selectedSchool);
             });
     
@@ -294,7 +295,6 @@
             });
         }
 
-    
             // Move row to a different table
             function moveToTable(row, targetTableClass) {
                 const targetTableBody = document.querySelector(`.${targetTableClass} tbody`);
@@ -339,7 +339,6 @@
                     .catch(error => console.error("Error fetching schools:", error));
             }
 
-    
             // Open modal and populate fields
             async function openEditEventModal(eventId) {
                 try {
@@ -355,7 +354,8 @@
                     document.getElementById("eventId").value = data.event_id || "";
                     document.getElementById("eventTitle").value = data.title || "";
                     document.getElementById("eventDescription").value = data.description || "";
-                    document.getElementById("eventDate").value = data.date || "";
+                    const formattedDate = new Date(data.date).toISOString().split("T")[0];
+                    document.getElementById("eventDate").value = formattedDate || "";   
                     document.getElementById("eventTime").value = data.time || "";
                     document.getElementById("eventLocation").value = data.location || "";
                     document.getElementById("eventHost").value = data.host || "";
@@ -367,7 +367,7 @@
                     // Handle image preview
                     const eventImagePreview = document.getElementById("eventImagePreview");
                     if (data.image_path) {
-                        eventImagePreview.src = `/uploads/${data.image_path}`;
+                        eventImagePreview.src = `/assets/eventimages/${data.image_path}`;
                         eventImagePreview.style.display = "block";
                     } else {
                         eventImagePreview.style.display = "none";
@@ -381,20 +381,19 @@
                 }
             }
     
-
             eventImageInput.addEventListener("change", (event) => {
-                const file = event.target.files[0];
-                if (file) {
-                    const reader = new FileReader();
-                    reader.onload = (e) => {
-                        eventImagePreview.src = e.target.result;
-                        eventImagePreview.style.display = "block";
-                    };
-                    reader.readAsDataURL(file);
-                } else {
-                    eventImagePreview.style.display = "none";
-                }
-            });
+                    const file = event.target.files[0];
+                    if (file) {
+                        const reader = new FileReader();
+                        reader.onload = (e) => {
+                            eventImagePreview.src = e.target.result;
+                            eventImagePreview.style.display = "block";
+                        };
+                        reader.readAsDataURL(file);
+                    } else {
+                        eventImagePreview.style.display = "none";
+                    }
+                });
 
             // Close modal
             closeModalButton.addEventListener("click", () => {
@@ -444,14 +443,16 @@
             dateInput.setAttribute("min", today);
     
             // Filter rows by school
-            function filterRowsBySchool(schoolName) {
-                const rows = document.querySelectorAll(".event-table tbody tr");
+            function filterRowsBySchool(selectedSchool) {
+                const rows = document.querySelectorAll(".event-table tbody tr"); 
+
                 rows.forEach(row => {
-                    const schoolCell = row.querySelector("td:nth-child(7)").textContent.toLowerCase();
-                    row.style.display = schoolCell.includes(schoolName) ? "" : "none";
+                    const schoolCell = row.querySelector("td:nth-child(8)").textContent.trim().toLowerCase();
+                    const schoolMatch = selectedSchool === "" || schoolCell === selectedSchool.toLowerCase();
+                    row.style.display = schoolMatch ? "" : "none";
                 });
             }
-    
+         
             // Filter rows by search
             function filterRowsBySearch(searchValue) {
                 const rows = document.querySelectorAll(".event-table tbody tr");

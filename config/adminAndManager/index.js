@@ -27,6 +27,7 @@ app.use('/adminAndManager', (req, res, next) => {
     authMiddleware(req, res, next);
 }, express.static(path.join(__dirname, '../../pages/adminAndManager')));
 
+app.use('/assets', express.static(path.join(__dirname, '../../assets')));
 app.use('/style', express.static(path.join(__dirname, '../../style')));
 
 // Routes
