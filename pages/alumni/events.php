@@ -44,7 +44,11 @@ $total_pages = 0;
     <div class="sidebar-content">
       <div class="sidebar-user">
         <a href="../../pages/alumni/viewProfile.php">
-          <img src="../../assets/profileIcon.jpg" alt="Profile Picture" />
+        <img src="<?= !empty($user['profile_picture']) 
+                            ? 'data:image/jpeg;base64,' . base64_encode($user['profile_picture']) 
+                            : '../../assets/profileIcon.jpg'; ?>" 
+                            alt="Profile" 
+                            id="profile-picture-preview" />
         </a>
         <div>
           <h3><?php echo htmlspecialchars($user['first_name'] . ' ' . $user['last_name']); ?></h3>

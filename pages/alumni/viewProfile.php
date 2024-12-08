@@ -57,6 +57,16 @@ if ($friendStatus === 'not_friends') {
     $buttonText = "Unfriend";
     $action = "../../config/alumni/unfriend.php";
 }
+
+// Retrieve Profile Picture
+$profile_picture = !$is_current_user 
+    ? (!empty($target_user['profile_picture']) 
+        ? 'data:image/' . ($target_user['profile_picture_type'] ?? 'jpeg') . ';base64,' . base64_encode($target_user['profile_picture']) 
+        : '../../assets/profileIcon.jpg')
+    : (!empty($user['profile_picture']) 
+        ? 'data:image/' . ($user['profile_picture_type'] ?? 'jpeg') . ';base64,' . base64_encode($user['profile_picture']) 
+        : '../../assets/profileIcon.jpg');
+
 ?>
 
 
@@ -86,7 +96,11 @@ if ($friendStatus === 'not_friends') {
         <div class="sidebar-content">
             <div class="sidebar-user">
                 <a href="viewProfile.php">
-                    <img src="../../assets/profileIcon.jpg" alt="Profile Picture" />
+                <img src="<?= !empty($user['profile_picture']) 
+                            ? 'data:image/jpeg;base64,' . base64_encode($user['profile_picture']) 
+                            : '../../assets/profileIcon.jpg'; ?>" 
+                            alt="Profile" 
+                            id="profile-picture-preview" />
                 </a>
                 <div>
                     <h3><?php echo htmlspecialchars($user['first_name'] . ' ' . $user['last_name']); ?></h3>
@@ -120,19 +134,33 @@ if ($friendStatus === 'not_friends') {
             <div class="header"></div>
             <div class="cols-container">
                 <div class="left-col">
-                    <div class="img-container">
-                        <img src="../../assets/profileIcon.jpg" alt="Display Photo" />
-                        <span></span>
-                    </div>
+                <div class="img-container">
+                    <img src="<?= $profile_picture; ?>" alt="Profile" id="profile-picture-preview" />
+                    <span></span>
+                </div>
+
                     <!-- Display user details dynamically -->
                     <h2><?php echo htmlspecialchars($target_user['first_name'] . ' ' . $target_user['last_name']); ?></h2>
                     <p><?php echo htmlspecialchars($target_user['email']); ?></p>
 
                     <ul class="about">
-                        <li><span>Joined <?php echo date('F d, Y', strtotime($target_user['created_at'])); ?></span></li>
-                        <li><span>Address: <?php echo isset($target_user['address']) ? htmlspecialchars($target_user['address']) : '(Not provided)'; ?></span></li>
+                        <li><span>Joined: <?php echo date('F d, Y', strtotime($target_user['created_at'])); ?></span></li>
+                        <li><span>Address: <?php echo isset($target_user['user_address']) && !empty($target_user['user_address']) 
+                            ? htmlspecialchars($target_user['user_address']) 
+                            : '(Not provided)'; ?></span></li>
+                        <li><span>Gender: <?php echo isset($target_user['gender']) && !empty($target_user['gender']) 
+                            ? htmlspecialchars($target_user['gender']) 
+                            : '(Not provided)'; ?></span></li>
+                        <li><span>Employment Status: <?php echo isset($target_user['employment_status']) && !empty($target_user['employment_status']) 
+                            ? htmlspecialchars($target_user['employment_status']) 
+                            : '(Not provided)'; ?></span></li>
+                        <li><span>Batch: <?php echo isset($target_user['batch_number']) ? htmlspecialchars($target_user['batch_number']) 
+                            : '(Not provided)'; ?></span></li>
+                        <li><span>School: <?php echo isset($target_user['school_name']) ? htmlspecialchars($target_user['school_name']) 
+                            : '(Not provided)'; ?></span></li>
+                        <li><span>Course: <?php echo isset($target_user['course_name']) ? htmlspecialchars($target_user['course_name']) 
+                            : '(Not provided)'; ?></span></li>
                     </ul>
-
                     <div class="content">
                         <p><?php echo isset($target_user['bio']) ? htmlspecialchars($target_user['bio']) : 'Bio not provided'; ?></p>
 

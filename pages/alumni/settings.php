@@ -30,7 +30,11 @@ $user = getAuthenticatedUser();
         <div class="sidebar-content">
             <div class="sidebar-user">
                 <a href="../../pages/alumni/viewProfile.php">
-                    <img src="../../assets/profileIcon.jpg" alt="Profile Picture" />
+                <img src="<?= !empty($user['profile_picture']) 
+                            ? 'data:image/jpeg;base64,' . base64_encode($user['profile_picture']) 
+                            : '../../assets/profileIcon.jpg'; ?>" 
+                            alt="Profile" 
+                            id="profile-picture-preview" />
                 </a>
                 <div>
                     <h3><?php echo htmlspecialchars($user['first_name'] . ' ' . $user['last_name']); ?></h3>
@@ -71,7 +75,11 @@ $user = getAuthenticatedUser();
                 <div class="profile-picture-group">
                     <h2>Profile Picture</h2>
                     <div class="profile-picture-preview">
-                        <img src="<?= htmlspecialchars($user['profile_picture'] ?? '../../assets/profileIcon.jpg') ?>" alt="Profile" id="profile-picture-preview" />
+                        <img src="<?= !empty($user['profile_picture']) 
+                            ? 'data:image/jpeg;base64,' . base64_encode($user['profile_picture']) 
+                            : '../../assets/profileIcon.jpg'; ?>" 
+                            alt="Profile" 
+                            id="profile-picture-preview" />
                     </div>
                     <label for="profile-picture">Upload New Profile Picture</label>
                     <input type="file" id="profile-picture" name="profile-picture" accept="image/jpeg, image/png" onchange="previewImage(event)">
@@ -94,11 +102,11 @@ $user = getAuthenticatedUser();
                 </div>
                 <div class="form-group">
                     <label>Bio</label>
-                    <textarea name="bio" rows="4"><?= htmlspecialchars($user['bio']) ?></textarea>
+                    <textarea name="bio" id = "bio" rows="4"><?= htmlspecialchars($user['bio']) ?></textarea>
                 </div>
                 <div class="form-group">
                     <label>Address</label>
-                    <input type="text" name="address" value="<?= htmlspecialchars($user['address']) ?>" required>
+                    <input type="text" name="address" id ="address" value="<?= htmlspecialchars($user['user_address']) ?>">
                 </div>
 
                 <!-- School, Course, and Batch -->
@@ -119,6 +127,20 @@ $user = getAuthenticatedUser();
                     <label>Batch</label>
                     <input type="text" id="batch" name="batch" list="batch-list" value="<?= htmlspecialchars($user['batch_number'] ?? '') ?>" placeholder="Type your batch (e.g., 223)" />
                     <datalist id="batch-list"></datalist>
+                </div>
+
+                <!-- Employment Status -->
+                <h2>Employment Status</h2>
+                <div class="form-group">
+                    <label for="employment-status">Employment Status</label>
+                    <select id="employment-status" name="employment-status" required>
+                        <option value="">Select Employment Status</option>
+                        <option value="Employed" <?= ($user['employment_status'] === 'Employed' ? 'selected' : '') ?>>Employed</option>
+                        <option value="Unemployed" <?= ($user['employment_status'] === 'Unemployed' ? 'selected' : '') ?>>Unemployed</option>
+                        <option value="Not Looking For Work" <?= ($user['employment_status'] === 'Not Looking For Work' ? 'selected' : '') ?>>Not Looking For Work</option>
+                        <option value="Retired" <?= ($user['employment_status'] === 'Retired' ? 'selected' : '') ?>>Retired</option>
+                        <option value="Studying" <?= ($user['employment_status'] === 'Studying' ? 'selected' : '') ?>>Studying</option>
+                    </select>
                 </div>
 
                 <!-- Password -->
@@ -175,6 +197,25 @@ $user = getAuthenticatedUser();
                         schoolSelect.appendChild(option);
                     });
 
+                    // Pre-fetch courses if a school is selected
+                    const selectedSchoolId = <?= $user['school_id'] ?? 'null' ?>;
+                    const selectedCourseId = <?= $user['course_id'] ?? 'null' ?>;
+                    if (selectedSchoolId) {
+                        fetch(`../../config/alumni/fetchCourses.php?school_id=${selectedSchoolId}`)
+                            .then(response => response.json())
+                            .then(courses => {
+                                const courseSelect = document.getElementById('course');
+                                courses.forEach(course => {
+                                    const option = document.createElement('option');
+                                    option.value = course.id;
+                                    option.textContent = course.name;
+                                    if (course.id == selectedCourseId) option.selected = true;
+                                    courseSelect.appendChild(option);
+                                });
+                                courseSelect.disabled = false;
+                            });
+                    }
+
                     // Populate batches
                     const batchList = document.getElementById('batch-list');
                     data.batches.forEach(batch => {
@@ -182,6 +223,10 @@ $user = getAuthenticatedUser();
                         option.value = batch.batch_number;
                         batchList.appendChild(option);
                     });
+
+                    // Set the batch input value
+                    const batchInput = document.getElementById('batch');
+                    batchInput.value = data.selectedBatchNumber || '';
                 });
 
             // Fetch courses dynamically
