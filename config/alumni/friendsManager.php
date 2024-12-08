@@ -3,8 +3,7 @@
 // source: https://stackoverflow.com/questions/2542800/how-to-make-an-add-friend-defriend-function-in-php
 // source: https://www.youtube.com/watch?v=Rf4gFHhUaz4
 
-
-class friendsManager {
+class FriendsManager {
     private $conn;
 
     public function __construct($conn) {
@@ -101,8 +100,7 @@ class friendsManager {
     
         return 'not_friends'; // No record found, users are not friends
     }
-    
-    
+
     // Fetch all friends for a user
     public function getFriends($user_id) {
         $stmt = $this->conn->prepare("
@@ -122,6 +120,5 @@ class friendsManager {
         $stmt->close();
         return $friends;
     }
-    
 }
 ?>
