@@ -583,7 +583,38 @@ a {
   height: auto; /* Maintain the image's aspect ratio */
   object-fit: contain; /* Prevent cropping while ensuring the entire image fits inside the container */
 }
-  
+
+.edit-profile-button {
+  display: inline-block;
+  background-color: var(--color-accent);
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 500;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.edit-profile-button:hover {
+  background-color: #729bbd; /* Slightly darker shade for hover effect */
+  transform: translateY(-2px);
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+}
+
+.edit-profile-button:active {
+  transform: scale(0.98);
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+}
+
+.edit-profile-button:focus {
+  outline: 2px solid #0056b3; /* Focus outline for accessibility */
+  outline-offset: 2px;
+}
+
   /* Responsiveness */
   
   @media (min-width: 868px) {
