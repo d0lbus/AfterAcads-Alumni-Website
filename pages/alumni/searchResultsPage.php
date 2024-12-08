@@ -60,11 +60,30 @@ if ($query) {
             OR schools.name LIKE ? 
             OR courses.name LIKE ?
         GROUP BY posts.id
+
+        UNION
+
+        SELECT 
+            'event' AS type,
+            events.id,
+            events.title AS name,
+            NULL AS email,
+            NULL AS school,
+            NULL AS course,
+            NULL AS batch,
+            events.description AS content,
+            NULL AS tags,
+            events.image_path AS image,
+            events.created_at
+        FROM events
+        WHERE events.title LIKE ? 
+            OR events.description LIKE ? 
+            OR events.location LIKE ?
     ");
     
     if ($stmt) {
         $likeQuery = "%{$query}%";
-        $stmt->bind_param("sssssssss",$likeQuery, $likeQuery, $likeQuery, $likeQuery, $likeQuery, $likeQuery, $likeQuery, $likeQuery, $likeQuery);
+        $stmt->bind_param("ssssssssssss", $likeQuery, $likeQuery, $likeQuery, $likeQuery, $likeQuery, $likeQuery, $likeQuery, $likeQuery, $likeQuery, $likeQuery, $likeQuery, $likeQuery);
         $stmt->execute();
         $result = $stmt->get_result();
         $searchResults = $result->fetch_all(MYSQLI_ASSOC);
