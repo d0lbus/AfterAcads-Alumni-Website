@@ -317,10 +317,11 @@ header {
     flex-direction: column;
     max-width: 70%;
     margin-bottom: 10px;
+    align-self: flex-end; 
   }
   
   .message.received {
-    align-self: flex-start;
+    align-self: flex-start; 
     background-color: #e4e6eb;
     padding: 10px;
     border-radius: 8px;
@@ -328,11 +329,12 @@ header {
   }
   
   .message.sent {
-    align-self: flex-end;
+    align-self: flex-end; 
     background-color: #0084ff;
     color: white;
     padding: 10px;
     border-radius: 8px;
+    text-align: right; 
   }
   
   .timestamp {
