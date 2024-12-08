@@ -188,7 +188,7 @@ img.afteracadstext {
 }
 
 /* Common Button Styling */
-.btn {
+.button-group button{
   padding: 10px 20px; /* Consistent padding */
   border-radius: 5px;
   font-size: 14px;
@@ -208,17 +208,17 @@ img.afteracadstext {
   color: white;
 }
 
-.button-group .btn.finished {
+.button-group .btn-finished {
   background-color: #003f91; /* Green for Finished Events */
   color: white;
 }
 
-.button-group .btn.archived {
+.button-group .btn-archived {
   background-color: #003f91; /* Red for Archived/Denied Events */
   color: white;
 }
 
-.button-group .btn.add {
+.button-group .btn-add {
   background-color: #003f91; /* Amber for Add Events */
   color: white;
 }
