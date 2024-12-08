@@ -32,9 +32,12 @@ app.use('/style', express.static(path.join(__dirname, '../../style')));
 // Routes
 const userRoutes = require('./routes/users');
 const postRoutes = require('./routes/posts');
+const eventRoutes = require('./routes/events');
 
 app.use('/api/posts', postRoutes);
 app.use('/api/users', userRoutes);
+app.use('/api/events', eventRoutes);
+
 
 // Start server
 app.listen(PORT, () => {

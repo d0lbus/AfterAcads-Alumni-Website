@@ -127,33 +127,176 @@
     </div>
 
 
-    <!-- Script for Search Input -->
     <script>
         document.addEventListener("DOMContentLoaded", () => {
+            // DOM elements
             const searchInput = document.querySelector(".search-input");
-            const table = document.querySelector(".event-table");
-
-            const filterRows = (searchValue) => {
-                const rows = table.querySelectorAll("tbody tr");
-                rows.forEach((row) => {
-                    const cells = row.querySelectorAll("td");
-                    const rowText = Array.from(cells)
-                        .map((cell) => cell.textContent.toLowerCase())
-                        .join(" ");
-                    if (rowText.includes(searchValue.toLowerCase())) {
-                        row.style.display = "";
-                    } else {
-                        row.style.display = "none";
-                    }
-                });
-            };
-
-            searchInput.addEventListener("input", (event) => {
-                const searchValue = event.target.value.trim();
-                filterRows(searchValue);
+            const schoolDropdown = document.querySelector(".filter-dropdown");
+            const modal = document.getElementById("eventDetailsModal");
+            const closeModalButton = document.getElementById("closeModal");
+        
+            // Fetch and populate events
+            fetch('/api/events/status')
+                .then(response => {
+                    if (!response.ok) throw new Error('Failed to fetch events');
+                    return response.json();
+                })
+                .then(data => {
+                    populateTable('upcoming-table', data.upcoming);
+                    populateTable('finished-table', data.finished);
+                    populateTable('archived-table', data.archived);
+                })
+                .catch(error => console.error('Error fetching events:', error));
+        
+            // Fetch and populate schools dropdown
+            fetch('/api/events/schools')
+                .then(response => {
+                    if (!response.ok) throw new Error('Failed to fetch schools');
+                    return response.json();
+                })
+                .then(data => {
+                    schoolDropdown.innerHTML = `<option value="">Filter by School</option>`;
+                    data.forEach(school => {
+                        schoolDropdown.innerHTML += `<option value="${school.name}">${school.name}</option>`;
+                    });
+                })
+                .catch(error => console.error('Error fetching schools:', error));
+        
+            // Filter events by school
+            schoolDropdown.addEventListener("change", (event) => {
+                const selectedSchool = event.target.value.toLowerCase();
+                filterRowsBySchool(selectedSchool);
             });
+        
+            // Search events
+            searchInput.addEventListener("input", (event) => {
+                const searchValue = event.target.value.trim().toLowerCase();
+                filterRowsBySearch(searchValue);
+            });
+        
+            // Handle button clicks
+            document.addEventListener("click", (event) => {
+                if (event.target.classList.contains("mark-done")) {
+                    const row = event.target.closest("tr");
+                    moveToTable(row, "finished-table");
+                    updateEventStatus(getEventIdFromRow(row), "finished");
+                } else if (event.target.classList.contains("archive")) {
+                    const row = event.target.closest("tr");
+                    moveToTable(row, "archived-table");
+                    updateEventStatus(getEventIdFromRow(row), "archived");
+                } else if (event.target.classList.contains("edit")) {
+                    const eventId = getEventIdFromRow(event.target.closest("tr"));
+                    openEditEventModal(eventId);
+                }
+            });
+        
+            // Close modal
+            closeModalButton.addEventListener("click", () => {
+                modal.style.display = "none";
+            });
+        
+            window.addEventListener("click", (event) => {
+                if (event.target === modal) modal.style.display = "none";
+            });
+        
+            // Helper Functions
+        
+            // Populate table with event data
+            function populateTable(tableClass, events) {
+                const tableBody = document.querySelector(`.${tableClass} tbody`);
+                tableBody.innerHTML = "";
+        
+                events.forEach(event => {
+                    const row = document.createElement("tr");
+                    row.innerHTML = `
+                        <td>${event.title}</td>
+                        <td>${event.host}</td>
+                        <td>${new Date(event.date).toLocaleDateString()}</td>
+                        <td>${event.time}</td>
+                        <td>${event.location}</td>
+                        <td>${event.description}</td>
+                        <td>${event.school}</td>
+                        <td class="action-buttons">
+                            ${tableClass === "upcoming-table" ? `
+                                <button class="btn mark-done">Mark as Done</button>
+                                <button class="btn archive">Archive</button>
+                            ` : ""}
+                            <button class="btn edit">Edit</button>
+                        </td>
+                    `;
+                    row.dataset.eventId = event.event_id;
+                    tableBody.appendChild(row);
+                });
+            }
+        
+            // Move row to a different table
+            function moveToTable(row, targetTableClass) {
+                const targetTableBody = document.querySelector(`.${targetTableClass} tbody`);
+                row.querySelector(".action-buttons").innerHTML = ""; // Clear action buttons for finished/archived
+                targetTableBody.appendChild(row);
+            }
+        
+            // Get event ID from the row
+            function getEventIdFromRow(row) {
+                return row.dataset.eventId;
+            }
+        
+            // Update event status in the database
+            function updateEventStatus(eventId, status) {
+                fetch("/api/events/updateStatus", {
+                    method: "PUT",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ event_id: eventId, status }),
+                })
+                    .then(response => {
+                        if (!response.ok) throw new Error("Failed to update event status");
+                        return response.json();
+                    })
+                    .then(data => console.log(data.message))
+                    .catch(error => console.error("Error updating event status:", error));
+            }
+        
+            // Open modal for editing event details
+            function openEditEventModal(eventId) {
+                fetch(`/api/events/details/${eventId}`)
+                    .then(response => {
+                        if (!response.ok) throw new Error("Failed to fetch event details");
+                        return response.json();
+                    })
+                    .then(data => {
+                        document.getElementById("eventTitle").value = data.title || "";
+                        document.getElementById("eventHost").value = data.host || "";
+                        document.getElementById("eventDate").value = data.date || "";
+                        document.getElementById("eventTime").value = data.time || "";
+                        document.getElementById("eventLocation").value = data.location || "";
+                        document.getElementById("eventDescription").value = data.description || "";
+                        document.getElementById("eventSchool").value = data.school || "";
+        
+                        modal.style.display = "block";
+                    })
+                    .catch(error => console.error("Error fetching event details:", error));
+            }
+        
+            // Filter rows by school
+            function filterRowsBySchool(schoolName) {
+                const rows = document.querySelectorAll(".event-table tbody tr");
+                rows.forEach(row => {
+                    const schoolCell = row.querySelector("td:nth-child(7)").textContent.toLowerCase();
+                    row.style.display = schoolCell.includes(schoolName) ? "" : "none";
+                });
+            }
+        
+            // Filter rows by search
+            function filterRowsBySearch(searchValue) {
+                const rows = document.querySelectorAll(".event-table tbody tr");
+                rows.forEach(row => {
+                    const rowText = row.textContent.toLowerCase();
+                    row.style.display = rowText.includes(searchValue) ? "" : "none";
+                });
+            }
         });
     </script>
+        
 </body>
 
 </html>
