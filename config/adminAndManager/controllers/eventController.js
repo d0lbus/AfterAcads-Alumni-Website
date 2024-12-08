@@ -93,28 +93,36 @@ exports.getEventDetailsById = (req, res) => {
 
 // Update Event Functionality
 exports.updateEvent = (req, res) => {
-  try {
-      const { eventId, title, description, date, time, location, host, school } = req.body;
-      const imagePath = req.file ? req.file.filename : null;
+  console.log('Incoming Form Data:', req.body); // Log all form fields
+  console.log('Uploaded File:', req.file); // Log uploaded file details if available
 
-      // Update query
-      const query = `
-          UPDATE events 
-          SET title = ?, description = ?, date = ?, time = ?, location = ?, host = ?, school_id = ?, image_path = ? 
-          WHERE id = ?
-      `;
+  const { eventId, title, description, date, time, location, host, school_id, altText } = req.body;
+  const imagePath = req.file ? req.file.filename : null; // Check if an image was uploaded
 
-      const values = [title, description, date, time, location, host, school, imagePath, eventId];
+  const sql = `
+    UPDATE events
+    SET title = ?, description = ?, date = ?, time = ?, location = ?, host = ?, school_id = ?, alt_text = ?, image_path = COALESCE(?, image_path)
+    WHERE id = ?
+  `;
 
-      // Execute query
-      db.query(query, values);
+  const values = [title, description, date, time, location, host, school_id, altText, imagePath, eventId];
 
-      res.json({ message: 'Event updated successfully' });
-  } catch (error) {
-      console.error('Error updating event:', error);
-      res.status(500).json({ error: 'Failed to update event' });
-  }
+  // Log the SQL query and the values being passed
+  console.log('SQL Query:', sql);
+  console.log('Query Values:', values);
+
+  db.query(sql, values, (err, result) => {
+    if (err) {
+      console.error('Database error:', err);
+      return res.status(500).json({ error: 'Failed to update event.' });
+    }
+
+    console.log('Query Result:', result); // Log successful execution details
+    console.log('Database Update Result:', result);
+    res.json({ message: 'Event updated successfully.' });
+  });
 };
+
 
 
 exports.getEventStatistics = (req, res) => {
