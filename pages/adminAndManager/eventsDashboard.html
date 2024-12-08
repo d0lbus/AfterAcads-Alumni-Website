@@ -376,21 +376,32 @@
                 event.preventDefault(); // Prevent default form submission
 
                 const formData = new FormData(form);
+                for (const [key, value] of formData.entries()) {
+                    console.log(`${key}: ${value}`); // Debugging log
+                }
 
                 fetch("/api/events/update", {
                     method: "PUT",
                     body: formData, // Use FormData directly
                 })
                     .then(response => {
-                        if (!response.ok) throw new Error("Failed to update event");
+                        if (!response.ok) {
+                            return response.json().then(errData => {
+                                throw new Error(errData.error || "Failed to update event");
+                            });
+                        }
                         return response.json();
                     })
                     .then(data => {
-                        console.log(data.message);
+                        console.log(data.message); // Log the success message
+                        alert(data.message); // Show a success alert
                         modal.style.display = "none"; // Close modal on success
                         location.reload(); // Reload the page to reflect changes
                     })
-                    .catch(error => console.error("Error updating event:", error));
+                    .catch(error => {
+                        console.error("Error updating event:", error);
+                        alert(`Error: ${error.message}`); // Show error message
+                    });
             });
     
             // Restrict past dates for the date input
