@@ -1,4 +1,6 @@
 /* Forgot Password Code Page Styles */
+
+/* Citation: Universal CSS Reset - ChatGPT (2024) */
 * {
     margin: 0;
     padding: 0;
@@ -6,6 +8,7 @@
     font-family: "Poppins", sans-serif;
   }
 
+/* Citation: Flexbox Centering Techniques - W3Schools: https://www.w3schools.com/css/css3_flexbox.asp */
 body {
     margin: 0;
     padding: 0;
@@ -17,6 +20,7 @@ body {
     height: 100vh;
   }
   
+  /* Citation: Flexbox Column Alignment - YouTube (Channel: Kevin Powell, Video: "Flexbox in CSS") */
   .reset-container {
     display: flex;
     justify-content: center;
@@ -24,6 +28,7 @@ body {
     flex-direction: column;
   }
   
+  /* Citation: Box Styling and Shadows - ChatGPT (2024) */
   .reset-box {
     background-color: #cadeed;
     padding: 80px;
@@ -34,6 +39,7 @@ body {
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
   }
   
+  /* Citation: Typography Basics - W3Schools: https://www.w3schools.com/css/css_font.asp */
   .reset-box h1 {
     font-weight: 600;
     font-size: 1.5rem;
@@ -47,6 +53,7 @@ body {
     margin-bottom: 1.5rem;
   }
 
+  /* Citation: Centering Images - Stack Overflow: https://stackoverflow.com/questions/31700584/ */
   .logo {
     display: block;
     margin: 0 auto 20px; 
@@ -55,6 +62,7 @@ body {
     height: auto;
   }
   
+  /* Citation: Code Input Styling - ChatGPT (2024) */
   .code-inputs {
     display: flex;
     justify-content: center; /* Center the boxes */
@@ -62,6 +70,7 @@ body {
     margin-bottom: 1.5rem;
   }
   
+  /* Citation: Interactive Input Field Design - YouTube (Channel: Dev Ed, Video: "CSS Design Tricks") */
   .code-box {
     width: 50px;
     height: 50px;
@@ -78,6 +87,7 @@ body {
     box-shadow: 0 0 5px rgba(0, 150, 136, 0.5);
   }
 
+  /* Citation: Button Design - ChatGPT (2024) */
   .continue-btn-container {
     margin-top: 20px;
   }
@@ -98,6 +108,7 @@ body {
     background-color: #00796b;
   }
   
+  /* Citation: Link Styling - W3Schools: https://www.w3schools.com/css/css_link.asp */
   .resend-link {
     color: #009688;
     text-decoration: none;
