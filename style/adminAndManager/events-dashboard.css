@@ -115,21 +115,21 @@ img.afteracadstext {
 /* Event Table */
 .event-table {
   width: 100%;
-  border-collapse: collapse;
+  border-collapse: collapse; /* Ensures seamless borders */
+  border-spacing: 0; /* Removes extra spacing between cells */
   background-color: white;
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  table-layout: fixed;
-  margin-top: 0; /* Ensures no space above the table */
+  margin-top: 0;
 }
 
-.event-table th,
-.event-table td {
-  text-align: left;
-  padding: 10px;
-  border-bottom: 1px solid #ddd;
-  word-wrap: break-word;
+.event-table th, .event-table td {
+  padding: 10px; /* Adjust padding for consistency */
+  border-bottom: 1px solid #ddd; /* Consistent row border */
+  text-align: center;
+  vertical-align: middle; /* Ensure content is vertically aligned */
+  word-wrap: break-word; /* Prevent content overflow */
 }
 
 .event-table th {
@@ -138,7 +138,17 @@ img.afteracadstext {
 }
 
 .event-table tr:hover {
-  background-color: #f0f0f0;
+  background-color: #f9f9f9;
+}
+
+.event-table tr {
+  height: auto;
+}
+
+.event-table td {
+  vertical-align: middle; /* Align content within the cell */
+  padding: 10px; /* Prevent content from hitting edges */
+  overflow: hidden; /* Prevent content overflow */
 }
 
 /* Search and Buttons Layout */
@@ -179,14 +189,15 @@ img.afteracadstext {
 
 /* Common Button Styling */
 .btn {
-  padding: 10px 15px;
+  padding: 10px 20px; /* Consistent padding */
   border-radius: 5px;
   font-size: 14px;
   cursor: pointer;
-  transition: background-color 0.3s, transform 0.3s;
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
   border: none;
   margin: 0 5px;
 }
+
 .button-group .btn:hover {
   opacity: 0.9;
 }
@@ -237,45 +248,74 @@ img.afteracadstext {
   opacity: 0.9;
 }
 
-.btn.mark-done {
+.action-buttons {
+  display: flex;
+  flex-direction: column; /* Stack buttons vertically */
+  align-items: center; /* Center buttons horizontally */
+  gap: 8px; /* Add spacing between buttons */
+  background-color: transparent; /* Ensure no background covers the row */
+  padding: 0;
+  margin: 0; /* Remove margins to avoid overlapping issues */
+}
+
+.action-buttons .btn {
+  padding: 8px 12px; /* Standardize button padding */
+  font-size: 12px; /* Compact size */
+  border-radius: 5px;
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.3s, transform 0.3s;
+  width: 90%; /* Optional: Make buttons consistent in width */
+  text-align: center;
+}
+
+.action-buttons .btn:hover {
+  opacity: 0.9;
+}
+
+.action-buttons .btn.mark-done {
   background-color: #003f91; /* Blue */
   color: white;
 }
 
-.btn.mark-done:hover {
+.action-buttons .btn.mark-done:hover {
   background-color: #002d73; /* Darker blue */
   transform: scale(1.05);
 }
 
-.btn.archive {
+.action-buttons .btn.archive {
   background-color: #8da2fb; /* Light blue */
   color: white;
 }
 
-.btn.archive:hover {
+.action-buttons .btn.archive:hover {
   background-color: #6a85c0; /* Darker blue */
   transform: scale(1.05);
 }
 
-.btn.edit {
-  background-color: #f0a500; /* Amber */
-  color: white;
-}
-
-.btn.edit:hover {
-  background-color: #d08800; /* Darker amber */
-  transform: scale(1.05);
-}
-
-.btn.delete {
+.action-buttons .btn.delete {
   background-color: #d9534f; /* Red */
   color: white;
 }
 
-.btn.delete:hover {
+.action-buttons .btn.delete:hover {
   background-color: #b30000; /* Darker red */
   transform: scale(1.05);
 }
+
+.action-buttons .btn.edit {
+  background-color: #f0a500; /* Amber */
+  color: white;
+}
+
+.action-buttons .btn.edit:hover {
+  background-color: #d08800; /* Darker amber */
+  transform: scale(1.05);
+}
+
+.event-table tr:last-child td {
+  border-bottom: none; 
+} 
 
 /* Button focus state */
 .btn:focus {
@@ -284,20 +324,6 @@ img.afteracadstext {
 }
 
 /* Action button container styling */
-.action-buttons {
-  display: flex;
-  gap: 10px; /* Adjust the space between buttons */
-  align-items: center; /* Align buttons vertically if needed */
-}
-
-.action-buttons .btn {
-  padding: 5px 10px; /* Adjust as needed */
-  border-radius: 5px;
-  font-size: 14px;
-  cursor: pointer;
-  transition: background-color 0.3s, opacity 0.3s;
-  border: none;
-}
 
 .action-buttons .btn:hover {
   opacity: 0.9;
