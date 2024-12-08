@@ -83,6 +83,7 @@
   height: 110px;
   border-radius: 50%;
   border: 2px solid var(--color-sidebar-text);
+  object-fit: cover; 
 }
 
 .sidebar-user h3 {
