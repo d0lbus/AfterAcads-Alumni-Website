@@ -10,11 +10,11 @@ $friendsManager = new FriendsManager($conn);
 $friends = $friendsManager->getFriends($user['id']);
 
 
-$search = isset($_GET['search']) ? $_GET['search'] : '';
-$school_id = isset($_GET['school_id']) ? $_GET['school_id'] : ''; 
-$activeTab = isset($_GET['tab']) ? $_GET['tab'] : ''; 
-$page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
-$total_pages = 0; 
+// $search = isset($_GET['search']) ? $_GET['search'] : '';
+// $school_id = isset($_GET['school_id']) ? $_GET['school_id'] : ''; 
+// $activeTab = isset($_GET['tab']) ? $_GET['tab'] : ''; 
+// $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+// $total_pages = 0; 
 
 ?>
 
@@ -87,19 +87,14 @@ $total_pages = 0;
         <!-- Search and Filters -->
         <div class="header-actions-container">
           <!-- Search Bar -->
-          <form method="GET" action="events.php" class="header-search-bar">
-            <input 
-              type="text" 
-              class="search-input" 
-              name="search" 
-              id="searchInput" 
-              placeholder="Search..." 
-            />
-            <button type="submit" class="search-button" aria-label="Search">
-              <span class="las la-search"></span>
-            </button>
-            <div id="suggestions" class="suggestions-list"></div>
-          </form>
+          <div class="header-search-bar">
+              <form action="searchResultsPage.php" method="get" style="display: flex; width: 100%;">
+                  <input type="text" class="search-input" name="query" placeholder="Search..." required />
+                  <button class="search-button" id="searchButton" aria-label="Search">
+                      <span><img src="../../assets/search1.png" width="20px" alt="search" /></span>
+                  </button>
+              </form>
+          </div>
         </div>
 
         <!-- School Dropdown Filter -->
@@ -176,33 +171,33 @@ $total_pages = 0;
   <script>
     // Search functionality
     document.addEventListener("DOMContentLoaded", function() {
-      const searchInput = document.getElementById("searchInput");
-      const suggestionsList = document.getElementById("suggestions");
+      // const searchInput = document.getElementById("searchInput");
+      // const suggestionsList = document.getElementById("suggestions");
 
-      // Example suggested search terms
-      const suggestions = ["Upcoming events", "SAMCIS", "SEA", "General", "STELA", "SOHNABS"];
+      // // Example suggested search terms
+      // const suggestions = ["Upcoming events", "SAMCIS", "SEA", "General", "STELA", "SOHNABS"];
       
-      searchInput.addEventListener("input", function() {
-        const query = searchInput.value.toLowerCase();
-        suggestionsList.innerHTML = ""; // Clear existing suggestions
+      // searchInput.addEventListener("input", function() {
+      //   const query = searchInput.value.toLowerCase();
+      //   suggestionsList.innerHTML = ""; // Clear existing suggestions
 
-        if (query.length > 0) {
-          const filteredSuggestions = suggestions.filter(function(suggestion) {
-            return suggestion.toLowerCase().includes(query);
-          });
+      //   if (query.length > 0) {
+      //     const filteredSuggestions = suggestions.filter(function(suggestion) {
+      //       return suggestion.toLowerCase().includes(query);
+      //     });
 
-          filteredSuggestions.forEach(function(suggestion) {
-            const suggestionElement = document.createElement("div");
-            suggestionElement.classList.add("suggestion-item");
-            suggestionElement.textContent = suggestion;
-            suggestionElement.addEventListener("click", function() {
-              searchInput.value = suggestion; // Set input field to selected suggestion
-              suggestionsList.innerHTML = ""; // Clear suggestions after selection
-            });
-            suggestionsList.appendChild(suggestionElement);
-          });
-        }
-      });
+      //     filteredSuggestions.forEach(function(suggestion) {
+      //       const suggestionElement = document.createElement("div");
+      //       suggestionElement.classList.add("suggestion-item");
+      //       suggestionElement.textContent = suggestion;
+      //       suggestionElement.addEventListener("click", function() {
+      //         searchInput.value = suggestion; // Set input field to selected suggestion
+      //         suggestionsList.innerHTML = ""; // Clear suggestions after selection
+      //       });
+      //       suggestionsList.appendChild(suggestionElement);
+      //     });
+      //   }
+      // });
 
       // Hide suggestions when clicking outside
       document.addEventListener("click", function(e) {

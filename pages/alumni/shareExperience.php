@@ -217,6 +217,7 @@ $friends = $friendsManager->getFriends($user['id']);
 
     <script>
     document.addEventListener("DOMContentLoaded", function () {
+        // responsive sidebar
         const sidebar = document.querySelector(".sidebar");
         const toggleButton = document.getElementById("sidebarToggle");
 

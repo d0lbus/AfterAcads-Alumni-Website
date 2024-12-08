@@ -336,6 +336,7 @@ header {
     padding: 10px;
     border-radius: 8px;
     text-align: right; 
+    margin-left: auto;
   }
   
   .timestamp {

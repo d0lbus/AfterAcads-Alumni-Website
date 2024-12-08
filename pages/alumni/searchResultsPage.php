@@ -60,11 +60,30 @@ if ($query) {
             OR schools.name LIKE ? 
             OR courses.name LIKE ?
         GROUP BY posts.id
+
+        UNION
+
+        SELECT 
+            'event' AS type,
+            events.id,
+            events.title AS name,
+            NULL AS email,
+            NULL AS school,
+            NULL AS course,
+            NULL AS batch,
+            events.description AS content,
+            NULL AS tags,
+            events.image_path AS image,
+            events.created_at
+        FROM events
+        WHERE events.title LIKE ? 
+            OR events.description LIKE ? 
+            OR events.location LIKE ?
     ");
     
     if ($stmt) {
         $likeQuery = "%{$query}%";
-        $stmt->bind_param("sssssssss",$likeQuery, $likeQuery, $likeQuery, $likeQuery, $likeQuery, $likeQuery, $likeQuery, $likeQuery, $likeQuery);
+        $stmt->bind_param("ssssssssssss", $likeQuery, $likeQuery, $likeQuery, $likeQuery, $likeQuery, $likeQuery, $likeQuery, $likeQuery, $likeQuery, $likeQuery, $likeQuery, $likeQuery);
         $stmt->execute();
         $result = $stmt->get_result();
         $searchResults = $result->fetch_all(MYSQLI_ASSOC);
@@ -209,6 +228,24 @@ if ($query) {
 
                                 <!-- Display Timestamp -->
                                 <p><?php echo htmlspecialchars($result['created_at']); ?></p>
+
+                                <?php elseif ($result['type'] === 'event') : ?>
+                            <h1>EVENTS</h1>
+                            <!-- Display Event Information -->
+                            <h3>
+                                <a href="viewEvent.php?event_id=<?php echo urlencode($result['id']); ?>">
+                                    <?php echo htmlspecialchars($result['name']); ?>
+                                </a>
+                            </h3>
+                            <p>Description: <?php echo htmlspecialchars($result['content']); ?></p>
+
+                            <!-- Display Event Image -->
+                            <?php if (!empty($result['image'])) : ?>
+                                <img src="../../uploads/<?php echo htmlspecialchars($result['image']); ?>" alt="Event Image" class="event-image">
+                            <?php endif; ?>
+
+                            <!-- Display Timestamp -->
+                            <p>Posted on: <?php echo htmlspecialchars($result['created_at']); ?></p>
                             <?php endif; ?>
                         </div>
                     <?php endforeach; ?>
