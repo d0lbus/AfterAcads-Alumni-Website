@@ -1,3 +1,6 @@
+/* Citation: CSS Universal Selector - MDN Web Docs: https://developer.mozilla.org/en-US/docs/Web/CSS/* */
+  /* Citation: CSS Box Model - MDN Web Docs: https://developer.mozilla.org/en-US/docs/Web/CSS/box-sizing */
+  /* Citation: Google Fonts - Poppins Font - https://fonts.google.com/ */
 * {
   margin: 0;
   padding: 0;
@@ -5,21 +8,17 @@
   font-family: "Poppins", sans-serif;
 }
 
+/* Citation: CSS Flexbox - MDN Web Docs: https://developer.mozilla.org/en-US/docs/Web/CSS/flex */
+  /* Citation: Viewport Height (vh) - MDN Web Docs: https://developer.mozilla.org/en-US/docs/Web/CSS/viewport-percentage_lengths */
 body {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
   padding: 0 20px;
-  /* animation: animateBg 5s linear infinite; */
 }
 
-/* @keyframes animateBg {
-  100% {
-      filter: hue-rotate(360deg);
-  }
-} */
-
+/* Citation: CSS Background Property - W3Schools: https://www.w3schools.com/css/css_background.asp */
 .body-color2 {
   background-color: #194569;
 }
@@ -31,6 +30,8 @@ body {
   height: 100%;
 }
 
+/* Citation: CSS Box Shadow - MDN Web Docs: https://developer.mozilla.org/en-US/docs/Web/CSS/box-shadow */
+  /* Citation: CSS Border Radius - W3Schools: https://www.w3schools.com/css/css_border_radius.asp */
 .login-box {
   padding: 80px 90px;
   border-radius: 30px;
@@ -66,6 +67,7 @@ body {
   height: auto;
 }
 
+/* Citation: CSS Flexbox - MDN Web Docs: https://developer.mozilla.org/en-US/docs/Web/CSS/flex */
 .login-box form {
   display: flex;
   flex-direction: column;
@@ -99,6 +101,9 @@ body {
   color: rgba(0, 0, 0, 0.7);
 }
 
+/* Citation: CSS Button Styling - W3Schools: https://www.w3schools.com/css/css_buttons.asp */
+  /* Citation: CSS Cursor Property - MDN Web Docs: https://developer.mozilla.org/en-US/docs/Web/CSS/cursor */
+  /* Citation: CSS Transition Property - W3Schools: https://www.w3schools.com/css/css3_transitions.asp */
 .login-box button {
   background-color: #5f84a2;
   color: white;
@@ -114,6 +119,7 @@ body {
   text-align: center;
 }
 
+/* Citation: CSS Hover Effects - MDN Web Docs: https://developer.mozilla.org/en-US/docs/Web/CSS/:hover */
 .login-box button:hover {
   background-color: #91aec4;
 }
