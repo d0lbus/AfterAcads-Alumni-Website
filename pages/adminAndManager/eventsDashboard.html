@@ -121,49 +121,48 @@
                 <label for="eventImagePreview">Event Image Preview:</label>
                 <img id="eventImagePreview" style="display: none; max-width: 100%; height: auto;" alt="Event Image Preview">                
 
-                <!-- Event ID-->
+                <!-- Event ID -->
                 <label for="eventID">ID:</label>
                 <input type="text" id="eventId" name="eventId" readonly />
 
                 <!-- Title -->
                 <label for="eventTitle">Title:</label>
-                <input type="text" id="eventTitle" name="eventTitle" required />
-    
+                <input type="text" id="eventTitle" name="title" required />
+
                 <!-- Description -->
                 <label for="eventDescription">Description:</label>
-                <textarea id="eventDescription" name="eventDescription" required></textarea>
-    
+                <textarea id="eventDescription" name="description" required></textarea>
+
                 <!-- School Dropdown -->
                 <label for="eventSchool">School:</label>
-                <select id="eventSchool" name="eventSchool" required>
+                <select id="eventSchool" name="school_id" required>
                     <option value="">Select School</option>
-                    <!-- Options will be dynamically populated -->
                 </select>
-    
+
                 <!-- Host -->
                 <label for="eventHost">Host:</label>
-                <input type="text" id="eventHost" name="eventHost" required />
-    
+                <input type="text" id="eventHost" name="host" required />
+
                 <!-- Date -->
                 <label for="eventDate">Date:</label>
-                <input type="date" id="eventDate" name="eventDate" required max="" />
-    
+                <input type="date" id="eventDate" name="date" required />
+
                 <!-- Time -->
                 <label for="eventTime">Time:</label>
-                <input type="time" id="eventTime" name="eventTime" required />
-    
+                <input type="time" id="eventTime" name="time" required />
+
                 <!-- Location -->
                 <label for="eventLocation">Location:</label>
-                <input type="text" id="eventLocation" name="eventLocation" required />
-    
-                <!-- Image Uploaded-->
+                <input type="text" id="eventLocation" name="location" required />
+
+                <!-- Image Uploaded -->
                 <label for="eventImage">Event Image:</label>
                 <input type="file" id="eventImage" name="eventImage" accept="image/*" />
-    
+
                 <!-- Alternate Text for Image -->
                 <label for="altText">Image Alt Text:</label>
-                <input type="text" id="altText" name="altText" />
-    
+                <input type="text" id="altText" name="alt_text" />
+
                 <!-- Save Button -->
                 <button type="submit" id="saveChanges">Save Changes</button>
             </form>
@@ -417,7 +416,7 @@
 
                 fetch("/api/events/update", {
                     method: "PUT",
-                    body: formData, // Use FormData directly
+                    body: formData, 
                 })
                     .then(response => {
                         if (!response.ok) {
