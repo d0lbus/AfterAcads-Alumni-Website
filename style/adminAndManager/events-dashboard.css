@@ -416,9 +416,6 @@ img.afteracadstext {
   background-color: #fff;
   width: 80%;
   max-width: 900px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   border-radius: 8px;
   padding: 20px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
