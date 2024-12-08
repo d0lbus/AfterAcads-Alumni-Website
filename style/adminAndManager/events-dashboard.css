@@ -215,8 +215,9 @@ img.afteracadstext {
 /* Button Container */
 .button-container {
   display: flex;
-  gap: 10px;
-  justify-content: flex-end; /* Aligns buttons to the right */
+  flex-direction: column; /* Change to column layout */
+  gap: 10px; /* Adds spacing between buttons */
+  justify-content: flex-start; /* Aligns buttons to the start of the container */
   position: relative;
   margin-top: 20px; /* Adds space between the table and buttons */
 }
@@ -228,8 +229,8 @@ img.afteracadstext {
   cursor: pointer;
   transition: background-color 0.3s, opacity 0.3s;
   border: none;
-  flex-shrink: 0; /* Prevent buttons from shrinking */
-  margin-right: 10px; /* Adjust spacing between buttons */
+  flex-shrink: 0; /* Prevents buttons from shrinking */
+  width: 100%; /* Make buttons the full width of the container */
 }
 
 .button-container .btn:hover {
@@ -285,7 +286,21 @@ img.afteracadstext {
 /* Action button container styling */
 .action-buttons {
   display: flex;
-  align-items: center;
+  gap: 10px; /* Adjust the space between buttons */
+  align-items: center; /* Align buttons vertically if needed */
+}
+
+.action-buttons .btn {
+  padding: 5px 10px; /* Adjust as needed */
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s, opacity 0.3s;
+  border: none;
+}
+
+.action-buttons .btn:hover {
+  opacity: 0.9;
 }
 
 .sort-button {
