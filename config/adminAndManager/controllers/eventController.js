@@ -91,13 +91,31 @@ exports.getEventDetailsById = (req, res) => {
   });
 };
 
+// Add Event Functinality
+exports.addEvent = (req, res) => {
+  const { title, host, date, time, location, school, description } = req.body;
+  const imagePath = req.file ? req.file.filename : null;
+
+  const sql = `
+      INSERT INTO events (title, host, date, time, location, school_id, description, image_path)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+  `;
+  const values = [title, host, date, time, location, school, description, imagePath];
+
+  db.query(sql, values, (err, result) => {
+      if (err) {
+          console.error("Database error:", err);
+          return res.status(500).json({ error: "Failed to add event." });
+      }
+      res.json({ message: "Event added successfully." });
+  });
+};
+
 // Update Event Functionality
 exports.updateEvent = (req, res) => {
-  console.log('Incoming Form Data:', req.body); // Log all form fields
-  console.log('Uploaded File:', req.file); // Log uploaded file details if available
 
   const { eventId, title, description, date, time, location, host, school_id, altText } = req.body;
-  const imagePath = req.file ? req.file.filename : null; // Check if an image was uploaded
+  const imagePath = req.file ? req.file.filename : null; 
 
   const sql = `
     UPDATE events
@@ -118,9 +136,6 @@ exports.updateEvent = (req, res) => {
     eventId,
   ];
 
-  // Log the SQL query and the values being passed
-  console.log('SQL Query:', sql);
-  console.log('Query Values:', values);
 
   db.query(sql, values, (err, result) => {
     if (err) {
@@ -133,7 +148,6 @@ exports.updateEvent = (req, res) => {
     res.json({ message: 'Event updated successfully.' });
   });
 };
-
 
 
 exports.getEventStatistics = (req, res) => {

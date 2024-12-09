@@ -30,8 +30,12 @@ router.get('/schools', eventController.getSchools);
 // Get event details by ID
 router.get('/details/:id', eventController.getEventDetailsById);
 
+router.post('/add', upload.single('eventImage'), eventController.addEvent);
+
 // Update event details
 router.put('/update', upload.single('eventImage'), eventController.updateEvent);
+
+
 
 
 router.get('/statistics', eventController.getEventStatistics);

@@ -37,44 +37,42 @@
         </div>
 
         <h2>Add Events Form</h2>
-        <form class="add-events-form">
+        <form class="add-events-form" id="addEventForm">
             <div>
                 <label for="event-title">Event Title/Name</label>
-                <input type="text" id="event-title" placeholder="Enter event name">
+                <input type="text" id="event-title" name="title" placeholder="Enter event name" required>
             </div>
 
             <div>
                 <label for="host">Host</label>
-                <input type="text" id="host" placeholder="Enter host name">
+                <input type="text" id="host" name="host" placeholder="Enter host name" required>
             </div>
 
             <div>
                 <label for="date">Date</label>
-                <input type="date" id="date">
+                <input type="date" id="date" name="date" required>
             </div>
 
             <div>
                 <label for="time">Time</label>
-                <input type="time" id="time">
+                <input type="time" id="time" name="time" required>
             </div>
 
             <div>
                 <label for="location">Location</label>
-                <input type="text" id="location" placeholder="Enter location">
+                <input type="text" id="location" name="location" placeholder="Enter location" required>
             </div>
 
             <div>
                 <label for="program">School</label>
-                <select id="program">
+                <select id="program" name="school" required>
                     <option value="">Select School</option>
-                    <option value="program1">School 1</option>
-                    <option value="program2">School 2</option>
                 </select>
             </div>
 
             <div style="grid-column: span 2;">
                 <label for="description">Description</label>
-                <textarea id="description" rows="4" placeholder="Enter event description"></textarea>
+                <textarea id="description" name="description" rows="4" placeholder="Enter event description" required></textarea>
             </div>
 
             <div class="upload-section">
@@ -84,12 +82,79 @@
                 </label>
                 <p>Drag and Drop image here or</p>
                 <label class="btn" for="upload-image">Browse Files</label>
-                <input type="file" id="upload-image">
+                <input type="file" id="upload-image" name="eventImage" accept="image/*">
+                <img id="imagePreview" style="display:none; max-width: 100%; height: auto; margin-top: 10px;">
             </div>
 
             <button type="submit" class="btn-submit">Add Event</button>
         </form>
     </div>
+
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const form = document.getElementById("addEventForm");
+            const schoolDropdown = document.getElementById("program");
+            const imageInput = document.getElementById("upload-image");
+            const imagePreview = document.getElementById("imagePreview");
+
+            // Fetch and populate schools dropdown
+            fetch('/api/events/schools')
+                .then(response => {
+                    if (!response.ok) throw new Error('Failed to fetch schools');
+                    return response.json();
+                })
+                .then(data => {
+                    data.forEach(school => {
+                        const option = document.createElement("option");
+                        option.value = school.id;
+                        option.textContent = school.name;
+                        schoolDropdown.appendChild(option);
+                    });
+                })
+                .catch(error => console.error("Error fetching schools:", error));
+
+            // Handle image preview
+            imageInput.addEventListener("change", (event) => {
+                const file = event.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        imagePreview.src = e.target.result;
+                        imagePreview.style.display = "block";
+                    };
+                    reader.readAsDataURL(file);
+                } else {
+                    imagePreview.style.display = "none";
+                }
+            });
+
+            // Submit form data
+            form.addEventListener("submit", (event) => {
+                event.preventDefault();
+
+                const formData = new FormData(form);
+
+                fetch("/api/events/add", {
+                    method: "POST",
+                    body: formData,
+                })
+                    .then(response => {
+                        if (!response.ok) throw new Error("Failed to add event");
+                        return response.json();
+                    })
+                    .then(data => {
+                        alert(data.message);
+                        window.location.href = "eventsDashboard.html"; 
+                    })
+                    .catch(error => {
+                        console.error("Error adding event:", error);
+                        alert("Error: " + error.message);
+                    });
+            });
+        });
+    </script>
 </body>
 
 </html>
