@@ -34,10 +34,12 @@ app.use('/style', express.static(path.join(__dirname, '../../style')));
 const userRoutes = require('./routes/users');
 const postRoutes = require('./routes/posts');
 const eventRoutes = require('./routes/events');
+const opportunityRoutes = require('./routes/opportunities');
 
 app.use('/api/posts', postRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/events', eventRoutes);
+app.use('/api/opportunities', opportunityRoutes);
 
 
 // Start server
