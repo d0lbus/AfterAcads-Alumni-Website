@@ -1,160 +1,205 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Add Events</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap">
-    <link rel="stylesheet" href="../../style/adminAndManager/add-events.css">
-</head>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap"
+    />
+    <link rel="stylesheet" href="../../style/adminAndManager/add-events.css" />
+  </head>
 
-<body>
+  <body>
     <header>
-        <img src="../../assets/logo.png" alt="AfterAcads Logo" style="width: 150px;">
-        <ul class="nav-links">
-            <li><a href="home.html">Home</a></li>
-            <li><a href="Registrants.html">Registrants</a></li>
-            <li><a href="approvePost.html">Posts</a></li>
-            <li><a href="eventsDashboard.html">Events</a></li>
-            <li><a href="opportunities.html">Opportunities</a></li>
-            <li><a href="statistics.php">Statistics</a></li>
-            <li><a href="user.html">Users</a></li>
-        </ul>
-        <div class="profile">
-            <a href="managerProfile.html">
-                <img src="../../assets/profileIcon.jpg" alt="Profile">
-            </a>
-        </div>
+      <img
+        src="../../assets/logo.png"
+        alt="AfterAcads Logo"
+        style="width: 150px"
+      />
+      <!-- Citation: navigation bar  (https://www.youtube.com/watch?v=oLgtucwjVII) -->
+      <ul class="nav-links">
+        <li><a href="home.html">Home</a></li>
+        <li><a href="Registrants.html">Registrants</a></li>
+        <li><a href="approvePost.html">Posts</a></li>
+        <li><a href="eventsDashboard.html">Events</a></li>
+        <li><a href="opportunities.html">Opportunities</a></li>
+        <li><a href="statistics.php">Statistics</a></li>
+        <li><a href="user.html">Users</a></li>
+      </ul>
+      <div class="profile">
+        <a href="managerProfile.html">
+          <img src="../../assets/profileIcon.jpg" alt="Profile" />
+        </a>
+      </div>
     </header>
 
     <div class="container">
-        <div class="button-group">
-            <a href="eventsDashboard.html" class="btn upcoming">Upcoming Events</a>
-            <a href="eventsDashboard.html" class="btn finished">Finished Events</a>
-            <a href="eventsDashboard.html" class="btn archived">Archived Events</a>
-            <a href="addEvents.html" class="btn add">Add Events</a>
+      <div class="button-group">
+        <a href="eventsDashboard.html" class="btn upcoming">Upcoming Events</a>
+        <a href="eventsDashboard.html" class="btn finished">Finished Events</a>
+        <a href="eventsDashboard.html" class="btn archived">Archived Events</a>
+        <a href="addEvents.html" class="btn add">Add Events</a>
+      </div>
+
+      <!-- Citation: Add Events form design  (https://www.youtube.com/watch?v=okbByPWS1Xc&list=PLImJ3umGjxdDqTlZhQxXBeGij9Oa9Xjnj) -->
+      <h2>Add Events Form</h2>
+      <form class="add-events-form" id="addEventForm">
+        <div>
+          <label for="event-title">Event Title/Name</label>
+          <input
+            type="text"
+            id="event-title"
+            name="title"
+            placeholder="Enter event name"
+            required
+          />
         </div>
 
-        <h2>Add Events Form</h2>
-        <form class="add-events-form" id="addEventForm">
-            <div>
-                <label for="event-title">Event Title/Name</label>
-                <input type="text" id="event-title" name="title" placeholder="Enter event name" required>
-            </div>
+        <div>
+          <label for="host">Host</label>
+          <input
+            type="text"
+            id="host"
+            name="host"
+            placeholder="Enter host name"
+            required
+          />
+        </div>
 
-            <div>
-                <label for="host">Host</label>
-                <input type="text" id="host" name="host" placeholder="Enter host name" required>
-            </div>
+        <div>
+          <label for="date">Date</label>
+          <input type="date" id="date" name="date" required />
+        </div>
 
-            <div>
-                <label for="date">Date</label>
-                <input type="date" id="date" name="date" required>
-            </div>
+        <div>
+          <label for="time">Time</label>
+          <input type="time" id="time" name="time" required />
+        </div>
 
-            <div>
-                <label for="time">Time</label>
-                <input type="time" id="time" name="time" required>
-            </div>
+        <div>
+          <label for="location">Location</label>
+          <input
+            type="text"
+            id="location"
+            name="location"
+            placeholder="Enter location"
+            required
+          />
+        </div>
 
-            <div>
-                <label for="location">Location</label>
-                <input type="text" id="location" name="location" placeholder="Enter location" required>
-            </div>
+        <div>
+          <label for="program">School</label>
+          <select id="program" name="school" required>
+            <option value="">Select School</option>
+          </select>
+        </div>
 
-            <div>
-                <label for="program">School</label>
-                <select id="program" name="school" required>
-                    <option value="">Select School</option>
-                </select>
-            </div>
+        <div style="grid-column: span 2">
+          <label for="description">Description</label>
+          <textarea
+            id="description"
+            name="description"
+            rows="4"
+            placeholder="Enter event description"
+            required
+          ></textarea>
+        </div>
 
-            <div style="grid-column: span 2;">
-                <label for="description">Description</label>
-                <textarea id="description" name="description" rows="4" placeholder="Enter event description" required></textarea>
-            </div>
+        <div class="upload-section">
+          <label class="upload-label">
+            <img
+              src="../../assets/uploadimage-removebg-preview.png"
+              alt="Upload Event Image"
+              class="upload-icon"
+            />
+          </label>
+          <p>Drag and Drop image here or</p>
+          <label class="btn" for="upload-image">Browse Files</label>
+          <input
+            type="file"
+            id="upload-image"
+            name="eventImage"
+            accept="image/*"
+          />
+          <img
+            id="imagePreview"
+            style="
+              display: none;
+              max-width: 100%;
+              height: auto;
+              margin-top: 10px;
+            "
+          />
+        </div>
 
-            <div class="upload-section">
-                <label class="upload-label">
-                    <img src="../../assets/uploadimage-removebg-preview.png" alt="Upload Event Image"
-                        class="upload-icon">
-                </label>
-                <p>Drag and Drop image here or</p>
-                <label class="btn" for="upload-image">Browse Files</label>
-                <input type="file" id="upload-image" name="eventImage" accept="image/*">
-                <img id="imagePreview" style="display:none; max-width: 100%; height: auto; margin-top: 10px;">
-            </div>
-
-            <button type="submit" class="btn-submit">Add Event</button>
-        </form>
+        <button type="submit" class="btn-submit">Add Event</button>
+      </form>
     </div>
 
-
-
     <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            const form = document.getElementById("addEventForm");
-            const schoolDropdown = document.getElementById("program");
-            const imageInput = document.getElementById("upload-image");
-            const imagePreview = document.getElementById("imagePreview");
+      document.addEventListener("DOMContentLoaded", () => {
+        const form = document.getElementById("addEventForm");
+        const schoolDropdown = document.getElementById("program");
+        const imageInput = document.getElementById("upload-image");
+        const imagePreview = document.getElementById("imagePreview");
 
-            // Fetch and populate schools dropdown
-            fetch('/api/events/schools')
-                .then(response => {
-                    if (!response.ok) throw new Error('Failed to fetch schools');
-                    return response.json();
-                })
-                .then(data => {
-                    data.forEach(school => {
-                        const option = document.createElement("option");
-                        option.value = school.id;
-                        option.textContent = school.name;
-                        schoolDropdown.appendChild(option);
-                    });
-                })
-                .catch(error => console.error("Error fetching schools:", error));
-
-            // Handle image preview
-            imageInput.addEventListener("change", (event) => {
-                const file = event.target.files[0];
-                if (file) {
-                    const reader = new FileReader();
-                    reader.onload = (e) => {
-                        imagePreview.src = e.target.result;
-                        imagePreview.style.display = "block";
-                    };
-                    reader.readAsDataURL(file);
-                } else {
-                    imagePreview.style.display = "none";
-                }
+        // Fetch and populate schools dropdown
+        fetch("/api/events/schools")
+          .then((response) => {
+            if (!response.ok) throw new Error("Failed to fetch schools");
+            return response.json();
+          })
+          .then((data) => {
+            data.forEach((school) => {
+              const option = document.createElement("option");
+              option.value = school.id;
+              option.textContent = school.name;
+              schoolDropdown.appendChild(option);
             });
+          })
+          .catch((error) => console.error("Error fetching schools:", error));
 
-            // Submit form data
-            form.addEventListener("submit", (event) => {
-                event.preventDefault();
+        // Handle image preview
+        imageInput.addEventListener("change", (event) => {
+          const file = event.target.files[0];
+          if (file) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+              imagePreview.src = e.target.result;
+              imagePreview.style.display = "block";
+            };
+            reader.readAsDataURL(file);
+          } else {
+            imagePreview.style.display = "none";
+          }
+        });
 
-                const formData = new FormData(form);
+        // Submit form data
+        form.addEventListener("submit", (event) => {
+          event.preventDefault();
 
-                fetch("/api/events/add", {
-                    method: "POST",
-                    body: formData,
-                })
-                    .then(response => {
-                        if (!response.ok) throw new Error("Failed to add event");
-                        return response.json();
-                    })
-                    .then(data => {
-                        alert(data.message);
-                        window.location.href = "eventsDashboard.html"; 
-                    })
-                    .catch(error => {
-                        console.error("Error adding event:", error);
-                        alert("Error: " + error.message);
-                    });
+          const formData = new FormData(form);
+
+          fetch("/api/events/add", {
+            method: "POST",
+            body: formData,
+          })
+            .then((response) => {
+              if (!response.ok) throw new Error("Failed to add event");
+              return response.json();
+            })
+            .then((data) => {
+              alert(data.message);
+              window.location.href = "eventsDashboard.html";
+            })
+            .catch((error) => {
+              console.error("Error adding event:", error);
+              alert("Error: " + error.message);
             });
         });
+      });
     </script>
-</body>
-
+  </body>
 </html>

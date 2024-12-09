@@ -133,7 +133,8 @@ $profile_picture = !$is_current_user
         </div>
     </div>
 
-
+    <!-- Citation: View Profile Page - YouTube (Channel: Programmer Cloud,
+      Video: "Fully Responsive Profile Page With HTML & CSS | Social Media Profile Page Design") -->
     <div class="main-content">
         <div class="header-wrapper">
             <div class="header"></div>

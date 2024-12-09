@@ -22,6 +22,7 @@
             alt="AfterAcads"
           />
         </div>
+        <!-- Citation: navigation bar - (https://www.youtube.com/watch?v=oLgtucwjVII) -->
         <ul class="nav-links">
           <li><a href="home.html">Home</a></li>
           <li><a href="Registrants.html">Registrants</a></li>
@@ -29,12 +30,18 @@
           <li><a href="eventsDashboard.html">Events</a></li>
           <li><a href="opportunities.html">Opportunities</a></li>
           <li><a href="statistics.html">Statistics</a></li>
-          <li id = "usersNav"><a href="user.html">Users</a></li>
-      </ul>
-      <div class="profile">
-          <li><a href="managerProfile.html"><img class="profile-img" src="../../assets/profileIcon.jpg"
-                      alt="Profile" /></a></li>
-      </div>
+          <li id="usersNav"><a href="user.html">Users</a></li>
+        </ul>
+        <div class="profile">
+          <li>
+            <a href="managerProfile.html"
+              ><img
+                class="profile-img"
+                src="../../assets/profileIcon.jpg"
+                alt="Profile"
+            /></a>
+          </li>
+        </div>
       </header>
 
       <!-- Main Content Section -->
@@ -47,10 +54,7 @@
                   <span>2</span>
                 </div>
                 <h3>Registrants</h3>
-                <a
-                  href="Registrants.html"
-                  class="icon-link"
-                >
+                <a href="Registrants.html" class="icon-link">
                   <i class="las la-arrow-right"></i>
                 </a>
               </div>
@@ -59,10 +63,7 @@
                   <span>2</span>
                 </div>
                 <h3>Posts</h3>
-                <a
-                  href="approvePost.html"
-                  class="icon-link"
-                >
+                <a href="approvePost.html" class="icon-link">
                   <i class="las la-arrow-right"></i>
                 </a>
               </div>
@@ -71,10 +72,7 @@
                   <span>4</span>
                 </div>
                 <h3>Events</h3>
-                <a
-                  href="eventsDashboard.html"
-                  class="icon-link"
-                >
+                <a href="eventsDashboard.html" class="icon-link">
                   <i class="las la-arrow-right"></i>
                 </a>
               </div>
@@ -83,10 +81,7 @@
                   <span>9</span>
                 </div>
                 <h3>Opportunities</h3>
-                <a
-                  href="opportunities.html"
-                  class="icon-link"
-                >
+                <a href="opportunities.html" class="icon-link">
                   <i class="las la-arrow-right"></i>
                 </a>
               </div>
@@ -95,10 +90,7 @@
                   <span>1</span>
                 </div>
                 <h3>Users</h3>
-                <a
-                  href="user.html"
-                  class="icon-link"
-                >
+                <a href="user.html" class="icon-link">
                   <i class="las la-arrow-right"></i>
                 </a>
               </div>
@@ -116,43 +108,41 @@
     </section>
 
     <script>
-    document.querySelectorAll('.icon-link').forEach(icon => {
-        icon.addEventListener('click', function(e) {
-        e.preventDefault(); // Prevent the default link behavior
+      document.querySelectorAll(".icon-link").forEach((icon) => {
+        icon.addEventListener("click", function (e) {
+          e.preventDefault(); // Prevent the default link behavior
 
-        // Apply fade and zoom-out effect on the current page
-        document.body.classList.add('fade-zoom-out');
+          // Apply fade and zoom-out effect on the current page
+          document.body.classList.add("fade-zoom-out");
 
-        // After the transition, navigate to the new page
-        setTimeout(() => {
-          const link = this.href; // Get the destination link
-          window.location.href = link; // Navigate to the next page
-        }, 500); // Wait for the transition to complete (500ms)
+          // After the transition, navigate to the new page
+          setTimeout(() => {
+            const link = this.href; // Get the destination link
+            window.location.href = link; // Navigate to the next page
+          }, 500); // Wait for the transition to complete (500ms)
+        });
       });
-  });
-    
-    // Fetch user details from the backend
-    fetch('/api/users/details')
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Failed to fetch user details');
-        }
-        return response.json();
-      })
-      .then(user => {
-        // Hide the "Users" section if the user is a manager
-        if (user.userType === 'manager') {
-          document.getElementById('usersNav').style.display = 'none'; // Hide nav link
-          document.getElementById('usersBox').style.display = 'none'; // Hide box
-        }
-      })
-      .catch(error => {
-        console.error('Error:', error);
-        // Redirect to login page if not logged in
-        window.location.href = '/adminAndManager/login.html';
-      });
-    
 
+      // Fetch user details from the backend
+      fetch("/api/users/details")
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Failed to fetch user details");
+          }
+          return response.json();
+        })
+        .then((user) => {
+          // Hide the "Users" section if the user is a manager
+          if (user.userType === "manager") {
+            document.getElementById("usersNav").style.display = "none"; // Hide nav link
+            document.getElementById("usersBox").style.display = "none"; // Hide box
+          }
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+          // Redirect to login page if not logged in
+          window.location.href = "/adminAndManager/login.html";
+        });
     </script>
   </body>
 </html>

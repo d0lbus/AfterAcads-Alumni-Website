@@ -14,6 +14,8 @@ $query = isset($_GET['query']) ? trim($_GET['query']) : '';
 // Fetch results from the database (users, posts, etc.)
 $searchResults = [];
 
+
+/* Citation: Query for search results - ChatGPT (2024) */
 if ($query) {
     // Search for users and their details
     $stmt = $conn->prepare("
