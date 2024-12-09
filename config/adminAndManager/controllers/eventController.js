@@ -91,7 +91,7 @@ exports.getEventDetailsById = (req, res) => {
   });
 };
 
-// Add Event Functinality
+// Add Event Functionality
 exports.addEvent = (req, res) => {
   const { title, host, date, time, location, school, description } = req.body;
   const imagePath = req.file ? req.file.filename : null;
@@ -108,6 +108,27 @@ exports.addEvent = (req, res) => {
           return res.status(500).json({ error: "Failed to add event." });
       }
       res.json({ message: "Event added successfully." });
+  });
+};
+
+// Delete Event Functionality
+// Delete Event Functionality
+exports.deleteEvent = (req, res) => {
+  const eventId = req.params.id;
+
+  const sql = `DELETE FROM events WHERE id = ?`;
+
+  db.query(sql, [eventId], (err, result) => {
+      if (err) {
+          console.error("Database error:", err);
+          return res.status(500).json({ error: "Failed to delete event." });
+      }
+
+      if (result.affectedRows === 0) {
+          return res.status(404).json({ error: "Event not found." });
+      }
+
+      res.json({ message: "Event deleted successfully." });
   });
 };
 

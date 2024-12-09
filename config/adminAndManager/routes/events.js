@@ -32,6 +32,9 @@ router.get('/details/:id', eventController.getEventDetailsById);
 
 router.post('/add', upload.single('eventImage'), eventController.addEvent);
 
+router.delete('/delete/:id', eventController.deleteEvent);
+
+
 // Update event details
 router.put('/update', upload.single('eventImage'), eventController.updateEvent);
 

@@ -43,7 +43,7 @@
               <div class="button-group">
                 <button class="btn-upcoming">Upcoming Events</button>
                 <button class="btn-finished">Finished Events</button>
-                <button class="btn-archived">Archived/Denied Events</button>
+                <button class="btn-archived">Archived Events</button>
                 <button class="btn-add">Add Event</button>
               </div>
             </div>
@@ -260,40 +260,71 @@
                 } else if (event.target.classList.contains("edit")) {
                     const eventId = getEventIdFromRow(event.target.closest("tr"));
                     openEditEventModal(eventId);
+                } else if (event.target.classList.contains("delete")) {
+                    const row = event.target.closest("tr");
+                    const eventId = getEventIdFromRow(row);
+
+                    // Confirm deletion
+                    const confirmDelete = confirm("Are you sure you want to delete this event?");
+                    if (confirmDelete) {
+                        deleteEvent(eventId)
+                            .then(() => {
+                                row.remove(); 
+                                alert("Event deleted successfully!");
+                            })
+                            .catch((error) => {
+                                console.error("Error deleting event:", error);
+                                alert("Failed to delete event. Please try again.");
+                            });
+                    }
                 }
             });
     
             // Populate table with event data
             function populateTable(tableClass, events) {
-                const tableBody = document.querySelector(`.${tableClass} tbody`);
-                tableBody.innerHTML = "";
+                    const tableBody = document.querySelector(`.${tableClass} tbody`);
+                    tableBody.innerHTML = "";
 
-                events.forEach(event => {
-                    const row = document.createElement("tr");
-                    row.innerHTML = `
-                        <td>${event.event_id}</td>
-                        <td>${event.title}</td>
-                        <td>${event.host}</td>
-                        <td>${new Date(event.date).toLocaleDateString()}</td>
-                        <td>${event.time}</td>
-                        <td>${event.location}</td>
-                        <td>${event.description}</td>
-                        <td>${event.school}</td>
-                        <td class="action-buttons">
-                            ${tableClass === "upcoming-table" ? `
-                            <button class="btn mark-done">Mark as Done</button>
-                            <button class="btn archive">Archive</button>
-                        ` : ""}
-                        <button class="btn edit">Edit</button>
-                        ${tableClass === "archived-table" ? `
-                            <button class="btn delete">Delete</button>
-                        ` : ""}
-                        </td>
-                    `;
-                row.dataset.eventId = event.event_id;
-                tableBody.appendChild(row);
-            });
-        }
+                    events.forEach(event => {
+                        const row = document.createElement("tr");
+                        row.innerHTML = `
+                            <td>${event.event_id}</td>
+                            <td>${event.title}</td>
+                            <td>${event.host}</td>
+                            <td>${new Date(event.date).toLocaleDateString()}</td>
+                            <td>${event.time}</td>
+                            <td>${event.location}</td>
+                            <td>${event.description}</td>
+                            <td>${event.school}</td>
+                            <td class="action-buttons">
+                                ${tableClass === "upcoming-table" ? `
+                                <button class="btn mark-done">Mark as Done</button>
+                                <button class="btn archive">Archive</button>
+                            ` : ""}
+                            <button class="btn edit">Edit</button>
+                            ${tableClass === "archived-table" ? `
+                                <button class="btn delete">Delete</button>
+                            ` : ""}
+                            </td>
+                        `;
+                    row.dataset.eventId = event.event_id;
+                    tableBody.appendChild(row);
+                });
+            }
+
+            // Function to delete an event
+            function deleteEvent(eventId) {
+                return fetch(`/api/events/delete/${eventId}`, {
+                    method: "DELETE",
+                }).then((response) => {
+                    if (!response.ok) {
+                        return response.json().then((errData) => {
+                            throw new Error(errData.error || "Failed to delete event.");
+                        });
+                    }
+                    return response.json();
+                });
+            }
 
             // Move row to a different table
             function moveToTable(row, targetTableClass) {
