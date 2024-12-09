@@ -178,6 +178,13 @@
             populateOpportunitiesTable();
         });
 
+
+        // Call populateOpportunitiesTable when the course dropdown changes
+        courseDropdown.addEventListener("change", () => {
+            populateOpportunitiesTable(); 
+        });
+
+
         // Fetch and populate opportunities table
         const populateOpportunitiesTable = () => {
           const schoolId = schoolDropdown.value || ""; 
