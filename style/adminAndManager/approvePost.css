@@ -304,10 +304,12 @@ img.afteracadstext {
   border-radius: 8px;
   width: 60%;
   max-width: 500px;
+  max-height: 500px;
   margin: auto;
   position: relative;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   text-align: center;
+  margin-top: 200px;
 }
 
 .close-btn {
