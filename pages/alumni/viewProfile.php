@@ -182,7 +182,6 @@ $profile_picture = !$is_current_user
                                 <button type="submit" class="message-button">Message</button>
                             </form>
                         </div>
-
                         <?php else: ?>
                             <a href="settings.php" class="edit-profile-button">Edit Profile</a>
                         <?php endif; ?>

@@ -126,4 +126,7 @@ exports.deleteOpportunity = (req, res) => {
     });
 };
 
+exports.addOpportunity = (req, res) => {
+    
+}
   
