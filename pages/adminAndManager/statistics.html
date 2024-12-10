@@ -125,7 +125,6 @@
             </div>
         </div>
         
-
         <div id="events-container" class="stats-container" style="display: none;">
             <h2>Events Statistics</h2>
             <div class="cards">
@@ -493,6 +492,96 @@
                 // Attach the function to load statistics dynamically
                 document.querySelector('.btn-Posts').addEventListener('click', fetchPostStatistics);
             });
+
+        </script>
+
+        <!-- Scripts for Fetching Events Statistics -->
+        <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            async function fetchEventStatistics() {
+                try {
+                    // Fetch total events
+                    const totalEventsResponse = await fetch('/api/events/statistics/total');
+                    const totalEventsData = await totalEventsResponse.json();
+                    document.getElementById('total-events').textContent = `Total Events: ${totalEventsData.totalEvents}`;
+
+                    // Fetch events grouped by status
+                    const statusResponse = await fetch('/api/events/statistics/status');
+                    const statusData = await statusResponse.json();
+                    const statusList = document.getElementById('event-status-breakdown');
+                    statusList.innerHTML = ''; // Clear existing list
+                    statusData.forEach(status => {
+                        const listItem = document.createElement('li');
+                        listItem.textContent = `${status.status}: ${status.total}`;
+                        statusList.appendChild(listItem);
+                    });
+
+                    // Fetch events grouped by school
+                    const schoolResponse = await fetch('/api/events/statistics/schools');
+                    const schoolData = await schoolResponse.json();
+                    const schoolLabels = schoolData.map(item => item.school_name);
+                    const schoolCounts = schoolData.map(item => item.total_events);
+
+                    // Render Events by School Chart
+                    const schoolCtx = document.getElementById('eventSchoolChart').getContext('2d');
+                    new Chart(schoolCtx, {
+                        type: 'bar',
+                        data: {
+                            labels: schoolLabels,
+                            datasets: [{
+                                label: 'Events by School',
+                                data: schoolCounts,
+                                backgroundColor: '#36A2EB',
+                                borderWidth: 1,
+                            }],
+                        },
+                        options: {
+                            responsive: true,
+                            plugins: {
+                                legend: {
+                                    position: 'top',
+                                },
+                            },
+                        },
+                    });
+
+                    // Fetch events per month
+                    const monthlyResponse = await fetch('/api/events/statistics/monthly');
+                    const monthlyData = await monthlyResponse.json();
+                    const monthLabels = monthlyData.map(item => item.month);
+                    const monthCounts = monthlyData.map(item => item.total_events);
+
+                    // Render Events Per Month Chart
+                    const monthCtx = document.getElementById('eventMonthChart').getContext('2d');
+                    new Chart(monthCtx, {
+                        type: 'line',
+                        data: {
+                            labels: monthLabels,
+                            datasets: [{
+                                label: 'Events Per Month',
+                                data: monthCounts,
+                                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                                borderColor: 'rgba(75, 192, 192, 1)',
+                                borderWidth: 1,
+                            }],
+                        },
+                        options: {
+                            responsive: true,
+                            plugins: {
+                                legend: {
+                                    position: 'top',
+                                },
+                            },
+                        },
+                    });
+                } catch (error) {
+                    console.error('Error fetching event statistics:', error);
+                }
+            }
+
+            // Attach the function to load statistics dynamically
+            document.querySelector('.btn-Events').addEventListener('click', fetchEventStatistics);
+        });
 
         </script>
 </body>
