@@ -2,39 +2,49 @@ const db = require('../db');
 
 exports.getAllOpportunities = (req, res) => {
     const { schoolId, courseId } = req.query;
+
+    // Base SQL query
     let sql = `
         SELECT 
             o.id, 
             o.title, 
             o.company_name, 
             o.location, 
-            DATE_FORMAT(o.posted_date, '%Y-%m-%d') AS posted_date, 
+            o.posted_date, 
             s.name AS school, 
             c.name AS course
-        FROM opportunities o
-        LEFT JOIN schools s ON o.school_id = s.id
-        LEFT JOIN courses c ON o.course_id = c.id
-        WHERE 1=1
+        FROM 
+            opportunities o
+        LEFT JOIN 
+            schools s ON o.school_id = s.id
+        LEFT JOIN 
+            courses c ON o.course_id = c.id
+        WHERE 
+            1=1
     `;
+
     const params = [];
 
     if (schoolId) {
         sql += ' AND o.school_id = ?';
         params.push(schoolId);
     }
+
     if (courseId) {
         sql += ' AND o.course_id = ?';
         params.push(courseId);
     }
 
+    // Execute the query
     db.query(sql, params, (err, results) => {
         if (err) {
-            console.error('Database error:', err);
-            return res.status(500).json({ error: 'Failed to fetch opportunities.' });
+            console.error("Database error:", err);
+            return res.status(500).json({ error: "Failed to fetch opportunities." });
         }
         res.json(results);
     });
 };
+
 
   
 exports.getOpportunityById = (req, res) => {

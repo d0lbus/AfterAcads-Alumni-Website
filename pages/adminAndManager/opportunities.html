@@ -183,12 +183,10 @@
             populateOpportunitiesTable();
         });
 
-
         // Call populateOpportunitiesTable when the course dropdown changes
         courseDropdown.addEventListener("change", () => {
             populateOpportunitiesTable(); 
         });
-
 
         // Fetch and populate opportunities table
         const populateOpportunitiesTable = () => {
@@ -272,8 +270,6 @@
 
         // Function to populate edit modal fields
         const openEditModal = async (opportunityId) => {
-          console.log("Opening edit modal for opportunity ID:", opportunityId);
-
           const response = await fetch(`/api/opportunities/opportunitiesByID/${opportunityId}`);
           const data = await response.json();
 
@@ -290,8 +286,6 @@
           // Populate school dropdown and set the selected value
           await populateEditSchoolDropdown(data.school_id);
 
-          console.log("Populating course dropdown...");
-          // Populate course dropdown and set the selected value
           await populateEditCourseDropdown(data.school_id, data.course_id);
 
           // Show the modal
