@@ -126,11 +126,29 @@
         </div>
         
         <div id="events-container" class="stats-container" style="display: none;">
-            <h2>Events Statistics</h2>
+            <h2>Event Statistics</h2>
             <div class="cards">
-                <div class="card-single">Events-specific stats...</div>
+                <!-- Total Events -->
+                <div class="card-single">
+                    <p id="total-events">Loading total events...</p>
+                    <h3>Status Breakdown</h3>
+                    <ul id="event-status-breakdown"></ul>
+                </div>
+        
+                <!-- Events by School -->
+                <div class="card-single">
+                    <h3>Events by School</h3>
+                    <canvas id="eventSchoolChart"></canvas>
+                </div>
+        
+                <!-- Events Per Month -->
+                <div class="card-single">
+                    <h3>Events Per Month</h3>
+                    <canvas id="eventMonthChart"></canvas>
+                </div>
             </div>
         </div>
+        
 
         </main>
         <!-- Citation:  ChatGPT assisted in debugging the sidebar toggle functionality and layout adjustment logic.  -->

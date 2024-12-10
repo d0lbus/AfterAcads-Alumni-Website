@@ -40,15 +40,15 @@ router.delete('/delete/:id', eventController.deleteEvent);
 router.put('/update', upload.single('eventImage'), eventController.updateEvent);
 
 
-
-
 router.get('/statistics', eventController.getEventStatistics);
-
 
 // Routes for event statistics
 router.get('/total', eventStatisticsController.getTotalEvents);
+
 router.get('/status', eventStatisticsController.getEventsGroupedByStatus);
+
 router.get('/schools', eventStatisticsController.getEventsGroupedBySchool);
+
 router.get('/monthly', eventStatisticsController.getEventsPerMonth);
 
 module.exports = router;
