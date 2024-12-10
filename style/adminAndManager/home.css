@@ -30,7 +30,7 @@ header {
   align-items: center;
   justify-content: space-between;
   background-color: #e7e5e5;
-  padding: 1rem 1.5rem; 
+  padding: 1rem 1.5rem;
   position: fixed;
   top: 0;
   left: 0;
@@ -40,8 +40,8 @@ header {
 }
 
 header img.afteracadstext {
-  width: 200px; 
-  height: auto; 
+  width: 200px;
+  height: auto;
   display: inline-block;
   object-fit: contain;
 }
@@ -140,16 +140,16 @@ header img.afteracadstext {
 
 .box:hover {
   background-color: #f0f0f0;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); 
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
   transform: scale(1.05);
 }
 
 .box h3 {
   font-size: 1.2rem;
   margin-bottom: 15px;
-  margin: 0; 
-  margin-left: 10px;    
-  transition: font-size 0.3s ease;       
+  margin: 0;
+  margin-left: 10px;
+  transition: font-size 0.3s ease;
 }
 
 .box:hover h3 {
@@ -186,13 +186,13 @@ header img.afteracadstext {
 }
 
 .container-number {
-  border: 1px solid #91aec4; 
+  border: 1px solid #91aec4;
   background-color: #cadeed;
-  padding: 5px 10px;      
-  border-radius: 5px;    
+  padding: 5px 10px;
+  border-radius: 5px;
   text-align: center;
   max-width: auto;
-  min-width: 50px; 
+  min-width: 50px;
 }
 
 /* Right side (Statistics Box) */
@@ -207,11 +207,11 @@ header img.afteracadstext {
 
 .statistics h3 {
   margin: 0;
-  position: absolute; 
-  top: 10px; 
+  position: absolute;
+  top: 10px;
   left: 10px;
   font-size: 1.2rem;
-  color: #333; 
+  color: #333;
   padding: 20px;
 }
 

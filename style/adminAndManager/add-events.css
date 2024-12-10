@@ -2,23 +2,23 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap");
 
 :root {
-    --color-primary: #003f91;
-    --color-secondary: #8da2fb;
-    --color-light: #f5f5f5;
-    --color-dark: #1a1a1a;
-    --color-accent: #f0a500;
+  --color-primary: #003f91;
+  --color-secondary: #8da2fb;
+  --color-light: #f5f5f5;
+  --color-dark: #1a1a1a;
+  --color-accent: #f0a500;
 }
 
 * {
-    font-family: "Poppins", sans-serif;
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+  font-family: "Poppins", sans-serif;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-    background-color: var(--color-light);
-    color: var(--color-dark);
+  background-color: var(--color-light);
+  color: var(--color-dark);
 }
 
 /* Header and Navigation Bar */
@@ -46,7 +46,8 @@ img.afteracadstext {
 /* Page Layout */
 .container {
   padding: 20px;
-  margin-top: 120px;  /* Adjusted to directly compensate for header height */
+  margin-top: 120px;
+  /* Adjusted to directly compensate for header height */
 }
 
 /* Citation: navigation bar - (https://www.youtube.com/watch?v=oLgtucwjVII) */
@@ -101,8 +102,10 @@ img.afteracadstext {
 .page-header {
   background-color: #fff;
   padding: 20px;
-  margin-top: -20px;  /* Negative margin to pull the header closer to the content */
-  margin-bottom: 0;   /* Eliminate bottom margin */
+  margin-top: -20px;
+  /* Negative margin to pull the header closer to the content */
+  margin-bottom: 0;
+  /* Eliminate bottom margin */
 }
 
 .page-header h1 {
@@ -111,140 +114,150 @@ img.afteracadstext {
 }
 
 .profile img {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    border: 2px solid var(--color-secondary);
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 2px solid var(--color-secondary);
 }
 
 .container {
-    padding: 20px;
-    margin-top: 75px;  /* Increased to ensure space below the fixed header */
-  }
+  padding: 20px;
+  margin-top: 75px;
+  /* Increased to ensure space below the fixed header */
+}
 
 /* Citation: CSS Buttons - (https://www.w3schools.com/css/css3_buttons.asp) */
 .button-group {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    margin-top: 40px; /* Added margin to create more space */
-    gap: 10px;
-  }
-  
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-top: 40px;
+  /* Added margin to create more space */
+  gap: 10px;
+}
+
 
 .button-group .btn.upcoming {
-    background-color: #003f91; /* Blue for Upcoming Events */
-    color: white;
+  background-color: #003f91;
+  /* Blue for Upcoming Events */
+  color: white;
 }
 
 .button-group .btn.finished {
-    background-color: #003f91; /* Green for Finished Events */
-    color: white;
+  background-color: #003f91;
+  /* Green for Finished Events */
+  color: white;
 }
 
 .button-group .btn.archived {
-    background-color: #003f91; /* Red for Archived/Denied Events */
-    color: white;
+  background-color: #003f91;
+  /* Red for Archived/Denied Events */
+  color: white;
 }
 
 .button-group .btn.add {
-    background-color: #003f91; /* Amber for Add Events */
-    color: white;
+  background-color: #003f91;
+  /* Amber for Add Events */
+  color: white;
 }
 
 .button-group .btn {
-    padding: 10px 20px;
-    border-radius: 5px;
-    font-size: 14px;
-    cursor: pointer;
-    transition: background-color 0.3s, opacity 0.3s;
-    border: none;
-    flex-shrink: 0;
-    text-decoration: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s, opacity 0.3s;
+  border: none;
+  flex-shrink: 0;
+  text-decoration: none;
 }
 
 .button-group .btn:hover {
-    opacity: 0.9;
+  opacity: 0.9;
 }
 
 h2 {
-    margin-top: 30px;
-    margin-bottom: 1rem;
-    color: var(--color-primary);
+  margin-top: 30px;
+  margin-bottom: 1rem;
+  color: var(--color-primary);
 }
 
 form {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1rem 2rem;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem 2rem;
 }
 
 form div {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 form label {
-    margin-bottom: 5px;
-    font-weight: 500;
+  margin-bottom: 5px;
+  font-weight: 500;
 }
 
-form input, form select, form textarea {
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 14px;
+form input,
+form select,
+form textarea {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
 }
 
 form textarea {
-    resize: none;
+  resize: none;
 }
 
 .upload-section {
-    grid-column: span 2;
-    text-align: center;
-    border: 2px dashed #ccc;
-    padding: 20px;
-    border-radius: 8px;
+  grid-column: span 2;
+  text-align: center;
+  border: 2px dashed #ccc;
+  padding: 20px;
+  border-radius: 8px;
 }
 
 .upload-section label.upload-label {
-    display: inline-block;
-    margin-top: 10px;
-    padding: 10px 20px;
-    background-color: transparent; /* Remove purple background for the image label */
-    color: white;
-    border-radius: 5px;
-    cursor: pointer;
+  display: inline-block;
+  margin-top: 10px;
+  padding: 10px 20px;
+  background-color: transparent;
+  /* Remove purple background for the image label */
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
 .upload-section label.btn {
-    display: inline-block;
-    margin-top: 10px;
-    padding: 10px 20px;
-    background-color: var(--color-secondary); /* Retain purple background for "Browse Files" label */
-    color: white;
-    border-radius: 5px;
-    cursor: pointer;
+  display: inline-block;
+  margin-top: 10px;
+  padding: 10px 20px;
+  background-color: var(--color-secondary);
+  /* Retain purple background for "Browse Files" label */
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
 
 
 .upload-section input {
-    display: none;
+  display: none;
 }
 
 .btn-submit {
-    grid-column: span 2;
-    padding: 10px 20px;
-    background-color: var(--color-primary);
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
+  grid-column: span 2;
+  padding: 10px 20px;
+  background-color: var(--color-primary);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
 
 .btn-submit:hover {
-    background-color: var(--color-accent);
+  background-color: var(--color-accent);
 }

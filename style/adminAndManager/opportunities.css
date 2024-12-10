@@ -49,7 +49,8 @@ img.afteracadstext {
 /* Page Layout */
 .container {
   padding: 20px;
-  margin-top: 50px;  /* Adjusted to directly compensate for header height */
+  margin-top: 50px;
+  /* Adjusted to directly compensate for header height */
 }
 
 /* Citation: navigation bar - (https://www.youtube.com/watch?v=oLgtucwjVII) */
@@ -101,7 +102,7 @@ img.afteracadstext {
 }
 
 .opportunities-section {
-  margin-top: 120px; 
+  margin-top: 120px;
   background-color: var(--color-light);
   border-radius: 8px;
   padding: 20px;
@@ -112,9 +113,9 @@ img.afteracadstext {
 .search-and-buttons {
   display: flex;
   align-items: center;
-  justify-content: space-between; 
+  justify-content: space-between;
   margin-bottom: 20px;
-  gap: 10px; 
+  gap: 10px;
 }
 
 .search-input {
@@ -141,17 +142,18 @@ img.afteracadstext {
   font-weight: 500;
   background-color: var(--color-light);
   color: var(--color-dark);
-  transition: background-color 0.3s ease, color 0.3s ease; 
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .button-group .btn.add {
-  background-color: #003f91; 
+  background-color: #003f91;
   color: white;
 }
 
 .button-group .btn.delete {
-    background-color: #003f91; /* Amber for Add opportunitiess */
-    color: white;
+  background-color: #003f91;
+  /* Amber for Add opportunitiess */
+  color: white;
 }
 
 .button-group .btn:hover {
@@ -162,9 +164,11 @@ img.afteracadstext {
 .button-container {
   display: flex;
   gap: 10px;
-  justify-content: flex-end; /* Aligns buttons to the right */
+  justify-content: flex-end;
+  /* Aligns buttons to the right */
   position: relative;
-  margin-top: 20px; /* Adds space between the table and buttons */
+  margin-top: 20px;
+  /* Adds space between the table and buttons */
 }
 
 .button-container .btn {
@@ -174,7 +178,8 @@ img.afteracadstext {
   cursor: pointer;
   transition: background-color 0.3s, opacity 0.3s;
   border: none;
-  flex-shrink: 0; /* Propportunities buttons from shrinking */
+  flex-shrink: 0;
+  /* Propportunities buttons from shrinking */
 }
 
 .button-container .btn.post:hover {
@@ -237,29 +242,29 @@ img.afteracadstext {
 /* Modal Background */
 /* Citation: How TO - CSS/JS Modal - (https://www.w3schools.com/howto/howto_css_modals.asp) */
 .modal {
-  display: none; 
-  position: fixed; 
-  z-index: 1000; 
+  display: none;
+  position: fixed;
+  z-index: 1000;
   left: 0;
   top: 0;
-  width: 100%; 
-  height: 100%; 
-  overflow: auto; 
-  background-color: rgba(0, 0, 0, 0.5); 
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 /* Modal Content Box */
 .modal-content {
   position: absolute;
   background-color: #fff;
-  margin: auto; 
+  margin: auto;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  width: 40%; 
-  top: 50%; 
-  left: 50%; 
-  transform: translate(-50%, -50%); 
+  width: 40%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 /* Close Button */
@@ -287,5 +292,3 @@ img.afteracadstext {
 .modal button:hover {
   background-color: #45a049;
 }
-
-
