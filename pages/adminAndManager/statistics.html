@@ -97,12 +97,6 @@
                         <canvas id="batchGroupChart"></canvas>
                     </div>   
                 </div>
-                <div class="card-single">
-                    <!-- School and Course Group Chart -->
-                    <div id="school-charts">
-                        <!-- Dynamic school charts will be inserted here -->
-                    </div>
-                </div>
             </div>
         </div>
 
@@ -180,7 +174,6 @@
 
         <script>
             document.addEventListener("DOMContentLoaded", function () {
-                console.log("Script loaded and DOM is ready!");
                 async function fetchUserStatistics() {
                     try {
                         // Fetch total users and status breakdown
@@ -286,40 +279,40 @@
                             }
                         });
 
-                        // Fetch data grouped by school and course
+                        // Fetch School and Course distribution data
                         const schoolCourseResponse = await fetch('/api/users/school-course-group');
                         const schoolCourseData = await schoolCourseResponse.json();
 
-                        console.log("School-Course Data:", schoolCourseData); // Debug API response
+                        // Get the cards container 
+                        const cardsContainer = document.querySelector("#users-container .cards");
+                        if (!cardsContainer) {
+                            console.error("Cards container not found!");
+                            return;
+                        }
 
-                        const usersContainer = document.getElementById('users-container');
-                            if (!usersContainer) {
-                                console.error("Users container not found!");
-                                return;
-                            }
+                        // Clear existing cards if any
+                        const existingSchoolCards = document.querySelectorAll('.card-single.school-card');
+                        existingSchoolCards.forEach(card => card.remove());
 
-                        // Clear existing charts if any
-                        const existingCharts = document.querySelectorAll('.school-chart');
-                        existingCharts.forEach(chart => chart.remove());
-
-                        // Dynamically generate a chart for each school
+                        // Dynamically generate a card for each school
                         Object.entries(schoolCourseData).forEach(([schoolName, courses]) => {
-                            // Create a container for the school chart
-                            const schoolDiv = document.createElement('div');
-                            schoolDiv.classList.add('school-chart');
 
-                            // Add a title
+                            // Create a card container
+                            const schoolCard = document.createElement('div');
+                            schoolCard.classList.add('card-single', 'school-card'); // Add class to match existing styling
+
+                            // Create a title for the school
                             const schoolTitle = document.createElement('h3');
                             schoolTitle.textContent = `${schoolName} - Users per Course`;
-                            schoolDiv.appendChild(schoolTitle);
+                            schoolCard.appendChild(schoolTitle);
 
-                            // Add a canvas for the chart
+                            // Create a canvas for the chart
                             const canvas = document.createElement('canvas');
                             canvas.id = `chart-${schoolName.replace(/\s+/g, '-')}`;
-                            schoolDiv.appendChild(canvas);
+                            schoolCard.appendChild(canvas);
 
-                            // Append to the users container
-                            usersContainer.appendChild(schoolDiv);
+                            // Append the card to the cards container
+                            cardsContainer.appendChild(schoolCard);
 
                             // Prepare data for Chart.js
                             const courseLabels = courses.map(course => course.course_name);
@@ -355,7 +348,6 @@
                     }
                 }
 
-                // Call the function to load statistics
                 fetchUserStatistics();
             });
             

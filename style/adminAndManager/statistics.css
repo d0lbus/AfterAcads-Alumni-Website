@@ -106,9 +106,10 @@ header img {
 /* Cards Layout */
 .cards {
   display: flex;
-  flex-wrap: wrap; /* Allow cards to wrap to the next row */
+  flex-wrap: wrap; 
   gap: 20px;
-  justify-content: flex-start;
+  justify-content: flex-start; 
+  margin-top: 20px; 
 }
 
 /* Individual card */
@@ -116,14 +117,16 @@ header img {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  align-items: center; 
   background-color: #fff;
-  border-radius: 8px;
+  border-radius: 12px;
   padding: 20px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  min-width: 250px; /* Set a minimum width to ensure the cards don't get too small */
-  max-width: 100%; /* Allow card to expand until the width of the container */
-  flex-grow: 1; /* Allow card to grow horizontally as needed */
-  height: auto; /* Let the height adjust to the content */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+  min-width: 280px; 
+  max-width: 100%; /* Allow flexibility for responsive layouts */
+  flex-grow: 1; /* Let the card expand horizontally if needed */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth hover effects */
+  height: auto; /* Adapt height to content */
 }
 
 /* Card title and info styling */
