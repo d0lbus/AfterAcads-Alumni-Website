@@ -10,6 +10,8 @@
   --color-sidebar-text: #000000;
 }
 
+/* Universal styles inspired by Normalize.css for cross-browser consistency */
+  /* Reference: Normalize.css (https://necolas.github.io/normalize.css/) */
 * {
   font-family: "Poppins", sans-serif;
   box-sizing: border-box;
@@ -19,6 +21,8 @@
   padding: 0;
 }
 
+/* Techniques for border-radius inspired by MDN Web Docs: 
+     Reference: MDN Web Docs on border-radius (https://developer.mozilla.org/en-US/docs/Web/CSS/border-radius) */
 .logocircle {
   width: 40px;
   height: 40px;
@@ -28,6 +32,8 @@
 }
 
 /* Sidebar styles */
+ /* Sidebar principles based on design system foundations:
+     Reference: Material Design Guidelines (https://material.io/) */
 .sidebar {
   width: 280px;
   position: fixed;
@@ -89,6 +95,8 @@
   display: none; /* Hide content when minimized */
 }
 
+/* Image scaling inspired by CSS transitions:
+   Reference: "Using CSS transitions" by MDN Web Docs (https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Transitions/Using_CSS_transitions) */
 .sidebar-user img {
   width: 110px;
   height: 110px;
@@ -275,59 +283,6 @@ header {
   opacity: 0.4; 
   z-index: 0;
   
-}
-
-/* Right Panel Styles */
-.right-panel {
-  width: 280px;
-  position: fixed;
-  right: 0;
-  top: 0;
-  height: 100%;
-  padding: 24px;
-  background: #ffffff; 
-  color: var(--color-sidebar-text);
-  overflow-y: auto;
-  z-index: 100;
-  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1); 
-}
-
-.right-panel h2 {
-  text-align: center;
-  font-size: 1.2rem;
-  margin-bottom: 1rem;
-  color: var(--color-main); 
-}
-
-.friend-list {
-  margin-top: 10px;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.friend {
-  display: flex;
-  align-items: center;
-}
-
-.friend img {
-  width: 35px;
-  height: 35px;
-  border-radius: 50%;
-  margin-right: 16px;
-}
-
-.friend span {
-  font-size: 1rem;
-  color: var(--color-main); 
-}
-
-.title-divider {
-  border: none;
-  border-top: 2px solid var(--color-main); 
-  margin: 8px 0 30px 0; 
-  width: 100%;
 }
 
 /* Page Layout */

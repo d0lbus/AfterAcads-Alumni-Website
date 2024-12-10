@@ -21,6 +21,7 @@
 
 
 /* Sidebar styles */
+/* Citation: ChatGPT for effective use of CSS transitions */
 .sidebar {
   width: 280px;
   position: fixed;
@@ -36,6 +37,7 @@
   z-index: 100;
 }
 
+/* Citation: Stack Overflow for using class toggling for responsive behavior - [Stack Overflow](https://stackoverflow.com/questions/21125950/how-to-toggle-class-in-javascript) */
 .sidebar.minimized {
   width: 60px; 
   padding-left: 0.5rem; 
@@ -111,6 +113,7 @@
   transition: transform 0.3s ease; 
 }
 
+/* Citation: ChatGPT for hover effects and transitions */
 .sidebar-user a:hover img {
   transform: scale(1.05);
 }
@@ -203,7 +206,7 @@
 }
 
 /* Main content styles */
-
+/*Citation: ChatGPT for maintaining consistent margins and transitions */
 .main-content {
   margin-left: 320px;
   margin-right: 350px;
@@ -212,6 +215,7 @@
   transition: margin-left 0.3s ease, margin-right 0.3s ease;
 }
 
+/* Citation: w3schools for responsive layout adjustments - [w3schools](https://www.w3schools.com/css/css_responsive.asp) */
 .sidebar.minimized ~ .main-content {
   margin-left: 60px;
 }
@@ -898,6 +902,7 @@ header {
 }
 
 /* Media Query for smaller screens (tablets and phones) */
+/* Media Query for smaller screens (tablets and phones) */
 @media (max-width: 1024px) {
   .sidebar {
     width: 220px;
@@ -913,6 +918,7 @@ header {
 }
 
 /* Media Query for mobile screens */
+/* Media Query for smaller screens (tablets and phones) */
 @media (max-width: 768px) {
   .sidebar {
     width: 100px;
