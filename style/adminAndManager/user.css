@@ -372,6 +372,20 @@ img.afteracadstext {
 }
 
 /* Citation: How TO - CSS/JS Modal - (https://www.w3schools.com/howto/howto_css_modals.asp) */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 2000;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.4);
+  justify-content: center;
+  align-items: center;
+  overflow: auto;
+}
+
 .user-details-modal {
   display: none;
   position: fixed;
@@ -384,7 +398,6 @@ img.afteracadstext {
   justify-content: center;
   align-items: center;
   overflow: auto;
-  
 }
 
 .modal-content  {

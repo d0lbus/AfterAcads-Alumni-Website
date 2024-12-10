@@ -234,7 +234,7 @@
     <!-- Add User Modal -->
     <div id="addUserModal" class="modal" style="display: none;">
       <div class="modal-content">
-        <span id="closeAddUserModal" class="close">&times;</span>
+        <span id="closeAddUserModal" class="close-btn">&times;</span>
         <h2>Add New User</h2>
         <form id="addUserForm">
           <div>
@@ -681,13 +681,14 @@
       addUserBtn.addEventListener("click", async () => {
         await populateAddSchoolsDropdown();
         await populateAddBatchSuggestions();
-        addUserModal.style.display = "block";
+        addUserModal.style.display = "flex";
       });
 
       // Close Add User Modal
       closeAddUserModal.addEventListener("click", () => {
         addUserModal.style.display = "none";
       });
+
 
       // Handle school dropdown change in Add User Modal
       addSchoolDropdown.addEventListener("change", async () => {
