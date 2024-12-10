@@ -10,7 +10,7 @@ exports.getAllOpportunities = (req, res) => {
             o.title, 
             o.company_name, 
             o.location, 
-            o.posted_date, 
+            DATE_FORMAT(o.posted_date, '%Y-%m-%d') AS posted_date, 
             s.name AS school, 
             c.name AS course
         FROM 

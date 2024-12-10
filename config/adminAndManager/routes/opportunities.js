@@ -7,6 +7,7 @@ router.get('/opportunitiesByID/:id', opportunitiesController.getOpportunityById)
 router.put('/editOpportunity', opportunitiesController.editOpportunity);
 router.get('/schools', opportunitiesController.getSchools);
 router.get('/courses', opportunitiesController.getCoursesBySchool);
+router.get('/delete', opportunitiesController.deleteOpportunity);
 
 
 module.exports = router;
