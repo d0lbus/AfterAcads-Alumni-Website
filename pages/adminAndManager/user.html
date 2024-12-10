@@ -53,7 +53,27 @@
     <div class="users-section container">
       <div class="search-and-buttons">
         <input type="text" class="search-input" placeholder="Search..." />
-        <button class="btn AddUSer" id="addUserBtn">Add User</button>
+        <button class="btn AddUSer" id="addUSerBtn">Add User</button>
+        <button class="btn AddSchool" id="addSchoolBtn">
+          Add School
+          <div class="text-field" id="schoolTextField">
+            <input type="text" placeholder="Enter school details" />
+          </div>
+        </button>
+        <div class="dropdown">
+          <button class="btn AddCourse dropdown-btn">Add Course</button>
+          <div class="dropdown-content">
+            <a href="#">Course 1</a>
+            <a href="#">Course 2</a>
+            <a href="#">Course 3</a>
+          </div>
+        </div>
+        <button class="btn AddBatch" id="addBatchBtn">
+          Add Batch
+          <div class="text-field" id="batchTextField">
+            <input type="text" placeholder="Enter batch details" />
+          </div>
+        </button>
       </div>
       <p>Total Users: <span id="totalUsers">16</span></p>
     </div>
