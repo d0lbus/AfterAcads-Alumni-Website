@@ -49,6 +49,7 @@ img.afteracadstext {
   margin-top: 120px;  /* Adjusted to directly compensate for header height */
 }
 
+/* Citation: navigation bar - (https://www.youtube.com/watch?v=oLgtucwjVII) */
 .nav-links {
   list-style: none;
   display: flex;
@@ -120,8 +121,9 @@ img.afteracadstext {
     padding: 20px;
     margin-top: 75px;  /* Increased to ensure space below the fixed header */
   }
-  
-  .button-group {
+
+/* Citation: CSS Buttons - (https://www.w3schools.com/css/css3_buttons.asp) */
+.button-group {
     display: flex;
     align-items: center;
     justify-content: flex-start;
