@@ -166,6 +166,14 @@ header img {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
+.stats-container {
+  display: none; 
+}
+
+.stats-container.active {
+  display: block; 
+}
+
 .search-and-buttons {
   display: flex;
   align-items: center;
@@ -179,7 +187,7 @@ header img {
 }
 
 .btn-Users,
-.btn-Registrants,
+.btn-Opportunities,
 .btn-Posts,
 .btn-Events {
   flex: 1;
@@ -198,7 +206,7 @@ header img {
   background-color: #003f91;
 }
 
-.btn-Registrants:hover {
+.btn-Opportunities:hover {
   background-color: #003f91;
 }
 
@@ -211,7 +219,7 @@ header img {
 }
 
 .btn-Users,
-.btn-Registrants,
+.btn-Opportunities,
 .btn-Posts,
 .btn-Events {
   width: 150px;
@@ -219,7 +227,7 @@ header img {
 }
 
 .btn-Users:hover,
-.btn-Registrants:hover,
+.btn-Opportunities:hover,
 .btn-Posts:hover,
 .btn-Events:hover {
   background-color: #002f6c;
@@ -227,7 +235,7 @@ header img {
 }
 
 .btn-Users.active,
-.btn-Registrants.active,
+.btn-Opportunities.active,
 .btn-Posts.active,
 .btn-add.active {
   background-color: #002f6c;
