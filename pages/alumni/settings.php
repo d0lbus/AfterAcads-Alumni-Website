@@ -83,7 +83,6 @@ $user = getAuthenticatedUser();
                     </div>
                     <label for="profile-picture">Upload New Profile Picture</label>
                     <input type="file" id="profile-picture" name="profile-picture" accept="image/jpeg, image/png" onchange="previewImage(event)">
-                    <small>Supported formats: JPG, PNG. Max size: 2MB.</small>
                 </div>
 
                 <!-- Personal Information -->
