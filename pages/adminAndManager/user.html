@@ -201,6 +201,82 @@
       </div>
     </div>
 
+    <!-- Add User Modal -->
+    <div id="addUserModal" class="modal" style="display: none;">
+      <div class="modal-content">
+        <span id="closeAddUserModal" class="close">&times;</span>
+        <h2>Add New User</h2>
+        <form id="addUserForm">
+          <div>
+            <label for="addFirstName">First Name:</label>
+            <input type="text" id="addFirstName" name="firstName" required />
+          </div>
+
+          <div>
+            <label for="addMiddleName">Middle Name:</label>
+            <input type="text" id="addMiddleName" name="middleName" />
+          </div>
+
+          <div>
+            <label for="addLastName">Last Name:</label>
+            <input type="text" id="addLastName" name="lastName" required />
+          </div>
+
+          <div>
+            <label for="addEmail">Email:</label>
+            <input type="email" id="addEmail" name="email" required />
+          </div>
+
+          <div>
+            <label for="addPassword">Password:</label>
+            <input type="password" id="addPassword" name="password" required />
+          </div>
+
+          <div>
+            <label for="addBatchId">Batch ID:</label>
+            <input type="number" id="addBatchId" name="batchId" maxlength="3" placeholder="Batch ID example: 223" list="addBatchSuggestions" required />
+            <datalist id="addBatchSuggestions"></datalist>
+          </div>
+
+          <div>
+            <label for="addSchool">School:</label>
+            <select id="addSchool" name="school" required>
+              <option value="">Select School</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="addCourse">Course:</label>
+            <select id="addCourse" name="course" required>
+              <option value="">Select Course</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="addGender">Gender:</label>
+            <select id="addGender" name="gender" required>
+              <option value="">Select Gender</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+              <option value="Prefer Not To Say">Prefer Not To Say</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="addUserType">User Type:</label>
+            <select id="addUserType" name="userType" required>
+              <option value="">Select User Type</option>
+              <option value="alumni">Alumni</option>
+              <option value="admin">Admin</option>
+              <option value="manager">Manager</option>
+            </select>
+          </div>
+
+          <button type="submit" class="btn-submit">Add User</button>
+        </form>
+      </div>
+    </div>
+
   </section>
 
   <!-- JavaScript for Sorting -->
@@ -523,6 +599,97 @@
   });
   </script>
 
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const addUserBtn = document.getElementById("addUserBtn");
+      const addUserModal = document.getElementById("addUserModal");
+      const closeAddUserModal = document.getElementById("closeAddUserModal");
+      const addUserForm = document.getElementById("addUserForm");
+      const addSchoolDropdown = document.getElementById("addSchool");
+      const addCourseDropdown = document.getElementById("addCourse");
+      const addBatchSuggestions = document.getElementById("addBatchSuggestions");
+
+      // Fetch and populate schools dropdown
+      const populateAddSchoolsDropdown = async () => {
+        const response = await fetch("/api/opportunities/schools");
+        const schools = await response.json();
+        addSchoolDropdown.innerHTML = '<option value="">Select School</option>';
+        schools.forEach((school) => {
+          addSchoolDropdown.innerHTML += `<option value="${school.id}">${school.name}</option>`;
+        });
+      };
+
+      // Fetch and populate courses dropdown based on selected school
+      const populateAddCoursesDropdown = async (schoolId) => {
+        if (!schoolId) {
+          addCourseDropdown.innerHTML = '<option value="">Select Course</option>';
+          return;
+        }
+        const response = await fetch(`/api/opportunities/courses?schoolId=${schoolId}`);
+        const courses = await response.json();
+        addCourseDropdown.innerHTML = '<option value="">Select Course</option>';
+        courses.forEach((course) => {
+          addCourseDropdown.innerHTML += `<option value="${course.id}">${course.name}</option>`;
+        });
+      };
+
+      // Fetch and populate batch suggestions
+      const populateAddBatchSuggestions = async () => {
+        const response = await fetch("/api/users/getBatches");
+        const batches = await response.json();
+        addBatchSuggestions.innerHTML = "";
+        batches.forEach((batch) => {
+          if (batch.id !== 1) {
+            const option = document.createElement("option");
+            option.value = batch.batch_number;
+            addBatchSuggestions.appendChild(option);
+          }
+        });
+      };
+
+      // Open Add User Modal
+      addUserBtn.addEventListener("click", async () => {
+        await populateAddSchoolsDropdown();
+        await populateAddBatchSuggestions();
+        addUserModal.style.display = "block";
+      });
+
+      // Close Add User Modal
+      closeAddUserModal.addEventListener("click", () => {
+        addUserModal.style.display = "none";
+      });
+
+      // Handle school dropdown change in Add User Modal
+      addSchoolDropdown.addEventListener("change", async () => {
+        const schoolId = addSchoolDropdown.value;
+        await populateAddCoursesDropdown(schoolId);
+      });
+
+      // Handle form submission to add user
+      addUserForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+
+        const formData = new FormData(addUserForm);
+
+        try {
+          const response = await fetch("/api/users/addUser", {
+            method: "POST",
+            body: formData,
+          });
+
+          if (!response.ok) throw new Error("Failed to add user.");
+
+          const result = await response.json();
+          alert(result.message);
+          addUserModal.style.display = "none";
+          // Reload table or fetch users again
+        } catch (error) {
+          console.error("Error adding user:", error);
+        }
+      });
+    });
+
+  </script>
 </body>
 
 </html>
