@@ -429,6 +429,7 @@ img.afteracadstext {
 .close-btn:hover,
 .close-btn:focus {
   color: #aaa;
+  cursor: pointer;
 }
 
 .modal-content h2 {
