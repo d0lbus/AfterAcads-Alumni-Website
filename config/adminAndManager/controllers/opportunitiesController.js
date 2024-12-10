@@ -45,8 +45,6 @@ exports.getAllOpportunities = (req, res) => {
     });
 };
 
-
-  
 exports.getOpportunityById = (req, res) => {
     const { id } = req.params;
     db.query('SELECT * FROM opportunities WHERE id = ?', [id], (err, results) => {
@@ -56,11 +54,21 @@ exports.getOpportunityById = (req, res) => {
 };
   
 exports.editOpportunity = (req, res) => {
-    const { id, title, company, location, description } = req.body;
-    db.query('UPDATE opportunities SET title = ?, company = ?, location = ?, description = ? WHERE id = ?', 
-    [title, company, location, description, id], (err) => {
-      if (err) return res.status(500).json({ error: 'Failed to edit opportunity.' });
-      res.json({ message: 'Opportunity updated successfully.' });
+    const { id, title, company_name, location, school_id, course_id, description, company_link } = req.body;
+
+    const sql = `
+        UPDATE opportunities
+        SET title = ?, company_name = ?, location = ?, school_id = ?, course_id = ?, description = ?, company_link = ?
+        WHERE id = ?
+    `;
+    const params = [title, company_name, location, school_id, course_id, description, company_link, id];
+
+    db.query(sql, params, (err, results) => {
+        if (err) {
+            console.error('Database error:', err);
+            return res.status(500).json({ error: 'Failed to edit opportunity.' });
+        }
+        res.json({ message: 'Opportunity updated successfully.' });
     });
 };
 

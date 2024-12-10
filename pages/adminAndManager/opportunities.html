@@ -313,5 +313,50 @@
 
     </script>
       
+    <script>
+      document.getElementById('editOpportunityForm').addEventListener('submit', async (event) => {
+      event.preventDefault();
+
+      const opportunityId = document.getElementById('opportunityId').value;
+      const title = document.getElementById('jobTitle').value;
+      const company = document.getElementById('company').value;
+      const location = document.getElementById('location').value;
+      const schoolId = document.getElementById('editSchoolDropdown').value;
+      const courseId = document.getElementById('editCourseDropdown').value;
+      const description = document.getElementById('description').value;
+      const applicationLink = document.getElementById('applicationLink').value;
+
+      const payload = {
+          id: opportunityId,
+          title,
+          company_name: company,
+          location,
+          school_id: schoolId,
+          course_id: courseId,
+          description,
+          company_link: applicationLink,
+      };
+
+      try {
+          const response = await fetch('/api/opportunities/editOpportunity', {
+              method: 'PUT',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(payload),
+          });
+
+          if (!response.ok) throw new Error('Failed to update opportunity.');
+
+          const result = await response.json();
+          alert(result.message);
+
+          // Close modal and reload opportunities
+          document.getElementById('editModal').style.display = 'none';
+          populateOpportunitiesTable(); // Reload the table
+      } catch (error) {
+          console.error('Error updating opportunity:', error);
+          alert('Failed to update opportunity. Please try again.');
+      }
+  });
+    </script>
   </body>
 </html>
