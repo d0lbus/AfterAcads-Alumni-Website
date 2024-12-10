@@ -44,6 +44,7 @@ img.afteracadstext {
   object-fit: contain;
 }
 
+/* Citation: navigation bar - (https://www.youtube.com/watch?v=oLgtucwjVII) */
 .nav-links {
   display: flex;
   align-items: center;
@@ -127,6 +128,7 @@ img.afteracadstext {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
+/* Citation: CSS Buttons - (https://www.w3schools.com/css/css3_buttons.asp) */
 .search-and-buttons {
   display: flex;
   align-items: center;
@@ -180,6 +182,7 @@ img.afteracadstext {
   color: var(--color-dark);
 }
 
+/* Citation: How TO - Sort a Table - (https://www.w3schools.com/howto/howto_js_sort_table.asp) */
 .sort-button {
   background: none;
   border: none;
@@ -273,6 +276,7 @@ img.afteracadstext {
   height: 32px;
 }
 
+/* Citation: How TO - CSS/JS Modal - (https://www.w3schools.com/howto/howto_css_modals.asp) */
 .user-details-modal {
   display: none;
   position: fixed;

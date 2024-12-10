@@ -1,208 +1,200 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Opportunities</title>
-    <link
-      rel="stylesheet"
-      href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css"
-    />
-    <link
-      rel="stylesheet"
-      href="../../style/adminAndManager/opportunities.css"
-    />
-  </head>
 
-  <body>
-    <section>
-      <header>
-        <div>
-          <img
-            class="afteracadstext"
-            src="../../assets/logo.png"
-            alt="AfterAcads"
-          />
-        </div>
-        <!-- Citation: navigation bar - (https://www.youtube.com/watch?v=oLgtucwjVII) -->
-        <ul class="nav-links">
-          <li><a href="home.html">Home</a></li>
-          <li><a href="Registrants.html">Registrants</a></li>
-          <li><a href="approvePost.html">Posts</a></li>
-          <li><a href="eventsDashboard.html">Events</a></li>
-          <li><a href="opportunities.html">Opportunities</a></li>
-          <li><a href="statistics.php">Statistics</a></li>
-          <li><a href="user.html">Users</a></li>
-        </ul>
-        <div class="profile">
-          <a href="managerProfile.html">
-            <img
-              class="profile-img"
-              src="../../assets/profileIcon.jpg"
-              alt="Profile"
-            />
-          </a>
-        </div>
-      </header>
-    </section>
-    <!-- Citation: Code for the table layout inspired by tutorial - (https://www.youtube.com/watch?v=gUf1fpJwvmA&list=PLR5xnAxI5K55BhYLWb7CqiL7KGSIEOlxO&index=6) -->
-    <div class="opportunities-section container">
-      <div class="search-and-buttons">
-        <input type="text" class="search-input" placeholder="Search..." />
-        <div class="button-group">
-          <select id="schoolDropdown" name="school">
-            <option value="">Filter by School</option>
-          </select>
-          <select id="courseDropdown" name="course" disabled>
-            <option value="">Filter by Course</option>
-          </select>
-          <a href="addOpportunities.html">
-            <button class="btn add">Add Opportunity</button>
-          </a>
-          <button class="btn delete">Delete Opportunity</button>
-        </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Opportunities</title>
+  <link rel="stylesheet"
+    href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css" />
+  <link rel="stylesheet" href="../../style/adminAndManager/opportunities.css" />
+</head>
+
+<body>
+  <section>
+    <header>
+      <div>
+        <img class="afteracadstext" src="../../assets/logo.png" alt="AfterAcads" />
       </div>
+      <!-- Citation: navigation bar - (https://www.youtube.com/watch?v=oLgtucwjVII) -->
+      <ul class="nav-links">
+        <li><a href="home.html">Home</a></li>
+        <li><a href="Registrants.html">Registrants</a></li>
+        <li><a href="approvePost.html">Posts</a></li>
+        <li><a href="eventsDashboard.html">Events</a></li>
+        <li><a href="opportunities.html">Opportunities</a></li>
+        <li><a href="statistics.php">Statistics</a></li>
+        <li><a href="user.html">Users</a></li>
+      </ul>
+      <div class="profile">
+        <a href="managerProfile.html">
+          <img class="profile-img" src="../../assets/profileIcon.jpg" alt="Profile" />
+        </a>
+      </div>
+    </header>
+  </section>
 
-
-      <table class="opportunities-table" id="opportunitiesTable">
-        <thead>
-          <tr>
-            <th>Job Title</th>
-            <th>Company</th>
-            <th>Location</th>
-            <th>School</th>
-            <th>Course</th>
-            <th>Date Created</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody></tbody>
-      </table>
-    </div>
-
-    <!-- Edit Modal -->
-    <div id="editModal" class="modal" style="display: none;">
-      <div class="modal-content">
-        <span id="closeModal" class="close">&times;</span>
-        <h2>Edit Opportunity</h2>
-        <form id="editOpportunityForm">
-          <input type="hidden" id="opportunityId">
-          <label for="jobTitle">Job Title:</label>
-          <input type="text" id="jobTitle" name="jobTitle" required>
-
-          <label for="company">Company:</label>
-          <input type="text" id="company" name="company" required>
-
-          <label for="location">Location:</label>
-          <input type="text" id="location" name="location" required>
-
-          <label for="school">School:</label>
-          <select id="editSchoolDropdown" name="school" required></select>
-
-          <label for="course">Course:</label>
-          <select id="editCourseDropdown" name="course" required></select>
-
-          <label for="description">Description:</label>
-          <textarea id="description" name="description" required></textarea>
-
-          <label for="applicationlink">Application Link:</label>
-          <input type="text" id="applicationLink" name="applicationLink" required>
-
-          <button type="submit">Save Changes</button>
-        </form>
+  <!-- Citation: Code for the table layout inspired by tutorial - (https://www.youtube.com/watch?v=gUf1fpJwvmA&list=PLR5xnAxI5K55BhYLWb7CqiL7KGSIEOlxO&index=6) -->
+  <div class="opportunities-section container">
+    <div class="search-and-buttons">
+      <input type="text" class="search-input" placeholder="Search..." />
+      <div class="button-group">
+        <select id="schoolDropdown" name="school">
+          <option value="">Filter by School</option>
+        </select>
+        <select id="courseDropdown" name="course" disabled>
+          <option value="">Filter by Course</option>
+        </select>
+        <a href="addOpportunities.html">
+          <button class="btn add">Add Opportunity</button>
+        </a>
+        <button class="btn delete">Delete Opportunity</button>
       </div>
     </div>
 
-    <!-- Script for Search Input -->
-    <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        const searchInput = document.querySelector(".search-input");
-        const tables = document.querySelectorAll(".opportunities-table");
 
-        const filterRows = (searchValue) => {
-          tables.forEach((table) => {
-            const rows = table.querySelectorAll("tbody tr");
-            rows.forEach((row) => {
-              const cells = row.querySelectorAll("td");
-              const rowText = Array.from(cells)
-                .map((cell) => cell.textContent.toLowerCase())
-                .join(" ");
-              if (rowText.includes(searchValue.toLowerCase())) {
-                row.style.display = "";
-              } else {
-                row.style.display = "none";
-              }
-            });
+    <table class="opportunities-table" id="opportunitiesTable">
+      <thead>
+        <tr>
+          <th>Job Title</th>
+          <th>Company</th>
+          <th>Location</th>
+          <th>School</th>
+          <th>Course</th>
+          <th>Date Created</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <!-- Edit Modal -->
+  <!-- Citation: How TO - CSS/JS Modal - (https://www.w3schools.com/howto/howto_css_modals.asp) -->
+  <div id="editModal" class="modal" style="display: none;">
+    <div class="modal-content">
+      <span id="closeModal" class="close">&times;</span>
+      <h2>Edit Opportunity</h2>
+      <form id="editOpportunityForm">
+        <input type="hidden" id="opportunityId">
+        <label for="jobTitle">Job Title:</label>
+        <input type="text" id="jobTitle" name="jobTitle" required>
+
+        <label for="company">Company:</label>
+        <input type="text" id="company" name="company" required>
+
+        <label for="location">Location:</label>
+        <input type="text" id="location" name="location" required>
+
+        <label for="school">School:</label>
+        <select id="editSchoolDropdown" name="school" required></select>
+
+        <label for="course">Course:</label>
+        <select id="editCourseDropdown" name="course" required></select>
+
+        <label for="description">Description:</label>
+        <textarea id="description" name="description" required></textarea>
+
+        <label for="applicationlink">Application Link:</label>
+        <input type="text" id="applicationLink" name="applicationLink" required>
+
+        <button type="submit">Save Changes</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Script for Search Input -->
+  <!-- Citation: How TO - Filter/Search Table - (https://www.w3schools.com/howto/howto_js_filter_table.asp) -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const searchInput = document.querySelector(".search-input");
+      const tables = document.querySelectorAll(".opportunities-table");
+
+      const filterRows = (searchValue) => {
+        tables.forEach((table) => {
+          const rows = table.querySelectorAll("tbody tr");
+          rows.forEach((row) => {
+            const cells = row.querySelectorAll("td");
+            const rowText = Array.from(cells)
+              .map((cell) => cell.textContent.toLowerCase())
+              .join(" ");
+            if (rowText.includes(searchValue.toLowerCase())) {
+              row.style.display = "";
+            } else {
+              row.style.display = "none";
+            }
           });
-        };
-
-        searchInput.addEventListener("input", (event) => {
-          const searchValue = event.target.value.trim();
-          filterRows(searchValue);
         });
+      };
+
+      searchInput.addEventListener("input", (event) => {
+        const searchValue = event.target.value.trim();
+        filterRows(searchValue);
       });
-    </script>
+    });
+  </script>
 
-    <!-- Script for Dynamicalling Populating Tables-->
-    <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        const schoolDropdown = document.getElementById("schoolDropdown");
-        const courseDropdown = document.getElementById("courseDropdown");
-        const editSchoolDropdown = document.getElementById("editSchoolDropdown");
-        const editCourseDropdown = document.getElementById("editCourseDropdown");
-        const opportunitiesTable = document.querySelector(".opportunities-table tbody");
-        const editModal = document.getElementById("editModal");
-        const closeModal = document.getElementById("closeModal");
+  <!-- Script for Dynamicalling Populating Tables-->
+  <!-- Citation: Populating Tables and Button - ChatGPT (2024) -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const schoolDropdown = document.getElementById("schoolDropdown");
+      const courseDropdown = document.getElementById("courseDropdown");
+      const editSchoolDropdown = document.getElementById("editSchoolDropdown");
+      const editCourseDropdown = document.getElementById("editCourseDropdown");
+      const opportunitiesTable = document.querySelector(".opportunities-table tbody");
+      const editModal = document.getElementById("editModal");
+      const closeModal = document.getElementById("closeModal");
 
-        // Fetch and populate schools dropdown
-        fetch('/api/opportunities/schools')
+      // Fetch and populate schools dropdown
+      fetch('/api/opportunities/schools')
+        .then(response => response.json())
+        .then(data => {
+          schoolDropdown.innerHTML = `<option value="">Filter by School</option>`;
+          data.forEach(school => {
+            schoolDropdown.innerHTML += `<option value="${school.id}">${school.name}</option>`;
+          });
+        });
+
+      // Fetch and populate courses dropdown based on school
+      schoolDropdown.addEventListener("change", () => {
+        const schoolId = schoolDropdown.value;
+        courseDropdown.innerHTML = `<option value="">Filter by Course</option>`;
+        if (schoolId) {
+          fetch(`/api/opportunities/courses?schoolId=${schoolId}`)
             .then(response => response.json())
             .then(data => {
-                schoolDropdown.innerHTML = `<option value="">Filter by School</option>`;
-                data.forEach(school => {
-                    schoolDropdown.innerHTML += `<option value="${school.id}">${school.name}</option>`;
-                });
-        });
+              data.forEach(course => {
+                courseDropdown.innerHTML += `<option value="${course.id}">${course.name}</option>`;
+              });
+              courseDropdown.disabled = false;
+            });
+        } else {
+          courseDropdown.disabled = true;
+        }
+        populateOpportunitiesTable();
+      });
 
-        // Fetch and populate courses dropdown based on school
-        schoolDropdown.addEventListener("change", () => {
-            const schoolId = schoolDropdown.value;
-            courseDropdown.innerHTML = `<option value="">Filter by Course</option>`;
-            if (schoolId) {
-                fetch(`/api/opportunities/courses?schoolId=${schoolId}`)
-                    .then(response => response.json())
-                    .then(data => {
-                        data.forEach(course => {
-                            courseDropdown.innerHTML += `<option value="${course.id}">${course.name}</option>`;
-                        });
-                        courseDropdown.disabled = false;
-                    });
-            } else {
-                courseDropdown.disabled = true;
-            }
-            populateOpportunitiesTable();
-        });
+      // Call populateOpportunitiesTable when the course dropdown changes
+      courseDropdown.addEventListener("change", () => {
+        populateOpportunitiesTable();
+      });
 
-        // Call populateOpportunitiesTable when the course dropdown changes
-        courseDropdown.addEventListener("change", () => {
-            populateOpportunitiesTable(); 
-        });
-
-        // Fetch and populate opportunities table
-        const populateOpportunitiesTable = () => {
-          const schoolId = schoolDropdown.value || ""; 
-          const courseId = courseDropdown.value || ""; 
+      // Fetch and populate opportunities table
+      const populateOpportunitiesTable = () => {
+        const schoolId = schoolDropdown.value || "";
+        const courseId = courseDropdown.value || "";
 
         fetch(`/api/opportunities/getOpportunities?schoolId=${schoolId}&courseId=${courseId}`)
-              .then((response) => {
-                  if (!response.ok) throw new Error("Failed to fetch opportunities.");
-                  return response.json();
-              })
-              .then((data) => {
-                  opportunitiesTable.innerHTML = ""; // Clear existing rows
-                  data.forEach((opportunity) => {
-                      const row = document.createElement("tr");
-                      row.innerHTML = `
+          .then((response) => {
+            if (!response.ok) throw new Error("Failed to fetch opportunities.");
+            return response.json();
+          })
+          .then((data) => {
+            opportunitiesTable.innerHTML = ""; // Clear existing rows
+            data.forEach((opportunity) => {
+              const row = document.createElement("tr");
+              row.innerHTML = `
                           <td>${opportunity.title || "N/A"}</td>
                           <td>${opportunity.company_name || "N/A"}</td>
                           <td>${opportunity.location || "N/A"}</td>
@@ -214,140 +206,141 @@
                               <button class="deleteBtn" data-id="${opportunity.id}">Delete</button>
                           </td>
                       `;
-                      opportunitiesTable.appendChild(row);
-                  });
-              })
-        .catch((error) => console.error("Error fetching opportunities:", error));
-        };
-
-        // Load opportunities on page load
-        populateOpportunitiesTable();
-
-        // Handle table edit and delete button clicks
-        opportunitiesTable.addEventListener("click", (event) => {
-          if (event.target.classList.contains("editBtn")) {
-            openEditModal(event.target.dataset.id);
-          } else if (event.target.classList.contains("deleteBtn")) {
-            const id = event.target.dataset.id;
-            if (confirm("Are you sure you want to delete this opportunity?")) {
-              fetch(`/api/opportunities/delete/${id}`, { method: 'DELETE' })
-                .then(populateOpportunitiesTable)
-                .catch(err => console.error("Error deleting opportunity:", err));
-            }
-          }
-        });
-
-        // Fetch and populate schools dropdown
-        const populateEditSchoolDropdown = async (selectedSchoolId) => {
-          const response = await fetch('/api/opportunities/schools');
-          const schools = await response.json();
-          editSchoolDropdown.innerHTML = '<option value="">Select School</option>';
-          schools.forEach((school) => {
-            editSchoolDropdown.innerHTML += `<option value="${school.id}">${school.name}</option>`;
-          });
-          if (selectedSchoolId) {
-            editSchoolDropdown.value = selectedSchoolId; // Set the selected school
-          }
-        };
-
-        // Fetch and populate courses dropdown based on selected school
-        const populateEditCourseDropdown = async (schoolId, selectedCourseId) => {
-          if (!schoolId) {
-            editCourseDropdown.innerHTML = '<option value="">Select Course</option>';
-            return;
-          }
-          const response = await fetch(`/api/opportunities/courses?schoolId=${schoolId}`);
-          const courses = await response.json();
-          editCourseDropdown.innerHTML = '<option value="">Select Course</option>';
-          courses.forEach((course) => {
-            editCourseDropdown.innerHTML += `<option value="${course.id}">${course.name}</option>`;
-          });
-          if (selectedCourseId) {
-            editCourseDropdown.value = selectedCourseId; // Set the selected course
-            console.log("Selected course set:", selectedCourseId);
-          }
-        };
-
-
-        // Function to populate edit modal fields
-        const openEditModal = async (opportunityId) => {
-          const response = await fetch(`/api/opportunities/opportunitiesByID/${opportunityId}`);
-          const data = await response.json();
-
-          console.log("Opportunity data fetched:", data);
-
-          // Populate basic fields
-          document.getElementById('opportunityId').value = data.id;
-          document.getElementById('jobTitle').value = data.title;
-          document.getElementById('company').value = data.company_name;
-          document.getElementById('location').value = data.location;
-          document.getElementById('description').value = data.description;
-          document.getElementById('applicationLink').value = data.company_link;
-
-          // Populate school dropdown and set the selected value
-          await populateEditSchoolDropdown(data.school_id);
-
-          await populateEditCourseDropdown(data.school_id, data.course_id);
-
-          // Show the modal
-          editModal.style.display = 'block';
-        };
-
-        // Handle school selection change in the modal
-        editSchoolDropdown.addEventListener('change', async () => {
-          const selectedSchoolId = editSchoolDropdown.value;
-          await populateEditCourseDropdown(selectedSchoolId); 
-        });
-                
-        // Close edit modal
-        closeModal.addEventListener("click", () => {
-            editModal.style.display = "none";
-        });
-
-        // Handle edit modal form submission
-        document.getElementById('editOpportunityForm').addEventListener('submit', async (event) => {
-          event.preventDefault();
-
-          const payload = {
-            id: document.getElementById('opportunityId').value,
-            title: document.getElementById('jobTitle').value,
-            company_name: document.getElementById('company').value,
-            location: document.getElementById('location').value,
-            school_id: document.getElementById('editSchoolDropdown').value,
-            course_id: document.getElementById('editCourseDropdown').value,
-            description: document.getElementById('description').value,
-            company_link: document.getElementById('applicationLink').value,
-          };
-
-          try {
-            const response = await fetch('/api/opportunities/editOpportunity', {
-              method: 'PUT',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify(payload),
+              opportunitiesTable.appendChild(row);
             });
+          })
+          .catch((error) => console.error("Error fetching opportunities:", error));
+      };
 
-            if (!response.ok) throw new Error("Failed to update opportunity.");
+      // Load opportunities on page load
+      populateOpportunitiesTable();
 
-            const result = await response.json();
-            alert(result.message);
-
-            editModal.style.display = "none";
-            populateOpportunitiesTable();
-          } catch (error) {
-            console.error("Error updating opportunity:", error);
-            alert("Failed to update opportunity. Please try again.");
-          }
-        });
-
-        // Delete an opportunity
-        const deleteOpportunity = (id) => {
+      // Handle table edit and delete button clicks
+      opportunitiesTable.addEventListener("click", (event) => {
+        if (event.target.classList.contains("editBtn")) {
+          openEditModal(event.target.dataset.id);
+        } else if (event.target.classList.contains("deleteBtn")) {
+          const id = event.target.dataset.id;
+          if (confirm("Are you sure you want to delete this opportunity?")) {
             fetch(`/api/opportunities/delete/${id}`, { method: 'DELETE' })
-                .then(() => populateOpportunitiesTable())
-                .catch(err => console.error("Error deleting opportunity:", err));
-        };
-        });
+              .then(populateOpportunitiesTable)
+              .catch(err => console.error("Error deleting opportunity:", err));
+          }
+        }
+      });
 
-    </script>
-      
-  </body>
+      // Fetch and populate schools dropdown
+      const populateEditSchoolDropdown = async (selectedSchoolId) => {
+        const response = await fetch('/api/opportunities/schools');
+        const schools = await response.json();
+        editSchoolDropdown.innerHTML = '<option value="">Select School</option>';
+        schools.forEach((school) => {
+          editSchoolDropdown.innerHTML += `<option value="${school.id}">${school.name}</option>`;
+        });
+        if (selectedSchoolId) {
+          editSchoolDropdown.value = selectedSchoolId; // Set the selected school
+        }
+      };
+
+      // Fetch and populate courses dropdown based on selected school
+      const populateEditCourseDropdown = async (schoolId, selectedCourseId) => {
+        if (!schoolId) {
+          editCourseDropdown.innerHTML = '<option value="">Select Course</option>';
+          return;
+        }
+        const response = await fetch(`/api/opportunities/courses?schoolId=${schoolId}`);
+        const courses = await response.json();
+        editCourseDropdown.innerHTML = '<option value="">Select Course</option>';
+        courses.forEach((course) => {
+          editCourseDropdown.innerHTML += `<option value="${course.id}">${course.name}</option>`;
+        });
+        if (selectedCourseId) {
+          editCourseDropdown.value = selectedCourseId; // Set the selected course
+          console.log("Selected course set:", selectedCourseId);
+        }
+      };
+
+
+      // Function to populate edit modal fields
+      const openEditModal = async (opportunityId) => {
+        const response = await fetch(`/api/opportunities/opportunitiesByID/${opportunityId}`);
+        const data = await response.json();
+
+        console.log("Opportunity data fetched:", data);
+
+        // Populate basic fields
+        document.getElementById('opportunityId').value = data.id;
+        document.getElementById('jobTitle').value = data.title;
+        document.getElementById('company').value = data.company_name;
+        document.getElementById('location').value = data.location;
+        document.getElementById('description').value = data.description;
+        document.getElementById('applicationLink').value = data.company_link;
+
+        // Populate school dropdown and set the selected value
+        await populateEditSchoolDropdown(data.school_id);
+
+        await populateEditCourseDropdown(data.school_id, data.course_id);
+
+        // Show the modal
+        editModal.style.display = 'block';
+      };
+
+      // Handle school selection change in the modal
+      editSchoolDropdown.addEventListener('change', async () => {
+        const selectedSchoolId = editSchoolDropdown.value;
+        await populateEditCourseDropdown(selectedSchoolId);
+      });
+
+      // Close edit modal
+      closeModal.addEventListener("click", () => {
+        editModal.style.display = "none";
+      });
+
+      // Handle edit modal form submission
+      document.getElementById('editOpportunityForm').addEventListener('submit', async (event) => {
+        event.preventDefault();
+
+        const payload = {
+          id: document.getElementById('opportunityId').value,
+          title: document.getElementById('jobTitle').value,
+          company_name: document.getElementById('company').value,
+          location: document.getElementById('location').value,
+          school_id: document.getElementById('editSchoolDropdown').value,
+          course_id: document.getElementById('editCourseDropdown').value,
+          description: document.getElementById('description').value,
+          company_link: document.getElementById('applicationLink').value,
+        };
+
+        try {
+          const response = await fetch('/api/opportunities/editOpportunity', {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload),
+          });
+
+          if (!response.ok) throw new Error("Failed to update opportunity.");
+
+          const result = await response.json();
+          alert(result.message);
+
+          editModal.style.display = "none";
+          populateOpportunitiesTable();
+        } catch (error) {
+          console.error("Error updating opportunity:", error);
+          alert("Failed to update opportunity. Please try again.");
+        }
+      });
+
+      // Delete an opportunity
+      const deleteOpportunity = (id) => {
+        fetch(`/api/opportunities/delete/${id}`, { method: 'DELETE' })
+          .then(() => populateOpportunitiesTable())
+          .catch(err => console.error("Error deleting opportunity:", err));
+      };
+    });
+
+  </script>
+
+</body>
+
 </html>

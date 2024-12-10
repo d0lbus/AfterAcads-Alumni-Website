@@ -50,9 +50,11 @@ img.afteracadstext {
 /* Page Layout */
 .container {
   padding: 20px;
-  margin-top: 50px; /* Adjusted to directly compensate for header height */
+  margin-top: 50px;
+  /* Adjusted to directly compensate for header height */
 }
 
+/* Citation: navigation bar - (https://www.youtube.com/watch?v=oLgtucwjVII) */
 .nav-links {
   list-style: none;
   display: flex;
@@ -104,8 +106,10 @@ img.afteracadstext {
 .page-header {
   background-color: #fff;
   padding: 20px;
-  margin-top: -20px; /* Negative margin to pull the header closer to the content */
-  margin-bottom: 0; /* Eliminate bottom margin */
+  margin-top: -20px;
+  /* Negative margin to pull the header closer to the content */
+  margin-bottom: 0;
+  /* Eliminate bottom margin */
 }
 
 .page-header h1 {
@@ -114,10 +118,13 @@ img.afteracadstext {
 }
 
 /* Event Table */
+/* Citation: JavaScript for the tables - (https://www.youtube.com/watch?v=XmdOZ5NSqb8&list=PL-51WBLyFTg1l3K0aTH0uX6PzgaLfzJBK) */
 .event-table {
   width: 100%;
-  border-collapse: collapse; /* Ensures seamless borders */
-  border-spacing: 0; /* Removes extra spacing between cells */
+  border-collapse: collapse;
+  /* Ensures seamless borders */
+  border-spacing: 0;
+  /* Removes extra spacing between cells */
   background-color: white;
   border-radius: 8px;
   overflow: hidden;
@@ -125,12 +132,17 @@ img.afteracadstext {
   margin-top: 0;
 }
 
-.event-table th, .event-table td {
-  padding: 10px; /* Adjust padding for consistency */
-  border-bottom: 1px solid #ddd; /* Consistent row border */
+.event-table th,
+.event-table td {
+  padding: 10px;
+  /* Adjust padding for consistency */
+  border-bottom: 1px solid #ddd;
+  /* Consistent row border */
   text-align: center;
-  vertical-align: middle; /* Ensure content is vertically aligned */
-  word-wrap: break-word; /* Prevent content overflow */
+  vertical-align: middle;
+  /* Ensure content is vertically aligned */
+  word-wrap: break-word;
+  /* Prevent content overflow */
 }
 
 .event-table th {
@@ -147,20 +159,26 @@ img.afteracadstext {
 }
 
 .event-table td {
-  vertical-align: middle; /* Align content within the cell */
-  padding: 10px; /* Prevent content from hitting edges */
-  overflow: hidden; /* Prevent content overflow */
+  vertical-align: middle;
+  /* Align content within the cell */
+  padding: 10px;
+  /* Prevent content from hitting edges */
+  overflow: hidden;
+  /* Prevent content overflow */
 }
 
 /* Search and Buttons Layout */
+/* Citation: CSS Buttons - (https://www.w3schools.com/css/css3_buttons.asp) */
 .search-and-buttons {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin: 80px 20px 20px 20px; /* Top margin adjusted for space below header */
+  margin: 80px 20px 20px 20px;
+  /* Top margin adjusted for space below header */
   gap: 10px;
   position: relative;
-  z-index: 1; /* Ensures it appears above content */
+  z-index: 1;
+  /* Ensures it appears above content */
 }
 
 /* Search Input */
@@ -171,9 +189,11 @@ img.afteracadstext {
   font-size: 1rem;
   border-radius: 12px;
   box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
-  width: 200px; /* Adjust as needed */
+  width: 200px;
+  /* Adjust as needed */
   position: relative;
-  z-index: 2; /* Higher z-index to appear above other content */
+  z-index: 2;
+  /* Higher z-index to appear above other content */
 }
 
 /* Button Group Styling */
@@ -182,15 +202,18 @@ img.afteracadstext {
   align-items: center;
   gap: 10px;
   flex-wrap: wrap;
-  margin-top: 5px; /* Adds space between the search/filter and buttons */
+  margin-top: 5px;
+  /* Adds space between the search/filter and buttons */
   justify-content: flex-end;
   position: relative;
-  z-index: 1; /* Ensures it appears above content */
+  z-index: 1;
+  /* Ensures it appears above content */
 }
 
 /* Common Button Styling */
-.button-group button{
-  padding: 10px 20px; /* Consistent padding */
+.button-group button {
+  padding: 10px 20px;
+  /* Consistent padding */
   border-radius: 5px;
   font-size: 14px;
   cursor: pointer;
@@ -205,33 +228,41 @@ img.afteracadstext {
 
 /* Specific Button Styles */
 .button-group .btn-upcoming {
-  background-color: #003f91; /* Blue for Upcoming Events */
+  background-color: #003f91;
+  /* Blue for Upcoming Events */
   color: white;
 }
 
 .button-group .btn-finished {
-  background-color: #003f91; /* Green for Finished Events */
+  background-color: #003f91;
+  /* Green for Finished Events */
   color: white;
 }
 
 .button-group .btn-archived {
-  background-color: #003f91; /* Red for Archived/Denied Events */
+  background-color: #003f91;
+  /* Red for Archived/Denied Events */
   color: white;
 }
 
 .button-group .btn-add {
-  background-color: #003f91; /* Amber for Add Events */
+  background-color: #003f91;
+  /* Amber for Add Events */
   color: white;
 }
 
 /* Button Container */
 .button-container {
   display: flex;
-  flex-direction: column; /* Change to column layout */
-  gap: 10px; /* Adds spacing between buttons */
-  justify-content: flex-start; /* Aligns buttons to the start of the container */
+  flex-direction: column;
+  /* Change to column layout */
+  gap: 10px;
+  /* Adds spacing between buttons */
+  justify-content: flex-start;
+  /* Aligns buttons to the start of the container */
   position: relative;
-  margin-top: 20px; /* Adds space between the table and buttons */
+  margin-top: 20px;
+  /* Adds space between the table and buttons */
 }
 
 .button-container .btn {
@@ -241,8 +272,10 @@ img.afteracadstext {
   cursor: pointer;
   transition: background-color 0.3s, opacity 0.3s;
   border: none;
-  flex-shrink: 0; /* Prevents buttons from shrinking */
-  width: 100%; /* Make buttons the full width of the container */
+  flex-shrink: 0;
+  /* Prevents buttons from shrinking */
+  width: 100%;
+  /* Make buttons the full width of the container */
 }
 
 .button-container .btn:hover {
@@ -251,22 +284,30 @@ img.afteracadstext {
 
 .action-buttons {
   display: flex;
-  flex-direction: column; /* Stack buttons vertically */
-  align-items: center; /* Center buttons horizontally */
-  gap: 8px; /* Add spacing between buttons */
-  background-color: transparent; /* Ensure no background covers the row */
+  flex-direction: column;
+  /* Stack buttons vertically */
+  align-items: center;
+  /* Center buttons horizontally */
+  gap: 8px;
+  /* Add spacing between buttons */
+  background-color: transparent;
+  /* Ensure no background covers the row */
   padding: 0;
-  margin: 0; /* Remove margins to avoid overlapping issues */
+  margin: 0;
+  /* Remove margins to avoid overlapping issues */
 }
 
 .action-buttons .btn {
-  padding: 8px 12px; /* Standardize button padding */
-  font-size: 12px; /* Compact size */
+  padding: 8px 12px;
+  /* Standardize button padding */
+  font-size: 12px;
+  /* Compact size */
   border-radius: 5px;
   cursor: pointer;
   border: none;
   transition: background-color 0.3s, transform 0.3s;
-  width: 90%; /* Optional: Make buttons consistent in width */
+  width: 90%;
+  /* Optional: Make buttons consistent in width */
   text-align: center;
 }
 
@@ -275,48 +316,56 @@ img.afteracadstext {
 }
 
 .action-buttons .btn.mark-done {
-  background-color: #003f91; /* Blue */
+  background-color: #003f91;
+  /* Blue */
   color: white;
 }
 
 .action-buttons .btn.mark-done:hover {
-  background-color: #002d73; /* Darker blue */
+  background-color: #002d73;
+  /* Darker blue */
   transform: scale(1.05);
 }
 
 .action-buttons .btn.archive {
-  background-color: #8da2fb; /* Light blue */
+  background-color: #8da2fb;
+  /* Light blue */
   color: white;
 }
 
 .action-buttons .btn.archive:hover {
-  background-color: #6a85c0; /* Darker blue */
+  background-color: #6a85c0;
+  /* Darker blue */
   transform: scale(1.05);
 }
 
 .action-buttons .btn.delete {
-  background-color: #d9534f; /* Red */
+  background-color: #d9534f;
+  /* Red */
   color: white;
 }
 
 .action-buttons .btn.delete:hover {
-  background-color: #b30000; /* Darker red */
+  background-color: #b30000;
+  /* Darker red */
   transform: scale(1.05);
 }
 
 .action-buttons .btn.edit {
-  background-color: #f0a500; /* Amber */
+  background-color: #f0a500;
+  /* Amber */
   color: white;
 }
 
 .action-buttons .btn.edit:hover {
-  background-color: #d08800; /* Darker amber */
+  background-color: #d08800;
+  /* Darker amber */
   transform: scale(1.05);
 }
 
 .event-table tr:last-child td {
-  border-bottom: none; 
-} 
+  border-bottom: none;
+}
 
 /* Button focus state */
 .btn:focus {
@@ -330,6 +379,7 @@ img.afteracadstext {
   opacity: 0.9;
 }
 
+/* Citation: How TO - Sort a Table - (https://www.w3schools.com/howto/howto_js_sort_table.asp) */
 .sort-button {
   background: none;
   border: none;
@@ -357,7 +407,8 @@ img.afteracadstext {
 .filter-dropdown {
   position: relative;
   display: inline-block;
-  width: 200px; /* Adjust as needed */
+  width: 200px;
+  /* Adjust as needed */
 }
 
 .filter-dropdown select {
@@ -395,14 +446,17 @@ img.afteracadstext {
   color: #fff;
 }
 
+
 /* Modal Overlay */
+/* Citation: How TO - CSS/JS Modal - (https://www.w3schools.com/howto/howto_css_modals.asp) */
 .event-details-modal {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); /* Dim background */
+  background-color: rgba(0, 0, 0, 0.5);
+  /* Dim background */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -511,6 +565,7 @@ input[readonly] {
     opacity: 0;
     transform: translateY(-20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);

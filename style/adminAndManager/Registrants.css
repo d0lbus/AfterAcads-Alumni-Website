@@ -30,7 +30,7 @@ header {
   align-items: center;
   justify-content: space-between;
   background-color: #e7e5e5;
-  padding: 1rem 1.5rem; 
+  padding: 1rem 1.5rem;
   position: fixed;
   top: 0;
   left: 0;
@@ -40,8 +40,8 @@ header {
 }
 
 header img.afteracadstext {
-  width: 200px; 
-  height: auto; 
+  width: 200px;
+  height: auto;
   display: inline-block;
   object-fit: contain;
 }
@@ -50,6 +50,7 @@ header img.afteracadstext {
   padding: 20px;
 }
 
+/* Citation: navigation bar - (https://www.youtube.com/watch?v=oLgtucwjVII) */
 .nav-links {
   list-style: none;
   display: flex;
@@ -108,7 +109,7 @@ header img.afteracadstext {
 .page-header {
   background-color: #fff;
   padding: 20px;
-  margin-top: 80px; 
+  margin-top: 80px;
 }
 
 .page-header h1 {
@@ -116,19 +117,20 @@ header img.afteracadstext {
 }
 
 .users-section {
-  margin-top: 120px; 
+  margin-top: 120px;
   background-color: var(--color-light);
   border-radius: 8px;
   padding: 20px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
+/* Citation: CSS Buttons - (https://www.w3schools.com/css/css3_buttons.asp) */
 .search-and-buttons {
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 20px;
-  gap: 10px; 
+  gap: 10px;
 }
 
 .search-input {
@@ -155,14 +157,14 @@ header img.afteracadstext {
   font-weight: 500;
   background-color: var(--color-light);
   color: var(--color-dark);
-  position: relative; 
-  z-index: 1;          
+  position: relative;
+  z-index: 1;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .btn.pending:hover {
   background-color: #b7d0e1;
-  color: var(--color-dark); 
+  color: var(--color-dark);
 }
 
 .btn.approved:hover {
@@ -186,15 +188,16 @@ header img.afteracadstext {
 }
 
 .btn.denied {
-  background-color: #003f91; 
+  background-color: #003f91;
   color: white;
 }
 
 .btn.active {
-  background-color: #003f91; 
+  background-color: #003f91;
   color: white;
 }
 
+/* Citation: How TO - Sort a Table - (https://www.w3schools.com/howto/howto_js_sort_table.asp) */
 .sort-button {
   background: none;
   border: none;
@@ -218,6 +221,7 @@ header img.afteracadstext {
   display: inline;
 }
 
+/* Citation: JavaScript for the tables - (https://www.youtube.com/watch?v=XmdOZ5NSqb8&list=PL-51WBLyFTg1l3K0aTH0uX6PzgaLfzJBK) */
 .user-table {
   width: 100%;
   border-collapse: collapse;
@@ -234,7 +238,7 @@ header img.afteracadstext {
   padding: 10px;
   border-bottom: 1px solid #ddd;
   width: auto;
-  word-wrap: break-word; 
+  word-wrap: break-word;
 }
 
 .user-table th {
@@ -267,12 +271,12 @@ header img.afteracadstext {
 .user-avatar {
   height: 30px;
   width: 30px;
-  border-radius: 50%; 
-  margin-right: 8px; 
+  border-radius: 50%;
+  margin-right: 8px;
 }
 
 .username {
-  font-size: 1rem; 
+  font-size: 1rem;
 }
 
 .action-buttons .btn {
@@ -286,18 +290,19 @@ header img.afteracadstext {
 .btn.approve {
   background-color: #2ecc71;
   color: white;
-  width: 90px;             
-  height: 32px;    
+  width: 90px;
+  height: 32px;
 }
 
 .btn.deny {
   background-color: #e74c3c;
   color: white;
-  width: 90px;             
-  height: 32px;    
+  width: 90px;
+  height: 32px;
 }
 
 /* Modal styles */
+/* Citation: How TO - CSS/JS Modal - (https://www.w3schools.com/howto/howto_css_modals.asp) */
 .user-details-modal {
   position: fixed;
   z-index: 1000;
@@ -311,14 +316,14 @@ header img.afteracadstext {
 
 .modal-content {
   background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    width: 60%; 
-    max-width: 500px;
-    margin: auto;
-    position: relative;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
-    text-align: center; 
+  padding: 20px;
+  border-radius: 8px;
+  width: 60%;
+  max-width: 500px;
+  margin: auto;
+  position: relative;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  text-align: center;
 }
 
 .close-btn {
@@ -344,8 +349,8 @@ header img.afteracadstext {
 .modal-divider {
   border: 0;
   height: 1px;
-  background-color: #ccc; 
-  margin: 10px 0; 
+  background-color: #ccc;
+  margin: 10px 0;
 }
 
 .modal-content p {
@@ -357,7 +362,7 @@ header img.afteracadstext {
   display: flex;
   gap: 10px;
   margin-top: 20px;
-  justify-content: center; 
+  justify-content: center;
 }
 
 .modal-buttons .btn {
@@ -371,12 +376,12 @@ header img.afteracadstext {
 }
 
 .modal-buttons .btn.approve {
-  background-color: #2ecc71; 
+  background-color: #2ecc71;
   color: white;
 }
 
 .modal-buttons .btn.deny {
-  background-color: #e74c3c; 
+  background-color: #e74c3c;
   color: white;
 }
 
@@ -388,5 +393,5 @@ header img.afteracadstext {
 }
 
 #dateHeader .ascending {
-  transform: rotate(180deg); 
+  transform: rotate(180deg);
 }

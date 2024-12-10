@@ -1,427 +1,416 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>User Management</title>
-    <link
-      rel="stylesheet"
-      href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css"
-    />
-    <link rel="stylesheet" href="../../style/adminAndManager/user.css" />
-  </head>
-  <body>
-    <section>
-      <!-- Header -->
-      <header>
-        <div>
-          <img
-            class="afteracadstext"
-            src="../../assets/logo.png"
-            alt="AfterAcads"
-          />
-        </div>
-        <!-- Citation: navigation bar - (https://www.youtube.com/watch?v=oLgtucwjVII) -->
-        <ul class="nav-links">
-          <li><a href="home.html">Home</a></li>
-          <li><a href="Registrants.html">Registrants</a></li>
-          <li><a href="approvePost.html">Posts</a></li>
-          <li><a href="eventsDashboard.html">Events</a></li>
-          <li><a href="opportunities.html">Opportunities</a></li>
-          <li><a href="statistics.php">Statistics</a></li>
-          <li><a href="user.html">Users</a></li>
-        </ul>
-        <div class="profile">
-          <li>
-            <a href="managerProfile.html">
-              <img
-                class="profile-img"
-                src="../../assets/profileIcon.jpg"
-                alt="Profile"
-              />
-            </a>
-          </li>
-        </div>
-      </header>
 
-      <!-- User Section -->
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>User Management</title>
+  <link rel="stylesheet"
+    href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css" />
+  <link rel="stylesheet" href="../../style/adminAndManager/user.css" />
+</head>
 
-      <!-- Citation: user section container design and table for users with it's button - (https://www.youtube.com/watch?v=gUf1fpJwvmA&list=PLR5xnAxI5K55BhYLWb7CqiL7KGSIEOlxO&index=6) -->
-      <div class="users-section container">
-        <div class="search-and-buttons">
-          <input type="text" class="search-input" placeholder="Search..." />
-          <button class="btn AddUSer" id="addUserBtn">Add User</button>
-        </div>
-        <p>Total Users: <span id="totalUsers">16</span></p>
+<body>
+  <section>
+    <!-- Header -->
+    <header>
+      <div>
+        <img class="afteracadstext" src="../../assets/logo.png" alt="AfterAcads" />
       </div>
-
-      <div class="container1">
-        <!-- Table for Users -->
-        <table class="user-table">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>First Name</th>
-              <th>
-                Last Name
-                <button
-                  class="sort-button"
-                  data-sort="asc"
-                  onclick="toggleSort(this, 3)"
-                >
-                  <span class="arrow-up">&#9650;</span>
-                  <span class="arrow-down">&#9660;</span>
-                </button>
-              </th>
-              <th>Email</th>
-              <th>User Role</th>
-              <th>Date Created</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            <!-- User Data -->
-            <tr>
-              <td>1</td>
-              <td>Chloe</td>
-              <td>San Miguel</td>
-              <td>chloe@gmail.com</td>
-              <td>Admin</td>
-              <td>12/02/2024</td>
-              <td class="action-buttons">
-                <button class="btn approve">Edit</button>
-                <button class="btn deny">Delete</button>
-              </td>
-            </tr>
-            <tr>
-              <td>2</td>
-              <td>Aiden</td>
-              <td>Valencia</td>
-              <td>aiden@gmail.com</td>
-              <td>User</td>
-              <td>12/01/2024</td>
-              <td class="action-buttons">
-                <button class="btn approve">Edit</button>
-                <button class="btn deny">Delete</button>
-              </td>
-            </tr>
-            <tr>
-              <td>3</td>
-              <td>Olivia</td>
-              <td>Garcia</td>
-              <td>olivia@gmail.com</td>
-              <td>Admin</td>
-              <td>11/29/2024</td>
-              <td class="action-buttons">
-                <button class="btn approve">Edit</button>
-                <button class="btn deny">Delete</button>
-              </td>
-            </tr>
-            <tr>
-              <td>4</td>
-              <td>Noah</td>
-              <td>Martinez</td>
-              <td>noah@gmail.com</td>
-              <td>User</td>
-              <td>11/28/2024</td>
-              <td class="action-buttons">
-                <button class="btn approve">Edit</button>
-                <button class="btn deny">Delete</button>
-              </td>
-            </tr>
-            <tr>
-              <td>5</td>
-              <td>Ava</td>
-              <td>Rodriguez</td>
-              <td>ava@gmail.com</td>
-              <td>Admin</td>
-              <td>11/25/2024</td>
-              <td class="action-buttons">
-                <button class="btn approve">Edit</button>
-                <button class="btn deny">Delete</button>
-              </td>
-            </tr>
-            <tr>
-              <td>6</td>
-              <td>Lucas</td>
-              <td>Martinez</td>
-              <td>lucas@gmail.com</td>
-              <td>User</td>
-              <td>11/22/2024</td>
-              <td class="action-buttons">
-                <button class="btn approve">Edit</button>
-                <button class="btn deny">Delete</button>
-              </td>
-            </tr>
-            <tr>
-              <td>7</td>
-              <td>Mia</td>
-              <td>Lopez</td>
-              <td>mia@gmail.com</td>
-              <td>Admin</td>
-              <td>11/19/2024</td>
-              <td class="action-buttons">
-                <button class="btn approve">Edit</button>
-                <button class="btn deny">Delete</button>
-              </td>
-            </tr>
-            <tr>
-              <td>8</td>
-              <td>Liam</td>
-              <td>Hernandez</td>
-              <td>liam@gmail.com</td>
-              <td>User</td>
-              <td>11/16/2024</td>
-              <td class="action-buttons">
-                <button class="btn approve">Edit</button>
-                <button class="btn deny">Delete</button>
-              </td>
-            </tr>
-            <tr>
-              <td>9</td>
-              <td>Emma</td>
-              <td>Garcia</td>
-              <td>emma@gmail.com</td>
-              <td>Admin</td>
-              <td>11/14/2024</td>
-              <td class="action-buttons">
-                <button class="btn approve">Edit</button>
-                <button class="btn deny">Delete</button>
-              </td>
-            </tr>
-            <tr>
-              <td>10</td>
-              <td>James</td>
-              <td>Lee</td>
-              <td>james@gmail.com</td>
-              <td>User</td>
-              <td>11/11/2024</td>
-              <td class="action-buttons">
-                <button class="btn approve">Edit</button>
-                <button class="btn deny">Delete</button>
-              </td>
-            </tr>
-            <tr>
-              <td>11</td>
-              <td>qwerrty</td>
-              <td>sino</td>
-              <td>ewan@gmail.com</td>
-              <td>User</td>
-              <td>11/11/2024</td>
-              <td class="action-buttons">
-                <button class="btn approve">Edit</button>
-                <button class="btn deny">Delete</button>
-              </td>
-            </tr>
-            <tr>
-              <td>12</td>
-              <td>maisip</td>
-              <td>akong</td>
-              <td>wla@gmail.com</td>
-              <td>User</td>
-              <td>11/11/2024</td>
-              <td class="action-buttons">
-                <button class="btn approve">Edit</button>
-                <button class="btn deny">Delete</button>
-              </td>
-            </tr>
-            <tr>
-              <td>13</td>
-              <td>pogi</td>
-              <td>si</td>
-              <td>dolbi@gmail.com</td>
-              <td>User</td>
-              <td>11/11/2024</td>
-              <td class="action-buttons">
-                <button class="btn approve">Edit</button>
-                <button class="btn deny">Delete</button>
-              </td>
-            </tr>
-            <tr>
-              <td>14</td>
-              <td>grabe</td>
-              <td>ba</td>
-              <td>sheesh@gmail.com</td>
-              <td>User</td>
-              <td>11/11/2024</td>
-              <td class="action-buttons">
-                <button class="btn approve">Edit</button>
-                <button class="btn deny">Delete</button>
-              </td>
-            </tr>
-            <tr>
-              <td>15</td>
-              <td>ubo</td>
-              <td>ubo</td>
-              <td>ubo@gmail.com</td>
-              <td>User</td>
-              <td>11/11/2024</td>
-              <td class="action-buttons">
-                <button class="btn approve">Edit</button>
-                <button class="btn deny">Delete</button>
-              </td>
-            </tr>
-            <tr>
-              <td>16</td>
-              <td>sinok</td>
-              <td>sinok</td>
-              <td>sinok@gmail.com</td>
-              <td>User</td>
-              <td>11/11/2024</td>
-              <td class="action-buttons">
-                <button class="btn approve">Edit</button>
-                <button class="btn deny">Delete</button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+      <!-- Citation: navigation bar - (https://www.youtube.com/watch?v=oLgtucwjVII) -->
+      <ul class="nav-links">
+        <li><a href="home.html">Home</a></li>
+        <li><a href="Registrants.html">Registrants</a></li>
+        <li><a href="approvePost.html">Posts</a></li>
+        <li><a href="eventsDashboard.html">Events</a></li>
+        <li><a href="opportunities.html">Opportunities</a></li>
+        <li><a href="statistics.php">Statistics</a></li>
+        <li><a href="user.html">Users</a></li>
+      </ul>
+      <div class="profile">
+        <li>
+          <a href="managerProfile.html">
+            <img class="profile-img" src="../../assets/profileIcon.jpg" alt="Profile" />
+          </a>
+        </li>
       </div>
-      <!-- Pagination -->
-      <div class="pagination">
-        <button class="btn pagination-btn" id="prevBtn" disabled>
-          Previous
-        </button>
-        <span id="pageNumber">Page 1</span>
-        <button class="btn pagination-btn" id="nextBtn">Next</button>
+    </header>
+
+    <!-- User Section -->
+
+    <!-- Citation: user section container design and table for users with it's button - (https://www.youtube.com/watch?v=gUf1fpJwvmA&list=PLR5xnAxI5K55BhYLWb7CqiL7KGSIEOlxO&index=6) -->
+    <div class="users-section container">
+      <div class="search-and-buttons">
+        <input type="text" class="search-input" placeholder="Search..." />
+        <button class="btn AddUSer" id="addUserBtn">Add User</button>
       </div>
+      <p>Total Users: <span id="totalUsers">16</span></p>
+    </div>
 
-      <!-- User Details Modal -->
-      <div class="user-details-modal" id="userDetailsModal">
-        <div class="modal-content">
-          <span class="close-btn" id="closeModal">&times;</span>
-          <h2>User Details</h2>
-          <hr class="modal-divider" />
-          <p><strong>First Name:</strong> <span id="firstName"></span></p>
-          <p><strong>Middle Name:</strong> <span id="middleName"></span></p>
-          <p><strong>Last Name:</strong> <span id="lastName"></span></p>
-          <p><strong>Gender:</strong> <span id="gender"></span></p>
-          <p><strong>Email:</strong> <span id="email"></span></p>
-        </div>
+    <div class="container1">
+      <!-- Table for Users -->
+      <table class="user-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>First Name</th>
+            <th>
+              Last Name
+              <button class="sort-button" data-sort="asc" onclick="toggleSort(this, 3)">
+                <span class="arrow-up">&#9650;</span>
+                <span class="arrow-down">&#9660;</span>
+              </button>
+            </th>
+            <th>Email</th>
+            <th>User Role</th>
+            <th>Date Created</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- User Data -->
+          <tr>
+            <td>1</td>
+            <td>Chloe</td>
+            <td>San Miguel</td>
+            <td>chloe@gmail.com</td>
+            <td>Admin</td>
+            <td>12/02/2024</td>
+            <td class="action-buttons">
+              <button class="btn approve">Edit</button>
+              <button class="btn deny">Delete</button>
+            </td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>Aiden</td>
+            <td>Valencia</td>
+            <td>aiden@gmail.com</td>
+            <td>User</td>
+            <td>12/01/2024</td>
+            <td class="action-buttons">
+              <button class="btn approve">Edit</button>
+              <button class="btn deny">Delete</button>
+            </td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>Olivia</td>
+            <td>Garcia</td>
+            <td>olivia@gmail.com</td>
+            <td>Admin</td>
+            <td>11/29/2024</td>
+            <td class="action-buttons">
+              <button class="btn approve">Edit</button>
+              <button class="btn deny">Delete</button>
+            </td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td>Noah</td>
+            <td>Martinez</td>
+            <td>noah@gmail.com</td>
+            <td>User</td>
+            <td>11/28/2024</td>
+            <td class="action-buttons">
+              <button class="btn approve">Edit</button>
+              <button class="btn deny">Delete</button>
+            </td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td>Ava</td>
+            <td>Rodriguez</td>
+            <td>ava@gmail.com</td>
+            <td>Admin</td>
+            <td>11/25/2024</td>
+            <td class="action-buttons">
+              <button class="btn approve">Edit</button>
+              <button class="btn deny">Delete</button>
+            </td>
+          </tr>
+          <tr>
+            <td>6</td>
+            <td>Lucas</td>
+            <td>Martinez</td>
+            <td>lucas@gmail.com</td>
+            <td>User</td>
+            <td>11/22/2024</td>
+            <td class="action-buttons">
+              <button class="btn approve">Edit</button>
+              <button class="btn deny">Delete</button>
+            </td>
+          </tr>
+          <tr>
+            <td>7</td>
+            <td>Mia</td>
+            <td>Lopez</td>
+            <td>mia@gmail.com</td>
+            <td>Admin</td>
+            <td>11/19/2024</td>
+            <td class="action-buttons">
+              <button class="btn approve">Edit</button>
+              <button class="btn deny">Delete</button>
+            </td>
+          </tr>
+          <tr>
+            <td>8</td>
+            <td>Liam</td>
+            <td>Hernandez</td>
+            <td>liam@gmail.com</td>
+            <td>User</td>
+            <td>11/16/2024</td>
+            <td class="action-buttons">
+              <button class="btn approve">Edit</button>
+              <button class="btn deny">Delete</button>
+            </td>
+          </tr>
+          <tr>
+            <td>9</td>
+            <td>Emma</td>
+            <td>Garcia</td>
+            <td>emma@gmail.com</td>
+            <td>Admin</td>
+            <td>11/14/2024</td>
+            <td class="action-buttons">
+              <button class="btn approve">Edit</button>
+              <button class="btn deny">Delete</button>
+            </td>
+          </tr>
+          <tr>
+            <td>10</td>
+            <td>James</td>
+            <td>Lee</td>
+            <td>james@gmail.com</td>
+            <td>User</td>
+            <td>11/11/2024</td>
+            <td class="action-buttons">
+              <button class="btn approve">Edit</button>
+              <button class="btn deny">Delete</button>
+            </td>
+          </tr>
+          <tr>
+            <td>11</td>
+            <td>qwerrty</td>
+            <td>sino</td>
+            <td>ewan@gmail.com</td>
+            <td>User</td>
+            <td>11/11/2024</td>
+            <td class="action-buttons">
+              <button class="btn approve">Edit</button>
+              <button class="btn deny">Delete</button>
+            </td>
+          </tr>
+          <tr>
+            <td>12</td>
+            <td>maisip</td>
+            <td>akong</td>
+            <td>wla@gmail.com</td>
+            <td>User</td>
+            <td>11/11/2024</td>
+            <td class="action-buttons">
+              <button class="btn approve">Edit</button>
+              <button class="btn deny">Delete</button>
+            </td>
+          </tr>
+          <tr>
+            <td>13</td>
+            <td>pogi</td>
+            <td>si</td>
+            <td>dolbi@gmail.com</td>
+            <td>User</td>
+            <td>11/11/2024</td>
+            <td class="action-buttons">
+              <button class="btn approve">Edit</button>
+              <button class="btn deny">Delete</button>
+            </td>
+          </tr>
+          <tr>
+            <td>14</td>
+            <td>grabe</td>
+            <td>ba</td>
+            <td>sheesh@gmail.com</td>
+            <td>User</td>
+            <td>11/11/2024</td>
+            <td class="action-buttons">
+              <button class="btn approve">Edit</button>
+              <button class="btn deny">Delete</button>
+            </td>
+          </tr>
+          <tr>
+            <td>15</td>
+            <td>ubo</td>
+            <td>ubo</td>
+            <td>ubo@gmail.com</td>
+            <td>User</td>
+            <td>11/11/2024</td>
+            <td class="action-buttons">
+              <button class="btn approve">Edit</button>
+              <button class="btn deny">Delete</button>
+            </td>
+          </tr>
+          <tr>
+            <td>16</td>
+            <td>sinok</td>
+            <td>sinok</td>
+            <td>sinok@gmail.com</td>
+            <td>User</td>
+            <td>11/11/2024</td>
+            <td class="action-buttons">
+              <button class="btn approve">Edit</button>
+              <button class="btn deny">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <!-- Pagination -->
+    <div class="pagination">
+      <button class="btn pagination-btn" id="prevBtn" disabled>
+        Previous
+      </button>
+      <span id="pageNumber">Page 1</span>
+      <button class="btn pagination-btn" id="nextBtn">Next</button>
+    </div>
+
+    <!-- User Details Modal -->
+    <div class="user-details-modal" id="userDetailsModal">
+      <div class="modal-content">
+        <span class="close-btn" id="closeModal">&times;</span>
+        <h2>User Details</h2>
+        <hr class="modal-divider" />
+        <p><strong>First Name:</strong> <span id="firstName"></span></p>
+        <p><strong>Middle Name:</strong> <span id="middleName"></span></p>
+        <p><strong>Last Name:</strong> <span id="lastName"></span></p>
+        <p><strong>Gender:</strong> <span id="gender"></span></p>
+        <p><strong>Email:</strong> <span id="email"></span></p>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- JavaScript for Sorting -->
-    <!-- Citation: This JavaScript code was debugged with assistance from ChatGPT.  -->
-    <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        const sortTable = (columnIndex, isAscending) => {
-          const tbody = document.querySelector("tbody");
-          const rows = Array.from(tbody.rows);
+  <!-- JavaScript for Sorting -->
+  <!-- Citation: This JavaScript code was debugged with assistance from ChatGPT.  -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const sortTable = (columnIndex, isAscending) => {
+        const tbody = document.querySelector("tbody");
+        const rows = Array.from(tbody.rows);
 
-          rows.sort((a, b) => {
-            const cellA = a.cells[columnIndex].textContent.trim();
-            const cellB = b.cells[columnIndex].textContent.trim();
+        rows.sort((a, b) => {
+          const cellA = a.cells[columnIndex].textContent.trim();
+          const cellB = b.cells[columnIndex].textContent.trim();
 
-            if (!isNaN(Date.parse(cellA)) && !isNaN(Date.parse(cellB))) {
-              return isAscending
-                ? new Date(cellA) - new Date(cellB)
-                : new Date(cellB) - new Date(cellA);
-            }
-            if (!isNaN(cellA) && !isNaN(cellB)) {
-              return isAscending ? cellA - cellB : cellB - cellA;
-            }
-
+          if (!isNaN(Date.parse(cellA)) && !isNaN(Date.parse(cellB))) {
             return isAscending
-              ? cellA.localeCompare(cellB)
-              : cellB.localeCompare(cellA);
-          });
-
-          rows.forEach((row) => tbody.appendChild(row));
-        };
-
-        const toggleSort = (button, columnIndex) => {
-          const isAscending = button.dataset.sort === "asc";
-          button.dataset.sort = isAscending ? "desc" : "asc";
-          sortTable(columnIndex, !isAscending);
-        };
-
-        document.querySelectorAll(".sort-button").forEach((button, index) => {
-          button.addEventListener("click", () => toggleSort(button, index));
-        });
-      });
-    </script>
-
-    <!-- JavaScript for Search Input -->
-
-    <!-- Citation: Search Bar In JavaScript (https://www.youtube.com/watch?v=TlP5WIxVirU&t=600s) -->
-    <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        const searchInput = document.querySelector(".search-input");
-        const rows = document.querySelectorAll(".user-table tbody tr");
-
-        searchInput.addEventListener("input", (event) => {
-          const searchValue = event.target.value.toLowerCase();
-          rows.forEach((row) => {
-            const cells = Array.from(row.querySelectorAll("td"));
-            const rowText = cells
-              .map((cell) => cell.textContent.toLowerCase())
-              .join(" ");
-            row.style.display = rowText.includes(searchValue) ? "" : "none";
-          });
-        });
-      });
-    </script>
-
-    <!-- JavaScript for Pagination -->
-    <!-- Citation: JavaScript Pagination (https://www.youtube.com/watch?v=Ynp6Gdd3XVE) -->
-    <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        const rowsPerPage = 10;
-        const rows = document.querySelectorAll(".user-table tbody tr");
-        const totalPages = Math.ceil(rows.length / rowsPerPage);
-        let currentPage = 1;
-
-        const showPage = (page) => {
-          const startIdx = (page - 1) * rowsPerPage;
-          const endIdx = page * rowsPerPage;
-
-          rows.forEach((row, index) => {
-            row.style.display =
-              index >= startIdx && index < endIdx ? "" : "none";
-          });
-
-          document.getElementById("pageNumber").textContent = `Page ${page}`;
-          document.getElementById("prevBtn").disabled = page === 1;
-          document.getElementById("nextBtn").disabled = page === totalPages;
-        };
-
-        document.getElementById("nextBtn").addEventListener("click", () => {
-          if (currentPage < totalPages) {
-            currentPage++;
-            showPage(currentPage);
+              ? new Date(cellA) - new Date(cellB)
+              : new Date(cellB) - new Date(cellA);
           }
-        });
-
-        document.getElementById("prevBtn").addEventListener("click", () => {
-          if (currentPage > 1) {
-            currentPage--;
-            showPage(currentPage);
+          if (!isNaN(cellA) && !isNaN(cellB)) {
+            return isAscending ? cellA - cellB : cellB - cellA;
           }
+
+          return isAscending
+            ? cellA.localeCompare(cellB)
+            : cellB.localeCompare(cellA);
         });
 
-        showPage(currentPage);
+        rows.forEach((row) => tbody.appendChild(row));
+      };
+
+      const toggleSort = (button, columnIndex) => {
+        const isAscending = button.dataset.sort === "asc";
+        button.dataset.sort = isAscending ? "desc" : "asc";
+        sortTable(columnIndex, !isAscending);
+      };
+
+      document.querySelectorAll(".sort-button").forEach((button, index) => {
+        button.addEventListener("click", () => toggleSort(button, index));
       });
-    </script>
+    });
+  </script>
 
-    <!-- JavaScript for Adding a User -->
-    <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        const addUserBtn = document.getElementById("addUserBtn");
-        const totalUsersDisplay = document.getElementById("totalUsers");
-        const userTableBody = document.querySelector(".user-table tbody");
-        let userId = 17; // Starting user ID
+  <!-- JavaScript for Search Input -->
 
-        const updateTotalUsers = () => {
-          totalUsersDisplay.textContent = userTableBody.rows.length;
-        };
+  <!-- Citation: Search Bar In JavaScript (https://www.youtube.com/watch?v=TlP5WIxVirU&t=600s) -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const searchInput = document.querySelector(".search-input");
+      const rows = document.querySelectorAll(".user-table tbody tr");
 
-        addUserBtn.addEventListener("click", () => {
-          // Open modal to add user (modal code not shown here)
+      searchInput.addEventListener("input", (event) => {
+        const searchValue = event.target.value.toLowerCase();
+        rows.forEach((row) => {
+          const cells = Array.from(row.querySelectorAll("td"));
+          const rowText = cells
+            .map((cell) => cell.textContent.toLowerCase())
+            .join(" ");
+          row.style.display = rowText.includes(searchValue) ? "" : "none";
+        });
+      });
+    });
+  </script>
+
+  <!-- JavaScript for Pagination -->
+  <!-- Citation: JavaScript Pagination (https://www.youtube.com/watch?v=Ynp6Gdd3XVE) -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const rowsPerPage = 10;
+      const rows = document.querySelectorAll(".user-table tbody tr");
+      const totalPages = Math.ceil(rows.length / rowsPerPage);
+      let currentPage = 1;
+
+      const showPage = (page) => {
+        const startIdx = (page - 1) * rowsPerPage;
+        const endIdx = page * rowsPerPage;
+
+        rows.forEach((row, index) => {
+          row.style.display =
+            index >= startIdx && index < endIdx ? "" : "none";
         });
 
-        // Add new user row code goes here (similar to the existing form logic)
-        // After user added, update total users count
+        document.getElementById("pageNumber").textContent = `Page ${page}`;
+        document.getElementById("prevBtn").disabled = page === 1;
+        document.getElementById("nextBtn").disabled = page === totalPages;
+      };
+
+      document.getElementById("nextBtn").addEventListener("click", () => {
+        if (currentPage < totalPages) {
+          currentPage++;
+          showPage(currentPage);
+        }
       });
-    </script>
-  </body>
+
+      document.getElementById("prevBtn").addEventListener("click", () => {
+        if (currentPage > 1) {
+          currentPage--;
+          showPage(currentPage);
+        }
+      });
+
+      showPage(currentPage);
+    });
+  </script>
+
+  <!-- JavaScript for Adding a User -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const addUserBtn = document.getElementById("addUserBtn");
+      const totalUsersDisplay = document.getElementById("totalUsers");
+      const userTableBody = document.querySelector(".user-table tbody");
+      let userId = 17; // Starting user ID
+
+      const updateTotalUsers = () => {
+        totalUsersDisplay.textContent = userTableBody.rows.length;
+      };
+
+      addUserBtn.addEventListener("click", () => {
+        // Open modal to add user (modal code not shown here)
+      });
+
+      // Add new user row code goes here (similar to the existing form logic)
+      // After user added, update total users count
+    });
+  </script>
+</body>
+
 </html>
