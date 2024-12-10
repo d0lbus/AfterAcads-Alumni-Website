@@ -112,7 +112,6 @@ exports.addEvent = (req, res) => {
 };
 
 // Delete Event Functionality
-// Delete Event Functionality
 exports.deleteEvent = (req, res) => {
   const eventId = req.params.id;
 

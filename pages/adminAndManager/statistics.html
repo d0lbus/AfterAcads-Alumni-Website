@@ -13,10 +13,8 @@
 </head>
 
 <body>
-
-    <body>
-        <section>
-            <header>
+     <section>
+        <header>
                 <div>
                     <img class="afteracadstext" src="../../assets/logo.png" alt="afteracads" />
                 </div>
@@ -27,7 +25,17 @@
                     <li><a href="approvePost.html">Posts</a></li>
                     <li><a href="eventsDashboard.html">Events</a></li>
                     <li><a href="opportunities.html">Opportunities</a></li>
-                    <li><a href="statistics.php">Statistics</a></li>
+                        
+                    <!-- Dropdown for Statistics -->
+                    <li class="dropdown">
+                        <a href="javascript:void(0)">Statistics</a>
+                        <div class="dropdown-content">
+                        <a href="#">Users</a>
+                        <a href="#">Posts</a>
+                        <a href="#">Events</a>
+                        <a href="#">Opportunities</a>
+                        </div>
+                    </li>
                     <li><a href="user.html">Users</a></li>
                 </ul>
                 <div class="profile">
@@ -37,77 +45,70 @@
                 </div>
                 </div>
             </header>
-        </section>
-
+    </section>
         <div class="events-section container">
             <div class="search-and-buttons">
                 <div class="button-group">
                     </select>
                     <div class="button-group">
-                        <button class="btn-Users">Users</button>
-                        <button class="btn-Registrants">Registrants</button>
-                        <button class="btn-Posts">Posts</button>
-                        <button class="btn-Events">Events</button>
+                        <button class="btn-Users" data-target="users-container">Users</button>
+                        <button class="btn-Opportunities" data-target="opportunities-container">Opportunities</button>
+                        <button class="btn-Posts" data-target="posts-container">Posts</button>
+                        <button class="btn-Events" data-target="events-container">Events</button>
                     </div>
                 </div>
             </div>
         </div>
 
         <!-- Citation: Design for the statistics - (https://www.youtube.com/watch?v=CgCPP2KO5ds) -->
-        <div class="container">
-            <main>
-                <div class="cards">
 
-                    <div class="card-single">
-                        <div class="card-flex">
-                            <div class="card-info">
-                                <div class="card-head">
-                                    <span>underemployed</span>
-                                    <small>number of underemployed</small>
-                                </div>
-                                <h2>4,140</h2>
-                                    <h1>hello</h1>
-                                </div>
-                            <div class="card-chart">
-                                <span class="las la-chart-line"></span>
-                            </div>
-                        </div>
+        <!-- Containers for each type of statistics -->
+        <div id="users-container" class="stats-container">
+            <h2>Users Statistics</h2>
+            <div class="cards">
+                <div class="card-single">
+                    <!-- Total Approved Users -->
+                    <div>
+                        <h3>Total Approved Users</h3>
+                        <p id="total-approved-users">Loading...</p>
                     </div>
-
-                    <div class="card-single">
-                        <div class="card-flex">
-                            <div class="card-info">
-                                <div class="card-head">
-                                    <span>Out of Country</span>
-                                    <small>Number Out of the Country</small>
-                                </div>
-                                <h2>500</h2>
-                                <small>5% of graduates are out of the country</small>
-                            </div>
-                            <div class="card-chart">
-                                <span class="las la-chart-line"></span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card-single">
-                        <div class="card-flex">
-                            <div class="card-info">
-                                <div class="card-head">
-                                    <span>Interested in Events</span>
-                                    <small>Number Interested</small>
-                                </div>
-                                <h2>1,800</h2>
-                                <small>18% of graduates are interested in events</small>
-                            </div>
-                            <div class="card-chart">
-                                <span class="las la-chart-line"></span>
-                            </div>
-                        </div>
-                    </div>
-
                 </div>
+                <div class="card-single">
+                    <!-- Employment Status Chart -->
+                    <div>
+                        <h3>Employment Status</h3>
+                        <canvas id="employmentStatusChart"></canvas>
+                    </div>
+                </div>
+                <div class="card-single">
+                    <!-- Gender Distribution Chart -->
+                    <div>
+                        <h3>Gender Distribution</h3>
+                        <canvas id="genderChart"></canvas>
+                    </div>   
+                </div>
+            </div>
         </div>
+
+        <div id="opportunities-container" class="stats-container" style="display: none;">
+            <h2>Opportunities Statistics</h2>
+            <div class="cards">
+                <div class="card-single">Opportunities-specific stats...</div>
+            </div>
+        </div>
+
+        <div id="posts-container" class="stats-container" style="display: none;">
+            <h2>Posts Statistics</h2>
+            <div class="cards">
+                <div class="card-single">Posts-specific stats...</div>
+            </div>
+        </div>
+
+        <div id="events-container" class="stats-container" style="display: none;">
+            <h2>Events Statistics</h2>
+            <div class="cards">
+                <div class="card-single">Events-specific stats...</div>
+            </div>
         </div>
 
         </main>
@@ -129,49 +130,113 @@
                     }
                 });
             });
+        </script>
 
-            // Fetch and display statistics
-            async function fetchStatistics() {
-                try {
-                    const response = await fetch('http://localhost:3000/api/users/statistics');
-                    const data = await response.json();
+        <!-- Scripts for Toggling Between Containers -->
+        <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const buttons = document.querySelectorAll(".button-group button");
+            const containers = document.querySelectorAll(".stats-container"); 
 
-                    // Display Total Users
-                    document.getElementById('totalUsers').textContent = data.totalUsers;
+            buttons.forEach((button) => {
+                button.addEventListener("click", function () {
+                
+                    const target = button.getAttribute("data-target");
 
-                    // Employment Chart Data
-                    const employmentData = [data.employedUsers, data.unemployedUsers];
+                    // Hide all containers
+                    containers.forEach((container) => {
+                        container.classList.remove("active");
+                        container.style.display = "none"; 
+                    });
 
-                    // Employment PieChart
-                    const ctx = document.getElementById('employmentChart').getContext('2d');
-                    new Chart(ctx, {
-                        type: 'pie',
-                        data: {
-                            labels: ['Employed', 'Unemployed'],
-                            datasets: [{
-                                label: 'Employment Status',
-                                data: employmentData,
-                                backgroundColor: ['#36A2EB', '#FF6384'],
-                                borderWidth: 1
-                            }]
-                        },
-                        options: {
-                            responsive: true,
-                            plugins: {
-                                legend: {
-                                    position: 'top'
+                    // Show the selected container
+                    const targetContainer = document.getElementById(target);
+                    if (targetContainer) {
+                        targetContainer.classList.add("active");
+                        targetContainer.style.display = "block"; 
+                    }
+                });
+            });
+        });
+        </script>
+
+
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                async function fetchUserStatistics() {
+                    try {
+                        // Fetch total approved users
+                        const approvedResponse = await fetch('/api/users/approved');
+                        const approvedData = await approvedResponse.json();
+                        document.getElementById('total-approved-users').textContent = `Total: ${approvedData.totalApprovedUsers}`;
+
+                        // Fetch employment status data
+                        const employmentResponse = await fetch('/api/users/employment-status');
+                        const employmentData = await employmentResponse.json();
+                        const employmentLabels = employmentData.map(item => item.employment_status);
+                        const employmentCounts = employmentData.map(item => item.total);
+
+                        // Render Employment Status Chart
+                        const employmentCtx = document.getElementById('employmentStatusChart').getContext('2d');
+                        new Chart(employmentCtx, {
+                            type: 'pie',
+                            data: {
+                                labels: employmentLabels,
+                                datasets: [{
+                                    label: 'Employment Status',
+                                    data: employmentCounts,
+                                    backgroundColor: ['#36A2EB', '#FF6384', '#FFCE56'], // Adjust colors as needed
+                                    borderWidth: 1
+                                }]
+                            },
+                            options: {
+                                responsive: true,
+                                plugins: {
+                                    legend: {
+                                        position: 'top'
+                                    }
                                 }
                             }
-                        }
-                    });
-                } catch (error) {
-                    console.error('Error fetching statistics:', error);
-                }
-            }
+                        });
 
-            // Load statistics when the page loads
-            fetchStatistics();
+                        // Fetch gender distribution data
+                        const genderResponse = await fetch('/api/users/gendergroup');
+                        const genderData = await genderResponse.json();
+                        const genderLabels = genderData.map(item => item.gender);
+                        const genderCounts = genderData.map(item => item.total);
+
+                        // Render Gender Distribution Chart
+                        const genderCtx = document.getElementById('genderChart').getContext('2d');
+                        new Chart(genderCtx, {
+                            type: 'bar',
+                            data: {
+                                labels: genderLabels,
+                                datasets: [{
+                                    label: 'Gender Distribution',
+                                    data: genderCounts,
+                                    backgroundColor: ['#4BC0C0', '#FF9F40', '#9966FF'], // Adjust colors as needed
+                                    borderWidth: 1
+                                }]
+                            },
+                            options: {
+                                responsive: true,
+                                plugins: {
+                                    legend: {
+                                        position: 'top'
+                                    }
+                                }
+                            }
+                        });
+                    } catch (error) {
+                        console.error('Error fetching user statistics:', error);
+                    }
+                }
+
+                // Call the function to load statistics
+                fetchUserStatistics();
+            });
+            
         </script>
-    </body>
+</body>
 
 </html>

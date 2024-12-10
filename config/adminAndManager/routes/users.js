@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const userController = require('../controllers/userController');
+const userStatisticsController = require('../controllers/userStatisticsController');
 const authMiddleware = require('../middlewares/authMiddleware');
 
 // Apply authMiddleware to all routes in this router except for login
@@ -48,7 +49,23 @@ router.post('/updateUser', userController.updateUser);
 // Update User Status
 router.post('/updateStatus', userController.updateUserStatus);
 
+// Get total number of approved users
+router.get('/approved', userStatisticsController.getTotalApprovedUsers);
 
+// Route to get counts of users by employment status
+router.get('/employment-status', userStatisticsController.getEmploymentStatusCounts);
+
+// Route to get counts of users by gender
+router.get('/gendergroup', userStatisticsController.getGenderCounts);
+
+// Route to get counts of users grouped by batch_id (excluding id 1)
+router.get('/batchesgroup', userStatisticsController.getUsersGroupedByBatch);
+
+// Route to get counts of users grouped by school_id (excluding id 1)
+router.get('/schoolsgroup', userStatisticsController.getUsersGroupedBySchool);
+
+// Route to get counts of users grouped by course_id (excluding id 1)
+router.get('/coursesgroup', userStatisticsController.getUsersGroupedByCourse);
 
 
 module.exports = router;
