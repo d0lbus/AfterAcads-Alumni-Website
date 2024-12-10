@@ -67,11 +67,14 @@
             <h2>Users Statistics</h2>
             <div class="cards">
                 <div class="card-single">
-                    <!-- Total Approved Users -->
-                    <div>
-                        <h3>Total Approved Users</h3>
-                        <p id="total-approved-users">Loading...</p>
-                    </div>
+                    <!-- Total Users -->
+                    <p id="total-users">Loading total users...</p>
+
+                    <!-- Status Breakdown -->
+                    <h3>Status Breakdown</h3>
+                        <ul id="status-breakdown">
+                            <!-- Status-specific counts will be dynamically inserted here -->
+                        </ul>
                 </div>
                 <div class="card-single">
                     <!-- Employment Status Chart -->
@@ -88,10 +91,25 @@
                     </div>   
                 </div>
                 <div class="card-single">
-
+                    <!-- Batch Group Chart -->
+                    <div>
+                        <h3>Users Grouped by Batch</h3>
+                        <canvas id="batchGroupChart"></canvas>
+                    </div>
                 </div>
                 <div class="card-single">
-
+                    <!-- Course Group Chart -->
+                    <div>
+                        <h3>Users Grouped by Course</h3>
+                        <canvas id="courseGroupChart"></canvas>
+                    </div>
+                </div>
+                <div class="card-single">
+                    <!-- School Group Chart -->
+                    <div>
+                        <h3>Users Grouped by School</h3>
+                        <canvas id="schoolGroupChart"></canvas>
+                    </div>
                 </div>
             </div>
         </div>
@@ -100,7 +118,7 @@
             <h2>Opportunities Statistics</h2>
             <div class="cards">
                 <div class="card-single">
-                    
+
                 </div>
             </div>
         </div>
@@ -168,15 +186,25 @@
         });
         </script>
 
-
         <script>
             document.addEventListener("DOMContentLoaded", function () {
                 async function fetchUserStatistics() {
                     try {
-                        // Fetch total approved users
-                        const approvedResponse = await fetch('/api/users/approved');
-                        const approvedData = await approvedResponse.json();
-                        document.getElementById('total-approved-users').textContent = `Total: ${approvedData.totalApprovedUsers}`;
+                        // Fetch total users and status breakdown
+                        const userStatsResponse = await fetch('/api/users/usercount');
+                        const userStatsData = await userStatsResponse.json();
+
+                        // Display total users
+                        document.getElementById('total-users').textContent = `Total Users: ${userStatsData.totalUsers}`;
+
+                        // Display status breakdown
+                        const statusList = document.getElementById('status-breakdown');
+                        statusList.innerHTML = ''; // Clear existing list
+                        userStatsData.statusCounts.forEach(status => {
+                            const listItem = document.createElement('li');
+                            listItem.textContent = `${status.status}: ${status.total}`;
+                            statusList.appendChild(listItem);
+                        });
 
                         // Fetch employment status data
                         const employmentResponse = await fetch('/api/users/employment-status');
@@ -235,6 +263,94 @@
                                 }
                             }
                         });
+
+                        // Fetch users grouped by batch
+                        const batchResponse = await fetch('/api/users/batchesgroup');
+                        const batchData = await batchResponse.json();
+                        const batchLabels = batchData.map(item => `Batch ${item.batch_number}`);
+                        const batchCounts = batchData.map(item => item.total);
+
+                        // Render Batch Group Chart
+                        const batchCtx = document.getElementById('batchGroupChart').getContext('2d');
+                        new Chart(batchCtx, {
+                            type: 'bar',
+                            data: {
+                                labels: batchLabels,
+                                datasets: [{
+                                    label: 'Users by Batch',
+                                    data: batchCounts,
+                                    backgroundColor: '#FF6384',
+                                    borderWidth: 1
+                                }]
+                            },
+                            options: {
+                                responsive: true,
+                                plugins: {
+                                    legend: {
+                                        position: 'top'
+                                    }
+                                }
+                            }
+                        });
+
+                        // Fetch users grouped by course
+                        const courseResponse = await fetch('/api/users/coursesgroup');
+                        const courseData = await courseResponse.json();
+                        const courseLabels = courseData.map(item => item.course_name);
+                        const courseCounts = courseData.map(item => item.total);
+
+                        // Render Course Group Chart
+                        const courseCtx = document.getElementById('courseGroupChart').getContext('2d');
+                        new Chart(courseCtx, {
+                            type: 'bar',
+                            data: {
+                                labels: courseLabels,
+                                datasets: [{
+                                    label: 'Users by Course',
+                                    data: courseCounts,
+                                    backgroundColor: '#FFCE56',
+                                    borderWidth: 1
+                                }]
+                            },
+                            options: {
+                                responsive: true,
+                                plugins: {
+                                    legend: {
+                                        position: 'top'
+                                    }
+                                }
+                            }
+                        });
+
+                        // Fetch users grouped by school
+                        const schoolResponse = await fetch('/api/users/schoolsgroup');
+                        const schoolData = await schoolResponse.json();
+                        const schoolLabels = schoolData.map(item => item.school_name);
+                        const schoolCounts = schoolData.map(item => item.total);
+
+                        // Render School Group Chart
+                        const schoolCtx = document.getElementById('schoolGroupChart').getContext('2d');
+                        new Chart(schoolCtx, {
+                            type: 'bar',
+                            data: {
+                                labels: schoolLabels,
+                                datasets: [{
+                                    label: 'Users by School',
+                                    data: schoolCounts,
+                                    backgroundColor: '#36A2EB',
+                                    borderWidth: 1
+                                }]
+                            },
+                            options: {
+                                responsive: true,
+                                plugins: {
+                                    legend: {
+                                        position: 'top'
+                                    }
+                                }
+                            }
+                        });
+
                     } catch (error) {
                         console.error('Error fetching user statistics:', error);
                     }

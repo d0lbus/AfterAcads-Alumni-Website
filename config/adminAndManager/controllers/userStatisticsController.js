@@ -30,7 +30,6 @@ exports.getUserStatistics = (req, res) => {
     });
 };
 
-
 exports.getEmploymentStatusCounts = (req, res) => {
     const sql = `
         SELECT 
