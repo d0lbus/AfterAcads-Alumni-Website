@@ -30,9 +30,11 @@ router.get('/details', userController.getUserDetails);
 // Get User Details By Email
 router.get('/registrantdetails/:email', userController.getUserDetailsByEmail);
 
-
-// Get Users By Status
+// Get Users and Group Them By Status
 router.get('/status', userController.getUsersByStatus);
+
+// Get Approved Users Only
+router.get('/getApprovedUsers',userController.getApprovedUsers);
 
 // Update User Status
 router.post('/updateStatus', userController.updateUserStatus);
