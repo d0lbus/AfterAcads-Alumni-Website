@@ -67,6 +67,50 @@ exports.getUsersByStatus = (req, res) => {
     });
 }
 
+exports.getApprovedUsers = (req, res) => {
+    const { status } = req.query;
+  
+    if (status !== "approved") {
+      return res.status(400).json({ error: "Invalid status parameter" });
+    }
+  
+    const sql = `
+        SELECT 
+            id,
+            first_name,
+            middle_name,
+            last_name,
+            email,
+            password_hash,
+            agreed_to_terms,
+            DATE_FORMAT(created_at, '%Y-%m-%d') AS date_created,
+            user_address,
+            bio,
+            employment_status,
+            status,
+            profile_picture,
+            alumni_photo_validation,
+            userType,
+            batch_id,
+            school_id,
+            course_id,
+            gender
+        FROM 
+            users
+        WHERE 
+            status = ?;
+    `;
+
+    db.query(sql, [status], (err, results) => {
+      if (err) {
+        console.error("Database error:", err);
+        return res.status(500).json({ error: "Failed to fetch users" });
+      }
+      res.json(results);
+    });
+  };
+  
+
 exports.updateUserStatus = (req, res) => {
     const { email, status } = req.body;
 
