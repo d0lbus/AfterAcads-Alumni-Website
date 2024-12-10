@@ -37,25 +37,24 @@ exports.getAllOpportunities = (req, res) => {
 };
 
   
-  exports.getOpportunityById = (req, res) => {
+exports.getOpportunityById = (req, res) => {
     const { id } = req.params;
     db.query('SELECT * FROM opportunities WHERE id = ?', [id], (err, results) => {
       if (err) return res.status(500).json({ error: 'Failed to fetch opportunity.' });
       res.json(results[0]);
     });
-  };
+};
   
-  exports.editOpportunity = (req, res) => {
+exports.editOpportunity = (req, res) => {
     const { id, title, company, location, description } = req.body;
     db.query('UPDATE opportunities SET title = ?, company = ?, location = ?, description = ? WHERE id = ?', 
     [title, company, location, description, id], (err) => {
       if (err) return res.status(500).json({ error: 'Failed to edit opportunity.' });
       res.json({ message: 'Opportunity updated successfully.' });
     });
-  };
+};
 
-  // Retrieve schools for filtering
-    exports.getSchools = (req, res) => {
+exports.getSchools = (req, res) => {
     const sql = `SELECT id, name FROM schools`;
   
     db.query(sql, (err, results) => {
@@ -66,9 +65,9 @@ exports.getAllOpportunities = (req, res) => {
   
         res.json(results);
     });
-  };
+};
 
-  exports.getCoursesBySchool = (req, res) => {
+exports.getCoursesBySchool = (req, res) => {
     const { schoolId } = req.query;
   
     if (!schoolId) {
@@ -85,5 +84,5 @@ exports.getAllOpportunities = (req, res) => {
   
       res.json(results);
     });
-  };
+};
   

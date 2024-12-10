@@ -105,6 +105,9 @@
           <label for="description">Description:</label>
           <textarea id="description" name="description" required></textarea>
 
+          <label for="applicationlink">Application Link:</label>
+          <input type="text" id="applicationLink" name="applicationLink" required>
+
           <button type="submit">Save Changes</button>
         </form>
       </div>
@@ -145,6 +148,8 @@
       document.addEventListener("DOMContentLoaded", () => {
         const schoolDropdown = document.getElementById("schoolDropdown");
         const courseDropdown = document.getElementById("courseDropdown");
+        const editSchoolDropdown = document.getElementById("editSchoolDropdown");
+        const editCourseDropdown = document.getElementById("editCourseDropdown");
         const opportunitiesTable = document.querySelector(".opportunities-table tbody");
         const editModal = document.getElementById("editModal");
         const closeModal = document.getElementById("closeModal");
@@ -157,7 +162,7 @@
                 data.forEach(school => {
                     schoolDropdown.innerHTML += `<option value="${school.id}">${school.name}</option>`;
                 });
-            });
+        });
 
         // Fetch and populate courses dropdown based on school
         schoolDropdown.addEventListener("change", () => {
@@ -222,10 +227,10 @@
 
         // Handle edit and delete actions
         opportunitiesTable.addEventListener("click", (event) => {
-            if (event.target.classList.contains("edit")) {
+            if (event.target.classList.contains("editBtn")) {
                 const id = event.target.dataset.id;
                 openEditModal(id);
-            } else if (event.target.classList.contains("delete")) {
+            } else if (event.target.classList.contains("deleteBtn")) {
                 const id = event.target.dataset.id;
                 if (confirm("Are you sure you want to delete this opportunity?")) {
                     deleteOpportunity(id);
@@ -233,20 +238,72 @@
             }
         });
 
-        // Open edit modal
-        const openEditModal = (id) => {
-            fetch(`/api/opportunities/${id}`)
-                .then(response => response.json())
-                .then(data => {
-                    document.getElementById("opportunityId").value = data.id;
-                    document.getElementById("jobTitle").value = data.title;
-                    document.getElementById("company").value = data.company;
-                    document.getElementById("location").value = data.location;
-                    document.getElementById("description").value = data.description;
-                    editModal.style.display = "block";
-                });
+        // Fetch and populate schools dropdown
+        const populateEditSchoolDropdown = async (selectedSchoolId) => {
+          const response = await fetch('/api/opportunities/schools');
+          const schools = await response.json();
+          editSchoolDropdown.innerHTML = '<option value="">Select School</option>';
+          schools.forEach((school) => {
+            editSchoolDropdown.innerHTML += `<option value="${school.id}">${school.name}</option>`;
+          });
+          if (selectedSchoolId) {
+            editSchoolDropdown.value = selectedSchoolId; // Set the selected school
+          }
         };
 
+        // Fetch and populate courses dropdown based on selected school
+        const populateEditCourseDropdown = async (schoolId, selectedCourseId) => {
+          if (!schoolId) {
+            editCourseDropdown.innerHTML = '<option value="">Select Course</option>';
+            return;
+          }
+          const response = await fetch(`/api/opportunities/courses?schoolId=${schoolId}`);
+          const courses = await response.json();
+          editCourseDropdown.innerHTML = '<option value="">Select Course</option>';
+          courses.forEach((course) => {
+            editCourseDropdown.innerHTML += `<option value="${course.id}">${course.name}</option>`;
+          });
+          if (selectedCourseId) {
+            editCourseDropdown.value = selectedCourseId; // Set the selected course
+            console.log("Selected course set:", selectedCourseId);
+          }
+        };
+
+
+        // Function to populate edit modal fields
+        const openEditModal = async (opportunityId) => {
+          console.log("Opening edit modal for opportunity ID:", opportunityId);
+
+          const response = await fetch(`/api/opportunities/opportunitiesByID/${opportunityId}`);
+          const data = await response.json();
+
+          console.log("Opportunity data fetched:", data);
+
+          // Populate basic fields
+          document.getElementById('opportunityId').value = data.id;
+          document.getElementById('jobTitle').value = data.title;
+          document.getElementById('company').value = data.company_name;
+          document.getElementById('location').value = data.location;
+          document.getElementById('description').value = data.description;
+          document.getElementById('applicationLink').value = data.company_link;
+
+          // Populate school dropdown and set the selected value
+          await populateEditSchoolDropdown(data.school_id);
+
+          console.log("Populating course dropdown...");
+          // Populate course dropdown and set the selected value
+          await populateEditCourseDropdown(data.school_id, data.course_id);
+
+          // Show the modal
+          editModal.style.display = 'block';
+        };
+
+        // Handle school selection change in the modal
+        editSchoolDropdown.addEventListener('change', async () => {
+          const selectedSchoolId = editSchoolDropdown.value;
+          await populateEditCourseDropdown(selectedSchoolId); 
+        });
+                
         // Close edit modal
         closeModal.addEventListener("click", () => {
             editModal.style.display = "none";
