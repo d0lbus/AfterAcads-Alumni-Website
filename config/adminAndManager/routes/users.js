@@ -39,10 +39,16 @@ router.get('/getApprovedUsers',userController.getApprovedUsers);
 //
 router.get('/getUserById/:id', userController.getUserById);
 
+
+router.get('/getBatches', userController.getBatches);
+  
+
 router.post('/updateUser', userController.updateUser);
 
 // Update User Status
 router.post('/updateStatus', userController.updateUserStatus);
+
+
 
 
 module.exports = router;

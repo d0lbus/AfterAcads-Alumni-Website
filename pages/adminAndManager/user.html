@@ -173,7 +173,8 @@
 
           <div>
             <label for="batchId">Batch ID:</label>
-            <input type="number" id="batchId" name="batchId" />
+            <input type="number" id="batchId" name="batchId" maxlength="3" placeholder="Batch ID example: 223" list="batchIdSuggestions" />
+            <datalist id="batchIdSuggestions"></datalist>
           </div>
 
           <div>
@@ -325,7 +326,7 @@
     });
   </script>
 
-  <!-- JavaScript for Populating Users Table -->
+  <!-- JavaScript for Populating Users Table and Edit Modal -->
   <script>
   document.addEventListener("DOMContentLoaded", () => {
     const userTableBody = document.querySelector(".user-table tbody");
@@ -335,6 +336,8 @@
     const schoolDropdown = document.getElementById("schoolId");
     const courseDropdown = document.getElementById("courseId");
     const profilePicturePreview = document.getElementById("profilePicturePreview");
+    const batchIdInput = document.getElementById("batchId");
+    const batchIdSuggestions = document.getElementById("batchIdSuggestions");
 
     const addButtonListeners = () => {
       const editButtons = document.querySelectorAll(".editBtn");
@@ -362,7 +365,7 @@
               <td>${user.first_name}</td>
               <td>${user.last_name}</td>
               <td>${user.email}</td>
-              <td>${user.role}</td>
+              <td>${user.userType}</td>
               <td>${new Date(user.date_created).toLocaleDateString()}</td>
               <td>
                 <button class="editBtn" data-id="${user.id}">Edit</button>
@@ -407,7 +410,50 @@
         if (selectedCourseId) courseDropdown.value = selectedCourseId;
       };
 
-      // Open modal and populate fields
+    // Fetch and populate batch suggestions
+    const populateBatchSuggestions = async (selectedBatchId) => {
+      try {
+        const batchIdInput = document.getElementById("batchId");
+        const batchIdSuggestions = document.getElementById("batchIdSuggestions");
+
+        const response = await fetch("/api/users/getBatches");
+        if (!response.ok) throw new Error("Failed to fetch batches.");
+
+        const batches = await response.json();
+
+        // Clear existing suggestions
+        batchIdSuggestions.innerHTML = "";
+
+        // Populate datalist with batches, excluding id #1
+        batches.forEach((batch) => {
+          if (batch.id !== 1) {
+            const option = document.createElement("option");
+            option.value = batch.batch_number;
+            batchIdSuggestions.appendChild(option);
+          }
+        });
+
+        // Set selected batch ID if provided
+        if (selectedBatchId) {
+          const selectedBatch = batches.find((batch) => batch.id === selectedBatchId);
+          if (selectedBatch) {
+            batchIdInput.value = selectedBatch.batch_number;
+          }
+        }
+      } catch (error) {
+        console.error("Error populating batch suggestions:", error);
+      }
+    };
+    
+    // Restrict input to 3 digits and display instruction
+    batchIdInput.addEventListener("input", () => {
+        const value = batchIdInput.value;
+        if (value.length > 3) {
+          batchIdInput.value = value.slice(0, 3); // Enforce 3-digit restriction
+        }
+      });
+
+    // Open modal and populate fields
     const openEditModal = async (userId) => {
       const response = await fetch(`/api/users/getUserById/${userId}`);
       const data = await response.json();
@@ -423,7 +469,6 @@
       document.getElementById("employmentStatus").value = data.employment_status;
       document.getElementById("status").value = data.status;
       document.getElementById("userType").value = data.userType;
-      document.getElementById("batchId").value = data.batch_id;
       document.getElementById("gender").value = data.gender;
 
       // Handle profile picture preview
@@ -434,9 +479,10 @@
         profilePicturePreview.style.display = "none";
       }
 
-      // Populate school and course dropdowns
+      // Populate school and course dropdowns and batch id
       await populateSchoolsDropdown(data.school_id);
       await populateCoursesDropdown(data.school_id, data.course_id);
+      await populateBatchSuggestions(data.batch_id);
 
       userDetailsModal.style.display = "block";
     };

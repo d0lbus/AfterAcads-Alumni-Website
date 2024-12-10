@@ -187,6 +187,22 @@ exports.getUserById = (req, res) => {
       res.json(result[0]);
     });
 };
+
+exports.getBatches = (req, res) => {
+    const sql = `
+      SELECT id, batch_number 
+      FROM batches 
+      WHERE id != 1
+    `;
+  
+    db.query(sql, (err, results) => {
+      if (err) {
+        console.error("Database error:", err);
+        return res.status(500).json({ error: "Failed to fetch batches." });
+      }
+      res.json(results);
+    });
+};
   
 exports.updateUser = (req, res) => {
     const { id, firstName, middleName, lastName, email, userAddress, bio, employmentStatus, status, userType, batchId, schoolId, courseId, gender } = req.body;
