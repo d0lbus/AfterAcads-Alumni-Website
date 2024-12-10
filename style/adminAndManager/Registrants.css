@@ -50,6 +50,7 @@ header img.afteracadstext {
   padding: 20px;
 }
 
+/* Citation: navigation bar - (https://www.youtube.com/watch?v=oLgtucwjVII) */
 .nav-links {
   list-style: none;
   display: flex;
@@ -123,6 +124,7 @@ header img.afteracadstext {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
+/* Citation: CSS Buttons - (https://www.w3schools.com/css/css3_buttons.asp) */
 .search-and-buttons {
   display: flex;
   align-items: center;
@@ -195,6 +197,7 @@ header img.afteracadstext {
   color: white;
 }
 
+/* Citation: How TO - Sort a Table - (https://www.w3schools.com/howto/howto_js_sort_table.asp) */
 .sort-button {
   background: none;
   border: none;
@@ -218,6 +221,7 @@ header img.afteracadstext {
   display: inline;
 }
 
+/* Citation: JavaScript for the tables - (https://www.youtube.com/watch?v=XmdOZ5NSqb8&list=PL-51WBLyFTg1l3K0aTH0uX6PzgaLfzJBK) */
 .user-table {
   width: 100%;
   border-collapse: collapse;
@@ -298,6 +302,7 @@ header img.afteracadstext {
 }
 
 /* Modal styles */
+/* Citation: How TO - CSS/JS Modal - (https://www.w3schools.com/howto/howto_css_modals.asp) */
 .user-details-modal {
   position: fixed;
   z-index: 1000;
