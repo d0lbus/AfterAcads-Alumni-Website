@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const eventController = require('../controllers/eventController');
+const eventStatisticsController = require('../controllers/eventStatisticsController');
 const multer = require('multer');
 const path = require('path');
 
@@ -44,5 +45,10 @@ router.put('/update', upload.single('eventImage'), eventController.updateEvent);
 router.get('/statistics', eventController.getEventStatistics);
 
 
+// Routes for event statistics
+router.get('/total', eventStatisticsController.getTotalEvents);
+router.get('/status', eventStatisticsController.getEventsGroupedByStatus);
+router.get('/schools', eventStatisticsController.getEventsGroupedBySchool);
+router.get('/monthly', eventStatisticsController.getEventsPerMonth);
 
 module.exports = router;
