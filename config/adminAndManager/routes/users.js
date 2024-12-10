@@ -61,11 +61,8 @@ router.get('/gendergroup', userStatisticsController.getGenderCounts);
 // Route to get counts of users grouped by batch_id (excluding id 1)
 router.get('/batchesgroup', userStatisticsController.getUsersGroupedByBatch);
 
-// Route to get counts of users grouped by school_id (excluding id 1)
-router.get('/schoolsgroup', userStatisticsController.getUsersGroupedBySchool);
-
-// Route to get counts of users grouped by course_id (excluding id 1)
-router.get('/coursesgroup', userStatisticsController.getUsersGroupedByCourse);
+// Route to get counts of users grouped by school_id and course_id (excluding id 1)
+router.get('/school-course-group', userStatisticsController.getUsersGroupedBySchoolAndCourse);
 
 
 module.exports = router;

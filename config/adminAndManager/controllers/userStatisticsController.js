@@ -77,36 +77,40 @@ exports.getUsersGroupedByBatch = (req, res) => {
 };
 
 
-exports.getUsersGroupedBySchool = (req, res) => {
+exports.getUsersGroupedBySchoolAndCourse = (req, res) => {
     const sql = `
-        SELECT s.name AS school_name, COUNT(u.id) AS total
-        FROM users u
-        JOIN schools s ON u.school_id = s.id
-        WHERE u.school_id != 1
-        GROUP BY s.name
+        SELECT 
+            s.name AS school_name, 
+            c.name AS course_name, 
+            COUNT(u.id) AS total
+        FROM schools s
+        LEFT JOIN users u ON u.school_id = s.id
+        LEFT JOIN courses c ON u.course_id = c.id
+        WHERE s.id != 1 AND c.id != 1
+        GROUP BY s.name, c.name
+        ORDER BY s.name, c.name;
     `;
+
     db.query(sql, (err, results) => {
         if (err) {
             return res.status(500).json({ error: 'Database error: ' + err.message });
         }
-        res.json(results);
+
+        // Group results by school name
+        const groupedData = results.reduce((acc, row) => {
+            const school = row.school_name;
+            if (!acc[school]) {
+                acc[school] = [];
+            }
+            acc[school].push({
+                course_name: row.course_name,
+                total: row.total,
+            });
+            return acc;
+        }, {});
+
+        res.json(groupedData);
     });
 };
 
-
-exports.getUsersGroupedByCourse = (req, res) => {
-    const sql = `
-        SELECT c.name AS course_name, COUNT(u.id) AS total
-        FROM users u
-        JOIN courses c ON u.course_id = c.id
-        WHERE u.course_id != 1
-        GROUP BY c.name
-    `;
-    db.query(sql, (err, results) => {
-        if (err) {
-            return res.status(500).json({ error: 'Database error: ' + err.message });
-        }
-        res.json(results);
-    });
-};
 
