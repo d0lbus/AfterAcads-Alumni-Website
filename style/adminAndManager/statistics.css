@@ -87,6 +87,7 @@ header img {
   display: inline-block;
 }
 
+/* Citation: navigation bar - (https://www.youtube.com/watch?v=oLgtucwjVII) */
 .nav-links {
   list-style: none;
   display: flex;
@@ -130,6 +131,8 @@ header img {
 .page-header h1 {
   font-size: 28px;
 }
+
+/* Citation: Card Styling - (https://www.w3schools.com/howto/howto_css_cards.asp) */
 .cards {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
