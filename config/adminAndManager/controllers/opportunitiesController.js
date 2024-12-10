@@ -103,4 +103,27 @@ exports.getCoursesBySchool = (req, res) => {
       res.json(results);
     });
 };
+
+exports.deleteOpportunity = (req, res) => {
+    const { id } = req.params; 
+    if (!id) {
+        return res.status(400).json({ error: 'Opportunity ID is required.' });
+    }
+
+    const sql = 'DELETE FROM opportunities WHERE id = ?';
+
+    db.query(sql, [id], (err, result) => {
+        if (err) {
+            console.error('Database error:', err);
+            return res.status(500).json({ error: 'Failed to delete opportunity.' });
+        }
+
+        if (result.affectedRows === 0) {
+            return res.status(404).json({ error: 'Opportunity not found.' });
+        }
+
+        res.json({ message: 'Opportunity deleted successfully.' });
+    });
+};
+
   
