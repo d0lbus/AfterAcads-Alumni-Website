@@ -1,15 +1,35 @@
 const db = require('../db'); // Assuming the DB connection is in a file named `db.js`
 
 // Controller to handle user statistics
-exports.getTotalApprovedUsers = (req, res) => {
-    const sql = `SELECT COUNT(*) AS total FROM users WHERE status = 'approved'`;
+exports.getUserStatistics = (req, res) => {
+    const sql = `
+        SELECT 
+            (SELECT COUNT(*) FROM users) AS totalUsers,
+            status,
+            COUNT(*) AS total
+        FROM users
+        GROUP BY status
+    `;
+
     db.query(sql, (err, results) => {
         if (err) {
             return res.status(500).json({ error: 'Database error: ' + err.message });
         }
-        res.json({ totalApprovedUsers: results[0].total });
+
+        // Process results
+        const totalUsers = results[0]?.totalUsers || 0; // Total number of users
+        const statusCounts = results.map(row => ({
+            status: row.status,
+            total: row.total,
+        }));
+
+        res.json({
+            totalUsers,
+            statusCounts,
+        });
     });
 };
+
 
 exports.getEmploymentStatusCounts = (req, res) => {
     const sql = `
@@ -43,12 +63,12 @@ exports.getGenderCounts = (req, res) => {
 
 exports.getUsersGroupedByBatch = (req, res) => {
     const sql = `
-        SELECT 
-            batch_id, 
-            COUNT(*) AS total 
-        FROM users 
-        WHERE batch_id != 1 
-        GROUP BY batch_id`;
+        SELECT b.batch_number, COUNT(u.id) AS total
+        FROM users u
+        JOIN batches b ON u.batch_id = b.id
+        WHERE u.batch_id != 1
+        GROUP BY b.batch_number
+    `;
     db.query(sql, (err, results) => {
         if (err) {
             return res.status(500).json({ error: 'Database error: ' + err.message });
@@ -56,15 +76,16 @@ exports.getUsersGroupedByBatch = (req, res) => {
         res.json(results);
     });
 };
+
 
 exports.getUsersGroupedBySchool = (req, res) => {
     const sql = `
-        SELECT 
-            school_id, 
-            COUNT(*) AS total 
-        FROM users 
-        WHERE school_id != 1 
-        GROUP BY school_id`;
+        SELECT s.name AS school_name, COUNT(u.id) AS total
+        FROM users u
+        JOIN schools s ON u.school_id = s.id
+        WHERE u.school_id != 1
+        GROUP BY s.name
+    `;
     db.query(sql, (err, results) => {
         if (err) {
             return res.status(500).json({ error: 'Database error: ' + err.message });
@@ -73,14 +94,15 @@ exports.getUsersGroupedBySchool = (req, res) => {
     });
 };
 
+
 exports.getUsersGroupedByCourse = (req, res) => {
     const sql = `
-        SELECT 
-            course_id, 
-            COUNT(*) AS total 
-        FROM users 
-        WHERE course_id != 1 
-        GROUP BY course_id`;
+        SELECT c.name AS course_name, COUNT(u.id) AS total
+        FROM users u
+        JOIN courses c ON u.course_id = c.id
+        WHERE u.course_id != 1
+        GROUP BY c.name
+    `;
     db.query(sql, (err, results) => {
         if (err) {
             return res.status(500).json({ error: 'Database error: ' + err.message });
@@ -88,3 +110,4 @@ exports.getUsersGroupedByCourse = (req, res) => {
         res.json(results);
     });
 };
+
