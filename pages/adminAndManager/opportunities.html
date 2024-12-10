@@ -223,17 +223,18 @@
         // Load opportunities on page load
         populateOpportunitiesTable();
 
-        // Handle edit and delete actions
+        // Handle table edit and delete button clicks
         opportunitiesTable.addEventListener("click", (event) => {
-            if (event.target.classList.contains("editBtn")) {
-                const id = event.target.dataset.id;
-                openEditModal(id);
-            } else if (event.target.classList.contains("deleteBtn")) {
-                const id = event.target.dataset.id;
-                if (confirm("Are you sure you want to delete this opportunity?")) {
-                    deleteOpportunity(id);
-                }
+          if (event.target.classList.contains("editBtn")) {
+            openEditModal(event.target.dataset.id);
+          } else if (event.target.classList.contains("deleteBtn")) {
+            const id = event.target.dataset.id;
+            if (confirm("Are you sure you want to delete this opportunity?")) {
+              fetch(`/api/opportunities/delete/${id}`, { method: 'DELETE' })
+                .then(populateOpportunitiesTable)
+                .catch(err => console.error("Error deleting opportunity:", err));
             }
+          }
         });
 
         // Fetch and populate schools dropdown
@@ -303,60 +304,50 @@
             editModal.style.display = "none";
         });
 
+        // Handle edit modal form submission
+        document.getElementById('editOpportunityForm').addEventListener('submit', async (event) => {
+          event.preventDefault();
+
+          const payload = {
+            id: document.getElementById('opportunityId').value,
+            title: document.getElementById('jobTitle').value,
+            company_name: document.getElementById('company').value,
+            location: document.getElementById('location').value,
+            school_id: document.getElementById('editSchoolDropdown').value,
+            course_id: document.getElementById('editCourseDropdown').value,
+            description: document.getElementById('description').value,
+            company_link: document.getElementById('applicationLink').value,
+          };
+
+          try {
+            const response = await fetch('/api/opportunities/editOpportunity', {
+              method: 'PUT',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(payload),
+            });
+
+            if (!response.ok) throw new Error("Failed to update opportunity.");
+
+            const result = await response.json();
+            alert(result.message);
+
+            editModal.style.display = "none";
+            populateOpportunitiesTable();
+          } catch (error) {
+            console.error("Error updating opportunity:", error);
+            alert("Failed to update opportunity. Please try again.");
+          }
+        });
+
         // Delete an opportunity
         const deleteOpportunity = (id) => {
             fetch(`/api/opportunities/delete/${id}`, { method: 'DELETE' })
                 .then(() => populateOpportunitiesTable())
                 .catch(err => console.error("Error deleting opportunity:", err));
         };
-    });
+        });
 
     </script>
       
-    <script>
-      document.getElementById('editOpportunityForm').addEventListener('submit', async (event) => {
-      event.preventDefault();
-
-      const opportunityId = document.getElementById('opportunityId').value;
-      const title = document.getElementById('jobTitle').value;
-      const company = document.getElementById('company').value;
-      const location = document.getElementById('location').value;
-      const schoolId = document.getElementById('editSchoolDropdown').value;
-      const courseId = document.getElementById('editCourseDropdown').value;
-      const description = document.getElementById('description').value;
-      const applicationLink = document.getElementById('applicationLink').value;
-
-      const payload = {
-          id: opportunityId,
-          title,
-          company_name: company,
-          location,
-          school_id: schoolId,
-          course_id: courseId,
-          description,
-          company_link: applicationLink,
-      };
-
-      try {
-          const response = await fetch('/api/opportunities/editOpportunity', {
-              method: 'PUT',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify(payload),
-          });
-
-          if (!response.ok) throw new Error('Failed to update opportunity.');
-
-          const result = await response.json();
-          alert(result.message);
-
-          // Close modal and reload opportunities
-          document.getElementById('editModal').style.display = 'none';
-          populateOpportunitiesTable(); // Reload the table
-      } catch (error) {
-          console.error('Error updating opportunity:', error);
-          alert('Failed to update opportunity. Please try again.');
-      }
-  });
-    </script>
   </body>
 </html>
