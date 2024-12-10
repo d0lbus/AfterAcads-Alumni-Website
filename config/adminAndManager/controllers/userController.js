@@ -175,6 +175,33 @@ exports.getUserDetailsByEmail = (req, res) => {
     });
 };
 
+exports.getUserById = (req, res) => {
+    const { id } = req.params;
+    const sql = `SELECT id, first_name, middle_name, last_name, email, 
+                 DATE_FORMAT(created_at, '%Y-%m-%d') AS date_created, 
+                 user_address, bio, employment_status, status, 
+                 profile_picture, userType, batch_id, school_id, course_id, gender
+                 FROM users WHERE id = ?`;
+    db.query(sql, [id], (err, result) => {
+      if (err) return res.status(500).json({ error: "Failed to fetch user details" });
+      res.json(result[0]);
+    });
+};
+  
+exports.updateUser = (req, res) => {
+    const { id, firstName, middleName, lastName, email, userAddress, bio, employmentStatus, status, userType, batchId, schoolId, courseId, gender } = req.body;
+  
+    const sql = `UPDATE users SET first_name = ?, middle_name = ?, last_name = ?, email = ?, 
+                 user_address = ?, bio = ?, employment_status = ?, status = ?, userType = ?, 
+                 batch_id = ?, school_id = ?, course_id = ?, gender = ? WHERE id = ?`;
+  
+    db.query(sql, [firstName, middleName, lastName, email, userAddress, bio, employmentStatus, status, userType, batchId, schoolId, courseId, gender, id], 
+      (err) => {
+        if (err) return res.status(500).json({ error: "Failed to update user" });
+        res.json({ message: "User updated successfully" });
+      });
+};
+  
 
 
 

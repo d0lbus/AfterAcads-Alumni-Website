@@ -4,7 +4,7 @@ const userController = require('../controllers/userController');
 const authMiddleware = require('../middlewares/authMiddleware');
 
 // Apply authMiddleware to all routes in this router except for login
-//router.use(authMiddleware);
+router.use(authMiddleware);
 
 // Login route
 router.post('/login', userController.login);
@@ -35,6 +35,11 @@ router.get('/status', userController.getUsersByStatus);
 
 // Get Approved Users Only
 router.get('/getApprovedUsers',userController.getApprovedUsers);
+
+//
+router.get('/getUserById/:id', userController.getUserById);
+
+router.post('/updateUser', userController.updateUser);
 
 // Update User Status
 router.post('/updateStatus', userController.updateUserStatus);

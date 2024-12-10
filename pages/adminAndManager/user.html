@@ -92,14 +92,114 @@
       <button class="btn pagination-btn" id="nextBtn">Next</button>
     </div>
 
-    <!-- User Details Modal For Editing-->
+    <!-- User Details Modal For Editing -->
     <div class="user-details-modal" id="userDetailsModal">
       <div class="modal-content">
         <span class="close-btn" id="closeModal">&times;</span>
         <h2>User Details</h2>
-        <hr class="modal-divider" />
+        <form id="editUserForm">
+          <div>
+            <label for="userId">User ID:</label>
+            <input type="text" id="userId" name="userId" readonly />
+          </div>
+
+          <div>
+            <label for="firstName">First Name:</label>
+            <input type="text" id="firstName" name="firstName" required />
+          </div>
+
+          <div>
+            <label for="middleName">Middle Name:</label>
+            <input type="text" id="middleName" name="middleName" />
+          </div>
+
+          <div>
+            <label for="lastName">Last Name:</label>
+            <input type="text" id="lastName" name="lastName" required />
+          </div>
+
+          <div>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required />
+          </div>
+
+          <div>
+            <label for="createdAt">Date Created:</label>
+            <input type="text" id="createdAt" name="createdAt" readonly />
+          </div>
+
+          <div>
+            <label for="userAddress">Address:</label>
+            <textarea id="userAddress" name="userAddress"></textarea>
+          </div>
+
+          <div>
+            <label for="bio">Bio:</label>
+            <textarea id="bio" name="bio"></textarea>
+          </div>
+
+          <div>
+            <label for="employmentStatus">Employment Status:</label>
+            <select id="employmentStatus" name="employmentStatus" required>
+              <option value="Employed">Employed</option>
+              <option value="Unemployed">Unemployed</option>
+              <option value="Not Looking For Work">Not Looking For Work</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="status">Approval Status:</label>
+            <select id="status" name="status" required>
+              <option value="approved">Approved</option>
+              <option value="pending">Pending</option>
+              <option value="rejected">Rejected</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="profilePicture">Profile Picture:</label>
+            <input type="file" id="profilePicture" name="profilePicture" accept="image/*" />
+            <img id="profilePicturePreview" style="display: none; max-width: 100px; max-height: 100px; margin-top: 10px;" />
+          </div>
+
+          <div>
+            <label for="userType">User Type:</label>
+            <select id="userType" name="userType" required>
+              <option value="alumni">Alumni</option>
+              <option value="admin">Admin</option>
+              <option value="manager">Manager</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="batchId">Batch ID:</label>
+            <input type="number" id="batchId" name="batchId" />
+          </div>
+
+          <div>
+            <label for="schoolId">School:</label>
+            <select id="schoolId" name="schoolId" required></select>
+          </div>
+
+          <div>
+            <label for="courseId">Course:</label>
+            <select id="courseId" name="courseId" required></select>
+          </div>
+
+          <div>
+            <label for="gender">Gender:</label>
+            <select id="gender" name="gender" required>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+              <option value="Prefer Not To Say">Prefer Not To Say</option>
+            </select>
+          </div>
+
+          <button type="submit" class="btn-submit">Save Changes</button>
+        </form>
       </div>
     </div>
+
   </section>
 
   <!-- JavaScript for Sorting -->
@@ -230,6 +330,22 @@
   <script>
   document.addEventListener("DOMContentLoaded", () => {
     const userTableBody = document.querySelector(".user-table tbody");
+    const userDetailsModal = document.getElementById("userDetailsModal");
+    const closeModalBtn = document.getElementById("closeModal");
+    const editUserForm = document.getElementById("editUserForm");
+    const schoolDropdown = document.getElementById("schoolId");
+    const courseDropdown = document.getElementById("courseId");
+    const profilePicturePreview = document.getElementById("profilePicturePreview");
+
+    const addButtonListeners = () => {
+      const editButtons = document.querySelectorAll(".editBtn");
+      editButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          const userId = button.dataset.id;
+          openEditModal(userId);
+        });
+      });
+    };
 
     // Fetch and populate the users table
     const populateUsersTable = () => {
@@ -256,6 +372,9 @@
             `;
             userTableBody.appendChild(row);
           });
+
+        addButtonListeners();
+        
         })
         .catch((error) => console.error("Error fetching users:", error));
     };
@@ -263,8 +382,102 @@
     // Load users table on page load
     populateUsersTable();
   
+    // Fetch schools and populate dropdown
+    const populateSchoolsDropdown = async (selectedSchoolId) => {
+    const response = await fetch('/api/opportunities/schools');
+    const schools = await response.json();
+    schoolDropdown.innerHTML = '<option value="">Select School</option>';
+    schools.forEach((school) => {
+        schoolDropdown.innerHTML += `<option value="${school.id}">${school.name}</option>`;
+      });
+      if (selectedSchoolId) schoolDropdown.value = selectedSchoolId;
+    };
+
+    // Fetch courses based on selected school
+    const populateCoursesDropdown = async (schoolId, selectedCourseId) => {
+      if (!schoolId) {
+          courseDropdown.innerHTML = '<option value="">Select Course</option>';
+          return;
+        }
+        const response = await fetch(`/api/opportunities/courses?schoolId=${schoolId}`);
+        const courses = await response.json();
+        courseDropdown.innerHTML = '<option value="">Select Course</option>';
+        courses.forEach((course) => {
+          courseDropdown.innerHTML += `<option value="${course.id}">${course.name}</option>`;
+        });
+        if (selectedCourseId) courseDropdown.value = selectedCourseId;
+      };
+
+      // Open modal and populate fields
+    const openEditModal = async (userId) => {
+      const response = await fetch(`/api/users/getUserById/${userId}`);
+      const data = await response.json();
+
+      document.getElementById("userId").value = data.id;
+      document.getElementById("firstName").value = data.first_name;
+      document.getElementById("middleName").value = data.middle_name;
+      document.getElementById("lastName").value = data.last_name;
+      document.getElementById("email").value = data.email;
+      document.getElementById("createdAt").value = data.date_created;
+      document.getElementById("userAddress").value = data.user_address;
+      document.getElementById("bio").value = data.bio;
+      document.getElementById("employmentStatus").value = data.employment_status;
+      document.getElementById("status").value = data.status;
+      document.getElementById("userType").value = data.userType;
+      document.getElementById("batchId").value = data.batch_id;
+      document.getElementById("gender").value = data.gender;
+
+      // Handle profile picture preview
+      if (data.profile_picture) {
+        profilePicturePreview.src = `data:image/png;base64,${data.profile_picture}`;
+        profilePicturePreview.style.display = "block";
+      } else {
+        profilePicturePreview.style.display = "none";
+      }
+
+      // Populate school and course dropdowns
+      await populateSchoolsDropdown(data.school_id);
+      await populateCoursesDropdown(data.school_id, data.course_id);
+
+      userDetailsModal.style.display = "block";
+    };
+
+    // Close modal
+    closeModalBtn.addEventListener("click", () => {
+      userDetailsModal.style.display = "none";
+    });
+
+    // Handle school dropdown change
+    schoolDropdown.addEventListener("change", async () => {
+       const schoolId = schoolDropdown.value;
+      await populateCoursesDropdown(schoolId);
+    });
+
+    // Handle form submission
+    editUserForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+
+        const formData = new FormData(editUserForm);
+
+        try {
+          const response = await fetch('/api/users/updateUser', {
+            method: 'PUT',
+            body: formData,
+          });
+
+          if (!response.ok) throw new Error("Failed to update user");
+
+          const result = await response.json();
+          alert(result.message);
+          userDetailsModal.style.display = "none";
+          // Reload table or fetch users again
+        } catch (error) {
+          console.error("Error updating user:", error);
+        }
+      });
   });
   </script>
+
 </body>
 
 </html>
