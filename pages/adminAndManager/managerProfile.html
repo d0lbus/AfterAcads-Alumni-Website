@@ -1,93 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Profile</title>
-    <link
-      rel="stylesheet"
-      href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css"
-    />
-    <link
-      rel="stylesheet"
-      href="../../style/adminAndManager/managerProfile.css"
-    />
-    <script src="script.js" defer></script>
-  </head>
 
-  <body>
-    <section class="profile-section">
-      <header>
-        <div>
-          <img
-            class="afteracadstext"
-            src="../../assets/logo.png"
-            alt="AfterAcads"
-          />
-        </div>
-        <!-- Citation: navigation bar - (https://www.youtube.com/watch?v=oLgtucwjVII) -->
-        <ul class="nav-links">
-          <li><a href="home.html">Home</a></li>
-          <li><a href="Registrants.html">Registrants</a></li>
-          <li><a href="approvePost.html">Posts</a></li>
-          <li><a href="eventsDashboard.html">Events</a></li>
-          <li><a href="opportunities.html">Opportunities</a></li>
-          <li><a href="statistics.php">Statistics</a></li>
-          <li><a href="user.html">Users</a></li>
-        </ul>
-        <div class="profile">
-          <li>
-            <a href="managerProfile.html"
-              ><img
-                class="profile-img"
-                src="../../assets/profileIcon.jpg"
-                alt="Profile"
-            /></a>
-          </li>
-        </div>
-      </header>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Profile</title>
+  <link rel="stylesheet"
+    href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css" />
+  <link rel="stylesheet" href="../../style/adminAndManager/managerProfile.css" />
+  <script src="script.js" defer></script>
+</head>
 
-      <!-- Main Content Section -->
-      <div class="profile-header">
-        <div class="profile-pic">
-          <img src="../../assets/profileIcon.jpg" alt="Profile Picture" />
+<body>
+  <section class="profile-section">
+    <header>
+      <div>
+        <img class="afteracadstext" src="../../assets/logo.png" alt="AfterAcads" />
+      </div>
+      <!-- Citation: navigation bar - (https://www.youtube.com/watch?v=oLgtucwjVII) -->
+      <ul class="nav-links">
+        <li><a href="home.html">Home</a></li>
+        <li><a href="Registrants.html">Registrants</a></li>
+        <li><a href="approvePost.html">Posts</a></li>
+        <li><a href="eventsDashboard.html">Events</a></li>
+        <li><a href="opportunities.html">Opportunities</a></li>
+        <li><a href="statistics.php">Statistics</a></li>
+        <li><a href="user.html">Users</a></li>
+      </ul>
+      <div class="profile">
+        <li>
+          <a href="managerProfile.html"><img class="profile-img" src="../../assets/profileIcon.jpg" alt="Profile" /></a>
+        </li>
+      </div>
+    </header>
+
+    <!-- Main Content Section -->
+    <div class="profile-header">
+      <div class="profile-pic">
+        <img src="../../assets/profileIcon.jpg" alt="Profile Picture" />
+      </div>
+      <div class="profile-info">
+        <h2>Jelai Cahanap</h2>
+        <p>Manager</p>
+        <p>Baguio City, Philippines</p>
+      </div>
+    </div>
+
+    <div class="profile-details">
+      <div class="card">
+        <div class="card-header">
+          <h3>Personal Information</h3>
+          <button class="edit-btn">Edit</button>
         </div>
-        <div class="profile-info">
-          <h2>Jelai Cahanap</h2>
-          <p>Manager</p>
-          <p>Baguio City, Philippines</p>
+        <div class="card-content">
+          <p><strong>First Name:</strong> Jelai</p>
+          <p><strong>Middle Name:</strong> Ladia</p>
+          <p><strong>Last Name:</strong> Cahanap</p>
+          <p><strong>Date of Birth:</strong> 02-21-2004</p>
+          <p><strong>Email Address:</strong> 2233913@slu.edu.ph</p>
+          <p><strong>Phone Number:</strong> (+63) 918 405 5962</p>
+          <p><strong>User Role:</strong> Manager</p>
         </div>
       </div>
 
-      <div class="profile-details">
-        <div class="card">
-          <div class="card-header">
-            <h3>Personal Information</h3>
-            <button class="edit-btn">Edit</button>
-          </div>
-          <div class="card-content">
-            <p><strong>First Name:</strong> Jelai</p>
-            <p><strong>Middle Name:</strong> Ladia</p>
-            <p><strong>Last Name:</strong> Cahanap</p>
-            <p><strong>Date of Birth:</strong> 02-21-2004</p>
-            <p><strong>Email Address:</strong> 2233913@slu.edu.ph</p>
-            <p><strong>Phone Number:</strong> (+63) 918 405 5962</p>
-            <p><strong>User Role:</strong> Manager</p>
-          </div>
+      <div class="card">
+        <div class="card-header">
+          <h3>Address</h3>
+          <button class="edit-btn">Edit</button>
         </div>
-
-        <div class="card">
-          <div class="card-header">
-            <h3>Address</h3>
-            <button class="edit-btn">Edit</button>
-          </div>
-          <div class="card-content">
-            <p><strong>Country:</strong> Philippines</p>
-            <p><strong>City:</strong> Baguio, Philippines</p>
-            <p><strong>Postal Code:</strong> 2600</p>
-          </div>
+        <div class="card-content">
+          <p><strong>Country:</strong> Philippines</p>
+          <p><strong>City:</strong> Baguio, Philippines</p>
+          <p><strong>Postal Code:</strong> 2600</p>
         </div>
       </div>
-    </section>
-  </body>
+    </div>
+  </section>
+</body>
+
 </html>
