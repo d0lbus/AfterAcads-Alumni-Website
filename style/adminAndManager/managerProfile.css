@@ -50,6 +50,7 @@ header img.afteracadstext {
 }
 
 /* Navigation Bar */
+/* Citation: navigation bar - (https://www.youtube.com/watch?v=oLgtucwjVII) */
 .nav-links {
   list-style: none;
   display: flex;
@@ -139,8 +140,8 @@ header img.afteracadstext {
     padding: 1.5rem;
   }
   
-
 /* Card Styling */
+/* Citation: Card Styling - (https://www.w3schools.com/howto/howto_css_cards.asp) */
   .card {
     background: #fff;
     margin-bottom: 1rem;
