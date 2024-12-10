@@ -53,6 +53,7 @@ img.afteracadstext {
   margin-top: 50px; /* Adjusted to directly compensate for header height */
 }
 
+/* Citation: navigation bar - (https://www.youtube.com/watch?v=oLgtucwjVII) */
 .nav-links {
   list-style: none;
   display: flex;
@@ -114,6 +115,7 @@ img.afteracadstext {
 }
 
 /* Event Table */
+/* Citation: JavaScript for the tables - (https://www.youtube.com/watch?v=XmdOZ5NSqb8&list=PL-51WBLyFTg1l3K0aTH0uX6PzgaLfzJBK) */
 .event-table {
   width: 100%;
   border-collapse: collapse; /* Ensures seamless borders */
@@ -153,6 +155,7 @@ img.afteracadstext {
 }
 
 /* Search and Buttons Layout */
+/* Citation: CSS Buttons - (https://www.w3schools.com/css/css3_buttons.asp) */
 .search-and-buttons {
   display: flex;
   align-items: center;
@@ -330,6 +333,7 @@ img.afteracadstext {
   opacity: 0.9;
 }
 
+/* Citation: How TO - Sort a Table - (https://www.w3schools.com/howto/howto_js_sort_table.asp) */
 .sort-button {
   background: none;
   border: none;
@@ -395,7 +399,9 @@ img.afteracadstext {
   color: #fff;
 }
 
+
 /* Modal Overlay */
+/* Citation: How TO - CSS/JS Modal - (https://www.w3schools.com/howto/howto_css_modals.asp) */
 .event-details-modal {
   position: fixed;
   top: 0;
