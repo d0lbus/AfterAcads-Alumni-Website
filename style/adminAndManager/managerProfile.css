@@ -212,3 +212,24 @@ header img.afteracadstext {
 .dropdown-content a:hover {
   background-color: #ddd;
 }
+
+.btn-logout {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #ff4d4d;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.btn-logout:hover {
+  background-color: #e60000;
+}
