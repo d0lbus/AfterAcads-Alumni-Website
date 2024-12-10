@@ -60,7 +60,7 @@ exports.getUsersByStatus = (req, res) => {
         const groupedUsers = {
             pending: results.filter(user => user.status === 'pending'),
             approved: results.filter(user => user.status === 'approved'),
-            denied: results.filter(user => user.status === 'denied'),
+            rejected: results.filter(user => user.status === 'rejected'),
         };
 
         res.json(groupedUsers);

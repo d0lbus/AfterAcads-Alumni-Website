@@ -50,7 +50,7 @@ router.post('/updateUser', userController.updateUser);
 router.post('/updateStatus', userController.updateUserStatus);
 
 // Get total number of approved users
-router.get('/approved', userStatisticsController.getTotalApprovedUsers);
+router.get('/usercount', userStatisticsController.getUserStatistics);
 
 // Route to get counts of users by employment status
 router.get('/employment-status', userStatisticsController.getEmploymentStatusCounts);

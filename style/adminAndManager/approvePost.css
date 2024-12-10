@@ -310,6 +310,7 @@ img.afteracadstext {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   text-align: center;
   margin-top: 200px;
+  overflow-y: auto;
 }
 
 .close-btn {

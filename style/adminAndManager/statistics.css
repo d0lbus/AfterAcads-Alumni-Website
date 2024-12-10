@@ -240,6 +240,9 @@ header img {
 .btn-add.active {
   background-color: #002f6c;
 }
+
+
+
 /* Media Query for smaller screens (tablets and phones) */
 @media (max-width: 1024px) {
   .sidebar {
@@ -329,3 +332,4 @@ header img {
 .dropdown-content a:hover {
   background-color: #ddd;
 }
+
