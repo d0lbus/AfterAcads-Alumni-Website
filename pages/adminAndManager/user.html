@@ -53,21 +53,14 @@
     <div class="users-section container">
       <div class="search-and-buttons">
         <input type="text" class="search-input" placeholder="Search..." />
-        <button class="btn AddUSer" id="addUserBtn">Add User</button>
+        <button class="btn AddUser" id="addUserBtn">Add User</button>
         <button class="btn AddSchool" id="addSchoolBtn">
           Add School
           <div class="text-field" id="schoolTextField">
             <input type="text" placeholder="Enter school details" />
           </div>
         </button>
-        <div class="dropdown">
-          <button class="btn AddCourse dropdown-btn">Add Course</button>
-          <div class="dropdown-content">
-            <a href="#">Course 1</a>
-            <a href="#">Course 2</a>
-            <a href="#">Course 3</a>
-          </div>
-        </div>
+        <button class="btn AddCourse" id="addCourseBtn">Add Course</button>
         <button class="btn AddBatch" id="addBatchBtn">
           Add Batch
           <div class="text-field" id="batchTextField">
@@ -77,7 +70,25 @@
       </div>
       <p>Total Users: <span id="totalUsers">16</span></p>
     </div>
-
+    
+    <!-- Modal Structure -->
+    <div id="addCourseModal" class="modal">
+      <div class="modal-content">
+        <h2>Add Course</h2>
+        <select>
+          <option value="" disabled selected>Select a course</option>
+          <option value="course1">Course 1</option>
+          <option value="course2">Course 2</option>
+          <option value="course3">Course 3</option>
+        </select>
+        <input type="text" placeholder="Enter course details" />
+        <div class="modal-buttons">
+          <button class="btn modal-close" id="closeModalBtn">Close</button>
+          <button class="btn modal-save" id="saveModalBtn">Save</button>
+        </div>
+      </div>
+    </div>
+  
     <div class="container1">
       <!-- Table for Users -->
       <table class="user-table">
