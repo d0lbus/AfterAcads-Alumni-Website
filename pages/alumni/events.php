@@ -31,6 +31,7 @@ $friends = $friendsManager->getFriends($user['id']);
 </head>
 
 <body>
+    <!-- Citation: Inspired by Sidebar design - (https://www.youtube.com/watch?v=bFvfqUMjvsA&list=PLImJ3umGjxdCjoBGj1eGQwcopR0P0edAK) -->
   <div class="sidebar">
     <div class="sidebar-brand">
       <div class="brand-flex">
@@ -82,6 +83,7 @@ $friends = $friendsManager->getFriends($user['id']);
       </a>
     </header>
 
+    <!-- Citation: The design search and filter Inspired by - (https://youtube.com/watch?v=TlP5WIxVirU&t=603s) -->
     <main>
       <div class="page-header">
         <!-- Search and Filters -->
@@ -133,6 +135,7 @@ $friends = $friendsManager->getFriends($user['id']);
 
   </div>
 
+  <!-- Citation: ChatGPT help with the debugging of the code - ChatGPT (2024) -->
   <div class="right-panel">
         <h2>Friends</h2>
         <hr class="title-divider">
@@ -207,6 +210,7 @@ $friends = $friendsManager->getFriends($user['id']);
       });
     });
 
+    // Citation: ChatGPT help to fixed the code - ChatGPT (2024)
     // Responsive Sidebar
     document.addEventListener("DOMContentLoaded", function() {
       const sidebar = document.querySelector(".sidebar");
