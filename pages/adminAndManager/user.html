@@ -681,12 +681,12 @@
       addUserBtn.addEventListener("click", async () => {
         await populateAddSchoolsDropdown();
         await populateAddBatchSuggestions();
-        addUserModal.style.display = "block";
+        addUserModal.style.display = "flex";
       });
 
       // Close Add User Modal
       closeAddUserModal.addEventListener("click", () => {
-        addUserModal.style.display = "none";
+        addUserModal.style.display = "flex";
       });
 
       // Handle school dropdown change in Add User Modal
