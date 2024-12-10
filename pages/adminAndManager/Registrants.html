@@ -26,10 +26,10 @@
         <li><a href="opportunities.html">Opportunities</a></li>
         <li><a href="statistics.php">Statistics</a></li>
         <li><a href="user.html">Users</a></li>
-    </ul>
+      </ul>
       <div class="profile">
-        <li><a href="managerProfile.html"><img class="profile-img"
-              src="../../assets/profileIcon.jpg" alt="Profile" /></a>
+        <li><a href="managerProfile.html"><img class="profile-img" src="../../assets/profileIcon.jpg"
+              alt="Profile" /></a>
         </li>
       </div>
     </header>
@@ -46,14 +46,15 @@
     </div>
 
     <!-- Table for Pending Users -->
+    <!-- Citation: HTML Tables - (https://www.w3schools.com/html/html_tables.asp) -->
     <table class="user-table pending-table">
       <thead>
         <tr>
           <th>First Name
-              <button class="sort-button" data-sort="asc" onclick="toggleSort(this, 2)">
-                  <span class="arrow-up">&#9650;</span>
-                  <span class="arrow-down">&#9660;</span>
-              </button>
+            <button class="sort-button" data-sort="asc" onclick="toggleSort(this, 2)">
+              <span class="arrow-up">&#9650;</span>
+              <span class="arrow-down">&#9660;</span>
+            </button>
           </th>
           </th>
           <th>Last Name
@@ -105,23 +106,25 @@
     </table>
   </div>
 
-  <div class="user-details-modal" id="userDetailsModal" style="display: none;"> 
+  <!-- Citation: How TO - CSS/JS Modal - (https://www.w3schools.com/howto/howto_css_modals.asp) -->
+  <div class="user-details-modal" id="userDetailsModal" style="display: none;">
     <div class="modal-content">
-        <span class="close-btn" id="closeModal">&times;</span>
-        <h2>User Details</h2>
-        <hr class="modal-divider">
-        <p><strong>First Name:</strong> <span id="firstName"></span></p>
-        <p><strong>Middle Name:</strong> <span id="middleName"></span></p>
-        <p><strong>Last Name:</strong> <span id="lastName"></span></p>
-        <p><strong>Gender:</strong> <span id="gender"></span></p>
-        <p><strong>E-mail:</strong> <span id="email"></span></p>
-        <p><strong>Alumni Photo for Validation:</strong></p>
-        <img id="alumniPhoto" style="display: none; max-width: 100%;"/>
+      <span class="close-btn" id="closeModal">&times;</span>
+      <h2>User Details</h2>
+      <hr class="modal-divider">
+      <p><strong>First Name:</strong> <span id="firstName"></span></p>
+      <p><strong>Middle Name:</strong> <span id="middleName"></span></p>
+      <p><strong>Last Name:</strong> <span id="lastName"></span></p>
+      <p><strong>Gender:</strong> <span id="gender"></span></p>
+      <p><strong>E-mail:</strong> <span id="email"></span></p>
+      <p><strong>Alumni Photo for Validation:</strong></p>
+      <img id="alumniPhoto" style="display: none; max-width: 100%;" />
     </div>
   </div>
 
   <!-- Script for the Tables -->
   <!-- Citation: JavaScript for the tables - (https://www.youtube.com/watch?v=XmdOZ5NSqb8&list=PL-51WBLyFTg1l3K0aTH0uX6PzgaLfzJBK)  -->
+  <!-- Citation: How TO - CSS/JS Modal - (https://www.w3schools.com/howto/howto_css_modals.asp) -->
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       const rows = document.querySelectorAll(".user-table tbody tr");
@@ -204,6 +207,7 @@
 
   </script>
 
+  <!-- Citation: How TO - Sort a Table - (https://www.w3schools.com/howto/howto_js_sort_table.asp) -->
   <!-- Script for Sorting -->
   <script>
     document.addEventListener("DOMContentLoaded", () => {
@@ -249,6 +253,7 @@
   </script>
 
   <!-- Script for Search Input -->
+  <!-- Citation: How TO - Filter/Search Table - (https://www.w3schools.com/howto/howto_js_filter_table.asp) -->
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       const searchInput = document.querySelector(".search-input");
@@ -280,70 +285,71 @@
   </script>
 
   <!-- Script for Populating Tables and Button Functionalities-->
+  <!-- Citation: Populating Tables and Button - ChatGPT (2024) -->
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-        // Fetch and populate users
-        fetch('/api/users/status')
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Failed to fetch users');
-                }
-                return response.json();
-            })
-            .then(data => {
-                populateTable('pending-table', data.pending);
-                populateTable('approved-table', data.approved);
-                populateTable('denied-table', data.denied);
-            })
-            .catch(error => {
-                console.error('Error fetching users:', error);
-            });
-
-        // Attach event listener for approve/deny/view-details buttons
-        document.addEventListener('click', event => {
-            if (event.target.classList.contains('approve')) {
-                // Approve button functionality
-                const row = event.target.closest('tr');
-                moveToTable(row, 'approved-table');
-                updateUserStatus(getEmailFromRow(row), 'approved');
-            } else if (event.target.classList.contains('deny')) {
-                // Deny (Reject) button functionality
-                const row = event.target.closest('tr');
-                moveToTable(row, 'denied-table');
-                updateUserStatus(getEmailFromRow(row), 'rejected');
-            } else if (event.target.classList.contains('view-details')) {
-                // View Details button functionality
-                const email = event.target.dataset.email;
-                openUserDetailsModal(email);
-            }
+      // Fetch and populate users
+      fetch('/api/users/status')
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Failed to fetch users');
+          }
+          return response.json();
+        })
+        .then(data => {
+          populateTable('pending-table', data.pending);
+          populateTable('approved-table', data.approved);
+          populateTable('denied-table', data.denied);
+        })
+        .catch(error => {
+          console.error('Error fetching users:', error);
         });
 
-        // Close modal functionality
-        const closeModalButton = document.getElementById('closeModal');
-        if (closeModalButton) {
-            closeModalButton.addEventListener('click', () => {
-                const modal = document.getElementById('userDetailsModal');
-                modal.style.display = 'none';
-            });
+      // Attach event listener for approve/deny/view-details buttons
+      document.addEventListener('click', event => {
+        if (event.target.classList.contains('approve')) {
+          // Approve button functionality
+          const row = event.target.closest('tr');
+          moveToTable(row, 'approved-table');
+          updateUserStatus(getEmailFromRow(row), 'approved');
+        } else if (event.target.classList.contains('deny')) {
+          // Deny (Reject) button functionality
+          const row = event.target.closest('tr');
+          moveToTable(row, 'denied-table');
+          updateUserStatus(getEmailFromRow(row), 'rejected');
+        } else if (event.target.classList.contains('view-details')) {
+          // View Details button functionality
+          const email = event.target.dataset.email;
+          openUserDetailsModal(email);
         }
+      });
 
-        // Close modal when clicking outside the modal content
-        window.addEventListener('click', event => {
-            const modal = document.getElementById('userDetailsModal');
-            if (event.target === modal) {
-                modal.style.display = 'none';
-            }
+      // Close modal functionality
+      const closeModalButton = document.getElementById('closeModal');
+      if (closeModalButton) {
+        closeModalButton.addEventListener('click', () => {
+          const modal = document.getElementById('userDetailsModal');
+          modal.style.display = 'none';
         });
+      }
+
+      // Close modal when clicking outside the modal content
+      window.addEventListener('click', event => {
+        const modal = document.getElementById('userDetailsModal');
+        if (event.target === modal) {
+          modal.style.display = 'none';
+        }
+      });
     });
 
     // Function to populate a table with user data
     function populateTable(tableClass, users) {
-        const tableBody = document.querySelector(`.${tableClass} tbody`);
-        tableBody.innerHTML = '';
+      const tableBody = document.querySelector(`.${tableClass} tbody`);
+      tableBody.innerHTML = '';
 
-        users.forEach(user => {
-            const row = document.createElement('tr');
-            row.innerHTML = `
+      users.forEach(user => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
                 <td>
                     <div class="user-info">
                         <img class="user-avatar" src="../../assets/profileIcon.jpg" alt="user avatar" />
@@ -360,84 +366,84 @@
                     <button class="btn view-details" data-email="${user.email}">View Details</button>
                 </td>
             `;
-            tableBody.appendChild(row);
-        });
+        tableBody.appendChild(row);
+      });
     }
 
     // Function to move a row to a different table
     function moveToTable(row, targetTableClass) {
-        const targetTableBody = document.querySelector(`.${targetTableClass} tbody`);
-        row.querySelector('.action-buttons').innerHTML = ''; // Clear action buttons for the new table
-        targetTableBody.appendChild(row); // Append row to the new table
+      const targetTableBody = document.querySelector(`.${targetTableClass} tbody`);
+      row.querySelector('.action-buttons').innerHTML = ''; // Clear action buttons for the new table
+      targetTableBody.appendChild(row); // Append row to the new table
     }
 
     // Function to extract email from the row
     function getEmailFromRow(row) {
-        return row.querySelector('td:nth-child(3)').innerText.trim();
+      return row.querySelector('td:nth-child(3)').innerText.trim();
     }
 
     // Function to update user status in the database
     function updateUserStatus(email, status) {
       console.log('Updating status:', { email, status });
-        fetch('/api/users/updateStatus', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email, status }),
+      fetch('/api/users/updateStatus', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, status }),
+      })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Failed to update status');
+          }
+          return response.json();
         })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Failed to update status');
-                }
-                return response.json();
-            })
-            .then(data => {
-                console.log(data.message);
-            })
-            .catch(error => {
-                console.error('Error updating user status:', error);
-            });
+        .then(data => {
+          console.log(data.message);
+        })
+        .catch(error => {
+          console.error('Error updating user status:', error);
+        });
     }
 
     // Function to open the modal and fetch user details
     function openUserDetailsModal(email) {
-        const modal = document.getElementById('userDetailsModal');
-        const alumniPhotoElement = document.getElementById('alumniPhoto');
+      const modal = document.getElementById('userDetailsModal');
+      const alumniPhotoElement = document.getElementById('alumniPhoto');
 
-        console.log('Fetching details for email:', email);
+      console.log('Fetching details for email:', email);
 
-        fetch(`/api/users/registrantdetails/${encodeURIComponent(email)}`)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Failed to fetch user details');
-                }
-                return response.json();
-            })
-            .then(data => {
-                console.log('User data received:', data);
+      fetch(`/api/users/registrantdetails/${encodeURIComponent(email)}`)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Failed to fetch user details');
+          }
+          return response.json();
+        })
+        .then(data => {
+          console.log('User data received:', data);
 
-                // Populate modal fields
-                document.getElementById('firstName').innerText = data.firstName || 'N/A';
-                document.getElementById('middleName').innerText = data.middleName || 'N/A';
-                document.getElementById('lastName').innerText = data.lastName || 'N/A';
-                document.getElementById('email').innerText = data.email || 'N/A';
-                document.getElementById('gender').innerText = data.gender || 'N/A';
+          // Populate modal fields
+          document.getElementById('firstName').innerText = data.firstName || 'N/A';
+          document.getElementById('middleName').innerText = data.middleName || 'N/A';
+          document.getElementById('lastName').innerText = data.lastName || 'N/A';
+          document.getElementById('email').innerText = data.email || 'N/A';
+          document.getElementById('gender').innerText = data.gender || 'N/A';
 
-                if (data.alumniPhotoValidation) {
-                    alumniPhotoElement.src = `data:image/jpeg;base64,${data.alumniPhotoValidation}`;
-                    alumniPhotoElement.style.display = 'block';
-                } else {
-                    alumniPhotoElement.style.display = 'none';
-                }
+          if (data.alumniPhotoValidation) {
+            alumniPhotoElement.src = `data:image/jpeg;base64,${data.alumniPhotoValidation}`;
+            alumniPhotoElement.style.display = 'block';
+          } else {
+            alumniPhotoElement.style.display = 'none';
+          }
 
-                // Show the modal
-                modal.style.display = 'block';
-            })
-            .catch(error => console.error('Error fetching user details:', error));
+          // Show the modal
+          modal.style.display = 'block';
+        })
+        .catch(error => console.error('Error fetching user details:', error));
     }
   </script>
 
-  
-      
+
+
 </body>
 
 </html>
