@@ -519,23 +519,26 @@
             async function fetchEventStatistics() {
                 try {
                     // Fetch total events
-                    const totalEventsResponse = await fetch('/api/events/statistics/total');
+                    const totalEventsResponse = await fetch('/api/events/total');
                     const totalEventsData = await totalEventsResponse.json();
                     document.getElementById('total-events').textContent = `Total Events: ${totalEventsData.totalEvents}`;
 
                     // Fetch events grouped by status
-                    const statusResponse = await fetch('/api/events/statistics/status');
+                    const statusResponse = await fetch('/api/events/status');
                     const statusData = await statusResponse.json();
                     const statusList = document.getElementById('event-status-breakdown');
+
                     statusList.innerHTML = ''; // Clear existing list
-                    statusData.forEach(status => {
+
+                    Object.keys(statusData).forEach(status => {
+                        const total = statusData[status].length; 
                         const listItem = document.createElement('li');
-                        listItem.textContent = `${status.status}: ${status.total}`;
+                        listItem.textContent = `${status}: ${total}`;
                         statusList.appendChild(listItem);
                     });
 
                     // Fetch events grouped by school
-                    const schoolResponse = await fetch('/api/events/statistics/schools');
+                    const schoolResponse = await fetch('/api/events/schools');
                     const schoolData = await schoolResponse.json();
                     const schoolLabels = schoolData.map(item => item.school_name);
                     const schoolCounts = schoolData.map(item => item.total_events);
@@ -564,7 +567,7 @@
                     });
 
                     // Fetch events per month
-                    const monthlyResponse = await fetch('/api/events/statistics/monthly');
+                    const monthlyResponse = await fetch('/api/events/monthly');
                     const monthlyData = await monthlyResponse.json();
                     const monthLabels = monthlyData.map(item => item.month);
                     const monthCounts = monthlyData.map(item => item.total_events);
