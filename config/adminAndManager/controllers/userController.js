@@ -83,7 +83,7 @@ exports.getApprovedUsers = (req, res) => {
             email,
             password_hash,
             agreed_to_terms,
-            created_at,
+            DATE_FORMAT(created_at, '%Y-%m-%d') AS date_created,
             user_address,
             bio,
             employment_status,
