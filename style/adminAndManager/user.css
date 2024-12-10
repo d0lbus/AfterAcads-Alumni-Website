@@ -372,6 +372,20 @@ img.afteracadstext {
 }
 
 /* Citation: How TO - CSS/JS Modal - (https://www.w3schools.com/howto/howto_css_modals.asp) */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 2000;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.4);
+  justify-content: center;
+  align-items: center;
+  overflow: auto;
+}
+
 .user-details-modal {
   display: none;
   position: fixed;
@@ -384,7 +398,6 @@ img.afteracadstext {
   justify-content: center;
   align-items: center;
   overflow: auto;
-  
 }
 
 .modal-content  {
@@ -493,6 +506,33 @@ form textarea {
   max-width: 100%; 
   max-height: 100px;
   margin-top: 10px;
+}
+
+/* Profile Picture Section */
+.profile-picture-group {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.profile-picture-preview img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  border: 3px solid #5f84a2;
+  object-fit: cover;
+  margin-bottom: 15px;
+}
+
+input[type="file"] {
+  display: inline-block;
+  margin-top: 0.5rem;
+  padding: 5px 10px;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+input[type="file"]:hover {
+  background-color: #f0f0f0;
 }
 
 #dateHeader .sort-icon {
