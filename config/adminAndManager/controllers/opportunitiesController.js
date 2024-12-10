@@ -127,6 +127,26 @@ exports.deleteOpportunity = (req, res) => {
 };
 
 exports.addOpportunity = (req, res) => {
-    
-}
+    const { title, company_name, location, school_id, course_id, description, company_link } = req.body;
+  
+    if (!title || !company_name || !location || !school_id || !course_id || !description || !company_link) {
+      return res.status(400).json({ error: "All fields are required." });
+    }
+  
+    const sql = `
+      INSERT INTO opportunities (title, company_name, location, school_id, course_id, description, company_link)
+      VALUES (?, ?, ?, ?, ?, ?, ?)
+    `;
+    const values = [title, company_name, location, school_id, course_id, description, company_link];
+  
+    db.query(sql, values, (err, result) => {
+      if (err) {
+        console.error("Database error:", err);
+        return res.status(500).json({ error: "Failed to add opportunity." });
+      }
+  
+      res.json({ message: "Opportunity added successfully." });
+    });
+  };
+  
   

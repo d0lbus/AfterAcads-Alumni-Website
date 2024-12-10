@@ -7,7 +7,7 @@ router.get('/opportunitiesByID/:id', opportunitiesController.getOpportunityById)
 router.put('/editOpportunity', opportunitiesController.editOpportunity);
 router.get('/schools', opportunitiesController.getSchools);
 router.get('/courses', opportunitiesController.getCoursesBySchool);
-router.get('/addOpportunity', opportunitiesController.addOpportunity);
+router.post('/addOpportunity', opportunitiesController.addOpportunity);
 router.get('/delete/:id', opportunitiesController.deleteOpportunity);
 
 
