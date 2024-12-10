@@ -100,21 +100,31 @@
             </div>
         </div>
 
-        <div id="opportunities-container" class="stats-container" style="display: none;">
-            <h2>Opportunities Statistics</h2>
-            <div class="cards">
-                <div class="card-single">
-
-                </div>
-            </div>
-        </div>
-
         <div id="posts-container" class="stats-container" style="display: none;">
-            <h2>Posts Statistics</h2>
+            <h2>Post Statistics</h2>
             <div class="cards">
-                <div class="card-single">Posts-specific stats...</div>
+                <!-- Total Posts -->
+                <div class="card-single">
+                    <p id="total-posts">Loading total posts...</p>
+                    <h3>Status Breakdown</h3>
+                    <ul id="post-status-breakdown"></ul>
+                </div>
+        
+                <!-- Posts by Batch -->
+                <div class="card-single">
+                    <h3>Posts by Batch</h3>
+                    <canvas id="postBatchChart"></canvas>
+                </div>
+                <!-- Dynamically Generated School and Course Cards -->
+            </div>
+        
+            <!-- Top 5 Most Used Tags -->
+            <div class="card-single">
+                <h3>Top 5 Tags</h3>
+                <ul id="top-tags-list"></ul>
             </div>
         </div>
+        
 
         <div id="events-container" class="stats-container" style="display: none;">
             <h2>Events Statistics</h2>
@@ -144,7 +154,7 @@
             });
         </script>
 
-        <!-- Scripts for Toggling Between Containers -->
+        <!-- Script for Toggling Between Containers -->
         <script>
         document.addEventListener("DOMContentLoaded", function () {
             const buttons = document.querySelectorAll(".button-group button");
@@ -172,6 +182,7 @@
         });
         </script>
 
+        <!-- Scripts for Fetching User Statistics -->
         <script>
             document.addEventListener("DOMContentLoaded", function () {
                 async function fetchUserStatistics() {
@@ -351,6 +362,138 @@
                 fetchUserStatistics();
             });
             
+        </script>
+
+        <!-- Scripts for Fetching Post Statistics -->
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                async function fetchPostStatistics() {
+                    try {
+                        // Fetch total posts
+                        const totalPostsResponse = await fetch('/api/posts/total');
+                        const totalPostsData = await totalPostsResponse.json();
+                        document.getElementById('total-posts').textContent = `Total Posts: ${totalPostsData.totalPosts}`;
+
+                        // Fetch posts grouped by status
+                        const statusResponse = await fetch('/api/posts/status');
+                        const statusData = await statusResponse.json();
+  
+                        const statusList = document.getElementById('post-status-breakdown');
+                        statusList.innerHTML = ''; // Clear existing list
+
+        
+                        Object.keys(statusData).forEach(status => {
+                            const total = statusData[status].length; 
+                            const listItem = document.createElement('li');
+                            listItem.textContent = `${status}: ${total}`;
+                            statusList.appendChild(listItem);
+                        });
+
+                        // Fetch posts grouped by batch
+                        const batchResponse = await fetch('/api/posts/batches');
+                        const batchData = await batchResponse.json();
+                        const batchLabels = batchData.map(item => `Batch ${item.batch_number}`);
+                        const batchCounts = batchData.map(item => item.total_posts);
+
+                        // Render Batch Chart
+                        const batchCtx = document.getElementById('postBatchChart').getContext('2d');
+                        new Chart(batchCtx, {
+                            type: 'bar',
+                            data: {
+                                labels: batchLabels,
+                                datasets: [{
+                                    label: 'Posts by Batch',
+                                    data: batchCounts,
+                                    backgroundColor: '#36A2EB',
+                                    borderWidth: 1,
+                                }],
+                            },
+                            options: {
+                                responsive: true,
+                                plugins: {
+                                    legend: {
+                                        position: 'top',
+                                    },
+                                },
+                            },
+                        });
+
+                        // Fetch posts grouped by school and course
+                        const schoolCourseResponse = await fetch('/api/posts/school-course-group');
+                        const schoolCourseData = await schoolCourseResponse.json();
+
+                        const cardsContainer = document.querySelector("#posts-container .cards");
+
+                        // Clear existing dynamically generated school charts
+                        const existingSchoolCards = document.querySelectorAll('.card-single.school-card');
+                        existingSchoolCards.forEach(card => card.remove());
+
+                        // Dynamically generate cards for each school and its courses
+                        Object.entries(schoolCourseData).forEach(([schoolName, courses]) => {
+                            // Create a card for the school
+                            const schoolCard = document.createElement('div');
+                            schoolCard.classList.add('card-single', 'school-card');
+
+                            // Add school title
+                            const schoolTitle = document.createElement('h3');
+                            schoolTitle.textContent = `${schoolName} - Posts per Course`;
+                            schoolCard.appendChild(schoolTitle);
+
+                            // Create canvas for the chart
+                            const canvas = document.createElement('canvas');
+                            canvas.id = `post-chart-${schoolName.replace(/\s+/g, '-')}`;
+                            schoolCard.appendChild(canvas);
+
+                            // Append the card to the cards container
+                            cardsContainer.appendChild(schoolCard);
+
+                            // Prepare data for Chart.js
+                            const courseLabels = courses.map(course => course.course_name);
+                            const courseCounts = courses.map(course => course.total_posts);
+
+                            // Render the chart
+                            const ctx = canvas.getContext('2d');
+                            new Chart(ctx, {
+                                type: 'bar',
+                                data: {
+                                    labels: courseLabels,
+                                    datasets: [{
+                                        label: 'Posts per Course',
+                                        data: courseCounts,
+                                        backgroundColor: '#FF6384',
+                                        borderWidth: 1,
+                                    }],
+                                },
+                                options: {
+                                    responsive: true,
+                                    plugins: {
+                                        legend: {
+                                            position: 'top',
+                                        },
+                                    },
+                                },
+                            });
+                        });
+
+                        // Fetch top 5 tags
+                        const topTagsResponse = await fetch('/api/posts/top-tags');
+                        const topTagsData = await topTagsResponse.json();
+                        const topTagsList = document.getElementById('top-tags-list');
+                        topTagsList.innerHTML = ''; // Clear existing list
+                        topTagsData.forEach(tag => {
+                            const listItem = document.createElement('li');
+                            listItem.textContent = `${tag.tag_name}: ${tag.usage_count} uses`;
+                            topTagsList.appendChild(listItem);
+                        });
+                    } catch (error) {
+                        console.error('Error fetching post statistics:', error);
+                    }
+                }
+
+                // Attach the function to load statistics dynamically
+                document.querySelector('.btn-Posts').addEventListener('click', fetchPostStatistics);
+            });
+
         </script>
 </body>
 
