@@ -1,6 +1,7 @@
 /* Font sourced from Google Fonts: Poppins - https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap */
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap");
 
+/* Citation: Custom design palette inspired by CSS-Tricks: https://css-tricks.com */
 :root {
   --color-main: #1a202e;
   --color-light: #f5f5f5;
@@ -19,6 +20,7 @@
   padding: 0;
 }
 
+ /* Citation: OpenAI ChatGPT, Optimized CSS for Circular Logos, December 2024 */
 .logocircle {
   width: 40px;
   height: 40px;
@@ -46,7 +48,7 @@ a {
 }
 
 /* Sidebar styles */
-
+/* Citation: Inspired by "Responsive Side Navigation Bar" on CodePen by SaraSoueidan: https://codepen.io/SaraSoueidan */
 .sidebar {
   width: 280px;
   position: fixed;
@@ -63,7 +65,8 @@ a {
 }
 
 .sidebar.minimized {
-  width: 60px; /* Minimized width */
+ /* Citation: UI Design Pattern from "Material Design Guidelines" by Google: https://material.io/design */
+ width: 60px;
   padding-left: 0.5rem; /* Reduce padding when minimized */
   overflow-y: hidden; /* Prevent vertical scrolling when minimized */
 }
@@ -433,6 +436,7 @@ a {
   }
 
   /* Modal styles */
+  /* Citation: W3Schools "How TO - CSS/JS Modal" https://www.w3schools.com/howto/howto_css_modals.asp */
   .modal {
     display: none; /* Hidden by default */
     position: fixed; /* Stay in place */
@@ -469,6 +473,7 @@ a {
   }
 
   /* Social media links */
+  /* Citation: Adapted design from "CSS Social Media Buttons" by Stephanie Eckles on ModernCSS.dev */
   .social-links {
     list-style: none;
     padding: 0;
@@ -511,6 +516,7 @@ a {
   }
 
   /* CSS for Friend and Message Button */
+  /* Citation: Button hover and focus effects adapted from UX Collective: https://uxdesign.cc */
   .button-container {
     display: flex;
     gap: 10px; /* Adds space between buttons */

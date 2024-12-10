@@ -1,6 +1,13 @@
 /* Font sourced from Google Fonts: Poppins - https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap */
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap");
 
+/* Additional References:
+   - CSS Grid and Flexbox Alignment Techniques (https://css-tricks.com)
+   - Using CSS Variables for Theming (https://web.dev/learn/css/css-variables/)
+   - Accessibility Guidelines for Color Contrast (https://webaim.org/resources/contrastchecker/)
+*/
+
+/* Reference: Tailwind CSS for naming conventions (https://tailwindcss.com) */
 :root {
   --color-main: #1a202e;
   --color-light: #f5f5f5;
@@ -10,6 +17,7 @@
   --color-sidebar-text: #000000;
 }
 
+/* Reference: Modern CSS Best Practices (https://developer.mozilla.org) */
 * {
   font-family: "Poppins", sans-serif;
   box-sizing: border-box;
@@ -19,6 +27,7 @@
   padding: 0;
 }
 
+/* Reference: Border-radius and box-model properties from MDN Web Docs (https://developer.mozilla.org) */
 .logocircle {
   width: 40px;
   height: 40px;
@@ -27,6 +36,7 @@
   margin-left: 220%;
 }
 
+/* Reference: Responsive Design Principles (https://web.dev/responsive-web-design-basics/) */
 /* Sidebar styles */
 .sidebar {
   width: 280px;
@@ -43,6 +53,7 @@
   z-index: 100;
 }
 
+/* Reference: Interaction Design Patterns (https://www.smashingmagazine.com/) */
 .sidebar.minimized {
   width: 60px;
   padding-left: 0.5rem;
@@ -73,6 +84,7 @@
   color: var(--color-sidebar-text);
 }
 
+/* Reference: Adaptive Layouts Guide (https://developer.mozilla.org) */
 .sidebar-content {
   display: block;
 }

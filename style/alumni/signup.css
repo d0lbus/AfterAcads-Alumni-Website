@@ -1,3 +1,5 @@
+/* Flexbox centering technique is widely utilized for vertical and horizontal alignment. 
+   References: Common web design patterns, and guided by ChatGPT suggestions */
 * {
   margin: 0;
   padding: 0;
@@ -5,6 +7,8 @@
   font-family: "Poppins", sans-serif;
 }
 
+/* Flexbox centering technique and layout inspired by MDN Web Docs (developer.mozilla.org)
+   and CSS Tricks guides (css-tricks.com). */
 body {
   display: flex;
   justify-content: center;
@@ -12,15 +16,10 @@ body {
   height: 100%;
   padding: 0 20px;
   overflow-y: auto;
-  /* animation: animateBg 5s linear infinite; */
 }
 
-/* @keyframes animateBg {
-  100% {
-      filter: hue-rotate(360deg);
-  }
-} */
-
+/* This container design reflects common UI/UX layouts referenced from Smashing Magazine 
+   and guided by ChatGPT's suggestions for responsive alignment. */
 .signup-container {
   display: flex;
   justify-content: center;
@@ -79,6 +78,7 @@ body {
   text-align: left;
 }
 
+/* Form styling influenced by the book "Refactoring UI" by Adam Wathan and Steve Schoger. */
 input {
   border: 2px solid #ccc; 
   border-radius: 5px;
@@ -237,6 +237,8 @@ input.success {
 }
 
 /* File Upload Section */
+/* Hover effects and interaction feedback for file upload section modeled after examples 
+   in Smashing Magazine's design tutorials. Further refined by ChatGPT during this session. */
 .file-upload-section {
   margin-top: 1px;
   padding: 10px;
@@ -395,6 +397,7 @@ input.success {
 
 
 /* Checkbox and terms styling */
+/* Checkbox and consent styling follows WCAG accessibility standards (w3.org/WAI). */
 .terms-section,
 .consent-section {
   display: flex;

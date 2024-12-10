@@ -155,6 +155,7 @@
   margin-right: 0.8rem;
 }
 
+/* Citation: ChatGPT for using `:hover` effects to change background and text color */
 .sidebar-menu li a:hover {
   background-color: var(--color-accent);
   color: #fff;
