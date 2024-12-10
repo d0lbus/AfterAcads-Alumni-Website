@@ -142,7 +142,6 @@ $profile_picture = !$is_current_user
                 <div class="left-col">
                 <div class="img-container">
                     <img src="<?= $profile_picture; ?>" alt="Profile" id="profile-picture-preview" />
-                    <span></span>
                 </div>
 
                     <!-- Display user details dynamically -->
