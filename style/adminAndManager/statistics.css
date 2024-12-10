@@ -123,10 +123,10 @@ header img {
   padding: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
   min-width: 280px; 
-  max-width: 100%; /* Allow flexibility for responsive layouts */
-  flex-grow: 1; /* Let the card expand horizontally if needed */
-  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth hover effects */
-  height: auto; /* Adapt height to content */
+  max-width: 100%; 
+  flex-grow: 1; 
+  transition: transform 0.3s ease, box-shadow 0.3s ease; 
+  height: auto; 
 }
 
 /* Card title and info styling */
@@ -134,6 +134,13 @@ header img {
   font-size: 1.8rem;
   margin: 10px 0;
   color: var(--color-main);
+}
+
+.card-single h3 {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+  color: var(--color-main);
+  text-align: center; 
 }
 
 .card-info small {
@@ -160,6 +167,20 @@ header img {
 .chart-container canvas {
   max-width: 100%;
 }
+
+/* Chart Container */
+.card-single .chart-container {
+  width: 100%;
+  display: flex;
+  justify-content: center; /* Center the canvas within the card */
+}
+
+/* Card content and chart spacing */
+.card-single canvas {
+  max-width: 100%; 
+  margin: 10px 0; 
+}
+
 /* Events Section Styling */
 .events-section.container {
   margin-top: 120px;
