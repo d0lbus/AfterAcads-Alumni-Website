@@ -433,37 +433,72 @@
       });
     };
 
+    const addStatusToggleButtonListeners = () => {
+      document.querySelectorAll(".restrictBtn").forEach((button) => {
+        button.addEventListener("click", (event) => {
+          const userEmail = button.getAttribute("data-email"); 
+          const currentStatus = button.textContent.trim().toLowerCase(); 
+
+          
+          const newStatus = currentStatus === "restrict" ? "restricted" : "approved";
+
+          console.log("Sending data:", { email: userEmail, status: newStatus }); 
+
+          // Send request to update user status
+          fetch(`/api/users/updateStatus`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email: userEmail, status: newStatus }), 
+          })
+            .then((response) => {
+              if (!response.ok) throw new Error("Failed to update user status");
+              return response.json();
+            })
+            .then(() => {
+              // Change the button text to reflect the new status
+              button.textContent = newStatus === "restricted" ? "Unrestrict" : "Restrict";
+
+              console.log(`Status updated to: ${newStatus}`);
+            })
+            .catch((error) => console.error("Error updating user status:", error));
+        });
+      });
+    };
+
     // Fetch and populate the users table
     const populateUsersTable = () => {
-      fetch("/api/users/getApprovedUsers/?status=approved")
-        .then((response) => {
-          if (!response.ok) throw new Error("Failed to fetch users");
-          return response.json();
-        })
-        .then((data) => {
-          userTableBody.innerHTML = ""; // Clear the table body
-          data.forEach((user) => {
-            const row = document.createElement("tr");
-            row.innerHTML = `
-              <td>${user.id}</td>
-              <td>${user.first_name}</td>
-              <td>${user.last_name}</td>
-              <td>${user.email}</td>
-              <td>${user.userType}</td>
-              <td>${new Date(user.date_created).toLocaleDateString()}</td>
-              <td>
-                <button class="editBtn" data-id="${user.id}">Edit</button>
-                <button class="restrictBtn" data-id="${user.id}">Restrict</button>
-              </td>
-            `;
-            userTableBody.appendChild(row);
-          });
+    fetch("/api/users/getApprovedUsers/?status=approved")
+      .then((response) => {
+        if (!response.ok) throw new Error("Failed to fetch users");
+        return response.json();
+      })
+      .then((data) => {
+        userTableBody.innerHTML = ""; // Clear the table body
+        data.forEach((user) => {
+          const row = document.createElement("tr");
+          const isRestricted = user.status === "restricted"; // Check if the user is restricted
+          row.innerHTML = `
+            <td>${user.id}</td>
+            <td>${user.first_name}</td>
+            <td>${user.last_name}</td>
+            <td>${user.email}</td>
+            <td>${user.userType}</td>
+            <td>${new Date(user.date_created).toLocaleDateString()}</td>
+            <td>
+              <button class="editBtn" data-id="${user.id}">Edit</button>
+              <button class="restrictBtn" data-email="${user.email}">
+                ${isRestricted ? "Unrestrict" : "Restrict"}
+              </button>
+            </td>
+          `;
+          userTableBody.appendChild(row);
+        });
 
         addButtonListeners();
-
-        })
-        .catch((error) => console.error("Error fetching users:", error));
-    };
+        addStatusToggleButtonListeners();
+      })
+      .catch((error) => console.error("Error fetching users:", error));
+  };
 
     // Load users table on page load
     populateUsersTable();

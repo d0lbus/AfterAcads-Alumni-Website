@@ -78,8 +78,10 @@ exports.getUsersByStatus = (req, res) => {
 exports.getApprovedUsers = (req, res) => {
     const { status } = req.query;
   
-    if (status !== "approved") {
-      return res.status(400).json({ error: "Invalid status parameter" });
+    // Allow only 'approved' or 'restricted' statuses
+    const allowedStatuses = ["approved", "restricted"];
+    if (!allowedStatuses.includes(status)) {
+        return res.status(400).json({ error: "Invalid status parameter" });
     }
   
     const sql = `
@@ -103,7 +105,7 @@ exports.getApprovedUsers = (req, res) => {
         FROM 
             users
         WHERE 
-            status = ?;
+            status IN ('approved', 'restricted');
     `;
 
     db.query(sql, [status], (err, results) => {
@@ -115,7 +117,6 @@ exports.getApprovedUsers = (req, res) => {
     });
 };
   
-
 exports.updateUserStatus = (req, res) => {
     const { email, status } = req.body;
 
@@ -123,7 +124,7 @@ exports.updateUserStatus = (req, res) => {
         return res.status(400).json({ error: 'Email and status are required.' });
     }
 
-    const allowedStatuses = ['approved', 'rejected', 'pending'];
+    const allowedStatuses = ['approved', 'rejected', 'pending', 'restricted'];
     if (!allowedStatuses.includes(status)) {
         return res.status(400).json({ error: 'Invalid status value.' });
     }
