@@ -330,38 +330,25 @@
 
   </script>
 
-  <!-- Script for Search Input -->
-  <!-- Citation: How TO - Filter/Search Table - (https://www.w3schools.com/howto/howto_js_filter_table.asp) -->
+  <!-- JavaScript for Search Input -->
+  <!-- Citation: Search Bar In JavaScript (https://www.youtube.com/watch?v=TlP5WIxVirU&t=600s) -->
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       const searchInput = document.querySelector(".search-input");
-      const tables = document.querySelectorAll(".user-table");
-
-      const filterRows = (searchValue) => {
-        tables.forEach((table) => {
-          const rows = table.querySelectorAll("tbody tr");
-          rows.forEach((row) => {
-            const cells = row.querySelectorAll("td");
-            const rowText = Array.from(cells)
-              .map((cell) => cell.textContent.toLowerCase())
-              .join(" ");
-            if (rowText.includes(searchValue.toLowerCase())) {
-              row.style.display = "";
-            } else {
-              row.style.display = "none";
-            }
-          });
-        });
-      };
+      const rows = document.querySelectorAll(".user-table tbody tr");
 
       searchInput.addEventListener("input", (event) => {
-        const searchValue = event.target.value.trim();
-        filterRows(searchValue);
+        const searchValue = event.target.value.toLowerCase();
+        rows.forEach((row) => {
+          const cells = Array.from(row.querySelectorAll("td"));
+          const rowText = cells
+            .map((cell) => cell.textContent.toLowerCase())
+            .join(" ");
+          row.style.display = rowText.includes(searchValue) ? "" : "none";
+        });
       });
     });
-
   </script>
-
 
   <!-- JavaScript for Pagination -->
   <!-- Citation: JavaScript Pagination (https://www.youtube.com/watch?v=Ynp6Gdd3XVE) -->
