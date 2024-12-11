@@ -149,6 +149,38 @@
             </div>
         </div>
         
+        <div id="opportunities-container" class="stats-container" style="display: none;">
+            <h2>Opportunities Statistics</h2>
+            <div class="cards">
+        
+                <!-- Total Opportunities -->
+                <div class="card-single">
+                    <p id="total-opportunities">Loading total opportunities...</p>
+                </div>
+        
+                <!-- Opportunities by Company -->
+                <div id="company-opportunities" class="card-single">
+                    <h3>Opportunities by Company</h3>
+                    <div id="company-cards">
+                        <!-- Dynamic cards for companies will be inserted here -->
+                    </div>
+                </div>
+        
+                <!-- Opportunities by School and Course -->
+                <div id="school-course-opportunities" class="card-single">
+                    <h3>Opportunities by School and Course</h3>
+                    <div id="school-charts">
+                        <!-- Dynamic school and course charts will be inserted here -->
+                    </div>
+                </div>
+        
+                <!-- Opportunities Per Month -->
+                <div class="card-single">
+                    <h3>Opportunities Per Month</h3>
+                    <canvas id="opportunityMonthChart"></canvas>
+                </div>
+            </div>
+        </div>
 
         </main>
         <!-- Citation:  ChatGPT assisted in debugging the sidebar toggle functionality and layout adjustment logic.  -->
