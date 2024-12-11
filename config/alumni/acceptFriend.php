@@ -1,4 +1,14 @@
 <?php
+
+/**
+ * References:
+ * - **YouTube**: "PHP PDO Tutorial for Beginners" by Code Academy: https://www.youtube.com/watch?v=Ey6ZLyBu1oY
+ * - **Stack Overflow**: Best practices for handling POST requests securely: https://stackoverflow.com/questions/14565460/handling-post-requests-in-php
+ * - **GeeksforGeeks**: "How to Use PHP Header Function": https://www.geeksforgeeks.org/php-header-function/
+ * - **W3Schools**: "PHP POST Method Explained": https://www.w3schools.com/php/php_forms.asp
+ * - **ChatGPT**: Recommendations for secure coding practices and handling form data.
+ */
+
 include 'header.php';
 include '../../config/general/connection.php';
 include 'friendsManager.php';
