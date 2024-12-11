@@ -1,3 +1,4 @@
+// <Citation>: Events Inspired by  - (https://www.youtube.com/watch?v=l20MBBFZAmA)
 const express = require('express');
 const router = express.Router();
 const eventController = require('../controllers/eventController');
