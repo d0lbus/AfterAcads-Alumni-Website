@@ -1,6 +1,6 @@
-const db = require('../db');
-const path = require('path');
-
+const db = require("../db");
+const path = require("path");
+//<Citation: Event Controller on how to use -  (https://www.youtube.com/watch?v=DzZXRvk3EGg)
 // Retrieve events grouped by status
 exports.getEventsByStatus = (req, res) => {
   const sql = `
@@ -11,18 +11,18 @@ exports.getEventsByStatus = (req, res) => {
   `;
 
   db.query(sql, (err, results) => {
-      if (err) {
-          console.error('Database error:', err);
-          return res.status(500).json({ error: 'Failed to fetch events.' });
-      }
+    if (err) {
+      console.error("Database error:", err);
+      return res.status(500).json({ error: "Failed to fetch events." });
+    }
 
-      const groupedEvents = {
-          upcoming: results.filter(event => event.status === 'upcoming'),
-          finished: results.filter(event => event.status === 'finished'),
-          archived: results.filter(event => event.status === 'archived'),
-      };
+    const groupedEvents = {
+      upcoming: results.filter((event) => event.status === "upcoming"),
+      finished: results.filter((event) => event.status === "finished"),
+      archived: results.filter((event) => event.status === "archived"),
+    };
 
-      res.json(groupedEvents);
+    res.json(groupedEvents);
   });
 };
 
@@ -31,7 +31,7 @@ exports.updateEventStatus = (req, res) => {
   const { event_id, status } = req.body;
 
   if (!event_id || !status) {
-      return res.status(400).json({ error: 'Event ID and status are required.' });
+    return res.status(400).json({ error: "Event ID and status are required." });
   }
 
   const sql = `
@@ -41,12 +41,12 @@ exports.updateEventStatus = (req, res) => {
   `;
 
   db.query(sql, [status, event_id], (err, results) => {
-      if (err) {
-          console.error('Database error:', err);
-          return res.status(500).json({ error: 'Failed to update event status.' });
-      }
+    if (err) {
+      console.error("Database error:", err);
+      return res.status(500).json({ error: "Failed to update event status." });
+    }
 
-      res.json({ message: `Event status updated to ${status}.` });
+    res.json({ message: `Event status updated to ${status}.` });
   });
 };
 
@@ -55,12 +55,12 @@ exports.getSchools = (req, res) => {
   const sql = `SELECT id, name FROM schools`;
 
   db.query(sql, (err, results) => {
-      if (err) {
-          console.error('Database error:', err);
-          return res.status(500).json({ error: 'Failed to fetch schools.' });
-      }
+    if (err) {
+      console.error("Database error:", err);
+      return res.status(500).json({ error: "Failed to fetch schools." });
+    }
 
-      res.json(results);
+    res.json(results);
   });
 };
 
@@ -77,17 +77,17 @@ exports.getEventDetailsById = (req, res) => {
   `;
 
   db.query(sql, [eventId], (err, results) => {
-      if (err) {
-          console.error("Database error:", err);
-          return res.status(500).json({ error: "Failed to fetch event details." });
-      }
+    if (err) {
+      console.error("Database error:", err);
+      return res.status(500).json({ error: "Failed to fetch event details." });
+    }
 
-      if (results.length === 0) {
-          return res.status(404).json({ error: "Event not found." });
-      }
+    if (results.length === 0) {
+      return res.status(404).json({ error: "Event not found." });
+    }
 
-      const event = results[0];
-      res.json(event);
+    const event = results[0];
+    res.json(event);
   });
 };
 
@@ -100,14 +100,23 @@ exports.addEvent = (req, res) => {
       INSERT INTO events (title, host, date, time, location, school_id, description, image_path)
       VALUES (?, ?, ?, ?, ?, ?, ?, ?)
   `;
-  const values = [title, host, date, time, location, school, description, imagePath];
+  const values = [
+    title,
+    host,
+    date,
+    time,
+    location,
+    school,
+    description,
+    imagePath,
+  ];
 
   db.query(sql, values, (err, result) => {
-      if (err) {
-          console.error("Database error:", err);
-          return res.status(500).json({ error: "Failed to add event." });
-      }
-      res.json({ message: "Event added successfully." });
+    if (err) {
+      console.error("Database error:", err);
+      return res.status(500).json({ error: "Failed to add event." });
+    }
+    res.json({ message: "Event added successfully." });
   });
 };
 
@@ -118,24 +127,33 @@ exports.deleteEvent = (req, res) => {
   const sql = `DELETE FROM events WHERE id = ?`;
 
   db.query(sql, [eventId], (err, result) => {
-      if (err) {
-          console.error("Database error:", err);
-          return res.status(500).json({ error: "Failed to delete event." });
-      }
+    if (err) {
+      console.error("Database error:", err);
+      return res.status(500).json({ error: "Failed to delete event." });
+    }
 
-      if (result.affectedRows === 0) {
-          return res.status(404).json({ error: "Event not found." });
-      }
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ error: "Event not found." });
+    }
 
-      res.json({ message: "Event deleted successfully." });
+    res.json({ message: "Event deleted successfully." });
   });
 };
 
 // Update Event Functionality
 exports.updateEvent = (req, res) => {
-
-  const { eventId, title, description, date, time, location, host, school_id, altText } = req.body;
-  const imagePath = req.file ? req.file.filename : null; 
+  const {
+    eventId,
+    title,
+    description,
+    date,
+    time,
+    location,
+    host,
+    school_id,
+    altText,
+  } = req.body;
+  const imagePath = req.file ? req.file.filename : null;
 
   const sql = `
     UPDATE events
@@ -156,28 +174,23 @@ exports.updateEvent = (req, res) => {
     eventId,
   ];
 
-
   db.query(sql, values, (err, result) => {
     if (err) {
-      console.error('Database error:', err);
-      return res.status(500).json({ error: 'Failed to update event.' });
+      console.error("Database error:", err);
+      return res.status(500).json({ error: "Failed to update event." });
     }
 
-    console.log('Query Result:', result); 
-    console.log('Database Update Result:', result);
-    res.json({ message: 'Event updated successfully.' });
+    console.log("Query Result:", result);
+    console.log("Database Update Result:", result);
+    res.json({ message: "Event updated successfully." });
   });
 };
 
-
 exports.getEventStatistics = (req, res) => {
-  db.query(
-    `SELECT COUNT(*) AS totalEvents FROM events`,
-    (error, results) => {
-      if (error) {
-        return res.status(500).json({ error: error.message });
-      }
-      res.json(results[0]);
+  db.query(`SELECT COUNT(*) AS totalEvents FROM events`, (error, results) => {
+    if (error) {
+      return res.status(500).json({ error: error.message });
     }
-  );
+    res.json(results[0]);
+  });
 };
