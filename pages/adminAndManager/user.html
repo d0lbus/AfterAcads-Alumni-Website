@@ -79,15 +79,14 @@
       <table class="user-table">
         <thead>
           <tr>
-            <th>ID</th>
-            <th>First Name</th>
-            <th>
-              Last Name
+            <th>ID
               <button class="sort-button" data-sort="asc" onclick="toggleSort(this, 3)">
                 <span class="arrow-up">&#9650;</span>
                 <span class="arrow-down">&#9660;</span>
               </button>
             </th>
+            <th>First Name</th>
+            <th>Last Name</th>
             <th>Email</th>
             <th>User Role</th>
             <th>Date Created</th>
@@ -286,12 +285,14 @@
 
   </section>
 
-  <!-- JavaScript for Sorting -->
-  <!-- Citation: This JavaScript code was debugged with assistance from ChatGPT.  -->
+ <!-- Citation: How TO - Sort a Table - (https://www.w3schools.com/howto/howto_js_sort_table.asp) -->
+  <!-- Script for Sorting -->
   <script>
     document.addEventListener("DOMContentLoaded", () => {
-      const sortTable = (columnIndex, isAscending) => {
-        const tbody = document.querySelector("tbody");
+      const tables = document.querySelectorAll(".user-table");
+
+      function sortTable(table, columnIndex, isAscending) {
+        const tbody = table.querySelector("tbody");
         const rows = Array.from(tbody.rows);
 
         rows.sort((a, b) => {
@@ -299,32 +300,34 @@
           const cellB = b.cells[columnIndex].textContent.trim();
 
           if (!isNaN(Date.parse(cellA)) && !isNaN(Date.parse(cellB))) {
-            return isAscending
-              ? new Date(cellA) - new Date(cellB)
-              : new Date(cellB) - new Date(cellA);
+            return isAscending ? new Date(cellA) - new Date(cellB) : new Date(cellB) - new Date(cellA);
           }
+
           if (!isNaN(cellA) && !isNaN(cellB)) {
             return isAscending ? cellA - cellB : cellB - cellA;
           }
 
-          return isAscending
-            ? cellA.localeCompare(cellB)
-            : cellB.localeCompare(cellA);
+          return isAscending ? cellA.localeCompare(cellB) : cellB.localeCompare(cellA);
         });
 
-        rows.forEach((row) => tbody.appendChild(row));
-      };
+        rows.forEach(row => tbody.appendChild(row));
+      }
 
-      const toggleSort = (button, columnIndex) => {
+      function toggleSort(button, table, columnIndex) {
         const isAscending = button.dataset.sort === "asc";
         button.dataset.sort = isAscending ? "desc" : "asc";
-        sortTable(columnIndex, !isAscending);
-      };
+        sortTable(table, columnIndex, !isAscending);
+      }
 
-      document.querySelectorAll(".sort-button").forEach((button, index) => {
-        button.addEventListener("click", () => toggleSort(button, index));
+      tables.forEach(table => {
+        const sortButtons = table.querySelectorAll(".sort-button");
+
+        sortButtons.forEach((button, index) => {
+          button.addEventListener("click", () => toggleSort(button, table, index));
+        });
       });
     });
+
   </script>
 
   <!-- Script for Search Input -->
