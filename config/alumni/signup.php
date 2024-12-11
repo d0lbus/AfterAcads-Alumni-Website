@@ -1,3 +1,11 @@
+// References:
+// 1. PHP Manual - For sanitizing and validating form data. (https://www.php.net/manual/en/filter.filters.sanitize.php)
+// 2. W3Schools - For using `password_hash()` to securely hash passwords. (https://www.w3schools.com/php/func_password_hash.asp)
+// 3. PHP Manual - For handling file uploads and validating file types and size. (https://www.php.net/manual/en/features.file-upload.php)
+// 4. PHP Manual - For using `mysqli_prepare()` and `mysqli_bind_param()` for secure database queries. (https://www.php.net/manual/en/mysqli.quickstart.prepared-statements.php)
+// 5. StackOverflow - For handling user registration and validating inputs (including photo validation). (https://stackoverflow.com/questions/13027772/how-do-i-validate-an-image-upload-in-php)
+// 6. ChatGPT - For handling user input sanitization, validation, and photo upload logic, ensuring data integrity and security.
+
 <?php
 include '../../config/general/connection.php';
 

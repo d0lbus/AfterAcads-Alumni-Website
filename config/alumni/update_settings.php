@@ -1,3 +1,8 @@
+// References:
+// 1. PHP Manual - File Uploads and Validation (https://www.php.net/manual/en/features.file-upload.php)
+// 2. ChatGPT - For handling dynamic SQL queries and user input sanitization.
+// 3. PHP Manual - Session Management (https://www.php.net/manual/en/book.session.php)
+
 <?php
 include '../../config/general/connection.php';
 include '../../config/alumni/header.php';

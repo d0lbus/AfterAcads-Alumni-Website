@@ -1,3 +1,10 @@
+// References:
+// 1. W3Schools - For handling sessions in PHP. (https://www.w3schools.com/php/php_sessions.asp)
+// 2. PHP Manual - For `mysqli_prepare()` and `mysqli_bind_param()` functions used in prepared statements. (https://www.php.net/manual/en/mysqli.quickstart.prepared-statements.php)
+// 3. StackOverflow - For troubleshooting SQL queries and handling user authentication in PHP. (https://stackoverflow.com/questions/14597514/how-to-handle-mysqli-error)
+// 4. GeeksforGeeks - For understanding SQL query building with dynamic conditions in PHP. (https://www.geeksforgeeks.org/dynamic-queries-in-php/)
+// 5. YouTube - For PHP session management tutorials: [PHP Sessions and Authentication](https://www.youtube.com/watch?v=9PH_0_6sI6I)
+
 <?php
 session_start();
 include '../../config/general/connection.php';

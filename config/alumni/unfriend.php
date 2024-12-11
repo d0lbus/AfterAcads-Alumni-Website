@@ -1,3 +1,8 @@
+// References:
+// 1. PHP Manual - For handling database connections and queries. (https://www.php.net/manual/en/mysqli.quickstart.php)
+// 2. ChatGPT - For explaining how to structure and use custom classes like `FriendsManager` to manage relationships.
+// 3. PHP Manual - For handling POST requests and user input sanitization. (https://www.php.net/manual/en/reserved.variables.post.php)
+
 <?php
 include '../../config/header.php';
 include '../../config/general/connection.php';

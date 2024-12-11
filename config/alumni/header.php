@@ -1,3 +1,11 @@
+// References:
+// 1. W3Schools - For using sessions in PHP to manage user authentication and redirection. (https://www.w3schools.com/php/php_sessions.asp)
+// 2. GeeksforGeeks - For using prepared statements in MySQLi and handling session management. (https://www.geeksforgeeks.org/php-mysqli-prepared-statements-with-mysqli/)
+// 3. PHP Manual - For `mysqli_prepare()` and `mysqli_bind_param()` functions used in prepared statements. (https://www.php.net/manual/en/mysqli.quickstart.prepared-statements.php)
+// 4. StackOverflow - For handling MySQL errors and common troubleshooting when using MySQLi in PHP. (https://stackoverflow.com/questions/14597514/how-to-handle-mysqli-error)
+// 5. YouTube - For PHP session management tutorials: 
+//    - [PHP Sessions and Authentication](https://www.youtube.com/watch?v=9PH_0_6sI6I)
+
 <?php
 session_start();
 

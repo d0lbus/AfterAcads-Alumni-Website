@@ -1,3 +1,7 @@
+// References:
+// 1. PHP Manual - Handling File Uploads (https://www.php.net/manual/en/features.file-upload.php)
+// 2. ChatGPT - For safely managing file uploads, reading image content, and inserting binary data into SQL databases.
+
 <?php
 session_start();
 include '../../config/general/connection.php'; 
