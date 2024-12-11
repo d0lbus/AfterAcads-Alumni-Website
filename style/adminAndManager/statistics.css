@@ -265,6 +265,37 @@ header img {
   background-color: #002f6c;
 }
 
+#users-container h2 {
+  margin: 20px;
+}
+
+#posts-container h2 {
+  margin: 20px;
+}
+
+#events-container h2 {
+  margin: 20px;
+}
+
+#opportunities-container h2 {
+  margin: 20px;
+}
+
+#users-container .card-single {
+  margin: 0px 15px 15px 15px;
+}
+
+#posts-container .card-single {
+  margin: 0px 15px 15px 15px;
+}
+
+#events-container .card-single {
+  margin: 0px 15px 15px 15px;
+}
+
+#opportunities-container .card-single {
+  margin: 0px 15px 15px 15px;
+}
 
 
 /* Media Query for smaller screens (tablets and phones) */
