@@ -1,3 +1,11 @@
+// References:
+// 1. W3Schools - For PHP basics, MySQL integration, prepared statements, and JSON handling. (https://www.w3schools.com/php/php_mysql_intro.asp)
+// 2. StackOverflow - For input validation and error handling. (https://stackoverflow.com/questions/6031904/how-to-validate-and-filter-user-input-in-php)
+// 3. GeeksforGeeks - For error handling, session management, and best practices. (https://www.geeksforgeeks.org/how-to-handle-errors-in-php/)
+// 4. YouTube - For video tutorials on PHP, MySQL, and JSON handling. (Search "PHP MySQL JSON tutorial" on YouTube)
+// 5. ChatGPT - For generating and explaining general PHP concepts, error handling, and best practices.
+// 6. PHP Manual - For details on the `json_encode` and `json_decode` functions. (https://www.php.net/manual/en/function.json-encode.php)
+
 <?php
 header('Content-Type: application/json');
 session_start();
