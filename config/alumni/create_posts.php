@@ -1,3 +1,11 @@
+// References:
+// 1. W3Schools - For PHP basics, MySQL integration, and prepared statements. (https://www.w3schools.com/php/php_mysql_intro.asp)
+// 2. StackOverflow - For file uploads, input validation, and error handling. (https://stackoverflow.com/questions/529160/how-to-upload-file-using-php)
+// 3. GeeksforGeeks - For session management, error handling, and best practices. (https://www.geeksforgeeks.org/how-to-handle-errors-in-php/)
+// 4. YouTube - For video tutorials on PHP, MySQL, and handling file uploads. (Search "PHP MySQL file upload tutorial" on YouTube)
+// 5. ChatGPT - For generating and explaining general PHP concepts, error handling, and best practices.
+// 6. PHP Manual - For details on the `json_encode`, `json_decode`, and `file_get_contents` functions. (https://www.php.net/manual/en/function.json-encode.php)
+
 <?php
 header('Content-Type: application/json');
 session_start();
