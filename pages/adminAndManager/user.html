@@ -116,15 +116,6 @@
       <div class="modal-content">
         <span class="close-btn" id="closeModal">&times;</span>
         <h2>User Details</h2>
-        <div class="profile-picture-group">
-          <h2>Profile Picture</h2>
-          <div class="profile-picture-preview">
-            <img src="" alt="Profile" id="profile-picture-preview" />
-          </div>
-          <label for="profile-picture">Upload New Profile Picture</label>
-          <input type="file" id="profile-picture" name="profile-picture" accept="image/jpeg, image/png"
-            onchange="previewImage(event)">
-        </div>
         <form id="editUserForm">
           <div>
             <label for="userId">User ID:</label>
@@ -182,13 +173,6 @@
               <option value="pending">Pending</option>
               <option value="rejected">Rejected</option>
             </select>
-          </div>
-
-          <div>
-            <label for="profilePicture">Profile Picture:</label>
-            <input type="file" id="profilePicture" name="profilePicture" accept="image/*" />
-            <img id="profilePicturePreview"
-              style="display: none; max-width: 100px; max-height: 100px; margin-top: 10px;" />
           </div>
 
           <div>
