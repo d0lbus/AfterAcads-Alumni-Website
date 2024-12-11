@@ -9,6 +9,16 @@
     href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css" />
   <link rel="stylesheet" href="../../style/adminAndManager/home.css" />
   <script src="script.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Bootstrap CSS -->
+  <link
+  href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+  rel="stylesheet"
+  >
+  <!-- Bootstrap JS -->
+  <script
+  src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+  ></script>
 </head>
 
 <body>
@@ -41,7 +51,7 @@
           <div class="left-side">
             <div class="box registrants">
               <div class="container-number">
-                <span>2</span>
+                <span id="total-registrants">Loading...</span>
               </div>
               <h3>Registrants</h3>
               <a href="Registrants.html" class="icon-link">
@@ -50,7 +60,7 @@
             </div>
             <div class="box posts">
               <div class="container-number">
-                <span>2</span>
+                <span id="total-posts">Loading...</span>
               </div>
               <h3>Posts</h3>
               <a href="approvePost.html" class="icon-link">
@@ -59,7 +69,7 @@
             </div>
             <div class="box events">
               <div class="container-number">
-                <span>4</span>
+                <span id="total-events">Loading...</span>
               </div>
               <h3>Events</h3>
               <a href="eventsDashboard.html" class="icon-link">
@@ -68,16 +78,16 @@
             </div>
             <div class="box opportunities">
               <div class="container-number">
-                <span>9</span>
+                <span id="total-opportunities">Loading...</span>
               </div>
               <h3>Opportunities</h3>
               <a href="opportunities.html" class="icon-link">
                 <i class="las la-arrow-right"></i>
               </a>
             </div>
-            <div class="box opportunities" id="usersBox">
+            <div class="box users" id="usersBox">
               <div class="container-number">
-                <span>1</span>
+                <span id="total-users">Loading...</span>
               </div>
               <h3>Users</h3>
               <a href="user.html" class="icon-link">
@@ -86,8 +96,48 @@
             </div>
           </div>
 
+          <!-- Box for Statistics Carousel -->
           <div class="box statistics">
             <h3>Statistics</h3>
+            <div id="statisticsCarousel" class="carousel slide" data-bs-ride="carousel">
+              <!-- Indicators/Dots -->
+              <div class="carousel-indicators">
+                <button type="button" data-bs-target="#statisticsCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#statisticsCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#statisticsCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                <button type="button" data-bs-target="#statisticsCarousel" data-bs-slide-to="3" aria-label="Slide 4"></button>
+              </div>
+            
+              <!-- Carousel Items -->
+              <div class="carousel-inner">
+                <div class="carousel-item active">
+                  <h4>Employment Statistics</h4>
+                  <canvas id="employmentChart"></canvas>
+                </div>
+                <div class="carousel-item">
+                  <h4>Opportunities Per Month</h4>
+                  <canvas id="opportunitiesMonthChart"></canvas>
+                </div>
+                <div class="carousel-item">
+                  <h4>Top 5 Tags</h4>
+                  <canvas id="topTagsChart"></canvas>
+                </div>
+                <div class="carousel-item">
+                  <h4>Events by School</h4>
+                  <canvas id="eventsSchoolChart"></canvas>
+                </div>
+              </div>
+            
+              <!-- Navigation Arrows -->
+              <button class="carousel-control-prev" type="button" data-bs-target="#statisticsCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+              </button>
+              <button class="carousel-control-next" type="button" data-bs-target="#statisticsCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+              </button>
+            </div>
             <a href="statistics.html" class="icon-link">
               <i class="las la-arrow-right"></i>
             </a>
@@ -95,6 +145,7 @@
         </div>
       </div>
     </div>
+
   </section>
 
   <!-- Citation: Populating Tables and Button - ChatGPT (2024) -->
@@ -134,6 +185,110 @@
         // Redirect to login page if not logged in
         window.location.href = "/adminAndManager/login.html";
       });
+  </script>
+
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+    async function fetchHomeData() {
+      try {
+        // Fetch total registrants
+        const registrantsResponse = await fetch('/api/users/usercount');
+        const registrantsData = await registrantsResponse.json();
+        document.getElementById('total-registrants').textContent = registrantsData.statusCounts.find(s => s.status === 'pending')?.total || 0;
+
+        // Fetch total posts
+        const postsResponse = await fetch('/api/posts/total');
+        const postsData = await postsResponse.json();
+        document.getElementById('total-posts').textContent = postsData.totalPosts;
+
+        // Fetch total events
+        const eventsResponse = await fetch('/api/events/total');
+        const eventsData = await eventsResponse.json();
+        document.getElementById('total-events').textContent = eventsData.totalEvents;
+
+        // Fetch total opportunities
+        const opportunitiesResponse = await fetch('/api/opportunities/total');
+        const opportunitiesData = await opportunitiesResponse.json();
+        document.getElementById('total-opportunities').textContent = opportunitiesData.totalOpportunities;
+
+        // Fetch total users
+        document.getElementById('total-users').textContent = registrantsData.totalUsers;
+
+        // Fetch statistics for charts
+        const employmentResponse = await fetch('/api/users/employment-status');
+        const employmentData = await employmentResponse.json();
+
+        const opportunitiesMonthResponse = await fetch('/api/opportunities/monthly');
+        const opportunitiesMonthData = await opportunitiesMonthResponse.json();
+
+        const topTagsResponse = await fetch('/api/posts/top-tags');
+        const topTagsData = await topTagsResponse.json();
+
+        const eventsSchoolResponse = await fetch('/api/events/schools');
+        const eventsSchoolData = await eventsSchoolResponse.json();
+
+        // Render Employment Statistics Chart
+        const employmentCtx = document.getElementById('employmentChart').getContext('2d');
+        new Chart(employmentCtx, {
+          type: 'pie',
+          data: {
+            labels: employmentData.map(e => e.employment_status),
+            datasets: [{
+              data: employmentData.map(e => e.total),
+              backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56']
+            }]
+          }
+        });
+
+        // Render Opportunities Per Month Chart
+        const opportunitiesMonthCtx = document.getElementById('opportunitiesMonthChart').getContext('2d');
+        new Chart(opportunitiesMonthCtx, {
+          type: 'line',
+          data: {
+            labels: opportunitiesMonthData.map(e => e.month),
+            datasets: [{
+              data: opportunitiesMonthData.map(e => e.total_opportunities),
+              backgroundColor: 'rgba(75,192,192,0.2)',
+              borderColor: 'rgba(75,192,192,1)',
+              borderWidth: 1
+            }]
+          }
+        });
+
+        // Render Top 5 Tags Chart
+        const topTagsCtx = document.getElementById('topTagsChart').getContext('2d');
+        new Chart(topTagsCtx, {
+          type: 'bar',
+          data: {
+            labels: topTagsData.slice(0, 5).map(t => t.tag_name),
+            datasets: [{
+              data: topTagsData.slice(0, 5).map(t => t.total),
+              backgroundColor: '#FF6384'
+            }]
+          }
+        });
+
+        // Render Events by School Chart
+        const eventsSchoolCtx = document.getElementById('eventsSchoolChart').getContext('2d');
+        new Chart(eventsSchoolCtx, {
+          type: 'bar',
+          data: {
+            labels: Object.keys(eventsSchoolData),
+            datasets: [{
+              data: Object.values(eventsSchoolData).map(e => e.total),
+              backgroundColor: '#36A2EB'
+            }]
+          }
+        });
+      } catch (error) {
+        console.error('Error fetching home data:', error);
+      }
+    }
+
+    fetchHomeData();
+  });
+
   </script>
 </body>
 
