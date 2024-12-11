@@ -25,7 +25,7 @@
         <li><a href="eventsDashboard.html">Events</a></li>
         <li><a href="opportunities.html">Opportunities</a></li>
         <li><a href="statistics.html">Statistics</a></li>
-        <li><a href="user.html">Users</a></li>
+        <li id="usersNav"><a href="user.html">Users</a></li>
       </ul>
       <div class="profile">
         <li>
@@ -58,7 +58,7 @@
         </button>
       </div>
     </div>
-    
+
     <!-- Modal Structure -->
     <div id="addCourseModal" class="modal">
       <div class="modal-content">
@@ -76,7 +76,7 @@
         </div>
       </div>
     </div>
-  
+
     <div class="container1">
       <!-- Table for Users -->
       <table class="user-table">
@@ -117,14 +117,13 @@
         <span class="close-btn" id="closeModal">&times;</span>
         <h2>User Details</h2>
         <div class="profile-picture-group">
-            <h2>Profile Picture</h2>
-            <div class="profile-picture-preview">
-                <img src="" 
-                    alt="Profile" 
-                    id="profile-picture-preview" />
-            </div>
-            <label for="profile-picture">Upload New Profile Picture</label>
-            <input type="file" id="profile-picture" name="profile-picture" accept="image/jpeg, image/png" onchange="previewImage(event)">
+          <h2>Profile Picture</h2>
+          <div class="profile-picture-preview">
+            <img src="" alt="Profile" id="profile-picture-preview" />
+          </div>
+          <label for="profile-picture">Upload New Profile Picture</label>
+          <input type="file" id="profile-picture" name="profile-picture" accept="image/jpeg, image/png"
+            onchange="previewImage(event)">
         </div>
         <form id="editUserForm">
           <div>
@@ -188,7 +187,8 @@
           <div>
             <label for="profilePicture">Profile Picture:</label>
             <input type="file" id="profilePicture" name="profilePicture" accept="image/*" />
-            <img id="profilePicturePreview" style="display: none; max-width: 100px; max-height: 100px; margin-top: 10px;" />
+            <img id="profilePicturePreview"
+              style="display: none; max-width: 100px; max-height: 100px; margin-top: 10px;" />
           </div>
 
           <div>
@@ -202,7 +202,8 @@
 
           <div>
             <label for="batchId">Batch ID:</label>
-            <input type="number" id="batchId" name="batchId" maxlength="3" placeholder="Batch ID example: 223" list="batchIdSuggestions" />
+            <input type="number" id="batchId" name="batchId" maxlength="3" placeholder="Batch ID example: 223"
+              list="batchIdSuggestions" />
             <datalist id="batchIdSuggestions"></datalist>
           </div>
 
@@ -263,7 +264,8 @@
 
           <div>
             <label for="addBatchId">Batch ID:</label>
-            <input type="number" id="addBatchId" name="batchId" maxlength="3" placeholder="Batch ID example: 223" list="addBatchSuggestions" required />
+            <input type="number" id="addBatchId" name="batchId" maxlength="3" placeholder="Batch ID example: 223"
+              list="addBatchSuggestions" required />
             <datalist id="addBatchSuggestions"></datalist>
           </div>
 
@@ -412,16 +414,16 @@
 
   <!-- JavaScript for Populating Users Table and Edit Modal -->
   <script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const userTableBody = document.querySelector(".user-table tbody");
-    const userDetailsModal = document.getElementById("userDetailsModal");
-    const closeModalBtn = document.getElementById("closeModal");
-    const editUserForm = document.getElementById("editUserForm");
-    const schoolDropdown = document.getElementById("schoolId");
-    const courseDropdown = document.getElementById("courseId");
-    const profilePicturePreview = document.getElementById("profilePicturePreview");
-    const batchIdInput = document.getElementById("batchId");
-    const batchIdSuggestions = document.getElementById("batchIdSuggestions");
+    document.addEventListener("DOMContentLoaded", () => {
+      const userTableBody = document.querySelector(".user-table tbody");
+      const userDetailsModal = document.getElementById("userDetailsModal");
+      const closeModalBtn = document.getElementById("closeModal");
+      const editUserForm = document.getElementById("editUserForm");
+      const schoolDropdown = document.getElementById("schoolId");
+      const courseDropdown = document.getElementById("courseId");
+      const profilePicturePreview = document.getElementById("profilePicturePreview");
+      const batchIdInput = document.getElementById("batchId");
+      const batchIdSuggestions = document.getElementById("batchIdSuggestions");
 
     const addButtonListeners = () => {
       const editButtons = document.querySelectorAll(".editBtn");
@@ -500,23 +502,23 @@
       .catch((error) => console.error("Error fetching users:", error));
   };
 
-    // Load users table on page load
-    populateUsersTable();
-  
-    // Fetch schools and populate dropdown
-    const populateSchoolsDropdown = async (selectedSchoolId) => {
-    const response = await fetch('/api/opportunities/schools');
-    const schools = await response.json();
-    schoolDropdown.innerHTML = '<option value="">Select School</option>';
-    schools.forEach((school) => {
-        schoolDropdown.innerHTML += `<option value="${school.id}">${school.name}</option>`;
-      });
-      if (selectedSchoolId) schoolDropdown.value = selectedSchoolId;
-    };
+      // Load users table on page load
+      populateUsersTable();
 
-    // Fetch courses based on selected school
-    const populateCoursesDropdown = async (schoolId, selectedCourseId) => {
-      if (!schoolId) {
+      // Fetch schools and populate dropdown
+      const populateSchoolsDropdown = async (selectedSchoolId) => {
+        const response = await fetch('/api/opportunities/schools');
+        const schools = await response.json();
+        schoolDropdown.innerHTML = '<option value="">Select School</option>';
+        schools.forEach((school) => {
+          schoolDropdown.innerHTML += `<option value="${school.id}">${school.name}</option>`;
+        });
+        if (selectedSchoolId) schoolDropdown.value = selectedSchoolId;
+      };
+
+      // Fetch courses based on selected school
+      const populateCoursesDropdown = async (schoolId, selectedCourseId) => {
+        if (!schoolId) {
           courseDropdown.innerHTML = '<option value="">Select Course</option>';
           return;
         }
@@ -529,97 +531,97 @@
         if (selectedCourseId) courseDropdown.value = selectedCourseId;
       };
 
-    // Fetch and populate batch suggestions
-    const populateBatchSuggestions = async (selectedBatchId) => {
-      try {
-        const batchIdInput = document.getElementById("batchId");
-        const batchIdSuggestions = document.getElementById("batchIdSuggestions");
+      // Fetch and populate batch suggestions
+      const populateBatchSuggestions = async (selectedBatchId) => {
+        try {
+          const batchIdInput = document.getElementById("batchId");
+          const batchIdSuggestions = document.getElementById("batchIdSuggestions");
 
-        const response = await fetch("/api/users/getBatches");
-        if (!response.ok) throw new Error("Failed to fetch batches.");
+          const response = await fetch("/api/users/getBatches");
+          if (!response.ok) throw new Error("Failed to fetch batches.");
 
-        const batches = await response.json();
+          const batches = await response.json();
 
-        // Clear existing suggestions
-        batchIdSuggestions.innerHTML = "";
+          // Clear existing suggestions
+          batchIdSuggestions.innerHTML = "";
 
-        // Populate datalist with batches, excluding id #1
-        batches.forEach((batch) => {
-          if (batch.id !== 1) {
-            const option = document.createElement("option");
-            option.value = batch.batch_number;
-            batchIdSuggestions.appendChild(option);
+          // Populate datalist with batches, excluding id #1
+          batches.forEach((batch) => {
+            if (batch.id !== 1) {
+              const option = document.createElement("option");
+              option.value = batch.batch_number;
+              batchIdSuggestions.appendChild(option);
+            }
+          });
+
+          // Set selected batch ID if provided
+          if (selectedBatchId) {
+            const selectedBatch = batches.find((batch) => batch.id === selectedBatchId);
+            if (selectedBatch) {
+              batchIdInput.value = selectedBatch.batch_number;
+            }
           }
-        });
-
-        // Set selected batch ID if provided
-        if (selectedBatchId) {
-          const selectedBatch = batches.find((batch) => batch.id === selectedBatchId);
-          if (selectedBatch) {
-            batchIdInput.value = selectedBatch.batch_number;
-          }
+        } catch (error) {
+          console.error("Error populating batch suggestions:", error);
         }
-      } catch (error) {
-        console.error("Error populating batch suggestions:", error);
-      }
-    };
-    
-    // Restrict input to 3 digits and display instruction
-    batchIdInput.addEventListener("input", () => {
+      };
+
+      // Restrict input to 3 digits and display instruction
+      batchIdInput.addEventListener("input", () => {
         const value = batchIdInput.value;
         if (value.length > 3) {
           batchIdInput.value = value.slice(0, 3); // Enforce 3-digit restriction
         }
       });
 
-    // Open modal and populate fields
-    const openEditModal = async (userId) => {
-      const response = await fetch(`/api/users/getUserById/${userId}`);
-      const data = await response.json();
+      // Open modal and populate fields
+      const openEditModal = async (userId) => {
+        const response = await fetch(`/api/users/getUserById/${userId}`);
+        const data = await response.json();
 
-      document.getElementById("userId").value = data.id;
-      document.getElementById("firstName").value = data.first_name;
-      document.getElementById("middleName").value = data.middle_name;
-      document.getElementById("lastName").value = data.last_name;
-      document.getElementById("email").value = data.email;
-      document.getElementById("createdAt").value = data.date_created;
-      document.getElementById("userAddress").value = data.user_address;
-      document.getElementById("bio").value = data.bio;
-      document.getElementById("employmentStatus").value = data.employment_status;
-      document.getElementById("status").value = data.status;
-      document.getElementById("userType").value = data.userType;
-      document.getElementById("gender").value = data.gender;
+        document.getElementById("userId").value = data.id;
+        document.getElementById("firstName").value = data.first_name;
+        document.getElementById("middleName").value = data.middle_name;
+        document.getElementById("lastName").value = data.last_name;
+        document.getElementById("email").value = data.email;
+        document.getElementById("createdAt").value = data.date_created;
+        document.getElementById("userAddress").value = data.user_address;
+        document.getElementById("bio").value = data.bio;
+        document.getElementById("employmentStatus").value = data.employment_status;
+        document.getElementById("status").value = data.status;
+        document.getElementById("userType").value = data.userType;
+        document.getElementById("gender").value = data.gender;
 
-      // Handle profile picture preview
-      if (data.profile_picture) {
-        profilePicturePreview.src = `data:image/png;base64,${data.profile_picture}`;
-        profilePicturePreview.style.display = "block";
-      } else {
-        profilePicturePreview.style.display = "none";
-      }
+        // Handle profile picture preview
+        if (data.profile_picture) {
+          profilePicturePreview.src = `data:image/png;base64,${data.profile_picture}`;
+          profilePicturePreview.style.display = "block";
+        } else {
+          profilePicturePreview.style.display = "none";
+        }
 
-      // Populate school and course dropdowns and batch id
-      await populateSchoolsDropdown(data.school_id);
-      await populateCoursesDropdown(data.school_id, data.course_id);
-      await populateBatchSuggestions(data.batch_id);
+        // Populate school and course dropdowns and batch id
+        await populateSchoolsDropdown(data.school_id);
+        await populateCoursesDropdown(data.school_id, data.course_id);
+        await populateBatchSuggestions(data.batch_id);
 
-      userDetailsModal.style.display = "flex";
-    };
+        userDetailsModal.style.display = "flex";
+      };
 
-    // Close modal
-    closeModalBtn.addEventListener("click", () => {
-      userDetailsModal.style.display = "none";
-    });
+      // Close modal
+      closeModalBtn.addEventListener("click", () => {
+        userDetailsModal.style.display = "none";
+      });
 
-    // Handle school dropdown change
-    schoolDropdown.addEventListener("change", async () => {
-       const schoolId = schoolDropdown.value;
-      await populateCoursesDropdown(schoolId);
-    });
+      // Handle school dropdown change
+      schoolDropdown.addEventListener("change", async () => {
+        const schoolId = schoolDropdown.value;
+        await populateCoursesDropdown(schoolId);
+      });
 
-    // Handle form submission
-    editUserForm.addEventListener("submit", async (event) => {
-      event.preventDefault();
+      // Handle form submission
+      editUserForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
 
         const formData = new FormData(editUserForm);
 
@@ -639,7 +641,7 @@
           console.error("Error updating user:", error);
         }
       });
-  });
+    });
   </script>
 
   <!-- Script for Adding Users-->
@@ -735,6 +737,36 @@
         }
       });
     });
+  </script>
+
+  <!-- Script for Checking User Details if Admin or Manager-->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // Fetch user details from the backend
+      fetch("/api/users/details")
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Failed to fetch user details");
+          }
+          return response.json();
+        })
+        .then((user) => {
+          // Check if the user type is "manager" and hide the "Users" section
+          if (user.userType === "manager") {
+            const usersNav = document.getElementById("usersNav");
+            const usersBox = document.getElementById("usersBox");
+
+            if (usersNav) usersNav.style.display = "none"; // Hide nav link
+            if (usersBox) usersBox.style.display = "none"; // Hide box
+          }
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+          // Redirect to login page if not logged in
+          window.location.href = "/adminAndManager/login.html";
+        });
+    });
+
   </script>
 </body>
 

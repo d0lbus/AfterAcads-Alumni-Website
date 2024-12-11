@@ -13,183 +13,183 @@
 </head>
 
 <body>
-     <section>
+    <section>
         <header>
-                <div>
-                    <img class="afteracadstext" src="../../assets/logo.png" alt="afteracads" />
-                </div>
-                <!-- Citation: navigation bar - (https://www.youtube.com/watch?v=oLgtucwjVII) -->
-                <ul class="nav-links">
-                    <li><a href="home.html">Home</a></li>
-                    <li><a href="Registrants.html">Registrants</a></li>
-                    <li><a href="approvePost.html">Posts</a></li>
-                    <li><a href="eventsDashboard.html">Events</a></li>
-                    <li><a href="opportunities.html">Opportunities</a></li>
-                    <li><a href="statistics.html">Statistics</a></li>
-                    <li><a href="user.html">Users</a></li>
-                </ul>
-                <div class="profile">
-                    <li><a href="managerProfile.html"><img class="profile-img" src="../../assets/profileIcon.jpg"
-                                alt="Profile" /></a></li>
-                </div>
-                </div>
-                </div>
-            </header>
+            <div>
+                <img class="afteracadstext" src="../../assets/logo.png" alt="afteracads" />
+            </div>
+            <!-- Citation: navigation bar - (https://www.youtube.com/watch?v=oLgtucwjVII) -->
+            <ul class="nav-links">
+                <li><a href="home.html">Home</a></li>
+                <li><a href="Registrants.html">Registrants</a></li>
+                <li><a href="approvePost.html">Posts</a></li>
+                <li><a href="eventsDashboard.html">Events</a></li>
+                <li><a href="opportunities.html">Opportunities</a></li>
+                <li><a href="statistics.html">Statistics</a></li>
+                <li id="usersNav"><a href="user.html">Users</a></li>
+            </ul>
+            <div class="profile">
+                <li><a href="managerProfile.html"><img class="profile-img" src="../../assets/profileIcon.jpg"
+                            alt="Profile" /></a></li>
+            </div>
+            </div>
+            </div>
+        </header>
     </section>
-        <div class="events-section container">
-            <div class="search-and-buttons">
+    <div class="events-section container">
+        <div class="search-and-buttons">
+            <div class="button-group">
+                </select>
                 <div class="button-group">
-                    </select>
-                    <div class="button-group">
-                        <button class="btn-Users active" data-target="users-container">Users</button>
-                        <button class="btn-Opportunities" data-target="opportunities-container">Opportunities</button>
-                        <button class="btn-Posts" data-target="posts-container">Posts</button>
-                        <button class="btn-Events" data-target="events-container">Events</button>
-                    </div>
+                    <button class="btn-Users active" data-target="users-container">Users</button>
+                    <button class="btn-Opportunities" data-target="opportunities-container">Opportunities</button>
+                    <button class="btn-Posts" data-target="posts-container">Posts</button>
+                    <button class="btn-Events" data-target="events-container">Events</button>
                 </div>
             </div>
         </div>
+    </div>
 
-        <!-- Citation: Design for the statistics - (https://www.youtube.com/watch?v=CgCPP2KO5ds) -->
+    <!-- Citation: Design for the statistics - (https://www.youtube.com/watch?v=CgCPP2KO5ds) -->
 
-        <!-- Containers for each type of statistics -->
-        <div id="users-container" class="stats-container active" style="display: block;">
-            <h2>Users Statistics</h2>
-            <div class="cards">
-                <div class="card-single">
-                    <!-- Total Users -->
-                    <p id="total-users">Loading total users...</p>
-
-                    <!-- Status Breakdown -->
-                    <h3>Status Breakdown</h3>
-                        <ul id="status-breakdown">
-                            <!-- Status-specific counts will be dynamically inserted here -->
-                        </ul>
-                </div>
-                <div class="card-single">
-                    <!-- Employment Status Chart -->
-                    <div>
-                        <h3>Employment Status</h3>
-                        <canvas id="employmentStatusChart"></canvas>
-                    </div>
-                </div>
-                <div class="card-single">
-                    <!-- Gender Distribution Chart -->
-                    <div>
-                        <h3>Gender Distribution</h3>
-                        <canvas id="genderChart"></canvas>
-                    </div>   
-                </div>
-                <div class="card-single">
-                    <!-- Gender Distribution Chart -->
-                    <div>
-                        <h3>Batch Distribution</h3>
-                        <canvas id="batchGroupChart"></canvas>
-                    </div>   
-                </div>
-            </div>
-        </div>
-
-        <div id="posts-container" class="stats-container" style="display: none;">
-            <h2>Post Statistics</h2>
-            <div class="cards">
-                <!-- Total Posts -->
-                <div class="card-single">
-                    <p id="total-posts">Loading total posts...</p>
-                    <h3>Status Breakdown</h3>
-                    <ul id="post-status-breakdown"></ul>
-                </div>
-        
-                <!-- Posts by Batch -->
-                <div class="card-single">
-                    <h3>Posts by Batch</h3>
-                    <canvas id="postBatchChart"></canvas>
-                </div>
-                <!-- Dynamically Generated School and Course Cards -->
-            </div>
-        
-            <!-- Top 5 Most Used Tags -->
+    <!-- Containers for each type of statistics -->
+    <div id="users-container" class="stats-container active" style="display: block;">
+        <h2>Users Statistics</h2>
+        <div class="cards">
             <div class="card-single">
-                <h3>Top 5 Tags</h3>
-                <ul id="top-tags-list"></ul>
+                <!-- Total Users -->
+                <p id="total-users">Loading total users...</p>
+
+                <!-- Status Breakdown -->
+                <h3>Status Breakdown</h3>
+                <ul id="status-breakdown">
+                    <!-- Status-specific counts will be dynamically inserted here -->
+                </ul>
             </div>
-        </div>
-        
-        <div id="events-container" class="stats-container" style="display: none;">
-            <h2>Event Statistics</h2>
-            <div class="cards">
-                <!-- Total Events -->
-                <div class="card-single">
-                    <p id="total-events">Loading total events...</p>
-                    <h3>Status Breakdown</h3>
-                    <ul id="event-status-breakdown"></ul>
-                </div>
-        
-                <!-- Events by School -->
-                <div class="card-single">
-                    <h3>Events by School</h3>
-                    <canvas id="eventSchoolChart"></canvas>
-                </div>
-        
-                <!-- Events Per Month -->
-                <div class="card-single">
-                    <h3>Events Per Month</h3>
-                    <canvas id="eventMonthChart"></canvas>
+            <div class="card-single">
+                <!-- Employment Status Chart -->
+                <div>
+                    <h3>Employment Status</h3>
+                    <canvas id="employmentStatusChart"></canvas>
                 </div>
             </div>
-        </div>
-        
-        <div id="opportunities-container" class="stats-container" style="display: none;">
-            <h2>Opportunities Statistics</h2>
-            <div class="cards">
-        
-                <!-- Total Opportunities -->
-                <div class="card-single">
-                    <p id="total-opportunities">Loading total opportunities...</p>
+            <div class="card-single">
+                <!-- Gender Distribution Chart -->
+                <div>
+                    <h3>Gender Distribution</h3>
+                    <canvas id="genderChart"></canvas>
                 </div>
-        
-                <!-- Top Companies Chart -->
-                <div class="card-single">
-                    <h3>Top 10 Companies by Job Postings</h3>
-                    <canvas id="topCompaniesChart"></canvas>
-                </div>
-        
-                <!-- Opportunities Per Month -->
-                <div class="card-single">
-                    <h3>Opportunities Per Month</h3>
-                    <canvas id="opportunityMonthChart"></canvas>
-                </div>
-
-
-                <div id="school-charts">
-                        <!-- Dynamic school and course charts will be inserted here -->
+            </div>
+            <div class="card-single">
+                <!-- Gender Distribution Chart -->
+                <div>
+                    <h3>Batch Distribution</h3>
+                    <canvas id="batchGroupChart"></canvas>
                 </div>
             </div>
         </div>
-        
-        </main>
-        <!-- Citation:  ChatGPT assisted in debugging the sidebar toggle functionality and layout adjustment logic.  -->
-        <script>
-            document.addEventListener("DOMContentLoaded", function () {
-                const sidebar = document.querySelector(".sidebar");
-                const toggleButton = document.getElementById("sidebarToggle");
+    </div>
 
-                toggleButton.addEventListener("click", function () {
-                    sidebar.classList.toggle("minimized");
+    <div id="posts-container" class="stats-container" style="display: none;">
+        <h2>Post Statistics</h2>
+        <div class="cards">
+            <!-- Total Posts -->
+            <div class="card-single">
+                <p id="total-posts">Loading total posts...</p>
+                <h3>Status Breakdown</h3>
+                <ul id="post-status-breakdown"></ul>
+            </div>
 
-                    // Add this to adjust the main content dynamically
-                    const mainContent = document.querySelector(".main-content");
-                    if (sidebar.classList.contains("minimized")) {
-                        mainContent.style.marginLeft = "60px"; // Adjust for minimized sidebar
-                    } else {
-                        mainContent.style.marginLeft = "280px"; // Restore when sidebar is full
-                    }
-                });
+            <!-- Posts by Batch -->
+            <div class="card-single">
+                <h3>Posts by Batch</h3>
+                <canvas id="postBatchChart"></canvas>
+            </div>
+            <!-- Dynamically Generated School and Course Cards -->
+        </div>
+
+        <!-- Top 5 Most Used Tags -->
+        <div class="card-single">
+            <h3>Top 5 Tags</h3>
+            <ul id="top-tags-list"></ul>
+        </div>
+    </div>
+
+    <div id="events-container" class="stats-container" style="display: none;">
+        <h2>Event Statistics</h2>
+        <div class="cards">
+            <!-- Total Events -->
+            <div class="card-single">
+                <p id="total-events">Loading total events...</p>
+                <h3>Status Breakdown</h3>
+                <ul id="event-status-breakdown"></ul>
+            </div>
+
+            <!-- Events by School -->
+            <div class="card-single">
+                <h3>Events by School</h3>
+                <canvas id="eventSchoolChart"></canvas>
+            </div>
+
+            <!-- Events Per Month -->
+            <div class="card-single">
+                <h3>Events Per Month</h3>
+                <canvas id="eventMonthChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <div id="opportunities-container" class="stats-container" style="display: none;">
+        <h2>Opportunities Statistics</h2>
+        <div class="cards">
+
+            <!-- Total Opportunities -->
+            <div class="card-single">
+                <p id="total-opportunities">Loading total opportunities...</p>
+            </div>
+
+            <!-- Top Companies Chart -->
+            <div class="card-single">
+                <h3>Top 10 Companies by Job Postings</h3>
+                <canvas id="topCompaniesChart"></canvas>
+            </div>
+
+            <!-- Opportunities Per Month -->
+            <div class="card-single">
+                <h3>Opportunities Per Month</h3>
+                <canvas id="opportunityMonthChart"></canvas>
+            </div>
+
+
+            <div id="school-charts">
+                <!-- Dynamic school and course charts will be inserted here -->
+            </div>
+        </div>
+    </div>
+
+    </main>
+    <!-- Citation:  ChatGPT assisted in debugging the sidebar toggle functionality and layout adjustment logic.  -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const sidebar = document.querySelector(".sidebar");
+            const toggleButton = document.getElementById("sidebarToggle");
+
+            toggleButton.addEventListener("click", function () {
+                sidebar.classList.toggle("minimized");
+
+                // Add this to adjust the main content dynamically
+                const mainContent = document.querySelector(".main-content");
+                if (sidebar.classList.contains("minimized")) {
+                    mainContent.style.marginLeft = "60px"; // Adjust for minimized sidebar
+                } else {
+                    mainContent.style.marginLeft = "280px"; // Restore when sidebar is full
+                }
             });
-        </script>
+        });
+    </script>
 
-        <!-- Script for Toggling Between Containers -->
-        <script>
+    <!-- Script for Toggling Between Containers -->
+    <script>
         document.addEventListener("DOMContentLoaded", function () {
             const buttons = document.querySelectorAll(".button-group button");
             const containers = document.querySelectorAll(".stats-container");
@@ -221,102 +221,164 @@
             });
         });
 
-        </script>
+    </script>
 
-        <!-- Script for Fetching User Statistics -->
-        <script>
-            document.addEventListener("DOMContentLoaded", function () {
-                async function fetchUserStatistics() {
-                    try {
-                        // Fetch total users and status breakdown
-                        const userStatsResponse = await fetch('/api/users/usercount');
-                        const userStatsData = await userStatsResponse.json();
+    <!-- Script for Fetching User Statistics -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            async function fetchUserStatistics() {
+                try {
+                    // Fetch total users and status breakdown
+                    const userStatsResponse = await fetch('/api/users/usercount');
+                    const userStatsData = await userStatsResponse.json();
 
-                        // Display total users
-                        document.getElementById('total-users').textContent = `Total Users: ${userStatsData.totalUsers}`;
+                    // Display total users
+                    document.getElementById('total-users').textContent = `Total Users: ${userStatsData.totalUsers}`;
 
-                        // Display status breakdown
-                        const statusList = document.getElementById('status-breakdown');
-                        statusList.innerHTML = ''; // Clear existing list
-                        userStatsData.statusCounts.forEach(status => {
-                            const listItem = document.createElement('li');
-                            listItem.textContent = `${status.status}: ${status.total}`;
-                            statusList.appendChild(listItem);
-                        });
+                    // Display status breakdown
+                    const statusList = document.getElementById('status-breakdown');
+                    statusList.innerHTML = ''; // Clear existing list
+                    userStatsData.statusCounts.forEach(status => {
+                        const listItem = document.createElement('li');
+                        listItem.textContent = `${status.status}: ${status.total}`;
+                        statusList.appendChild(listItem);
+                    });
 
-                        // Fetch employment status data
-                        const employmentResponse = await fetch('/api/users/employment-status');
-                        const employmentData = await employmentResponse.json();
-                        const employmentLabels = employmentData.map(item => item.employment_status);
-                        const employmentCounts = employmentData.map(item => item.total);
+                    // Fetch employment status data
+                    const employmentResponse = await fetch('/api/users/employment-status');
+                    const employmentData = await employmentResponse.json();
+                    const employmentLabels = employmentData.map(item => item.employment_status);
+                    const employmentCounts = employmentData.map(item => item.total);
 
-                        // Render Employment Status Chart
-                        const employmentCtx = document.getElementById('employmentStatusChart').getContext('2d');
-                        new Chart(employmentCtx, {
-                            type: 'pie',
-                            data: {
-                                labels: employmentLabels,
-                                datasets: [{
-                                    label: 'Employment Status',
-                                    data: employmentCounts,
-                                    backgroundColor: ['#36A2EB', '#FF6384', '#FFCE56'], // Adjust colors as needed
-                                    borderWidth: 1
-                                }]
-                            },
-                            options: {
-                                responsive: true,
-                                plugins: {
-                                    legend: {
-                                        position: 'top'
-                                    }
+                    // Render Employment Status Chart
+                    const employmentCtx = document.getElementById('employmentStatusChart').getContext('2d');
+                    new Chart(employmentCtx, {
+                        type: 'pie',
+                        data: {
+                            labels: employmentLabels,
+                            datasets: [{
+                                label: 'Employment Status',
+                                data: employmentCounts,
+                                backgroundColor: ['#36A2EB', '#FF6384', '#FFCE56'], // Adjust colors as needed
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            plugins: {
+                                legend: {
+                                    position: 'top'
                                 }
                             }
-                        });
+                        }
+                    });
 
-                        // Fetch gender distribution data
-                        const genderResponse = await fetch('/api/users/gendergroup');
-                        const genderData = await genderResponse.json();
-                        const genderLabels = genderData.map(item => item.gender);
-                        const genderCounts = genderData.map(item => item.total);
+                    // Fetch gender distribution data
+                    const genderResponse = await fetch('/api/users/gendergroup');
+                    const genderData = await genderResponse.json();
+                    const genderLabels = genderData.map(item => item.gender);
+                    const genderCounts = genderData.map(item => item.total);
 
-                        // Render Gender Distribution Chart
-                        const genderCtx = document.getElementById('genderChart').getContext('2d');
-                        new Chart(genderCtx, {
-                            type: 'bar',
-                            data: {
-                                labels: genderLabels,
-                                datasets: [{
-                                    label: 'Gender Distribution',
-                                    data: genderCounts,
-                                    backgroundColor: ['#4BC0C0', '#FF9F40', '#9966FF'], // Adjust colors as needed
-                                    borderWidth: 1
-                                }]
-                            },
-                            options: {
-                                responsive: true,
-                                plugins: {
-                                    legend: {
-                                        position: 'top'
-                                    }
+                    // Render Gender Distribution Chart
+                    const genderCtx = document.getElementById('genderChart').getContext('2d');
+                    new Chart(genderCtx, {
+                        type: 'bar',
+                        data: {
+                            labels: genderLabels,
+                            datasets: [{
+                                label: 'Gender Distribution',
+                                data: genderCounts,
+                                backgroundColor: ['#4BC0C0', '#FF9F40', '#9966FF'], // Adjust colors as needed
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            plugins: {
+                                legend: {
+                                    position: 'top'
                                 }
                             }
-                        });
+                        }
+                    });
 
-                        // Fetch users grouped by batch
-                        const batchResponse = await fetch('/api/users/batchesgroup');
-                        const batchData = await batchResponse.json();
-                        const batchLabels = batchData.map(item => `Batch ${item.batch_number}`);
-                        const batchCounts = batchData.map(item => item.total);
+                    // Fetch users grouped by batch
+                    const batchResponse = await fetch('/api/users/batchesgroup');
+                    const batchData = await batchResponse.json();
+                    const batchLabels = batchData.map(item => `Batch ${item.batch_number}`);
+                    const batchCounts = batchData.map(item => item.total);
 
-                        // Render Batch Group Chart
-                        const batchCtx = document.getElementById('batchGroupChart').getContext('2d');
-                        new Chart(batchCtx, {
+                    // Render Batch Group Chart
+                    const batchCtx = document.getElementById('batchGroupChart').getContext('2d');
+                    new Chart(batchCtx, {
+                        type: 'bar',
+                        data: {
+                            labels: batchLabels,
+                            datasets: [{
+                                label: 'Users by Batch',
+                                data: batchCounts,
+                                backgroundColor: '#FF6384',
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            plugins: {
+                                legend: {
+                                    position: 'top'
+                                }
+                            }
+                        }
+                    });
+
+                    // Fetch School and Course distribution data
+                    const schoolCourseResponse = await fetch('/api/users/school-course-group');
+                    const schoolCourseData = await schoolCourseResponse.json();
+
+                    // Get the cards container 
+                    const cardsContainer = document.querySelector("#users-container .cards");
+                    if (!cardsContainer) {
+                        console.error("Cards container not found!");
+                        return;
+                    }
+
+                    // Clear existing cards if any
+                    const existingSchoolCards = document.querySelectorAll('.card-single.school-card');
+                    existingSchoolCards.forEach(card => card.remove());
+
+                    // Dynamically generate a card for each school
+                    Object.entries(schoolCourseData).forEach(([schoolName, courses]) => {
+
+                        // Create a card container
+                        const schoolCard = document.createElement('div');
+                        schoolCard.classList.add('card-single', 'school-card'); // Add class to match existing styling
+
+                        // Create a title for the school
+                        const schoolTitle = document.createElement('h3');
+                        schoolTitle.textContent = `${schoolName} - Users per Course`;
+                        schoolCard.appendChild(schoolTitle);
+
+                        // Create a canvas for the chart
+                        const canvas = document.createElement('canvas');
+                        canvas.id = `chart-${schoolName.replace(/\s+/g, '-')}`;
+                        schoolCard.appendChild(canvas);
+
+                        // Append the card to the cards container
+                        cardsContainer.appendChild(schoolCard);
+
+                        // Prepare data for Chart.js
+                        const courseLabels = courses.map(course => course.course_name);
+                        const courseCounts = courses.map(course => course.total);
+
+                        // Render the chart
+                        const ctx = canvas.getContext('2d');
+                        new Chart(ctx, {
                             type: 'bar',
                             data: {
-                                labels: batchLabels,
+                                labels: courseLabels,
                                 datasets: [{
-                                    label: 'Users by Batch',
-                                    data: batchCounts,
+                                    label: 'Users per Course',
+                                    data: courseCounts,
                                     backgroundColor: '#FF6384',
                                     borderWidth: 1
                                 }]
@@ -330,122 +392,116 @@
                                 }
                             }
                         });
-
-                        // Fetch School and Course distribution data
-                        const schoolCourseResponse = await fetch('/api/users/school-course-group');
-                        const schoolCourseData = await schoolCourseResponse.json();
-
-                        // Get the cards container 
-                        const cardsContainer = document.querySelector("#users-container .cards");
-                        if (!cardsContainer) {
-                            console.error("Cards container not found!");
-                            return;
-                        }
-
-                        // Clear existing cards if any
-                        const existingSchoolCards = document.querySelectorAll('.card-single.school-card');
-                        existingSchoolCards.forEach(card => card.remove());
-
-                        // Dynamically generate a card for each school
-                        Object.entries(schoolCourseData).forEach(([schoolName, courses]) => {
-
-                            // Create a card container
-                            const schoolCard = document.createElement('div');
-                            schoolCard.classList.add('card-single', 'school-card'); // Add class to match existing styling
-
-                            // Create a title for the school
-                            const schoolTitle = document.createElement('h3');
-                            schoolTitle.textContent = `${schoolName} - Users per Course`;
-                            schoolCard.appendChild(schoolTitle);
-
-                            // Create a canvas for the chart
-                            const canvas = document.createElement('canvas');
-                            canvas.id = `chart-${schoolName.replace(/\s+/g, '-')}`;
-                            schoolCard.appendChild(canvas);
-
-                            // Append the card to the cards container
-                            cardsContainer.appendChild(schoolCard);
-
-                            // Prepare data for Chart.js
-                            const courseLabels = courses.map(course => course.course_name);
-                            const courseCounts = courses.map(course => course.total);
-
-                            // Render the chart
-                            const ctx = canvas.getContext('2d');
-                            new Chart(ctx, {
-                                type: 'bar',
-                                data: {
-                                    labels: courseLabels,
-                                    datasets: [{
-                                        label: 'Users per Course',
-                                        data: courseCounts,
-                                        backgroundColor: '#FF6384',
-                                        borderWidth: 1
-                                    }]
-                                },
-                                options: {
-                                    responsive: true,
-                                    plugins: {
-                                        legend: {
-                                            position: 'top'
-                                        }
-                                    }
-                                }
-                            });
-                        });
+                    });
 
 
-                    } catch (error) {
-                        console.error('Error fetching user statistics:', error);
-                    }
+                } catch (error) {
+                    console.error('Error fetching user statistics:', error);
                 }
+            }
 
-                fetchUserStatistics();
-            });
-            
-        </script>
+            fetchUserStatistics();
+        });
 
-        <!-- Script for Fetching Post Statistics -->
-        <script>
-            document.addEventListener("DOMContentLoaded", function () {
-                async function fetchPostStatistics() {
-                    try {
-                        // Fetch total posts
-                        const totalPostsResponse = await fetch('/api/posts/total');
-                        const totalPostsData = await totalPostsResponse.json();
-                        document.getElementById('total-posts').textContent = `Total Posts: ${totalPostsData.totalPosts}`;
+    </script>
 
-                        // Fetch posts grouped by status
-                        const statusResponse = await fetch('/api/posts/status');
-                        const statusData = await statusResponse.json();
-  
-                        const statusList = document.getElementById('post-status-breakdown');
-                        statusList.innerHTML = ''; // Clear existing list
+    <!-- Script for Fetching Post Statistics -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            async function fetchPostStatistics() {
+                try {
+                    // Fetch total posts
+                    const totalPostsResponse = await fetch('/api/posts/total');
+                    const totalPostsData = await totalPostsResponse.json();
+                    document.getElementById('total-posts').textContent = `Total Posts: ${totalPostsData.totalPosts}`;
 
-        
-                        Object.keys(statusData).forEach(status => {
-                            const total = statusData[status].length; 
-                            const listItem = document.createElement('li');
-                            listItem.textContent = `${status}: ${total}`;
-                            statusList.appendChild(listItem);
-                        });
+                    // Fetch posts grouped by status
+                    const statusResponse = await fetch('/api/posts/status');
+                    const statusData = await statusResponse.json();
 
-                        // Fetch posts grouped by batch
-                        const batchResponse = await fetch('/api/posts/batches');
-                        const batchData = await batchResponse.json();
-                        const batchLabels = batchData.map(item => `Batch ${item.batch_number}`);
-                        const batchCounts = batchData.map(item => item.total_posts);
+                    const statusList = document.getElementById('post-status-breakdown');
+                    statusList.innerHTML = ''; // Clear existing list
 
-                        // Render Batch Chart
-                        const batchCtx = document.getElementById('postBatchChart').getContext('2d');
-                        new Chart(batchCtx, {
+
+                    Object.keys(statusData).forEach(status => {
+                        const total = statusData[status].length;
+                        const listItem = document.createElement('li');
+                        listItem.textContent = `${status}: ${total}`;
+                        statusList.appendChild(listItem);
+                    });
+
+                    // Fetch posts grouped by batch
+                    const batchResponse = await fetch('/api/posts/batches');
+                    const batchData = await batchResponse.json();
+                    const batchLabels = batchData.map(item => `Batch ${item.batch_number}`);
+                    const batchCounts = batchData.map(item => item.total_posts);
+
+                    // Render Batch Chart
+                    const batchCtx = document.getElementById('postBatchChart').getContext('2d');
+                    new Chart(batchCtx, {
+                        type: 'bar',
+                        data: {
+                            labels: batchLabels,
+                            datasets: [{
+                                label: 'Posts by Batch',
+                                data: batchCounts,
+                                backgroundColor: '#36A2EB',
+                                borderWidth: 1,
+                            }],
+                        },
+                        options: {
+                            responsive: true,
+                            plugins: {
+                                legend: {
+                                    position: 'top',
+                                },
+                            },
+                        },
+                    });
+
+                    // Fetch posts grouped by school and course
+                    const schoolCourseResponse = await fetch('/api/posts/school-course-group');
+                    const schoolCourseData = await schoolCourseResponse.json();
+
+                    const cardsContainer = document.querySelector("#posts-container .cards");
+
+                    // Clear existing dynamically generated school charts
+                    const existingSchoolCards = document.querySelectorAll('.card-single.school-card');
+                    existingSchoolCards.forEach(card => card.remove());
+
+                    // Dynamically generate cards for each school and its courses
+                    Object.entries(schoolCourseData).forEach(([schoolName, courses]) => {
+                        // Create a card for the school
+                        const schoolCard = document.createElement('div');
+                        schoolCard.classList.add('card-single', 'school-card');
+
+                        // Add school title
+                        const schoolTitle = document.createElement('h3');
+                        schoolTitle.textContent = `${schoolName} - Posts per Course`;
+                        schoolCard.appendChild(schoolTitle);
+
+                        // Create canvas for the chart
+                        const canvas = document.createElement('canvas');
+                        canvas.id = `post-chart-${schoolName.replace(/\s+/g, '-')}`;
+                        schoolCard.appendChild(canvas);
+
+                        // Append the card to the cards container
+                        cardsContainer.appendChild(schoolCard);
+
+                        // Prepare data for Chart.js
+                        const courseLabels = courses.map(course => course.course_name);
+                        const courseCounts = courses.map(course => course.total_posts);
+
+                        // Render the chart
+                        const ctx = canvas.getContext('2d');
+                        new Chart(ctx, {
                             type: 'bar',
                             data: {
-                                labels: batchLabels,
+                                labels: courseLabels,
                                 datasets: [{
-                                    label: 'Posts by Batch',
-                                    data: batchCounts,
-                                    backgroundColor: '#36A2EB',
+                                    label: 'Posts per Course',
+                                    data: courseCounts,
+                                    backgroundColor: '#FF6384',
                                     borderWidth: 1,
                                 }],
                             },
@@ -458,87 +514,31 @@
                                 },
                             },
                         });
+                    });
 
-                        // Fetch posts grouped by school and course
-                        const schoolCourseResponse = await fetch('/api/posts/school-course-group');
-                        const schoolCourseData = await schoolCourseResponse.json();
-
-                        const cardsContainer = document.querySelector("#posts-container .cards");
-
-                        // Clear existing dynamically generated school charts
-                        const existingSchoolCards = document.querySelectorAll('.card-single.school-card');
-                        existingSchoolCards.forEach(card => card.remove());
-
-                        // Dynamically generate cards for each school and its courses
-                        Object.entries(schoolCourseData).forEach(([schoolName, courses]) => {
-                            // Create a card for the school
-                            const schoolCard = document.createElement('div');
-                            schoolCard.classList.add('card-single', 'school-card');
-
-                            // Add school title
-                            const schoolTitle = document.createElement('h3');
-                            schoolTitle.textContent = `${schoolName} - Posts per Course`;
-                            schoolCard.appendChild(schoolTitle);
-
-                            // Create canvas for the chart
-                            const canvas = document.createElement('canvas');
-                            canvas.id = `post-chart-${schoolName.replace(/\s+/g, '-')}`;
-                            schoolCard.appendChild(canvas);
-
-                            // Append the card to the cards container
-                            cardsContainer.appendChild(schoolCard);
-
-                            // Prepare data for Chart.js
-                            const courseLabels = courses.map(course => course.course_name);
-                            const courseCounts = courses.map(course => course.total_posts);
-
-                            // Render the chart
-                            const ctx = canvas.getContext('2d');
-                            new Chart(ctx, {
-                                type: 'bar',
-                                data: {
-                                    labels: courseLabels,
-                                    datasets: [{
-                                        label: 'Posts per Course',
-                                        data: courseCounts,
-                                        backgroundColor: '#FF6384',
-                                        borderWidth: 1,
-                                    }],
-                                },
-                                options: {
-                                    responsive: true,
-                                    plugins: {
-                                        legend: {
-                                            position: 'top',
-                                        },
-                                    },
-                                },
-                            });
-                        });
-
-                        // Fetch top 5 tags
-                        const topTagsResponse = await fetch('/api/posts/top-tags');
-                        const topTagsData = await topTagsResponse.json();
-                        const topTagsList = document.getElementById('top-tags-list');
-                        topTagsList.innerHTML = ''; // Clear existing list
-                        topTagsData.forEach(tag => {
-                            const listItem = document.createElement('li');
-                            listItem.textContent = `${tag.tag_name}: ${tag.usage_count} uses`;
-                            topTagsList.appendChild(listItem);
-                        });
-                    } catch (error) {
-                        console.error('Error fetching post statistics:', error);
-                    }
+                    // Fetch top 5 tags
+                    const topTagsResponse = await fetch('/api/posts/top-tags');
+                    const topTagsData = await topTagsResponse.json();
+                    const topTagsList = document.getElementById('top-tags-list');
+                    topTagsList.innerHTML = ''; // Clear existing list
+                    topTagsData.forEach(tag => {
+                        const listItem = document.createElement('li');
+                        listItem.textContent = `${tag.tag_name}: ${tag.usage_count} uses`;
+                        topTagsList.appendChild(listItem);
+                    });
+                } catch (error) {
+                    console.error('Error fetching post statistics:', error);
                 }
+            }
 
-                // Attach the function to load statistics dynamically
-                document.querySelector('.btn-Posts').addEventListener('click', fetchPostStatistics);
-            });
+            // Attach the function to load statistics dynamically
+            document.querySelector('.btn-Posts').addEventListener('click', fetchPostStatistics);
+        });
 
-        </script>
+    </script>
 
-        <!-- Script for Fetching Events Statistics -->
-        <script>
+    <!-- Script for Fetching Events Statistics -->
+    <script>
         document.addEventListener("DOMContentLoaded", function () {
             async function fetchEventStatistics() {
                 try {
@@ -555,7 +555,7 @@
                     statusList.innerHTML = ''; // Clear existing list
 
                     Object.keys(statusData).forEach(status => {
-                        const total = statusData[status].length; 
+                        const total = statusData[status].length;
                         const listItem = document.createElement('li');
                         listItem.textContent = `${status}: ${total}`;
                         statusList.appendChild(listItem);
@@ -627,34 +627,88 @@
             // Attach the function to load statistics dynamically
             document.querySelector('.btn-Events').addEventListener('click', fetchEventStatistics);
         });
-        </script>
+    </script>
 
-        <!-- Script for Fetching Opportunities Statistics -->
-        <script>
-            document.addEventListener("DOMContentLoaded", function () {
-                async function fetchOpportunityStatistics() {
-                    try {
-                        // Fetch total opportunities
-                        const totalOpportunitiesResponse = await fetch('/api/opportunities/total');
-                        const totalOpportunitiesData = await totalOpportunitiesResponse.json();
-                        document.getElementById('total-opportunities').textContent = `Total Opportunities: ${totalOpportunitiesData.totalOpportunities}`;
+    <!-- Script for Fetching Opportunities Statistics -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            async function fetchOpportunityStatistics() {
+                try {
+                    // Fetch total opportunities
+                    const totalOpportunitiesResponse = await fetch('/api/opportunities/total');
+                    const totalOpportunitiesData = await totalOpportunitiesResponse.json();
+                    document.getElementById('total-opportunities').textContent = `Total Opportunities: ${totalOpportunitiesData.totalOpportunities}`;
 
-                        // Fetch top 10 companies
-                        const companyResponse = await fetch('/api/opportunities/company');
-                        const companyData = await companyResponse.json();
-                        const companyLabels = companyData.slice(0, 10).map(item => item.company_name);
-                        const companyCounts = companyData.slice(0, 10).map(item => item.total_opportunities);
+                    // Fetch top 10 companies
+                    const companyResponse = await fetch('/api/opportunities/company');
+                    const companyData = await companyResponse.json();
+                    const companyLabels = companyData.slice(0, 10).map(item => item.company_name);
+                    const companyCounts = companyData.slice(0, 10).map(item => item.total_opportunities);
 
-                        // Render Top Companies Chart
-                        const topCompaniesCtx = document.getElementById('topCompaniesChart').getContext('2d');
-                        new Chart(topCompaniesCtx, {
+                    // Render Top Companies Chart
+                    const topCompaniesCtx = document.getElementById('topCompaniesChart').getContext('2d');
+                    new Chart(topCompaniesCtx, {
+                        type: 'bar',
+                        data: {
+                            labels: companyLabels,
+                            datasets: [{
+                                label: 'Number of Job Postings',
+                                data: companyCounts,
+                                backgroundColor: '#36A2EB',
+                                borderWidth: 1,
+                            }],
+                        },
+                        options: {
+                            responsive: true,
+                            plugins: {
+                                legend: {
+                                    position: 'top',
+                                },
+                            },
+                        },
+                    });
+
+                    // Fetch opportunities grouped by school and course
+                    const schoolCourseResponse = await fetch('/api/opportunities/school-course-group');
+                    const schoolCourseData = await schoolCourseResponse.json();
+
+                    // Clear existing school charts
+                    const schoolChartsContainer = document.getElementById('school-charts');
+                    schoolChartsContainer.innerHTML = '';
+
+                    // Dynamically generate a card and chart for each school
+                    Object.entries(schoolCourseData).forEach(([schoolName, courses]) => {
+                        // Create a card for the school chart
+                        const schoolCard = document.createElement('div');
+                        schoolCard.classList.add('card-single');
+
+                        // Add a title
+                        const schoolTitle = document.createElement('h3');
+                        schoolTitle.textContent = `${schoolName} - Opportunities per Course`;
+                        schoolCard.appendChild(schoolTitle);
+
+                        // Add a canvas for the chart
+                        const canvas = document.createElement('canvas');
+                        canvas.id = `chart-${schoolName.replace(/\s+/g, '-')}`;
+                        schoolCard.appendChild(canvas);
+
+                        // Append the card to the school charts container
+                        schoolChartsContainer.appendChild(schoolCard);
+
+                        // Prepare data for the chart
+                        const courseLabels = courses.map(course => course.course_name);
+                        const courseCounts = courses.map(course => course.total_opportunities);
+
+                        // Render the chart
+                        const ctx = canvas.getContext('2d');
+                        new Chart(ctx, {
                             type: 'bar',
                             data: {
-                                labels: companyLabels,
+                                labels: courseLabels,
                                 datasets: [{
-                                    label: 'Number of Job Postings',
-                                    data: companyCounts,
-                                    backgroundColor: '#36A2EB',
+                                    label: 'Opportunities per Course',
+                                    data: courseCounts,
+                                    backgroundColor: '#4BC0C0',
                                     borderWidth: 1,
                                 }],
                             },
@@ -667,101 +721,77 @@
                                 },
                             },
                         });
-
-                        // Fetch opportunities grouped by school and course
-                        const schoolCourseResponse = await fetch('/api/opportunities/school-course-group');
-                        const schoolCourseData = await schoolCourseResponse.json();
-
-                        // Clear existing school charts
-                        const schoolChartsContainer = document.getElementById('school-charts');
-                        schoolChartsContainer.innerHTML = '';
-
-                        // Dynamically generate a card and chart for each school
-                        Object.entries(schoolCourseData).forEach(([schoolName, courses]) => {
-                            // Create a card for the school chart
-                            const schoolCard = document.createElement('div');
-                            schoolCard.classList.add('card-single');
-
-                            // Add a title
-                            const schoolTitle = document.createElement('h3');
-                            schoolTitle.textContent = `${schoolName} - Opportunities per Course`;
-                            schoolCard.appendChild(schoolTitle);
-
-                            // Add a canvas for the chart
-                            const canvas = document.createElement('canvas');
-                            canvas.id = `chart-${schoolName.replace(/\s+/g, '-')}`;
-                            schoolCard.appendChild(canvas);
-
-                            // Append the card to the school charts container
-                            schoolChartsContainer.appendChild(schoolCard);
-
-                            // Prepare data for the chart
-                            const courseLabels = courses.map(course => course.course_name);
-                            const courseCounts = courses.map(course => course.total_opportunities);
-
-                            // Render the chart
-                            const ctx = canvas.getContext('2d');
-                            new Chart(ctx, {
-                                type: 'bar',
-                                data: {
-                                    labels: courseLabels,
-                                    datasets: [{
-                                        label: 'Opportunities per Course',
-                                        data: courseCounts,
-                                        backgroundColor: '#4BC0C0',
-                                        borderWidth: 1,
-                                    }],
-                                },
-                                options: {
-                                    responsive: true,
-                                    plugins: {
-                                        legend: {
-                                            position: 'top',
-                                        },
-                                    },
-                                },
-                            });
-                        });
-
-                        // Fetch opportunities per month
-                        const monthlyResponse = await fetch('/api/opportunities/monthly');
-                        const monthlyData = await monthlyResponse.json();
-                        const monthLabels = monthlyData.map(item => item.month);
-                        const monthCounts = monthlyData.map(item => item.total_opportunities);
-
-                        // Render Opportunities Per Month Chart
-                        const monthCtx = document.getElementById('opportunityMonthChart').getContext('2d');
-                        new Chart(monthCtx, {
-                            type: 'line',
-                            data: {
-                                labels: monthLabels,
-                                datasets: [{
-                                    label: 'Opportunities Per Month',
-                                    data: monthCounts,
-                                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                                    borderColor: 'rgba(75, 192, 192, 1)',
-                                    borderWidth: 1,
-                                }],
-                            },
-                            options: {
-                                responsive: true,
-                                plugins: {
-                                    legend: {
-                                        position: 'top',
-                                    },
-                                },
-                            }
                     });
-                    
-                    } catch (error) {
-                        console.error('Error fetching opportunity statistics:', error);
-                    }
-                }
 
-                // Attach the function to load statistics dynamically
-                document.querySelector('.btn-Opportunities').addEventListener('click', fetchOpportunityStatistics);
-            });
-        </script>
+                    // Fetch opportunities per month
+                    const monthlyResponse = await fetch('/api/opportunities/monthly');
+                    const monthlyData = await monthlyResponse.json();
+                    const monthLabels = monthlyData.map(item => item.month);
+                    const monthCounts = monthlyData.map(item => item.total_opportunities);
+
+                    // Render Opportunities Per Month Chart
+                    const monthCtx = document.getElementById('opportunityMonthChart').getContext('2d');
+                    new Chart(monthCtx, {
+                        type: 'line',
+                        data: {
+                            labels: monthLabels,
+                            datasets: [{
+                                label: 'Opportunities Per Month',
+                                data: monthCounts,
+                                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                                borderColor: 'rgba(75, 192, 192, 1)',
+                                borderWidth: 1,
+                            }],
+                        },
+                        options: {
+                            responsive: true,
+                            plugins: {
+                                legend: {
+                                    position: 'top',
+                                },
+                            },
+                        }
+                    });
+
+                } catch (error) {
+                    console.error('Error fetching opportunity statistics:', error);
+                }
+            }
+
+            // Attach the function to load statistics dynamically
+            document.querySelector('.btn-Opportunities').addEventListener('click', fetchOpportunityStatistics);
+        });
+    </script>
+    
+    <!-- Script for Checking User Details if Admin or Manager-->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // Fetch user details from the backend
+            fetch("/api/users/details")
+                .then((response) => {
+                    if (!response.ok) {
+                        throw new Error("Failed to fetch user details");
+                    }
+                    return response.json();
+                })
+                .then((user) => {
+                    // Check if the user type is "manager" and hide the "Users" section
+                    if (user.userType === "manager") {
+                        const usersNav = document.getElementById("usersNav");
+                        const usersBox = document.getElementById("usersBox");
+
+                        if (usersNav) usersNav.style.display = "none"; // Hide nav link
+                        if (usersBox) usersBox.style.display = "none"; // Hide box
+                    }
+                })
+                .catch((error) => {
+                    console.error("Error:", error);
+                    // Redirect to login page if not logged in
+                    window.location.href = "/adminAndManager/login.html";
+                });
+        });
+
+    </script>
 
 </body>
 
