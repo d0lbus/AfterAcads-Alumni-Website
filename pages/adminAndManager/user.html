@@ -57,7 +57,6 @@
           </div>
         </button>
       </div>
-      <p>Total Users: <span id="totalUsers">16</span></p>
     </div>
     
     <!-- Modal Structure -->
@@ -411,27 +410,6 @@
     });
   </script>
 
-  <!-- JavaScript for Adding a User -->
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const addUserBtn = document.getElementById("addUserBtn");
-      const totalUsersDisplay = document.getElementById("totalUsers");
-      const userTableBody = document.querySelector(".user-table tbody");
-      let userId = 17; // Starting user ID
-
-      const updateTotalUsers = () => {
-        totalUsersDisplay.textContent = userTableBody.rows.length;
-      };
-
-      addUserBtn.addEventListener("click", () => {
-        // Open modal to add user (modal code not shown here)
-      });
-
-      // Add new user row code goes here (similar to the existing form logic)
-      // After user added, update total users count
-    });
-  </script>
-
   <!-- JavaScript for Populating Users Table and Edit Modal -->
   <script>
   document.addEventListener("DOMContentLoaded", () => {
@@ -629,6 +607,7 @@
   });
   </script>
 
+  <!-- Script for Adding Users-->
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       const addUserBtn = document.getElementById("addUserBtn");
@@ -699,13 +678,13 @@
       // Handle form submission to add user
       addUserForm.addEventListener("submit", async (event) => {
         event.preventDefault();
-
         const formData = new FormData(addUserForm);
 
         try {
           const response = await fetch("/api/users/addUser", {
             method: "POST",
-            body: formData,
+            body: JSON.stringify(Object.fromEntries(formData)),
+            headers: { "Content-Type": "application/json" }, // Important for JSON
           });
 
           if (!response.ok) throw new Error("Failed to add user.");
@@ -713,13 +692,11 @@
           const result = await response.json();
           alert(result.message);
           addUserModal.style.display = "none";
-          // Reload table or fetch users again
         } catch (error) {
           console.error("Error adding user:", error);
         }
       });
     });
-
   </script>
 </body>
 
