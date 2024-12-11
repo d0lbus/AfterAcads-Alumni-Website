@@ -41,7 +41,7 @@
                 <div class="button-group">
                     </select>
                     <div class="button-group">
-                        <button class="btn-Users" data-target="users-container">Users</button>
+                        <button class="btn-Users active" data-target="users-container">Users</button>
                         <button class="btn-Opportunities" data-target="opportunities-container">Opportunities</button>
                         <button class="btn-Posts" data-target="posts-container">Posts</button>
                         <button class="btn-Events" data-target="events-container">Events</button>
@@ -53,7 +53,7 @@
         <!-- Citation: Design for the statistics - (https://www.youtube.com/watch?v=CgCPP2KO5ds) -->
 
         <!-- Containers for each type of statistics -->
-        <div id="users-container" class="stats-container">
+        <div id="users-container" class="stats-container active" style="display: block;">
             <h2>Users Statistics</h2>
             <div class="cards">
                 <div class="card-single">
@@ -83,7 +83,7 @@
                 <div class="card-single">
                     <!-- Gender Distribution Chart -->
                     <div>
-                        <h3>Gender Distribution</h3>
+                        <h3>Batch Distribution</h3>
                         <canvas id="batchGroupChart"></canvas>
                     </div>   
                 </div>
@@ -192,28 +192,35 @@
         <script>
         document.addEventListener("DOMContentLoaded", function () {
             const buttons = document.querySelectorAll(".button-group button");
-            const containers = document.querySelectorAll(".stats-container"); 
+            const containers = document.querySelectorAll(".stats-container");
 
+            document.querySelector(".btn-Users").classList.add("active");
+            document.getElementById("users-container").classList.add("active");
+            document.getElementById("users-container").style.display = "block";
+
+            // Add click event listeners to all buttons
             buttons.forEach((button) => {
                 button.addEventListener("click", function () {
-                
                     const target = button.getAttribute("data-target");
 
-                    // Hide all containers
+                    // Remove active class and hide all containers
+                    buttons.forEach((btn) => btn.classList.remove("active"));
                     containers.forEach((container) => {
                         container.classList.remove("active");
-                        container.style.display = "none"; 
+                        container.style.display = "none";
                     });
 
-                    // Show the selected container
+                    // Add active class to clicked button and show its container
+                    button.classList.add("active");
                     const targetContainer = document.getElementById(target);
                     if (targetContainer) {
                         targetContainer.classList.add("active");
-                        targetContainer.style.display = "block"; 
+                        targetContainer.style.display = "block";
                     }
                 });
             });
         });
+
         </script>
 
         <!-- Script for Fetching User Statistics -->
