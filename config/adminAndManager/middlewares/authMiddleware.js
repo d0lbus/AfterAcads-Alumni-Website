@@ -1,3 +1,4 @@
+//<Citation>: ChatGPT helped with the debugging of the code -(CHATGPT)
 // Middleware to check if the user is authenticated
 const authenticateUser = (req, res, next) => {
         // Allow unauthenticated access to login route
