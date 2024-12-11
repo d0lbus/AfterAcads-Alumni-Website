@@ -48,6 +48,8 @@ header img.afteracadstext {
 
 .container {
   padding: 20px;
+  display: flex;
+  gap: 20px; 
 }
 
 /* Citation: navigation bar - (https://www.youtube.com/watch?v=oLgtucwjVII) */
@@ -116,7 +118,7 @@ header img.afteracadstext {
   display: flex;
   flex-direction: column;
   gap: 20px;
-  flex: 3;
+  flex: 1;
 }
 
 .left-side p {
@@ -197,41 +199,109 @@ header img.afteracadstext {
 
 /* Right side (Statistics Box) */
 .statistics {
-  background-color: #fff;
+  background-color: var(--color-light);
   border-radius: 10px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-  flex: 4;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   position: relative;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.statistics h3 {
-  margin: 0;
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  font-size: 1.2rem;
-  color: #333;
+.statistics:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25);
+}
+
+.statistics h4 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--color-main);
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.carousel-indicators button {
+  width: 10px;
+  height: 10px;
+  background-color: var(--color-main);
+  border: none;
+  border-radius: 50%;
+  transition: background-color 0.3s ease;
+}
+
+.carousel-indicators button.active {
+  background-color: var(--color-accent);
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  background-color: var(--color-main);
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+}
+
+.carousel-inner {
+  width: 100%;
+  text-align: center;
+}
+
+.carousel-item {
   padding: 20px;
 }
 
+.carousel-item canvas {
+  max-width: 100%;
+  height: auto;
+}
 
-/* Responsive Layout for Small Screens */
+.icon-link {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--color-main);
+  color: #fff;
+  border-radius: 50%;
+  font-size: 1.2rem;
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.icon-link:hover {
+  background-color: var(--color-accent);
+}
+
+
+
 @media (max-width: 768px) {
-  .box-wrapper {
-    flex-direction: column;
-  }
-
-  .left-side {
-    width: 100%;
-    gap: 20px;
-  }
-
   .statistics {
-    width: 100%;
-    margin-top: 20px;
+    padding: 20px;
+  }
+
+  .statistics h4 {
+    font-size: 1.2rem;
+  }
+
+  .icon-link {
+    width: 35px;
+    height: 35px;
+    font-size: 1rem;
+  }
+
+  .carousel-item {
+    padding: 10px;
   }
 }
+
 
 .dropdown {
   position: relative;
