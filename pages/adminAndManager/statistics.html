@@ -762,6 +762,35 @@
                 document.querySelector('.btn-Opportunities').addEventListener('click', fetchOpportunityStatistics);
             });
         </script>
+        <!-- Script for Checking User Details if Admin or Manager-->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+    // Fetch user details from the backend
+    fetch("/api/users/details")
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Failed to fetch user details");
+        }
+        return response.json();
+      })
+      .then((user) => {
+        // Check if the user type is "manager" and hide the "Users" section
+        if (user.userType === "manager") {
+          const usersNav = document.getElementById("usersNav");
+          const usersBox = document.getElementById("usersBox");
+
+          if (usersNav) usersNav.style.display = "none"; // Hide nav link
+          if (usersBox) usersBox.style.display = "none"; // Hide box
+        }
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        // Redirect to login page if not logged in
+        window.location.href = "/adminAndManager/login.html";
+      });
+  });
+
+  </script>
 
 </body>
 
