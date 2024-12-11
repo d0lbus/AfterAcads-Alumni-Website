@@ -19,6 +19,7 @@ app.use(
     })
 );
 
+//<Citation>: Getting idea -  (https://www.youtube.com/watch?v=2k8NleFjG7I)
 // Protect /adminAndManager routes but exclude login.html
 app.use('/adminAndManager', (req, res, next) => {
     if (req.path === '/login.html' || req.path === '/register.html') {
