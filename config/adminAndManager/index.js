@@ -12,10 +12,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(
     session({
-        secret: 'your_secret_key', // Replace with a strong secret key
+        secret: 'your_secret_key', 
         resave: false,
         saveUninitialized: true,
-        cookie: { secure: false }, // Use true if HTTPS is enabled
+        cookie: { secure: false }, 
     })
 );
 

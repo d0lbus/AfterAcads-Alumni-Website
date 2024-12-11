@@ -10,28 +10,34 @@ exports.login = (req, res) => {
         return res.status(400).json({ error: 'Email and password are required.' });
     }
 
-    // Query to validate the user credentials
+    // Query to fetch the user by email
     const sql = `
         SELECT * FROM users 
-        WHERE email = ? AND password_hash = ? AND userType IN ('admin', 'manager')
+        WHERE email = ? AND userType IN ('admin', 'manager')
     `;
-    db.query(sql, [email, password], (err, results) => {
+    db.query(sql, [email], (err, results) => {
         if (err) {
             return res.status(500).json({ error: 'Database error: ' + err.message });
         }
 
-        if (results.length > 0) {
-            const user = results[0];
-
-            // Store session data
-            req.session.email = user.email;
-            req.session.userType = user.userType;
-
-            // Redirect to home.html (correct path)
-            return res.redirect('/adminAndManager/home.html');
-        } else {
+        if (results.length === 0) {
             return res.status(401).json({ error: 'Invalid email or password.' });
         }
+
+        const user = results[0];
+
+        const isPasswordValid = bcrypt.compareSync(password, user.password_hash);
+
+        if (!isPasswordValid) {
+            return res.status(401).json({ error: 'Invalid email or password.' });
+        }
+
+        // Store session data
+        req.session.email = user.email;
+        req.session.userType = user.userType;
+
+        // Redirect to home.html 
+        return res.redirect('/adminAndManager/home.html');
     });
 };
 
@@ -107,7 +113,7 @@ exports.getApprovedUsers = (req, res) => {
       }
       res.json(results);
     });
-  };
+};
   
 
 exports.updateUserStatus = (req, res) => {
@@ -213,7 +219,7 @@ exports.addUser = async (req, res) => {
       lastName,
       email,
       password,
-      batchId, // This is actually batch_number from the form
+      batchId, 
       school,
       course,
       gender,
@@ -223,13 +229,13 @@ exports.addUser = async (req, res) => {
     try {
       // Get the batch_id (primary key) using batch_number
       const batchQuery = "SELECT id FROM batches WHERE batch_number = ?";
-      const [batchRows] = await db.promise().query(batchQuery, [batchId]); // batchId here is the batch_number
+      const [batchRows] = await db.promise().query(batchQuery, [batchId]); 
   
       if (batchRows.length === 0) {
         return res.status(400).json({ error: "Invalid batch number provided." });
       }
   
-      const batch_id = batchRows[0].id; // Map batch_number to id
+      const batch_id = batchRows[0].id; 
   
       // Hash the password
       const hashedPassword = bcrypt.hashSync(password, 10);
