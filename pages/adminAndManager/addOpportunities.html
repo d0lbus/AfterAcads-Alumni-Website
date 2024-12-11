@@ -44,149 +44,146 @@
         <input type="text" id="host" placeholder="Enter Company name" />
       </div>
 
-        <div>
-          <label for="location">Location</label>
-          <input type="text" id="location" placeholder="Enter location" />
-        </div>
+      <div>
+        <label for="location">Location</label>
+        <input type="text" id="location" placeholder="Enter location" />
+      </div>
 
-        <div>
-          <label for="school"></label>School</label>
-          <select id="school" name="school" required>
-            <option value="">Select School</option>
-          </select>
-        </div>
+      <div>
+        <label for="school"></label>School</label>
+        <select id="school" name="school" required>
+          <option value="">Select School</option>
+        </select>
+      </div>
 
-        <div>
-          <label for="course">Course</label>
-          <select id="course" name="course" required>
-            <option value="">Select Course</option>
-          </select>
-        </div>
+      <div>
+        <label for="course">Course</label>
+        <select id="course" name="course" required>
+          <option value="">Select Course</option>
+        </select>
+      </div>
 
       <div style="grid-column: span 2">
         <label for="description">Description</label>
         <textarea id="description" rows="4" placeholder="Enter job description"></textarea>
       </div>
 
-        <div style="grid-column: span 2">
-          <label for="applicationLink">Application Link</label>
-          <textarea
-            id="requirements"
-            rows="1"
-            placeholder="Place link for job application here"
-          ></textarea>
-        </div>
+      <div style="grid-column: span 2">
+        <label for="applicationLink">Application Link</label>
+        <textarea id="requirements" rows="1" placeholder="Place link for job application here"></textarea>
+      </div>
 
-        <button type="submit" class="btn-submit">Add Opportunity</button>
-      </form>
-    </div>
+      <button type="submit" class="btn-submit">Add Opportunity</button>
+    </form>
+  </div>
 
 
-    <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        const schoolDropdown = document.getElementById("school");
-        const courseDropdown = document.getElementById("course");
-        const form = document.querySelector(".add-Opportunities-form");
-    
-        // Populate schools dropdown
-        fetch("/api/opportunities/schools")
-          .then((response) => response.json())
-          .then((data) => {
-            schoolDropdown.innerHTML = '<option value="">Select School</option>';
-            data.forEach((school) => {
-              const option = document.createElement("option");
-              option.value = school.id;
-              option.textContent = school.name;
-              schoolDropdown.appendChild(option);
-            });
-          })
-          .catch((error) => console.error("Error fetching schools:", error));
-    
-        // Populate courses dropdown based on selected school
-        schoolDropdown.addEventListener("change", () => {
-          const schoolId = schoolDropdown.value;
-          courseDropdown.innerHTML = '<option value="">Select Course</option>';
-          if (schoolId) {
-            fetch(`/api/opportunities/courses?schoolId=${schoolId}`)
-              .then((response) => response.json())
-              .then((data) => {
-                data.forEach((course) => {
-                  const option = document.createElement("option");
-                  option.value = course.id;
-                  option.textContent = course.name;
-                  courseDropdown.appendChild(option);
-                });
-                courseDropdown.disabled = false;
-              })
-              .catch((error) => console.error("Error fetching courses:", error));
-          } else {
-            courseDropdown.disabled = true;
-          }
-        });
-    
-        // Submit the form
-        form.addEventListener("submit", (event) => {
-          event.preventDefault();
-    
-          const payload = {
-            title: document.getElementById("opportunities-title").value,
-            company_name: document.getElementById("host").value,
-            location: document.getElementById("location").value,
-            school_id: schoolDropdown.value,
-            course_id: courseDropdown.value,
-            description: document.getElementById("description").value,
-            company_link: document.getElementById("requirements").value,
-          };
-    
-          fetch("/api/opportunities/addOpportunity", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(payload),
-          })
-            .then((response) => {
-              if (!response.ok) throw new Error("Failed to add opportunity");
-              return response.json();
-            })
-            .then((data) => {
-              alert(data.message);
-              form.reset(); // Clear the form
-            })
-            .catch((error) => {
-              console.error("Error adding opportunity:", error);
-              alert("Failed to add opportunity. Please try again.");
-            });
-        });
-      });
-    </script>
-    
-    <!-- Script for Checking User Details if Admin or Manager-->
   <script>
     document.addEventListener("DOMContentLoaded", () => {
-    // Fetch user details from the backend
-    fetch("/api/users/details")
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Failed to fetch user details");
-        }
-        return response.json();
-      })
-      .then((user) => {
-        // Check if the user type is "manager" and hide the "Users" section
-        if (user.userType === "manager") {
-          const usersNav = document.getElementById("usersNav");
-          const usersBox = document.getElementById("usersBox");
+      const schoolDropdown = document.getElementById("school");
+      const courseDropdown = document.getElementById("course");
+      const form = document.querySelector(".add-Opportunities-form");
 
-          if (usersNav) usersNav.style.display = "none"; // Hide nav link
-          if (usersBox) usersBox.style.display = "none"; // Hide box
+      // Populate schools dropdown
+      fetch("/api/opportunities/schools")
+        .then((response) => response.json())
+        .then((data) => {
+          schoolDropdown.innerHTML = '<option value="">Select School</option>';
+          data.forEach((school) => {
+            const option = document.createElement("option");
+            option.value = school.id;
+            option.textContent = school.name;
+            schoolDropdown.appendChild(option);
+          });
+        })
+        .catch((error) => console.error("Error fetching schools:", error));
+
+      // Populate courses dropdown based on selected school
+      schoolDropdown.addEventListener("change", () => {
+        const schoolId = schoolDropdown.value;
+        courseDropdown.innerHTML = '<option value="">Select Course</option>';
+        if (schoolId) {
+          fetch(`/api/opportunities/courses?schoolId=${schoolId}`)
+            .then((response) => response.json())
+            .then((data) => {
+              data.forEach((course) => {
+                const option = document.createElement("option");
+                option.value = course.id;
+                option.textContent = course.name;
+                courseDropdown.appendChild(option);
+              });
+              courseDropdown.disabled = false;
+            })
+            .catch((error) => console.error("Error fetching courses:", error));
+        } else {
+          courseDropdown.disabled = true;
         }
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-        // Redirect to login page if not logged in
-        window.location.href = "/adminAndManager/login.html";
       });
-  });
+
+      // Submit the form
+      form.addEventListener("submit", (event) => {
+        event.preventDefault();
+
+        const payload = {
+          title: document.getElementById("opportunities-title").value,
+          company_name: document.getElementById("host").value,
+          location: document.getElementById("location").value,
+          school_id: schoolDropdown.value,
+          course_id: courseDropdown.value,
+          description: document.getElementById("description").value,
+          company_link: document.getElementById("requirements").value,
+        };
+
+        fetch("/api/opportunities/addOpportunity", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        })
+          .then((response) => {
+            if (!response.ok) throw new Error("Failed to add opportunity");
+            return response.json();
+          })
+          .then((data) => {
+            alert(data.message);
+            form.reset(); // Clear the form
+          })
+          .catch((error) => {
+            console.error("Error adding opportunity:", error);
+            alert("Failed to add opportunity. Please try again.");
+          });
+      });
+    });
+  </script>
+
+  <!-- Script for Checking User Details if Admin or Manager-->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // Fetch user details from the backend
+      fetch("/api/users/details")
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Failed to fetch user details");
+          }
+          return response.json();
+        })
+        .then((user) => {
+          // Check if the user type is "manager" and hide the "Users" section
+          if (user.userType === "manager") {
+            const usersNav = document.getElementById("usersNav");
+            const usersBox = document.getElementById("usersBox");
+
+            if (usersNav) usersNav.style.display = "none"; // Hide nav link
+            if (usersBox) usersBox.style.display = "none"; // Hide box
+          }
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+          // Redirect to login page if not logged in
+          window.location.href = "/adminAndManager/login.html";
+        });
+    });
 
   </script>
-  </body>
+</body>
+
 </html>
