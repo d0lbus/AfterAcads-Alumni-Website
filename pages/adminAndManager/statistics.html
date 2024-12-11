@@ -170,12 +170,9 @@
                     <canvas id="opportunityMonthChart"></canvas>
                 </div>
 
-                <!-- Opportunities by School and Course -->
-                <div id="school-course-opportunities" class="card-single">
-                    <h3>Opportunities by School and Course</h3>
-                    <div id="school-charts">
+
+                <div id="school-charts">
                         <!-- Dynamic school and course charts will be inserted here -->
-                    </div>
                 </div>
             </div>
         </div>
@@ -682,26 +679,30 @@
                         const schoolChartsContainer = document.getElementById('school-charts');
                         schoolChartsContainer.innerHTML = '';
 
-                        // Dynamically generate a chart for each school
+                        // Dynamically generate a card and chart for each school
                         Object.entries(schoolCourseData).forEach(([schoolName, courses]) => {
-                            const schoolDiv = document.createElement('div');
-                            schoolDiv.classList.add('school-chart');
+                            // Create a card for the school chart
+                            const schoolCard = document.createElement('div');
+                            schoolCard.classList.add('card-single');
 
                             // Add a title
                             const schoolTitle = document.createElement('h3');
                             schoolTitle.textContent = `${schoolName} - Opportunities per Course`;
-                            schoolDiv.appendChild(schoolTitle);
+                            schoolCard.appendChild(schoolTitle);
 
                             // Add a canvas for the chart
                             const canvas = document.createElement('canvas');
                             canvas.id = `chart-${schoolName.replace(/\s+/g, '-')}`;
-                            schoolDiv.appendChild(canvas);
+                            schoolCard.appendChild(canvas);
 
-                            schoolChartsContainer.appendChild(schoolDiv);
+                            // Append the card to the school charts container
+                            schoolChartsContainer.appendChild(schoolCard);
 
+                            // Prepare data for the chart
                             const courseLabels = courses.map(course => course.course_name);
                             const courseCounts = courses.map(course => course.total_opportunities);
 
+                            // Render the chart
                             const ctx = canvas.getContext('2d');
                             new Chart(ctx, {
                                 type: 'bar',
