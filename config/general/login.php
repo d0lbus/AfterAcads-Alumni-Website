@@ -1,3 +1,9 @@
+// References:
+// - GeeksforGeeks: "PHP mysqli prepared statements" - https://www.geeksforgeeks.org/php-mysqli-prepared-statements/
+// - StackOverflow: "How to use password_verify() in PHP" - https://stackoverflow.com/questions/45369253/how-does-password-verify-work-in-php
+// - YouTube: "PHP session management tutorial" - https://www.youtube.com/watch?v=G5s3ZcOf3XY
+// - ChatGPT: "Explanation of PHP session and password verification" - ChatGPT (2024)
+
 <?php
 include '../general/connection.php';
 
