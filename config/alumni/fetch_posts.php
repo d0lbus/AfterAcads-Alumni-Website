@@ -1,3 +1,13 @@
+// References:
+// 1. W3Schools - For using `JOIN` operations and handling SQL queries with MySQL in PHP. (https://www.w3schools.com/php/php_mysql_join.asp)
+// 2. StackOverflow - For using `GROUP_CONCAT` function to handle related data from multiple tables. (https://stackoverflow.com/questions/3079671/how-to-use-group-concat-in-mysql)
+// 3. GeeksforGeeks - For using MySQL `LEFT JOIN`, `GROUP_CONCAT`, and dynamically building SQL queries. (https://www.geeksforgeeks.org/php-mysqli-prepared-statements/)
+// 4. YouTube - For video tutorials on PHP, MySQL, and SQL query optimization:
+//    - [MySQL Join Tutorial](https://www.youtube.com/watch?v=tm0VsGHkCVY)
+//    - [PHP MySQLi and Dynamic SQL Queries](https://www.youtube.com/watch?v=eJXxKuyjU2A)
+// 5. ChatGPT - For generating code to filter and fetch posts dynamically using multiple filters and parameters in PHP.
+// 6. PHP Manual - For detailed usage of MySQL `GROUP_CONCAT` and handling SQL queries in PHP. (https://www.php.net/manual/en/mysqli.quickstart.prepared-statements.php)
+
 <?php
 include '../../config/general/connection.php';
 
