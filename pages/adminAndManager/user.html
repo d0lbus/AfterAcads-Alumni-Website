@@ -49,7 +49,7 @@
             <input type="text" placeholder="Enter school details" />
           </div>
         </button>
-        <button class="btn AddCourse" id="addCourseBtn">Add Course</button>
+        <button class="btn AddCourse" id="openAddCourseModal">Add Course</button>
         <button class="btn AddBatch" id="addBatchBtn">
           Add Batch
           <div class="text-field" id="batchTextField">
@@ -58,6 +58,8 @@
         </button>
       </div>
     </div>
+
+  
 
     <!-- Modal Structure -->
     <div id="addCourseModal" class="modal">
@@ -390,6 +392,57 @@
       showPage(currentPage);
     });
   </script>
+
+  <!--Add Course Modal -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const addCourseModal = document.getElementById("addCourseModal");
+      const openModalBtn = document.getElementById("openAddCourseModal"); // Button to open modal
+      const closeModalBtn = document.getElementById("closeModalBtn"); // Close button
+      const saveModalBtn = document.getElementById("saveModalBtn"); // Save button
+  
+      // Function to open the modal
+      const openModal = () => {
+        addCourseModal.style.display = "flex"; // Show modal (flex for centering, can be adjusted)
+      };
+  
+      // Function to close the modal
+      const closeModal = () => {
+        addCourseModal.style.display = "none"; // Hide modal
+      };
+  
+      // Handle open modal button click
+      openModalBtn.addEventListener("click", openModal);
+  
+      // Handle close modal button click
+      closeModalBtn.addEventListener("click", closeModal);
+  
+      // Handle save button click
+      saveModalBtn.addEventListener("click", () => {
+        const courseSelect = addCourseModal.querySelector("select");
+        const courseDetails = addCourseModal.querySelector("input[type='text']").value;
+  
+        if (!courseSelect.value) {
+          alert("Please select a course.");
+          return;
+        }
+  
+        if (!courseDetails) {
+          alert("Please enter course details.");
+          return;
+        }
+  
+        console.log("Saving course data:", {
+          course: courseSelect.value,
+          details: courseDetails,
+        });
+  
+        // Close the modal after saving
+        closeModal();
+      });
+    });
+  </script>
+  
 
   <!-- JavaScript for Populating Users Table and Edit Modal -->
   <script>

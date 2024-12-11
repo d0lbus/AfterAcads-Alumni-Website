@@ -9,7 +9,6 @@ $friendsManager = new FriendsManager($conn);
 
 $friends = $friendsManager->getFriends($user['id']);
 
-
 ?>
 
 <!DOCTYPE html>
