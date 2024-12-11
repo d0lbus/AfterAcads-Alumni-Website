@@ -585,8 +585,8 @@
   
             const result = await response.json();
             alert(result.message);
-            batchInput.value = ""; // Clear input field
-            batchTextField.style.display = "none"; // Hide text field
+            batchInput.value = ""; 
+            batchTextField.style.display = "none"; 
           } catch (error) {
             console.error("Error adding batch:", error);
             alert("Failed to add batch. Please try again later.");

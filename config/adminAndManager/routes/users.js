@@ -59,7 +59,6 @@ router.post("/addSchool", userController.addSchool);
 // Add Batch Route
 router.post("/addBatch", userController.addBatch);
 
-
 // Get total number of approved users
 router.get('/usercount', userStatisticsController.getUserStatistics);
 
