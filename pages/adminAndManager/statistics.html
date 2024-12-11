@@ -229,7 +229,7 @@
         });
         </script>
 
-        <!-- Scripts for Fetching User Statistics -->
+        <!-- Script for Fetching User Statistics -->
         <script>
             document.addEventListener("DOMContentLoaded", function () {
                 async function fetchUserStatistics() {
@@ -411,7 +411,7 @@
             
         </script>
 
-        <!-- Scripts for Fetching Post Statistics -->
+        <!-- Script for Fetching Post Statistics -->
         <script>
             document.addEventListener("DOMContentLoaded", function () {
                 async function fetchPostStatistics() {
@@ -543,7 +543,7 @@
 
         </script>
 
-        <!-- Scripts for Fetching Events Statistics -->
+        <!-- Script for Fetching Events Statistics -->
         <script>
         document.addEventListener("DOMContentLoaded", function () {
             async function fetchEventStatistics() {
@@ -635,17 +635,18 @@
         });
         </script>
 
+        <!-- Script for Fetching Opportunities Statistics -->
         <script>
             document.addEventListener("DOMContentLoaded", function () {
                 async function fetchOpportunityStatistics() {
                     try {
                         // Fetch total opportunities
-                        const totalOpportunitiesResponse = await fetch('/api/opportunities/statistics/total');
+                        const totalOpportunitiesResponse = await fetch('/api/opportunities/total');
                         const totalOpportunitiesData = await totalOpportunitiesResponse.json();
                         document.getElementById('total-opportunities').textContent = `Total Opportunities: ${totalOpportunitiesData.totalOpportunities}`;
 
                         // Fetch top 10 companies
-                        const companyResponse = await fetch('/api/opportunities/statistics/company');
+                        const companyResponse = await fetch('/api/opportunities/company');
                         const companyData = await companyResponse.json();
                         const companyLabels = companyData.slice(0, 10).map(item => item.company_name);
                         const companyCounts = companyData.slice(0, 10).map(item => item.total_opportunities);
@@ -674,7 +675,7 @@
                         });
 
                         // Fetch opportunities grouped by school and course
-                        const schoolCourseResponse = await fetch('/api/opportunities/statistics/school-course-group');
+                        const schoolCourseResponse = await fetch('/api/opportunities/school-course-group');
                         const schoolCourseData = await schoolCourseResponse.json();
 
                         // Clear existing school charts
@@ -725,7 +726,7 @@
                         });
 
                         // Fetch opportunities per month
-                        const monthlyResponse = await fetch('/api/opportunities/statistics/monthly');
+                        const monthlyResponse = await fetch('/api/opportunities/monthly');
                         const monthlyData = await monthlyResponse.json();
                         const monthLabels = monthlyData.map(item => item.month);
                         const monthCounts = monthlyData.map(item => item.total_opportunities);
