@@ -127,6 +127,9 @@ header img {
   flex-grow: 1; 
   transition: transform 0.3s ease, box-shadow 0.3s ease; 
   height: auto; 
+  height: 350px; 
+  width: 350px;
+  overflow: auto;
 }
 
 /* Card title and info styling */
