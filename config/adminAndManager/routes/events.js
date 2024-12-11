@@ -1,3 +1,12 @@
+// References:
+// 1. ChatGPT - Assisted with structuring and optimization: https://chat.openai.com
+// 2. Express.js Documentation - Router and middleware usage: https://expressjs.com/en/guide/routing.html
+// 3. Multer Documentation - File upload handling: https://github.com/expressjs/multer
+// 4. Node.js Documentation - Path module: https://nodejs.org/api/path.html
+// 5. YouTube - Tutorials on implementing REST APIs:
+//    - https://www.youtube.com/watch?v=Oe421EPjeBE
+//    - https://www.youtube.com/watch?v=pKd0Rpw7O48
+
 const express = require('express');
 const router = express.Router();
 const eventController = require('../controllers/eventController');

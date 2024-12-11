@@ -1,3 +1,13 @@
+/**
+ * References:
+ * - Express.js Official Documentation: https://expressjs.com/
+ * - Middleware in Express.js: https://expressjs.com/en/guide/using-middleware.html
+ * - REST API Best Practices: https://www.restapitutorial.com/
+ * - YouTube Tutorials:
+ *   - Express.js Crash Course: https://www.youtube.com/watch?v=L72fhGm1tfE
+ *   - Middleware in Express.js: https://www.youtube.com/watch?v=fgTGADljAeg
+ */
+
 const express = require('express');
 const router = express.Router();
 const userController = require('../controllers/userController');
