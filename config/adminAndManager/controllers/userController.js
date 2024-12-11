@@ -337,7 +337,42 @@ exports.updateUser = async (req, res) => {
       console.error("Database error:", error);
       res.status(500).json({ error: "Failed to update user" });
     }
+};
+
+exports.addCourse = async (req, res) => {
+    try {
+      const { schoolId, courseName } = req.body;
+  
+      // Validate input
+      if (!schoolId) {
+        return res.status(400).json({ error: "School ID is required." });
+      }
+      if (!courseName || courseName.trim() === "") {
+        return res.status(400).json({ error: "Course name is required." });
+      }
+  
+      // Check if the school exists
+      const schoolCheckQuery = "SELECT id FROM schools WHERE id = ?";
+      const [schoolCheckResult] = await db.promise().query(schoolCheckQuery, [schoolId]);
+  
+      if (schoolCheckResult.length === 0) {
+        return res.status(404).json({ error: "School not found." });
+      }
+  
+      // Add the new course to the database
+      const insertCourseQuery = "INSERT INTO courses (name, school_id) VALUES (?, ?)";
+      const [insertResult] = await db.promise().query(insertCourseQuery, [courseName, schoolId]);
+  
+      res.status(201).json({
+        message: "Course added successfully.",
+        courseId: insertResult.insertId,
+      });
+    } catch (error) {
+      console.error("Error adding course:", error);
+      res.status(500).json({ error: "Failed to add course. Please try again later." });
+    }
   };
+  
   
   
 

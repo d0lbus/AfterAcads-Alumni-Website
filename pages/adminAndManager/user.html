@@ -66,12 +66,9 @@
       <div class="modal-content">
         <h2>Add Course</h2>
         <select>
-          <option value="" disabled selected>Select a course</option>
-          <option value="course1">Course 1</option>
-          <option value="course2">Course 2</option>
-          <option value="course3">Course 3</option>
+          <option value="" disabled selected>Select a School</option>
         </select>
-        <input type="text" placeholder="Enter course details" />
+        <input type="text" placeholder="Enter Course Name" />
         <div class="modal-buttons">
           <button class="btn modal-close" id="closeModalBtn">Close</button>
           <button class="btn modal-save" id="saveModalBtn">Save</button>
@@ -400,15 +397,50 @@
       const openModalBtn = document.getElementById("openAddCourseModal"); // Button to open modal
       const closeModalBtn = document.getElementById("closeModalBtn"); // Close button
       const saveModalBtn = document.getElementById("saveModalBtn"); // Save button
+      const schoolDropdown = addCourseModal.querySelector("select"); // School dropdown
+      const courseInput = addCourseModal.querySelector("input[type='text']"); // Course details input
+  
+      // Disable the course input initially
+      courseInput.disabled = true;
+  
+      // Function to populate schools dropdown dynamically
+      const populateSchoolsDropdown = async () => {
+        try {
+          const response = await fetch("/api/opportunities/schools"); 
+          if (!response.ok) throw new Error("Failed to fetch schools.");
+          const schools = await response.json();
+  
+          schoolDropdown.innerHTML = `<option value="" disabled selected>Select a School</option>`;
+          schools.forEach((school) => {
+            schoolDropdown.innerHTML += `<option value="${school.id}">${school.name}</option>`;
+          });
+        } catch (error) {
+          console.error("Error populating schools dropdown:", error);
+          schoolDropdown.innerHTML = `<option value="" disabled>No schools available</option>`;
+        }
+      };
+  
+      // Enable the course input when a school is selected
+      schoolDropdown.addEventListener("change", () => {
+        if (schoolDropdown.value) {
+          courseInput.disabled = false;
+        } else {
+          courseInput.disabled = true;
+        }
+      });
   
       // Function to open the modal
-      const openModal = () => {
-        addCourseModal.style.display = "flex"; // Show modal (flex for centering, can be adjusted)
+      const openModal = async () => {
+        await populateSchoolsDropdown(); 
+        addCourseModal.style.display = "flex"; 
       };
   
       // Function to close the modal
       const closeModal = () => {
         addCourseModal.style.display = "none"; // Hide modal
+        courseInput.disabled = true; // Reset the input
+        schoolDropdown.innerHTML = `<option value="" disabled selected>Select a School</option>`; 
+        courseInput.value = ""; // Clear input field
       };
   
       // Handle open modal button click
@@ -418,30 +450,49 @@
       closeModalBtn.addEventListener("click", closeModal);
   
       // Handle save button click
-      saveModalBtn.addEventListener("click", () => {
-        const courseSelect = addCourseModal.querySelector("select");
-        const courseDetails = addCourseModal.querySelector("input[type='text']").value;
-  
-        if (!courseSelect.value) {
-          alert("Please select a course.");
+      saveModalBtn.addEventListener("click", async () => {
+        const selectedSchool = schoolDropdown.value;
+        const courseDetails = courseInput.value;
+
+        if (!selectedSchool) {
+          alert("Please select a school.");
           return;
         }
-  
+
         if (!courseDetails) {
           alert("Please enter course details.");
           return;
         }
-  
-        console.log("Saving course data:", {
-          course: courseSelect.value,
-          details: courseDetails,
-        });
-  
-        // Close the modal after saving
-        closeModal();
+
+        try {
+          const response = await fetch("/api/users/addCourse", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              schoolId: selectedSchool,
+              courseName: courseDetails,
+            }),
+          });
+
+          if (!response.ok) {
+            const errorData = await response.json();
+            alert(errorData.error || "Failed to add course.");
+            return;
+          }
+
+          const result = await response.json();
+          alert(result.message);
+          closeModal(); // Close modal on successful save
+        } catch (error) {
+          console.error("Error adding course:", error);
+          alert("Failed to add course. Please try again later.");
+        }
       });
     });
   </script>
+  
   
 
   <!-- JavaScript for Populating Users Table and Edit Modal -->

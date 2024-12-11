@@ -50,6 +50,9 @@ router.put('/updateUser', userController.updateUser);
 // Update User Status
 router.post('/updateStatus', userController.updateUserStatus);
 
+// Route for adding a new course
+router.post("/addCourse", userController.addCourse);
+
 // Get total number of approved users
 router.get('/usercount', userStatisticsController.getUserStatistics);
 
