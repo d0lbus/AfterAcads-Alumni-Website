@@ -358,6 +358,14 @@ exports.addCourse = async (req, res) => {
       if (schoolCheckResult.length === 0) {
         return res.status(404).json({ error: "School not found." });
       }
+
+      // Check if the course already exists under the school
+      const courseExistsQuery = "SELECT id FROM courses WHERE name = ? AND school_id = ?";
+      const [courseExists] = await db.promise().query(courseExistsQuery, [courseName.trim().toUpperCase(), schoolId]);
+
+      if (courseExists.length > 0) {
+        return res.status(400).json({ error: "The course already exists under this school." });
+      }
   
       // Add the new course to the database
       const insertCourseQuery = "INSERT INTO courses (name, school_id) VALUES (?, ?)";
@@ -381,6 +389,14 @@ exports.addSchool = async (req, res) => {
       if (!schoolName || schoolName.trim() === "") {
         return res.status(400).json({ error: "School name is required." });
       }
+
+      // Check if the school already exists
+      const schoolExistsQuery = "SELECT id FROM schools WHERE name = ?";
+      const [schoolExists] = await db.promise().query(schoolExistsQuery, [schoolName.trim().toUpperCase()]);
+
+      if (schoolExists.length > 0) {
+        return res.status(400).json({ error: "The school already exists." });
+      }
   
       // Add school to the database
       const insertSchoolQuery = "INSERT INTO schools (name) VALUES (?)";
@@ -403,6 +419,14 @@ exports.addBatch = async (req, res) => {
       // Validate input
       if (!batchNumber || isNaN(batchNumber) || batchNumber.length > 3) {
         return res.status(400).json({ error: "Batch number must be numeric and up to 3 digits." });
+      }
+
+      // Check if the batch already exists
+      const batchExistsQuery = "SELECT id FROM batches WHERE batch_number = ?";
+      const [batchExists] = await db.promise().query(batchExistsQuery, [batchNumber]);
+
+      if (batchExists.length > 0) {
+        return res.status(400).json({ error: "The batch already exists." });
       }
   
       // Add batch to the database
