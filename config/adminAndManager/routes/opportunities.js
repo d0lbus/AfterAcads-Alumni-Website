@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const opportunitiesController = require('../controllers/opportunitiesController');
-const opportunityStatisticsController = require('../controllers/opportunityStatisticsController');
+const opportunityStatisticsController = require('../controllers/opportunitiesStatisticsController');
 
 router.get('/getOpportunities', opportunitiesController.getAllOpportunities);
 router.get('/opportunitiesByID/:id', opportunitiesController.getOpportunityById);

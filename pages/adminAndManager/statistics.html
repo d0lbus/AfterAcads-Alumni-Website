@@ -158,20 +158,10 @@
                     <p id="total-opportunities">Loading total opportunities...</p>
                 </div>
         
-                <!-- Opportunities by Company -->
-                <div id="company-opportunities" class="card-single">
-                    <h3>Opportunities by Company</h3>
-                    <div id="company-cards">
-                        <!-- Dynamic cards for companies will be inserted here -->
-                    </div>
-                </div>
-        
-                <!-- Opportunities by School and Course -->
-                <div id="school-course-opportunities" class="card-single">
-                    <h3>Opportunities by School and Course</h3>
-                    <div id="school-charts">
-                        <!-- Dynamic school and course charts will be inserted here -->
-                    </div>
+                <!-- Top Companies Chart -->
+                <div class="card-single">
+                    <h3>Top 10 Companies by Job Postings</h3>
+                    <canvas id="topCompaniesChart"></canvas>
                 </div>
         
                 <!-- Opportunities Per Month -->
@@ -179,9 +169,17 @@
                     <h3>Opportunities Per Month</h3>
                     <canvas id="opportunityMonthChart"></canvas>
                 </div>
+
+                <!-- Opportunities by School and Course -->
+                <div id="school-course-opportunities" class="card-single">
+                    <h3>Opportunities by School and Course</h3>
+                    <div id="school-charts">
+                        <!-- Dynamic school and course charts will be inserted here -->
+                    </div>
+                </div>
             </div>
         </div>
-
+        
         </main>
         <!-- Citation:  ChatGPT assisted in debugging the sidebar toggle functionality and layout adjustment logic.  -->
         <script>
@@ -635,8 +633,137 @@
             // Attach the function to load statistics dynamically
             document.querySelector('.btn-Events').addEventListener('click', fetchEventStatistics);
         });
-
         </script>
+
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                async function fetchOpportunityStatistics() {
+                    try {
+                        // Fetch total opportunities
+                        const totalOpportunitiesResponse = await fetch('/api/opportunities/statistics/total');
+                        const totalOpportunitiesData = await totalOpportunitiesResponse.json();
+                        document.getElementById('total-opportunities').textContent = `Total Opportunities: ${totalOpportunitiesData.totalOpportunities}`;
+
+                        // Fetch top 10 companies
+                        const companyResponse = await fetch('/api/opportunities/statistics/company');
+                        const companyData = await companyResponse.json();
+                        const companyLabels = companyData.slice(0, 10).map(item => item.company_name);
+                        const companyCounts = companyData.slice(0, 10).map(item => item.total_opportunities);
+
+                        // Render Top Companies Chart
+                        const topCompaniesCtx = document.getElementById('topCompaniesChart').getContext('2d');
+                        new Chart(topCompaniesCtx, {
+                            type: 'bar',
+                            data: {
+                                labels: companyLabels,
+                                datasets: [{
+                                    label: 'Number of Job Postings',
+                                    data: companyCounts,
+                                    backgroundColor: '#36A2EB',
+                                    borderWidth: 1,
+                                }],
+                            },
+                            options: {
+                                responsive: true,
+                                plugins: {
+                                    legend: {
+                                        position: 'top',
+                                    },
+                                },
+                            },
+                        });
+
+                        // Fetch opportunities grouped by school and course
+                        const schoolCourseResponse = await fetch('/api/opportunities/statistics/school-course-group');
+                        const schoolCourseData = await schoolCourseResponse.json();
+
+                        // Clear existing school charts
+                        const schoolChartsContainer = document.getElementById('school-charts');
+                        schoolChartsContainer.innerHTML = '';
+
+                        // Dynamically generate a chart for each school
+                        Object.entries(schoolCourseData).forEach(([schoolName, courses]) => {
+                            const schoolDiv = document.createElement('div');
+                            schoolDiv.classList.add('school-chart');
+
+                            // Add a title
+                            const schoolTitle = document.createElement('h3');
+                            schoolTitle.textContent = `${schoolName} - Opportunities per Course`;
+                            schoolDiv.appendChild(schoolTitle);
+
+                            // Add a canvas for the chart
+                            const canvas = document.createElement('canvas');
+                            canvas.id = `chart-${schoolName.replace(/\s+/g, '-')}`;
+                            schoolDiv.appendChild(canvas);
+
+                            schoolChartsContainer.appendChild(schoolDiv);
+
+                            const courseLabels = courses.map(course => course.course_name);
+                            const courseCounts = courses.map(course => course.total_opportunities);
+
+                            const ctx = canvas.getContext('2d');
+                            new Chart(ctx, {
+                                type: 'bar',
+                                data: {
+                                    labels: courseLabels,
+                                    datasets: [{
+                                        label: 'Opportunities per Course',
+                                        data: courseCounts,
+                                        backgroundColor: '#4BC0C0',
+                                        borderWidth: 1,
+                                    }],
+                                },
+                                options: {
+                                    responsive: true,
+                                    plugins: {
+                                        legend: {
+                                            position: 'top',
+                                        },
+                                    },
+                                },
+                            });
+                        });
+
+                        // Fetch opportunities per month
+                        const monthlyResponse = await fetch('/api/opportunities/statistics/monthly');
+                        const monthlyData = await monthlyResponse.json();
+                        const monthLabels = monthlyData.map(item => item.month);
+                        const monthCounts = monthlyData.map(item => item.total_opportunities);
+
+                        // Render Opportunities Per Month Chart
+                        const monthCtx = document.getElementById('opportunityMonthChart').getContext('2d');
+                        new Chart(monthCtx, {
+                            type: 'line',
+                            data: {
+                                labels: monthLabels,
+                                datasets: [{
+                                    label: 'Opportunities Per Month',
+                                    data: monthCounts,
+                                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                                    borderColor: 'rgba(75, 192, 192, 1)',
+                                    borderWidth: 1,
+                                }],
+                            },
+                            options: {
+                                responsive: true,
+                                plugins: {
+                                    legend: {
+                                        position: 'top',
+                                    },
+                                },
+                            }
+                    });
+                    
+                    } catch (error) {
+                        console.error('Error fetching opportunity statistics:', error);
+                    }
+                }
+
+                // Attach the function to load statistics dynamically
+                document.querySelector('.btn-Opportunities').addEventListener('click', fetchOpportunityStatistics);
+            });
+        </script>
+
 </body>
 
 </html>
