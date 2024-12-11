@@ -98,48 +98,62 @@ img.afteracadstext {
 }
 
 .dropdown-content {
-  display: none; /* Initially hidden */
+  display: none; 
   position: absolute;
-  top: 70px; /* Adjust based on profile image size */
-  right: 0; /* Aligns the dropdown to the right of the profile */
+  top: 70px; 
+  right: 0; 
   background-color: #ffffff;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-  width: 200px; /* Adjust the width as needed */
-  padding: 10px;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2); 
+  border-radius: 12px;
+  width: 220px;
+  padding: 15px; 
   z-index: 1000;
+  animation: fadeIn 0.3s ease;
 }
 
 .dropdown-content p {
-  margin: 5px 0;
-  color: #333;
+  margin: 8px 0;
+  font-size: 14px;
+  color: #555; 
+  font-weight: 500;
 }
 
 .dropdown-content hr {
   border: none;
-  border-top: 1px solid #ccc;
-  margin: 10px 0;
+  border-top: 1px solid #e0e0e0; 
+  margin: 15px 0;
 }
 
 .logout-btn {
   display: block;
-  color: var(--color-main);
+  color: #ffffff;
+  background-color: var(--color-main); 
   text-decoration: none;
-  padding: 10px;
+  padding: 10px 15px;
   text-align: center;
-  border-radius: 5px;
-  transition: background-color 0.3s ease;
+  border-radius: 8px;
+  font-weight: bold;
+  transition: background-color 0.3s ease, transform 0.2s ease; 
 }
 
 .logout-btn:hover {
-  background-color: var(--color-accent);
+  background-color: var(--color-accent); 
+  transform: translateY(-2px); 
   color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); 
+}
+
+.dropdown-content .logout-btn {
+  color: #ffffff !important; 
+}
+
+.logout-btn:hover {
+  color: #555 !important; 
 }
 
 .profile:hover .dropdown-content {
-  display: block; /* Show the dropdown when hovering over the profile */
+  display: block; 
 }
-
 
 /* Page header and main content */
 .posts-section {
