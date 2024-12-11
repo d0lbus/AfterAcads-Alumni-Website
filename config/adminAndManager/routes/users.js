@@ -53,6 +53,13 @@ router.post('/updateStatus', userController.updateUserStatus);
 // Route for adding a new course
 router.post("/addCourse", userController.addCourse);
 
+// Add School Route
+router.post("/addSchool", userController.addSchool);
+
+// Add Batch Route
+router.post("/addBatch", userController.addBatch);
+
+
 // Get total number of approved users
 router.get('/usercount', userStatisticsController.getUserStatistics);
 

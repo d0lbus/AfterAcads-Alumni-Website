@@ -371,9 +371,54 @@ exports.addCourse = async (req, res) => {
       console.error("Error adding course:", error);
       res.status(500).json({ error: "Failed to add course. Please try again later." });
     }
-  };
+};
+
+exports.addSchool = async (req, res) => {
+    try {
+      const { schoolName } = req.body;
   
+      // Validate input
+      if (!schoolName || schoolName.trim() === "") {
+        return res.status(400).json({ error: "School name is required." });
+      }
   
+      // Add school to the database
+      const insertSchoolQuery = "INSERT INTO schools (name) VALUES (?)";
+      const [insertResult] = await db.promise().query(insertSchoolQuery, [schoolName]);
+  
+      res.status(201).json({
+        message: "School added successfully.",
+        schoolId: insertResult.insertId,
+      });
+    } catch (error) {
+      console.error("Error adding school:", error);
+      res.status(500).json({ error: "Failed to add school. Please try again later." });
+    }
+};
+  
+exports.addBatch = async (req, res) => {
+    try {
+      const { batchNumber } = req.body;
+  
+      // Validate input
+      if (!batchNumber || isNaN(batchNumber) || batchNumber.length > 3) {
+        return res.status(400).json({ error: "Batch number must be numeric and up to 3 digits." });
+      }
+  
+      // Add batch to the database
+      const insertBatchQuery = "INSERT INTO batches (batch_number) VALUES (?)";
+      const [insertResult] = await db.promise().query(insertBatchQuery, [batchNumber]);
+  
+      res.status(201).json({
+        message: "Batch added successfully.",
+        batchId: insertResult.insertId,
+      });
+    } catch (error) {
+      console.error("Error adding batch:", error);
+      res.status(500).json({ error: "Failed to add batch. Please try again later." });
+    }
+};
+   
   
 
 

@@ -59,8 +59,6 @@
       </div>
     </div>
 
-  
-
     <!-- Modal Structure -->
     <div id="addCourseModal" class="modal">
       <div class="modal-content">
@@ -492,9 +490,60 @@
       });
     });
   </script>
-  
-  
 
+  <!--Add School Script-->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const addSchoolBtn = document.getElementById("addSchoolBtn");
+      const schoolTextField = document.getElementById("schoolTextField");
+      const schoolInput = schoolTextField.querySelector("input");
+  
+      // Show school text field when button is clicked
+      addSchoolBtn.addEventListener("click", () => {
+        schoolTextField.style.display = "block";
+      });
+  
+      // Add school when user presses Enter in the input field
+      schoolInput.addEventListener("keypress", async (event) => {
+        if (event.key === "Enter") {
+          const schoolName = schoolInput.value.trim();
+  
+          if (!schoolName) {
+            alert("Please enter a valid school name.");
+            return;
+          }
+  
+          try {
+            const response = await fetch("/api/users/addSchool", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ schoolName }),
+            });
+  
+            if (!response.ok) {
+              const error = await response.json();
+              alert(error.error || "Failed to add school.");
+              return;
+            }
+  
+            const result = await response.json();
+            alert(result.message);
+            schoolInput.value = ""; // Clear input field
+            schoolTextField.style.display = "none"; // Hide text field
+          } catch (error) {
+            console.error("Error adding school:", error);
+            alert("Failed to add school. Please try again later.");
+          }
+        }
+      });
+    });
+  </script>
+
+    <!--Add Batch Script-->
+  
+  
   <!-- JavaScript for Populating Users Table and Edit Modal -->
   <script>
     document.addEventListener("DOMContentLoaded", () => {
