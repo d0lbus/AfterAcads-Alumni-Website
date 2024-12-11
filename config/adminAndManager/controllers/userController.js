@@ -1,4 +1,6 @@
 const db = require('../db');
+const bcrypt = require('bcrypt');
+
 
 exports.login = (req, res) => {
     const { email, password } = req.body;
@@ -202,6 +204,63 @@ exports.getBatches = (req, res) => {
       }
       res.json(results);
     });
+};
+  
+exports.addUser = async (req, res) => {
+    const {
+      firstName,
+      middleName,
+      lastName,
+      email,
+      password,
+      batchId, // This is actually batch_number from the form
+      school,
+      course,
+      gender,
+      userType,
+    } = req.body;
+  
+    try {
+      // Get the batch_id (primary key) using batch_number
+      const batchQuery = "SELECT id FROM batches WHERE batch_number = ?";
+      const [batchRows] = await db.promise().query(batchQuery, [batchId]); // batchId here is the batch_number
+  
+      if (batchRows.length === 0) {
+        return res.status(400).json({ error: "Invalid batch number provided." });
+      }
+  
+      const batch_id = batchRows[0].id; // Map batch_number to id
+  
+      // Hash the password
+      const hashedPassword = bcrypt.hashSync(password, 10);
+  
+      // Insert user data
+      const sql = `
+        INSERT INTO users (
+          first_name, middle_name, last_name, email, password_hash,
+          batch_id, school_id, course_id, gender, userType, status
+        )
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'pending')
+      `;
+      const params = [
+        firstName,
+        middleName || null,
+        lastName,
+        email,
+        hashedPassword,
+        batch_id, // Use the correct batch_id here
+        school,
+        course,
+        gender,
+        userType,
+      ];
+  
+      const [result] = await db.promise().query(sql, params);
+      res.json({ message: "User added successfully." });
+    } catch (err) {
+      console.error("Database error:", err);
+      res.status(500).json({ error: "Failed to add user." });
+    }
 };
   
 exports.updateUser = (req, res) => {

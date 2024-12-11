@@ -43,6 +43,7 @@ router.get('/getUserById/:id', userController.getUserById);
 
 router.get('/getBatches', userController.getBatches);
   
+router.post("/addUser", userController.addUser);
 
 router.post('/updateUser', userController.updateUser);
 
