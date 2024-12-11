@@ -497,6 +497,11 @@
       const addSchoolBtn = document.getElementById("addSchoolBtn");
       const schoolTextField = document.getElementById("schoolTextField");
       const schoolInput = schoolTextField.querySelector("input");
+
+      // Convert the school name input to uppercase as the user types
+      schoolInput.addEventListener("input", () => {
+        schoolInput.value = schoolInput.value.toUpperCase(); 
+      });
   
       // Show school text field when button is clicked
       addSchoolBtn.addEventListener("click", () => {
@@ -541,8 +546,55 @@
     });
   </script>
 
-    <!--Add Batch Script-->
+  <!--Add Batch Script-->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const addBatchBtn = document.getElementById("addBatchBtn");
+      const batchTextField = document.getElementById("batchTextField");
+      const batchInput = batchTextField.querySelector("input");
   
+      // Show batch text field when button is clicked
+      addBatchBtn.addEventListener("click", () => {
+        batchTextField.style.display = "block";
+      });
+  
+      // Add batch when user presses Enter in the input field
+      batchInput.addEventListener("keypress", async (event) => {
+        if (event.key === "Enter") {
+          const batchNumber = batchInput.value.trim();
+  
+          if (!batchNumber || isNaN(batchNumber) || batchNumber.length > 3) {
+            alert("Batch number must be numeric and up to 3 digits.");
+            return;
+          }
+  
+          try {
+            const response = await fetch("/api/users/addBatch", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ batchNumber }),
+            });
+  
+            if (!response.ok) {
+              const error = await response.json();
+              alert(error.error || "Failed to add batch.");
+              return;
+            }
+  
+            const result = await response.json();
+            alert(result.message);
+            batchInput.value = ""; // Clear input field
+            batchTextField.style.display = "none"; // Hide text field
+          } catch (error) {
+            console.error("Error adding batch:", error);
+            alert("Failed to add batch. Please try again later.");
+          }
+        }
+      });
+    });
+  </script>
   
   <!-- JavaScript for Populating Users Table and Edit Modal -->
   <script>
