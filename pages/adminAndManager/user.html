@@ -143,11 +143,6 @@
           </div>
 
           <div>
-            <label for="createdAt">Date Created:</label>
-            <input type="text" id="createdAt" name="createdAt" readonly />
-          </div>
-
-          <div>
             <label for="userAddress">Address:</label>
             <textarea id="userAddress" name="userAddress"></textarea>
           </div>
@@ -405,7 +400,6 @@
       const editUserForm = document.getElementById("editUserForm");
       const schoolDropdown = document.getElementById("schoolId");
       const courseDropdown = document.getElementById("courseId");
-      const profilePicturePreview = document.getElementById("profilePicturePreview");
       const batchIdInput = document.getElementById("batchId");
       const batchIdSuggestions = document.getElementById("batchIdSuggestions");
 
@@ -562,27 +556,19 @@
       const openEditModal = async (userId) => {
         const response = await fetch(`/api/users/getUserById/${userId}`);
         const data = await response.json();
+        console.log("User data:", data);
 
         document.getElementById("userId").value = data.id;
         document.getElementById("firstName").value = data.first_name;
         document.getElementById("middleName").value = data.middle_name;
         document.getElementById("lastName").value = data.last_name;
         document.getElementById("email").value = data.email;
-        document.getElementById("createdAt").value = data.date_created;
         document.getElementById("userAddress").value = data.user_address;
         document.getElementById("bio").value = data.bio;
         document.getElementById("employmentStatus").value = data.employment_status;
         document.getElementById("status").value = data.status;
         document.getElementById("userType").value = data.userType;
         document.getElementById("gender").value = data.gender;
-
-        // Handle profile picture preview
-        if (data.profile_picture) {
-          profilePicturePreview.src = `data:image/png;base64,${data.profile_picture}`;
-          profilePicturePreview.style.display = "block";
-        } else {
-          profilePicturePreview.style.display = "none";
-        }
 
         // Populate school and course dropdowns and batch id
         await populateSchoolsDropdown(data.school_id);
@@ -607,12 +593,19 @@
       editUserForm.addEventListener("submit", async (event) => {
         event.preventDefault();
 
+        // Convert FormData to JSON
         const formData = new FormData(editUserForm);
+        const jsonData = Object.fromEntries(formData.entries()); 
+
+        console.log("Data being sent to backend:", jsonData);
 
         try {
           const response = await fetch('/api/users/updateUser', {
             method: 'PUT',
-            body: formData,
+            headers: {
+              "Content-Type": "application/json", 
+            },
+            body: JSON.stringify(jsonData), 
           });
 
           if (!response.ok) throw new Error("Failed to update user");
@@ -625,6 +618,7 @@
           console.error("Error updating user:", error);
         }
       });
+
     });
   </script>
 

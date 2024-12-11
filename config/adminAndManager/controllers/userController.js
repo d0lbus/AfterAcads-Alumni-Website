@@ -255,7 +255,7 @@ exports.addUser = async (req, res) => {
         lastName,
         email,
         hashedPassword,
-        batch_id, // Use the correct batch_id here
+        batch_id, 
         school,
         course,
         gender,
@@ -270,19 +270,75 @@ exports.addUser = async (req, res) => {
     }
 };
   
-exports.updateUser = (req, res) => {
-    const { id, firstName, middleName, lastName, email, userAddress, bio, employmentStatus, status, userType, batchId, schoolId, courseId, gender } = req.body;
+exports.updateUser = async (req, res) => {
+    console.log("Request body received:", req.body);
   
-    const sql = `UPDATE users SET first_name = ?, middle_name = ?, last_name = ?, email = ?, 
-                 user_address = ?, bio = ?, employment_status = ?, status = ?, userType = ?, 
-                 batch_id = ?, school_id = ?, course_id = ?, gender = ? WHERE id = ?`;
+    const {
+      userId,
+      firstName,
+      middleName,
+      lastName,
+      email,
+      userAddress,
+      bio,
+      employmentStatus,
+      status,
+      userType,
+      batchId, 
+      schoolId,
+      courseId,
+      gender,
+    } = req.body;
   
-    db.query(sql, [firstName, middleName, lastName, email, userAddress, bio, employmentStatus, status, userType, batchId, schoolId, courseId, gender, id], 
-      (err) => {
-        if (err) return res.status(500).json({ error: "Failed to update user" });
-        res.json({ message: "User updated successfully" });
-      });
-};
+    if (!userId) {
+      return res.status(400).json({ error: "User ID is required" });
+    }
+  
+    try {
+      // Get the batch_id (primary key) using batch_number
+      const batchQuery = "SELECT id FROM batches WHERE batch_number = ?";
+      const [batchRows] = await db.promise().query(batchQuery, [batchId]);
+  
+      if (batchRows.length === 0) {
+        return res.status(400).json({ error: "Invalid batch number provided." });
+      }
+  
+      const batch_id = batchRows[0].id; // The actual batch_id
+  
+      const sql = `
+        UPDATE users
+        SET first_name = ?, middle_name = ?, last_name = ?, email = ?, 
+            user_address = ?, bio = ?, employment_status = ?, status = ?, 
+            userType = ?, batch_id = ?, school_id = ?, course_id = ?, gender = ?
+        WHERE id = ?
+      `;
+  
+      const params = [
+        firstName,
+        middleName,
+        lastName,
+        email,
+        userAddress,
+        bio,
+        employmentStatus,
+        status,
+        userType,
+        batch_id, // Use the batch_id here
+        schoolId,
+        courseId,
+        gender,
+        userId, // Use userId as the condition
+      ];
+  
+      const [result] = await db.promise().query(sql, params);
+  
+      res.json({ message: "User updated successfully" });
+    } catch (error) {
+      console.error("Database error:", error);
+      res.status(500).json({ error: "Failed to update user" });
+    }
+  };
+  
   
 
 

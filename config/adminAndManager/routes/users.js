@@ -45,7 +45,7 @@ router.get('/getBatches', userController.getBatches);
   
 router.post("/addUser", userController.addUser);
 
-router.post('/updateUser', userController.updateUser);
+router.put('/updateUser', userController.updateUser);
 
 // Update User Status
 router.post('/updateStatus', userController.updateUserStatus);
