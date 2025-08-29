@@ -52,7 +52,7 @@ For help, please contact the project maintainers.
 This project is not open for contributions.
 
 ## Authors and acknowledgment
-Developed by the **AfterAcads Team**  
+Developed by the **AfterAcads Team**.  
 
 ## Project status
 This project has been submitted and graded.
