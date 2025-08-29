@@ -2,11 +2,11 @@
 AfterAcads is a web-based alumni management system designed to strengthen the connection between graduates and their school community. It provides alumni with a space to showcase achievements, engage in events, and interact with peers, while giving administrators the tools to manage alumni data and announcements effectively.
 
 ## Features
-- **Alumni Registration & Profiles**: Create and manage personal alumni profiles.  
-- **Announcements & Events**: Post, update, and manage activities for alumni engagement.  
-- **Admin Dashboard**: Centralized control for administrators to manage alumni records.  
-- **Search & Directory**: Easily browse and find alumni.  
-- **Responsive Design**: Works across desktop and mobile devices.  
+- **Alumni Registration & Profiles** - Create and manage personal alumni profiles
+- **Announcements & Events** - Post, update, and manage activities for alumni engagement
+- **Admin Dashboard** - Centralized control for administrators to manage alumni records
+- **Search & Directory** - Easily browse and find alumni
+- **Responsive Design** - Works across desktop and mobile devices
 
 ## Tech Stack
 - **Frontend:** HTML, CSS, JavaScript, Bootstrap  
