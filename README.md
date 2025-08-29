@@ -15,24 +15,23 @@ AfterAcads is a web-based alumni management system designed to strengthen the co
 - **Server:** Apache (XAMPP/WAMP/LAMP supported)  
 
 ## Installation & Setup
-
 1. **Clone the repository**
    ```bash
    git clone https://github.com/yourusername/AfterAcads-Alumni-Website.git
    cd AfterAcads-Alumni-Website
 
 2. **Set up the database**
-   Open phpMyAdmin
-   Create a database, e.g. afteracads_db
-   Import the .sql file found in the database/ folder
+   - Open phpMyAdmin
+   - Create a database, e.g. afteracads_db
+   - Import the .sql file found in the database/ folder
 
 3. **Configure database connection**
-   Update your config.php (or .env if using Laravel) with database credentials
+   - Update your config.php (or .env if using Laravel) with database credentials
 
 4. **Run the project locally**
-   Place the project inside htdocs (for XAMPP) or www (for WAMP)
-   Start Apache and MySQL
-   Visit: http://localhost/AfterAcads-Alumni-Website
+   - Place the project inside htdocs (for XAMPP) or www (for WAMP)
+   - Start Apache and MySQL
+   - Visit: http://localhost/AfterAcads-Alumni-Website
 
 ## Usage
 1. **Alumni Users**
