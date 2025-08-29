@@ -50,14 +50,14 @@ For help, please contact the project maintainers.
 ## Contributing
 This project is not open for contributions.
 
-## Authors and acknowledgment
+## Authors and Acknowledgment
 Developed by the **AfterAcads Team**.  
 - Abitan, Julianne Therese
 - Aquino, Jan Dolby
 - Cahanap, Ma. Earl Freskkie
 - San Miguel, Chloe' Lee
 
-## Project status
+## Project Status
 This project has been submitted and graded.
 
 
